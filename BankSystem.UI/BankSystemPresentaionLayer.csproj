@@ -99,5 +99,8 @@
   <ItemGroup>
     <None Include="Resources\R.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HideEye.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
