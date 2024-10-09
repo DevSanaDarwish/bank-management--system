@@ -12,15 +12,17 @@ using Guna.UI2.WinForms;
 
 namespace BankSystem
 {
-    public partial class Form1 : Form
+    public partial class frmLoginScreen : Form
     {
-        public Form1()
+        public frmLoginScreen()
         {
             InitializeComponent();
         }
 
         Image _hidePassword = Properties.Resources.HideEye;
         Image _showPassword = Properties.Resources.visible;
+
+        bool _isShowPassword = false;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -53,16 +55,18 @@ namespace BankSystem
 
         private void pbPasswordIcon_Click(object sender, EventArgs e)
         {
-            if (pbPasswordIcon.Image == _hidePassword)
+            if (!_isShowPassword)
             {
                 pbPasswordIcon.Image = _showPassword;
-                txtPassword.PasswordChar = '';
+                txtPassword.PasswordChar = '\0';
+                _isShowPassword = true;
             }
 
-            else if (pbPasswordIcon.Image == _showPassword)
+            else
             {
                 pbPasswordIcon.Image = _hidePassword;
                 txtPassword.PasswordChar = '*';
+                _isShowPassword = false;
             }
 
         }

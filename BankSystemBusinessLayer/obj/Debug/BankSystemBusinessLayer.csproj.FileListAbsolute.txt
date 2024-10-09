@@ -7,3 +7,12 @@ C:\Users\USER\source\repos\BankSystemBusinessLayer\obj\Debug\BankSystemBusinessL
 C:\Users\USER\source\repos\BankSystemBusinessLayer\obj\Debug\BankSyst.08F90534.Up2Date
 C:\Users\USER\source\repos\BankSystemBusinessLayer\obj\Debug\BankSystemBusinessLayer.dll
 C:\Users\USER\source\repos\BankSystemBusinessLayer\obj\Debug\BankSystemBusinessLayer.pdb
+C:\Users\USER\source\repos\BankSystem\BankSystemBusinessLayer\bin\Debug\BankSystemBusinessLayer.dll
+C:\Users\USER\source\repos\BankSystem\BankSystemBusinessLayer\bin\Debug\BankSystemBusinessLayer.pdb
+C:\Users\USER\source\repos\BankSystem\BankSystemBusinessLayer\bin\Debug\BankSystemDataAccessLayer.dll
+C:\Users\USER\source\repos\BankSystem\BankSystemBusinessLayer\bin\Debug\BankSystemDataAccessLayer.pdb
+C:\Users\USER\source\repos\BankSystem\BankSystemBusinessLayer\obj\Debug\BankSystemBusinessLayer.csproj.AssemblyReference.cache
+C:\Users\USER\source\repos\BankSystem\BankSystemBusinessLayer\obj\Debug\BankSystemBusinessLayer.csproj.CoreCompileInputs.cache
+C:\Users\USER\source\repos\BankSystem\BankSystemBusinessLayer\obj\Debug\BankSyst.08F90534.Up2Date
+C:\Users\USER\source\repos\BankSystem\BankSystemBusinessLayer\obj\Debug\BankSystemBusinessLayer.dll
+C:\Users\USER\source\repos\BankSystem\BankSystemBusinessLayer\obj\Debug\BankSystemBusinessLayer.pdb

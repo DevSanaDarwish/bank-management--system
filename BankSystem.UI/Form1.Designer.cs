@@ -1,6 +1,6 @@
 ﻿namespace BankSystem
 {
-    partial class Form1
+    partial class frmLoginScreen
     {
         /// <summary>
         /// Required designer variable.
@@ -28,29 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLoginScreen));
             this.panel2 = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
             this.pnlPassword = new System.Windows.Forms.Panel();
             this.pnlLineForPassword = new System.Windows.Forms.Panel();
             this.txtPassword = new System.Windows.Forms.TextBox();
+            this.pbPasswordIcon = new System.Windows.Forms.PictureBox();
             this.pnlUsername = new System.Windows.Forms.Panel();
             this.txtUsername = new System.Windows.Forms.TextBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pnlLineForUsername = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.lblLoginMessage = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnLogin = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.pbPasswordIcon = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.panel2.SuspendLayout();
             this.pnlPassword.SuspendLayout();
-            this.pnlUsername.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPasswordIcon)).BeginInit();
+            this.pnlUsername.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,8 +60,6 @@
             this.panel2.Controls.Add(this.pnlUsername);
             this.panel2.Controls.Add(this.label7);
             this.panel2.Controls.Add(this.label1);
-            this.panel2.Controls.Add(this.label6);
-            this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.lblLoginMessage);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.label2);
@@ -71,7 +67,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(826, 709);
+            this.panel2.Size = new System.Drawing.Size(826, 642);
             this.panel2.TabIndex = 2;
             // 
             // label9
@@ -119,6 +115,20 @@
             this.txtPassword.Click += new System.EventHandler(this.txtPassword_Click);
             this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
             // 
+            // pbPasswordIcon
+            // 
+            this.pbPasswordIcon.BackColor = System.Drawing.Color.Transparent;
+            this.pbPasswordIcon.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbPasswordIcon.Image = ((System.Drawing.Image)(resources.GetObject("pbPasswordIcon.Image")));
+            this.pbPasswordIcon.InitialImage = null;
+            this.pbPasswordIcon.Location = new System.Drawing.Point(3, 9);
+            this.pbPasswordIcon.Name = "pbPasswordIcon";
+            this.pbPasswordIcon.Size = new System.Drawing.Size(30, 35);
+            this.pbPasswordIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbPasswordIcon.TabIndex = 13;
+            this.pbPasswordIcon.TabStop = false;
+            this.pbPasswordIcon.Click += new System.EventHandler(this.pbPasswordIcon_Click);
+            // 
             // pnlUsername
             // 
             this.pnlUsername.BackColor = System.Drawing.Color.Black;
@@ -142,6 +152,18 @@
             this.txtUsername.TabIndex = 3;
             this.txtUsername.Click += new System.EventHandler(this.txtUsername_Click);
             this.txtUsername.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
+            this.pictureBox4.InitialImage = null;
+            this.pictureBox4.Location = new System.Drawing.Point(9, 8);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(30, 35);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox4.TabIndex = 10;
+            this.pictureBox4.TabStop = false;
             // 
             // pnlLineForUsername
             // 
@@ -174,30 +196,6 @@
             this.label1.Size = new System.Drawing.Size(317, 68);
             this.label1.TabIndex = 3;
             this.label1.Text = "Welcome to";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.Transparent;
-            this.label6.Font = new System.Drawing.Font("Bodoni MT", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(448, 657);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(64, 27);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "Reset";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("Bodoni MT", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.Silver;
-            this.label5.Location = new System.Drawing.Point(277, 660);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(165, 24);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Forgot Password?";
             // 
             // lblLoginMessage
             // 
@@ -255,50 +253,26 @@
             this.btnLogin.TabIndex = 0;
             this.btnLogin.Text = "Login";
             // 
-            // pbPasswordIcon
-            // 
-            this.pbPasswordIcon.BackColor = System.Drawing.Color.Transparent;
-            this.pbPasswordIcon.Image = ((System.Drawing.Image)(resources.GetObject("pbPasswordIcon.Image")));
-            this.pbPasswordIcon.InitialImage = null;
-            this.pbPasswordIcon.Location = new System.Drawing.Point(3, 9);
-            this.pbPasswordIcon.Name = "pbPasswordIcon";
-            this.pbPasswordIcon.Size = new System.Drawing.Size(30, 35);
-            this.pbPasswordIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbPasswordIcon.TabIndex = 13;
-            this.pbPasswordIcon.TabStop = false;
-            this.pbPasswordIcon.Click += new System.EventHandler(this.pbPasswordIcon_Click);
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
-            this.pictureBox4.InitialImage = null;
-            this.pictureBox4.Location = new System.Drawing.Point(9, 8);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(30, 35);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox4.TabIndex = 10;
-            this.pictureBox4.TabStop = false;
-            // 
-            // Form1
+            // frmLoginScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(826, 709);
+            this.ClientSize = new System.Drawing.Size(826, 642);
             this.Controls.Add(this.panel2);
             this.DoubleBuffered = true;
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Name = "frmLoginScreen";
+            this.Text = "Login ";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.pnlPassword.ResumeLayout(false);
             this.pnlPassword.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPasswordIcon)).EndInit();
             this.pnlUsername.ResumeLayout(false);
             this.pnlUsername.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPasswordIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
 
@@ -313,8 +287,6 @@
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.Panel pnlLineForUsername;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lblLoginMessage;
         private System.Windows.Forms.TextBox txtUsername;
         private System.Windows.Forms.Label label3;
