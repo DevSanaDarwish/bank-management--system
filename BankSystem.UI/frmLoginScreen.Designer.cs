@@ -113,7 +113,6 @@
             this.txtPassword.Size = new System.Drawing.Size(305, 24);
             this.txtPassword.TabIndex = 11;
             this.txtPassword.Click += new System.EventHandler(this.txtPassword_Click);
-            this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
             // 
             // pbPasswordIcon
             // 
@@ -151,7 +150,6 @@
             this.txtUsername.Size = new System.Drawing.Size(305, 24);
             this.txtUsername.TabIndex = 3;
             this.txtUsername.Click += new System.EventHandler(this.txtUsername_Click);
-            this.txtUsername.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // pictureBox4
             // 
@@ -252,6 +250,7 @@
             this.btnLogin.Size = new System.Drawing.Size(245, 65);
             this.btnLogin.TabIndex = 0;
             this.btnLogin.Text = "Login";
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
             // frmLoginScreen
             // 

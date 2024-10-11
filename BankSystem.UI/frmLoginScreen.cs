@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BankSystemBusinessLayer;
+using ClassLibraryForChildForm;
 using Guna.UI2.WinForms;
 
 namespace BankSystem
@@ -31,11 +32,6 @@ namespace BankSystem
             panel2.BackColor = Color.FromArgb(200, 0, 0, 0);
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void txtUsername_Click(object sender, EventArgs e)
         {
             pnlLineForPassword.BackColor = Color.White;
@@ -46,11 +42,6 @@ namespace BankSystem
         {
             pnlLineForUsername.BackColor = Color.White;
             pnlLineForPassword.BackColor = Color.MidnightBlue;
-        }
-
-        private void txtPassword_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void pbPasswordIcon_Click(object sender, EventArgs e)
@@ -68,7 +59,13 @@ namespace BankSystem
                 txtPassword.PasswordChar = '*';
                 _isShowPassword = false;
             }
+        }
 
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            frmMainMenu mainMenu = new frmMainMenu();
+            mainMenu.Show();
+            this.Hide();
         }
     }
 }

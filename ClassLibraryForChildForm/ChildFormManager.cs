@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace ClassLibraryForChildForm
 {
-    public static class SharedForm
+    public static class ChildFormManager
     {
         public static void OpenChildForm(Form childForm, Panel panel)
         {

@@ -64,50 +64,38 @@ namespace BankSystem
 
         }
 
+        private void HandleButtonClick(Guna2Button button, Color color, Form form)
+        {
+            SetValueInLabelTitle(button.Text);
+            ResetButtonsColor();
+            ColoringButton(button, color);
+
+            ChildFormManager.OpenChildForm(form, pnlContent);
+        }
 
         private void btnShowClientsList_Click(object sender, EventArgs e)
         {
-            SetValueInLabelTitle(btnShowClientsList.Text);
-            ResetButtonsColor();
-            ColoringButton(btnShowClientsList, Color.DeepPink);
-
-            SharedForm.OpenChildForm(new frmShowClientsList(), pnlContent);
+            HandleButtonClick(btnShowClientsList, Color.DeepPink, new frmShowClientsList());
         }
 
         private void btnAddNewClient_Click(object sender, EventArgs e)
         {
-            SetValueInLabelTitle(btnAddNewClient.Text);
-            ResetButtonsColor();
-            ColoringButton(btnAddNewClient, Color.DeepSkyBlue);
-
-            SharedForm.OpenChildForm(new frmAddNewClient(), pnlContent);
+            HandleButtonClick(btnAddNewClient, Color.DeepSkyBlue, new frmAddNewClient());
         }
 
         private void btnDeleteClient_Click(object sender, EventArgs e)
         {
-            SetValueInLabelTitle(btnDeleteClient.Text);
-            ResetButtonsColor();
-            ColoringButton(btnDeleteClient, Color.Gold);
-
-            SharedForm.OpenChildForm(new frmDeleteClient(), pnlContent);
+            HandleButtonClick(btnDeleteClient, Color.Gold, new frmDeleteClient());
         }
 
         private void btnUpdateClient_Click(object sender, EventArgs e)
         {
-            SetValueInLabelTitle(btnUpdateClient.Text);
-            ResetButtonsColor();
-            ColoringButton(btnUpdateClient, Color.DarkSeaGreen);
-
-            SharedForm.OpenChildForm(new frmUpdateClient(), pnlContent);
+            HandleButtonClick(btnUpdateClient, Color.DarkSeaGreen, new frmUpdateClient());
         }
 
         private void btnFindClient_Click(object sender, EventArgs e)
         {
-            SetValueInLabelTitle(btnFindClient.Text);
-            ResetButtonsColor();
-            ColoringButton(btnFindClient, Color.DarkRed);
-
-            SharedForm.OpenChildForm(new frmFindClient(), pnlContent);
+            HandleButtonClick(btnFindClient, Color.DarkRed, new frmFindClient());
         }
 
         private void btnTransactions_Click(object sender, EventArgs e)
@@ -122,11 +110,7 @@ namespace BankSystem
 
         private void btnDeposit_Click(object sender, EventArgs e)
         {
-            SetValueInLabelTitle(btnDeposit.Text);
-            ResetButtonsColor();
-            ColoringButton(btnDeposit, Color.DarkViolet);
-
-            SharedForm.OpenChildForm(new frmDeposit(), pnlContent);
+            HandleButtonClick(btnDeposit, Color.DarkViolet, new frmDeposit());
         }
 
         private void btnManageUsers_Click(object sender, EventArgs e)
@@ -140,103 +124,57 @@ namespace BankSystem
 
         private void btnWithdraw_Click(object sender, EventArgs e)
         {
-            SetValueInLabelTitle(btnWithdraw.Text);
-            ResetButtonsColor();
-            ColoringButton(btnWithdraw, Color.DarkOrange);
-
-
-            SharedForm.OpenChildForm(new frmWithdraw(), pnlContent);
+            HandleButtonClick(btnWithdraw, Color.DarkOrange, new frmWithdraw());
         }
 
         private void btnTotalBalances_Click(object sender, EventArgs e)
         {
-            SetValueInLabelTitle(btnTotalBalances.Text);
-            ResetButtonsColor();
-            ColoringButton(btnTotalBalances, Color.Fuchsia);
-
-
-            SharedForm.OpenChildForm(new frmTotalBalances(), pnlContent);
+            HandleButtonClick(btnTotalBalances, Color.Fuchsia, new frmTotalBalances());
         }
 
         private void btnTransfer_Click(object sender, EventArgs e)
         {
-            SetValueInLabelTitle(btnTransfer.Text);
-            ResetButtonsColor();
-            ColoringButton(btnTransfer, Color.Black);
-
-            SharedForm.OpenChildForm(new frmTransfer(), pnlContent);
+            HandleButtonClick(btnTransfer, Color.Black, new frmTransfer());
         }
 
         private void btnTransferLogsList_Click(object sender, EventArgs e)
         {
-            SetValueInLabelTitle(btnTransferLogsList.Text);
-            ResetButtonsColor();
-            ColoringButton(btnTransferLogsList, Color.BurlyWood);
-
-            SharedForm.OpenChildForm(new frmTransferLogsList(), pnlContent);
+            HandleButtonClick(btnTransferLogsList, Color.BurlyWood, new frmTransferLogsList());
         }
 
         private void btnShowUsersList_Click(object sender, EventArgs e)
         {
-            SetValueInLabelTitle(btnShowUsersList.Text);
-            ResetButtonsColor();
-            ColoringButton(btnShowUsersList, Color.CadetBlue);
-
-            SharedForm.OpenChildForm(new frmShowUsersList(), pnlContent);
+            HandleButtonClick(btnShowUsersList, Color.CadetBlue, new frmShowUsersList());
         }
 
         private void btnAddNewUser_Click(object sender, EventArgs e)
         {
-            SetValueInLabelTitle(btnAddNewUser.Text);
-            ResetButtonsColor();
-            ColoringButton(btnAddNewUser, Color.Chartreuse);
-
-            SharedForm.OpenChildForm(new frmAddNewUser(), pnlContent);
+            HandleButtonClick(btnAddNewUser, Color.Chartreuse, new frmAddNewUser());
         }
 
         private void btnDeleteUser_Click(object sender, EventArgs e)
         {
-            SetValueInLabelTitle(btnDeleteUser.Text);
-            ResetButtonsColor();
-            ColoringButton(btnDeleteUser, Color.DarkOliveGreen);
-
-            SharedForm.OpenChildForm(new frmDeleteUser(), pnlContent);
+            HandleButtonClick(btnDeleteUser, Color.DarkOliveGreen, new frmDeleteUser());
         }
 
         private void btnUpdateUser_Click(object sender, EventArgs e)
         {
-            SetValueInLabelTitle(btnUpdateUser.Text);
-            ResetButtonsColor();
-            ColoringButton(btnUpdateUser, Color.Coral);
-
-            SharedForm.OpenChildForm(new frmUpdateUser(), pnlContent);
+            HandleButtonClick(btnUpdateUser, Color.Coral, new frmUpdateUser());
         }
 
         private void btnFindUser_Click(object sender, EventArgs e)
         {
-            SetValueInLabelTitle(btnFindUser.Text);
-            ResetButtonsColor();
-            ColoringButton(btnFindUser, Color.CornflowerBlue);
-
-            SharedForm.OpenChildForm(new frmFindUser(), pnlContent);
+            HandleButtonClick(btnFindUser, Color.CornflowerBlue, new frmFindUser());
         }
 
         private void btnLoginRegisters_Click(object sender, EventArgs e)
         {
-            SetValueInLabelTitle(btnLoginRegisters.Text);
-            ResetButtonsColor();
-            ColoringButton(btnLoginRegisters, Color.DarkMagenta);
-
-            SharedForm.OpenChildForm(new frmLoginRegisters(), pnlContent);
+            HandleButtonClick(btnLoginRegisters, Color.DarkMagenta, new frmLoginRegisters());
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
-            SetValueInLabelTitle(btnLogout.Text);
-            ResetButtonsColor();
-            ColoringButton(btnLogout, Color.DarkMagenta);
-
-            SharedForm.OpenChildForm(new frmLogout(), pnlContent);
+            HandleButtonClick(btnLogout, Color.DarkMagenta, new frmLogout());
         }
     }
 }

@@ -4,8 +4,8 @@ using System.Data.SqlClient;
 
 namespace BankSystemDataAccessLayer
 {
-    public class Class1
+    public class UsersData
     {
-
+        
     }
 }
