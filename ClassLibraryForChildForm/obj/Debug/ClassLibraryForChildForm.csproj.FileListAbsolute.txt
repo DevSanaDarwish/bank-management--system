@@ -1,0 +1,6 @@
+C:\Users\USER\source\repos\BankSystem\ClassLibraryForChildForm\bin\Debug\ClassLibraryForChildForm.dll
+C:\Users\USER\source\repos\BankSystem\ClassLibraryForChildForm\bin\Debug\ClassLibraryForChildForm.pdb
+C:\Users\USER\source\repos\BankSystem\ClassLibraryForChildForm\obj\Debug\ClassLibraryForChildForm.csproj.AssemblyReference.cache
+C:\Users\USER\source\repos\BankSystem\ClassLibraryForChildForm\obj\Debug\ClassLibraryForChildForm.csproj.CoreCompileInputs.cache
+C:\Users\USER\source\repos\BankSystem\ClassLibraryForChildForm\obj\Debug\ClassLibraryForChildForm.dll
+C:\Users\USER\source\repos\BankSystem\ClassLibraryForChildForm\obj\Debug\ClassLibraryForChildForm.pdb

@@ -52,11 +52,65 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="frmAddNewClient.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="frmAddNewClient.Designer.cs">
+      <DependentUpon>frmAddNewClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddNewUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddNewUser.Designer.cs">
+      <DependentUpon>frmAddNewUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDeleteClient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDeleteClient.Designer.cs">
+      <DependentUpon>frmDeleteClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDeleteUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDeleteUser.Designer.cs">
+      <DependentUpon>frmDeleteUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDeposit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDeposit.Designer.cs">
+      <DependentUpon>frmDeposit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmFindClient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFindClient.Designer.cs">
+      <DependentUpon>frmFindClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmFindUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFindUser.Designer.cs">
+      <DependentUpon>frmFindUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLoginRegisters.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLoginRegisters.Designer.cs">
+      <DependentUpon>frmLoginRegisters.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLoginScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLoginScreen.Designer.cs">
+      <DependentUpon>frmLoginScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLogout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLogout.Designer.cs">
+      <DependentUpon>frmLogout.cs</DependentUpon>
     </Compile>
     <Compile Include="frmMainMenu.cs">
       <SubType>Form</SubType>
@@ -64,13 +118,106 @@
     <Compile Include="frmMainMenu.Designer.cs">
       <DependentUpon>frmMainMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmShowClientsList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmShowClientsList.Designer.cs">
+      <DependentUpon>frmShowClientsList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmShowUsersList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmShowUsersList.Designer.cs">
+      <DependentUpon>frmShowUsersList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTotalBalances.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTotalBalances.Designer.cs">
+      <DependentUpon>frmTotalBalances.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTransferLogsList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTransferLogsList.Designer.cs">
+      <DependentUpon>frmTransferLogsList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmUpdateUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUpdateUser.Designer.cs">
+      <DependentUpon>frmUpdateUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmWithdraw.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmWithdraw.Designer.cs">
+      <DependentUpon>frmWithdraw.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="frmUpdateClient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUpdateClient.Designer.cs">
+      <DependentUpon>frmUpdateClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTransfer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTransfer.Designer.cs">
+      <DependentUpon>frmTransfer.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="frmAddNewClient.resx">
+      <DependentUpon>frmAddNewClient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddNewUser.resx">
+      <DependentUpon>frmAddNewUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDeleteClient.resx">
+      <DependentUpon>frmDeleteClient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDeleteUser.resx">
+      <DependentUpon>frmDeleteUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDeposit.resx">
+      <DependentUpon>frmDeposit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmFindClient.resx">
+      <DependentUpon>frmFindClient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmFindUser.resx">
+      <DependentUpon>frmFindUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLoginRegisters.resx">
+      <DependentUpon>frmLoginRegisters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLoginScreen.resx">
+      <DependentUpon>frmLoginScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLogout.resx">
+      <DependentUpon>frmLogout.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMainMenu.resx">
       <DependentUpon>frmMainMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmShowClientsList.resx">
+      <DependentUpon>frmShowClientsList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmShowUsersList.resx">
+      <DependentUpon>frmShowUsersList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTotalBalances.resx">
+      <DependentUpon>frmTotalBalances.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTransferLogsList.resx">
+      <DependentUpon>frmTransferLogsList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUpdateUser.resx">
+      <DependentUpon>frmUpdateUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmWithdraw.resx">
+      <DependentUpon>frmWithdraw.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -82,6 +229,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="frmUpdateClient.resx">
+      <DependentUpon>frmUpdateClient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTransfer.resx">
+      <DependentUpon>frmTransfer.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -100,6 +253,10 @@
     <ProjectReference Include="..\BankSystemBusinessLayer\BankSystemBusinessLayer.csproj">
       <Project>{cfd59363-d95d-4ef3-9a14-6a2302a7cfc0}</Project>
       <Name>BankSystemBusinessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClassLibraryForChildForm\ClassLibraryForChildForm.csproj">
+      <Project>{fafb4fdf-8ef6-4041-9900-669d0e45be25}</Project>
+      <Name>ClassLibraryForChildForm</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
