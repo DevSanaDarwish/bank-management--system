@@ -24,6 +24,61 @@ namespace BankSystem
 
         bool _isShowPassword = false;
 
+        TimeSpan _selectedTime = new TimeSpan(0, 10, 0);
+
+        StringBuilder _formattedSelectedTime = new StringBuilder();
+
+        private void StartTimer()
+        {
+            TimeSpan oneSecond = new TimeSpan(0, 0, 1);
+
+            _selectedTime -= oneSecond;
+
+            _formattedSelectedTime.AppendFormat("{0:0}:{1:00}", _selectedTime.Minutes, _selectedTime.Seconds);
+
+            lblTrialTimer.Text = _formattedSelectedTime.ToString();
+
+            _formattedSelectedTime.Clear();
+
+
+            if (_selectedTime <= TimeSpan.Zero)
+            {
+                TimeSpan zero = TimeSpan.Zero;
+
+                _formattedSelectedTime.AppendFormat("{0:0}:{1:00}", zero.Minutes, zero.Seconds);
+
+                lblTrialTimer.Text = _formattedSelectedTime.ToString();
+
+                _formattedSelectedTime.Clear();
+
+                TrialTimer.Stop();
+
+
+                MessageBox.Show("Time's up .. you can try now", "Notification");
+
+                UnvisibleTrialTimerLabel();
+                EnableUsernameText();
+                EnablePasswordText();
+            }
+        }
+
+        private void VisibleTrialTimerLabel()
+        {
+            lblTrialTimer.Visible = true;
+        }
+        private void UnvisibleTrialTimerLabel()
+        {
+            lblTrialTimer.Visible = false;
+        }
+        private void EnableUsernameText()
+        {
+            txtUsername.Enabled = true;
+        }
+
+        private void EnablePasswordText()
+        {
+            txtPassword.Enabled = true;
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             this.BackgroundImage = Properties.Resources.R;
@@ -38,8 +93,8 @@ namespace BankSystem
 
         private void ColoringPasswordAndUsernamePanel()
         {
-            ColoringPanel(pnlPassword, Color.White);
-            ColoringPanel(pnlUsername, Color.MidnightBlue);
+            ColoringPanel(pnlLineForPassword, Color.White);
+            ColoringPanel(pnlLineForUsername, Color.MidnightBlue);
         }
 
         private void txtUsername_Click(object sender, EventArgs e)
@@ -88,6 +143,7 @@ namespace BankSystem
         {
             frmMainMenu mainMenu = new frmMainMenu();
             mainMenu.Show();
+
             this.Hide();
         }
 
@@ -112,10 +168,14 @@ namespace BankSystem
             DisableUsernameText();
             DisablePasswordText();
 
-            ColoringPanel(pnlPassword, Color.White);
-            ColoringPanel(pnlUsername, Color.White);
+            ColoringPanel(pnlLineForPassword, Color.White);
+            ColoringPanel(pnlLineForUsername, Color.White);
 
-            lblTrialTimer.Visible = true;
+            VisibleTrialTimerLabel();
+
+            _selectedTime = new TimeSpan(0, 10, 0);
+
+            TrialTimer.Start();
         }
 
         private void ShowLoginMessage()
@@ -133,6 +193,9 @@ namespace BankSystem
             if (_trialCounter == 0)
             {
                 HandleLockout();
+
+                _trialCounter = 3;
+
 
                 return;
             }
@@ -156,6 +219,16 @@ namespace BankSystem
         private void btnLogin_Click(object sender, EventArgs e)
         {
             HandleLogin();       
+        }
+
+        private void TrialTimer_Tick(object sender, EventArgs e)
+        {
+            StartTimer();
+        }
+
+        private void txtUsername_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

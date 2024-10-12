@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLoginScreen));
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lblTrialTimer = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.pnlPassword = new System.Windows.Forms.Panel();
             this.pnlLineForPassword = new System.Windows.Forms.Panel();
@@ -47,7 +48,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnLogin = new Guna.UI2.WinForms.Guna2GradientButton();
             this.TrialTimer = new System.Windows.Forms.Timer(this.components);
-            this.lblTrialTimer = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.pnlPassword.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPasswordIcon)).BeginInit();
@@ -73,6 +73,19 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(826, 642);
             this.panel2.TabIndex = 2;
+            // 
+            // lblTrialTimer
+            // 
+            this.lblTrialTimer.AutoSize = true;
+            this.lblTrialTimer.BackColor = System.Drawing.Color.Transparent;
+            this.lblTrialTimer.Font = new System.Drawing.Font("Trebuchet MS", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrialTimer.ForeColor = System.Drawing.Color.White;
+            this.lblTrialTimer.Location = new System.Drawing.Point(341, 481);
+            this.lblTrialTimer.Name = "lblTrialTimer";
+            this.lblTrialTimer.Size = new System.Drawing.Size(106, 42);
+            this.lblTrialTimer.TabIndex = 19;
+            this.lblTrialTimer.Text = "10:00";
+            this.lblTrialTimer.Visible = false;
             // 
             // label9
             // 
@@ -154,6 +167,7 @@
             this.txtUsername.Size = new System.Drawing.Size(305, 24);
             this.txtUsername.TabIndex = 3;
             this.txtUsername.Click += new System.EventHandler(this.txtUsername_Click);
+            this.txtUsername.TextChanged += new System.EventHandler(this.txtUsername_TextChanged);
             // 
             // pictureBox4
             // 
@@ -258,20 +272,8 @@
             // 
             // TrialTimer
             // 
-            this.TrialTimer.Interval = 1000;
-            // 
-            // lblTrialTimer
-            // 
-            this.lblTrialTimer.AutoSize = true;
-            this.lblTrialTimer.BackColor = System.Drawing.Color.Transparent;
-            this.lblTrialTimer.Font = new System.Drawing.Font("Trebuchet MS", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTrialTimer.ForeColor = System.Drawing.Color.White;
-            this.lblTrialTimer.Location = new System.Drawing.Point(341, 481);
-            this.lblTrialTimer.Name = "lblTrialTimer";
-            this.lblTrialTimer.Size = new System.Drawing.Size(111, 43);
-            this.lblTrialTimer.TabIndex = 19;
-            this.lblTrialTimer.Text = "10:00";
-            this.lblTrialTimer.Visible = false;
+            this.TrialTimer.Interval = 5;
+            this.TrialTimer.Tick += new System.EventHandler(this.TrialTimer_Tick);
             // 
             // frmLoginScreen
             // 
