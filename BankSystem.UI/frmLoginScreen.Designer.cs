@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLoginScreen));
             this.panel2 = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
@@ -45,6 +46,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnLogin = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.TrialTimer = new System.Windows.Forms.Timer(this.components);
+            this.lblTrialTimer = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.pnlPassword.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPasswordIcon)).BeginInit();
@@ -55,6 +58,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.Indigo;
+            this.panel2.Controls.Add(this.lblTrialTimer);
             this.panel2.Controls.Add(this.label9);
             this.panel2.Controls.Add(this.pnlPassword);
             this.panel2.Controls.Add(this.pnlUsername);
@@ -200,7 +204,7 @@
             this.lblLoginMessage.BackColor = System.Drawing.Color.Transparent;
             this.lblLoginMessage.Font = new System.Drawing.Font("Verdana", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLoginMessage.ForeColor = System.Drawing.Color.DarkRed;
-            this.lblLoginMessage.Location = new System.Drawing.Point(243, 487);
+            this.lblLoginMessage.Location = new System.Drawing.Point(248, 481);
             this.lblLoginMessage.Name = "lblLoginMessage";
             this.lblLoginMessage.Size = new System.Drawing.Size(320, 65);
             this.lblLoginMessage.TabIndex = 6;
@@ -252,6 +256,23 @@
             this.btnLogin.Text = "Login";
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
+            // TrialTimer
+            // 
+            this.TrialTimer.Interval = 1000;
+            // 
+            // lblTrialTimer
+            // 
+            this.lblTrialTimer.AutoSize = true;
+            this.lblTrialTimer.BackColor = System.Drawing.Color.Transparent;
+            this.lblTrialTimer.Font = new System.Drawing.Font("Trebuchet MS", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrialTimer.ForeColor = System.Drawing.Color.White;
+            this.lblTrialTimer.Location = new System.Drawing.Point(341, 481);
+            this.lblTrialTimer.Name = "lblTrialTimer";
+            this.lblTrialTimer.Size = new System.Drawing.Size(111, 43);
+            this.lblTrialTimer.TabIndex = 19;
+            this.lblTrialTimer.Text = "10:00";
+            this.lblTrialTimer.Visible = false;
+            // 
             // frmLoginScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -295,6 +316,8 @@
         private System.Windows.Forms.Panel pnlPassword;
         private System.Windows.Forms.Panel pnlLineForPassword;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Timer TrialTimer;
+        private System.Windows.Forms.Label lblTrialTimer;
     }
 }
 

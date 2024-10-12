@@ -25,6 +25,12 @@ namespace BankSystemBusinessLayer
 
             mode = enMode.AddNew;
         }
+
+        private Users(string username, string password)
+        {
+            this.username = username;
+            this.password = password;
+        }
         private Users(int userID, string username, int permissions, string password, int personID)
         {
             this.userID = userID;
@@ -36,11 +42,13 @@ namespace BankSystemBusinessLayer
             mode = enMode.Update;
         }
 
-        public static Users Find(string username)
+        public static Users Find(string username, string password)
         {
-            int userID = -1;
+            if (UsersData.GetUsernameAndPassword(username, password))
+                return new Users(username, password);
 
-
+            else
+                return null;
         }
 
 

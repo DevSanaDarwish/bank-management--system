@@ -6,29 +6,32 @@ namespace BankSystemDataAccessLayer
 {
     public class UsersData
     {
-        public static bool GetUsername(string username, ref int id)
+        public static bool GetUsernameAndPassword(string username, string password)
         {
             bool isFound = false;
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
 
-            string query = "Select Username From Users Where Username = @username";
+            string query = "Select Username, Password From Users Where Username = @username And Password = @password";
 
             SqlCommand command = new SqlCommand(query, connection);
 
             command.Parameters.AddWithValue("@username", username);
+            command.Parameters.AddWithValue("@password", password);
 
             try
             {
                 connection.Open();
 
-                object result = command.ExecuteScalar();
+                SqlDataReader reader = command.ExecuteReader();
 
-                if (result != null)
-                    username = (string)result;
+                if (reader.Read())
+                    isFound = true;
 
                 else
-                    username = "";
+                    isFound = false;
+
+                reader.Close();
             }
 
             catch(Exception ex)

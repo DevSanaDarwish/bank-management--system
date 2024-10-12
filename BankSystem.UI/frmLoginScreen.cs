@@ -20,8 +20,7 @@ namespace BankSystem
             InitializeComponent();
         }
 
-        Image _hidePassword = Properties.Resources.HideEye;
-        Image _showPassword = Properties.Resources.visible;
+        byte _trialCounter = 3;
 
         bool _isShowPassword = false;
 
@@ -32,20 +31,32 @@ namespace BankSystem
             panel2.BackColor = Color.FromArgb(200, 0, 0, 0);
         }
 
+        private void ColoringPanel(Panel panel, Color color)
+        {
+            panel.BackColor = color;
+        }
+
+        private void ColoringPasswordAndUsernamePanel()
+        {
+            ColoringPanel(pnlPassword, Color.White);
+            ColoringPanel(pnlUsername, Color.MidnightBlue);
+        }
+
         private void txtUsername_Click(object sender, EventArgs e)
         {
-            pnlLineForPassword.BackColor = Color.White;
-            pnlLineForUsername.BackColor = Color.MidnightBlue;
+            ColoringPasswordAndUsernamePanel();
         }
-
+        
         private void txtPassword_Click(object sender, EventArgs e)
         {
-            pnlLineForUsername.BackColor = Color.White;
-            pnlLineForPassword.BackColor = Color.MidnightBlue;
+            ColoringPasswordAndUsernamePanel();
         }
 
-        private void pbPasswordIcon_Click(object sender, EventArgs e)
+        private void TogglePasswordVisibility()
         {
+            Image _hidePassword = Properties.Resources.HideEye;
+            Image _showPassword = Properties.Resources.visible;
+
             if (!_isShowPassword)
             {
                 pbPasswordIcon.Image = _showPassword;
@@ -61,11 +72,90 @@ namespace BankSystem
             }
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
+        private void pbPasswordIcon_Click(object sender, EventArgs e)
+        {
+            TogglePasswordVisibility();
+        }
+
+        private bool ISValidUsernameAndPassword()
+        {
+            Users user = Users.Find(txtUsername.Text, txtPassword.Text);
+
+            return (user != null);
+        }
+
+        private void OpenMainForm()
         {
             frmMainMenu mainMenu = new frmMainMenu();
             mainMenu.Show();
             this.Hide();
+        }
+
+        private void DisableUsernameText()
+        {
+            txtUsername.Enabled = false;
+        }
+
+        private void DisablePasswordText()
+        {
+            txtPassword.Enabled = false;
+        }
+
+        private void HandleLockout()
+        {
+            lblLoginMessage.Visible = false;
+
+            string LockoutMessage = "Locked after 3 failed trials, You can try after 10 seconds";
+
+            MessageBox.Show(LockoutMessage);
+
+            DisableUsernameText();
+            DisablePasswordText();
+
+            ColoringPanel(pnlPassword, Color.White);
+            ColoringPanel(pnlUsername, Color.White);
+
+            lblTrialTimer.Visible = true;
+        }
+
+        private void ShowLoginMessage()
+        {
+            string _loginMessage = "Invalid username or password\r\nYou have " + _trialCounter + " trials to login\r\n\r\n";
+
+            lblLoginMessage.Text = _loginMessage;
+            lblLoginMessage.Visible = true;
+        }
+
+        private void HandleFailedLogin()
+        {
+            --_trialCounter;
+
+            if (_trialCounter == 0)
+            {
+                HandleLockout();
+
+                return;
+            }
+
+            ShowLoginMessage();
+        }
+
+        private void HandleLogin()
+        {
+            if (ISValidUsernameAndPassword())
+            {
+                OpenMainForm();
+            }
+
+            else
+            {
+                HandleFailedLogin();
+            }
+        }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            HandleLogin();       
         }
     }
 }
