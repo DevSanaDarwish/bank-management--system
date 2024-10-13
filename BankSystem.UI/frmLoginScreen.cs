@@ -23,7 +23,7 @@ namespace BankSystem
             InitializeComponent();
         }
 
-        Users _user;
+        Users _user = new Users();
 
         byte _waitDurationPerSeconds = 10;
 
@@ -94,6 +94,11 @@ namespace BankSystem
             TrialTimer.Start();
         }
 
+        private void EnableLoginButton()
+        {
+            btnLogin.Enabled = true;
+        }
+
         private void HandleTrialTimeIsUp(TimeSpan zero)
         {
             UpdateTime(zero);
@@ -105,6 +110,8 @@ namespace BankSystem
             UnvisibleTrialTimerLabel();
 
             EnableInputFields();
+
+            EnableLoginButton();
         }
 
         private void CheckTrialTimeIsUp()
@@ -253,7 +260,7 @@ namespace BankSystem
 
         private void ShowLockoutMessage()
         {
-            byte remainingTrials = _user.GetRemainingTrials();
+            byte remainingTrials = Users.GetRemainingTrials();
 
             string LockoutMessage = $"Locked after {remainingTrials} failed trials, You can try after {_waitDurationPerSeconds} seconds";
 
@@ -298,22 +305,52 @@ namespace BankSystem
             StartTrialTimer();
         }
 
+        private void ClearUsernameText()
+        {
+            txtUsername.Text = string.Empty;
+        }
+
+        private void ClearPasswordText()
+        {
+            txtPassword.Text = string.Empty;
+        }
+
+        private void ClearInputFields()
+        {
+            ClearUsernameText();
+
+            ClearPasswordText();
+        }
+
+        private void ResetInputFields()
+        {
+            ClearInputFields();
+
+            DisableInputFields();
+
+            SetInputFieldsBordersColor();
+        }
+
+        private void DisableLoginButton()
+        {
+            btnLogin.Enabled = false;
+        }
         private void HandleLockout()
         {
             UnvisibleLoginMessageLabel();
 
             ShowLockoutMessage();
 
-            DisableInputFields();
+            ResetInputFields();
 
-            SetInputFieldsBordersColor();
+            DisableLoginButton();
 
             ResetTimer();
         }
 
         private void ShowLoginMessage()
         {
-            byte remainingTrials = _user.GetRemainingTrials();
+            byte remainingTrials = Users.GetRemainingTrials();
 
             string _loginMessage = $"Invalid username or password\r\nYou have {remainingTrials} trials to login\r\n\r\n";
 
@@ -324,11 +361,11 @@ namespace BankSystem
 
         private void HandleFailedLogin()
         {
-            _user.DecrementTrialCounter();
+            Users.DecrementTrialCounter();
 
-            if (_user.IsLockedOut())
+            if (Users.IsLockedOut())
             {
-                _user.ResetTrialCounter();
+                Users.ResetTrialCounter();
 
                 HandleLockout();
 
@@ -353,6 +390,7 @@ namespace BankSystem
        
         private bool ValidateControlText(TextBox control, string messageValue)
         {
+
             if (string.IsNullOrWhiteSpace(control.Text))
             {
                 errorProvider1.SetError(control, messageValue);
@@ -360,11 +398,11 @@ namespace BankSystem
                 return false;
             }
 
-            //Show error if the control was txtPassword
+            //Show error message if the control was txtPassword
             if(control == txtPassword && !IsValidPasswordLength())
             {
-                byte minimumPasswordLength = _user.GetMinimumPasswordLength();
-                byte maximumPasswordLength = _user.GetMaximumPasswordLength();
+                byte minimumPasswordLength = Users.GetMinimumPasswordLength();
+                byte maximumPasswordLength = Users.GetMaximumPasswordLength();
 
                 string passwordMessage = $"The password must be between {minimumPasswordLength} and {maximumPasswordLength} characters long.";
 
@@ -382,7 +420,7 @@ namespace BankSystem
         {
             byte passwordLength = (Byte)txtPassword.Text.Length;
 
-            return (_user.IsValidPasswordLength(passwordLength));            
+            return (Users.IsValidPasswordLength(passwordLength));            
         }
 
         private bool IsValidInputFields()

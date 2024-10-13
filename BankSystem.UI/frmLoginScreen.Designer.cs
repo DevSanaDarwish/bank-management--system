@@ -82,7 +82,7 @@
             this.lblTrialTimer.BackColor = System.Drawing.Color.Transparent;
             this.lblTrialTimer.Font = new System.Drawing.Font("Trebuchet MS", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrialTimer.ForeColor = System.Drawing.Color.White;
-            this.lblTrialTimer.Location = new System.Drawing.Point(341, 481);
+            this.lblTrialTimer.Location = new System.Drawing.Point(348, 481);
             this.lblTrialTimer.Name = "lblTrialTimer";
             this.lblTrialTimer.Size = new System.Drawing.Size(106, 42);
             this.lblTrialTimer.TabIndex = 19;

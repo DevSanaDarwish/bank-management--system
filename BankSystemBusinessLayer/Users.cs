@@ -15,7 +15,7 @@ namespace BankSystemBusinessLayer
         public string password { get; set; }
         public int personID { get; set; }
 
-        private byte _trialCounter = 3, _minimumPasswordLength = 4, _maximumPasswordLength = 15;
+        private static byte _trialCounter = 3, _minimumPasswordLength = 4, _maximumPasswordLength = 15;
 
         public Users()
         {
@@ -53,38 +53,38 @@ namespace BankSystemBusinessLayer
                 return null;
         }
 
-        public byte GetRemainingTrials()
+        public static byte GetRemainingTrials()
         {
             return _trialCounter;
         }
 
-        public void DecrementTrialCounter()
+        public static void DecrementTrialCounter()
         {
             if (_trialCounter > 0)
                 --_trialCounter;
         }
         
-        public bool IsLockedOut()
+        public static bool IsLockedOut()
         {
             return (_trialCounter == 0);
         }
 
-        public void ResetTrialCounter()
+        public static void ResetTrialCounter()
         {
             _trialCounter = 3;
         }
 
-        public byte GetMinimumPasswordLength()
+        public static byte GetMinimumPasswordLength()
         {
             return _minimumPasswordLength;
         }
 
-        public byte GetMaximumPasswordLength()
+        public static byte GetMaximumPasswordLength()
         {
             return _maximumPasswordLength;
         }
 
-        public bool IsValidPasswordLength(byte passwordLength)
+        public static bool IsValidPasswordLength(byte passwordLength)
         {
             if (passwordLength == 0)
                 return false;
