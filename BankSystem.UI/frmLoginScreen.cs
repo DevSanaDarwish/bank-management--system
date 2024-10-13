@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI;
 using System.Windows.Forms;
 using BankSystemBusinessLayer;
 using ClassLibraryForChildForm;
@@ -21,9 +23,11 @@ namespace BankSystem
             InitializeComponent();
         }
 
-        byte _trialCounter = 3;
+        Users _user;
 
-        bool _isShowPassword = false;
+        byte _waitDurationPerSeconds = 10;
+
+        bool _isShowPassword = false;    
 
         TimeSpan _selectedTime = new TimeSpan(0, 10, 0);
 
@@ -151,6 +155,7 @@ namespace BankSystem
         {
             txtPassword.Enabled = false;
         }
+
         private void SetFormBackground()
         {
             this.BackgroundImage = Properties.Resources.R;
@@ -233,9 +238,9 @@ namespace BankSystem
 
         private bool ISValidUsernameAndPassword()
         {
-            Users user = Users.Find(txtUsername.Text, txtPassword.Text);
+            _user = Users.Find(txtUsername.Text, txtPassword.Text);
 
-            return (user != null);
+            return (_user != null);
         }
 
         private void OpenMainForm()
@@ -248,7 +253,9 @@ namespace BankSystem
 
         private void ShowLockoutMessage()
         {
-            string LockoutMessage = "Locked after" + _trialCounter.ToString() + " failed trials, You can try after 10 seconds";
+            byte remainingTrials = _user.GetRemainingTrials();
+
+            string LockoutMessage = $"Locked after {remainingTrials} failed trials, You can try after {_waitDurationPerSeconds} seconds";
 
             ShowMessage(LockoutMessage, "");
         }
@@ -306,7 +313,9 @@ namespace BankSystem
 
         private void ShowLoginMessage()
         {
-            string _loginMessage = "Invalid username or password\r\nYou have " + _trialCounter + " trials to login\r\n\r\n";
+            byte remainingTrials = _user.GetRemainingTrials();
+
+            string _loginMessage = $"Invalid username or password\r\nYou have {remainingTrials} trials to login\r\n\r\n";
 
             lblLoginMessage.Text = _loginMessage;
 
@@ -315,11 +324,11 @@ namespace BankSystem
 
         private void HandleFailedLogin()
         {
-            --_trialCounter;
+            _user.DecrementTrialCounter();
 
-            if (_trialCounter == 0)
+            if (_user.IsLockedOut())
             {
-                _trialCounter = 3;
+                _user.ResetTrialCounter();
 
                 HandleLockout();
 
@@ -341,19 +350,39 @@ namespace BankSystem
                 HandleFailedLogin();
             }
         }
-
-        private bool ValidateControlText(TextBox Control, string messageValue)
+       
+        private bool ValidateControlText(TextBox control, string messageValue)
         {
-            if (string.IsNullOrWhiteSpace(Control.Text))
+            if (string.IsNullOrWhiteSpace(control.Text))
             {
-                errorProvider1.SetError(Control, messageValue);
+                errorProvider1.SetError(control, messageValue);
 
                 return false;
             }
 
-            errorProvider1.SetError(Control, "");
+            //Show error if the control was txtPassword
+            if(control == txtPassword && !IsValidPasswordLength())
+            {
+                byte minimumPasswordLength = _user.GetMinimumPasswordLength();
+                byte maximumPasswordLength = _user.GetMaximumPasswordLength();
+
+                string passwordMessage = $"The password must be between {minimumPasswordLength} and {maximumPasswordLength} characters long.";
+
+                errorProvider1.SetError(control, passwordMessage);
+
+                return false;
+            }
+
+            errorProvider1.SetError(control, "");
 
             return true;
+        }
+
+        private bool IsValidPasswordLength()
+        {
+            byte passwordLength = (Byte)txtPassword.Text.Length;
+
+            return (_user.IsValidPasswordLength(passwordLength));            
         }
 
         private bool IsValidInputFields()
@@ -363,6 +392,7 @@ namespace BankSystem
 
             else if (!ValidateControlText(txtPassword, "The password should not be empty"))
                 return false;
+              
             
             return true;
         }

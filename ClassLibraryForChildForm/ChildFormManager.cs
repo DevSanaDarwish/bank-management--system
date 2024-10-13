@@ -12,13 +12,22 @@ namespace ClassLibraryForChildForm
     {
         public static void OpenChildForm(Form childForm, Panel panel)
         {
-            childForm.TopLevel = false;
-            childForm.FormBorderStyle = FormBorderStyle.None;
-            childForm.Dock = DockStyle.Fill;
-            panel.Controls.Add(childForm);
-            panel.Tag = childForm;
-            childForm.BringToFront();
-            childForm.Show();
+            try
+            {
+                childForm.TopLevel = false;
+                childForm.FormBorderStyle = FormBorderStyle.None;
+                childForm.Dock = DockStyle.Fill;
+                panel.Controls.Add(childForm);
+                panel.Tag = childForm;
+                childForm.BringToFront();
+                childForm.Show();
+            }
+
+            catch(Exception ex)
+            {
+                MessageBox.Show($"An error occurred while opening the child form: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
     }
 }
