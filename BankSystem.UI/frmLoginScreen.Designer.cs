@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLoginScreen));
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.pnlLoginScreen = new System.Windows.Forms.Panel();
             this.lblTrialTimer = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.pnlPassword = new System.Windows.Forms.Panel();
@@ -48,31 +48,33 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnLogin = new Guna.UI2.WinForms.Guna2GradientButton();
             this.TrialTimer = new System.Windows.Forms.Timer(this.components);
-            this.panel2.SuspendLayout();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.pnlLoginScreen.SuspendLayout();
             this.pnlPassword.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPasswordIcon)).BeginInit();
             this.pnlUsername.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
-            // panel2
+            // pnlLoginScreen
             // 
-            this.panel2.BackColor = System.Drawing.Color.Indigo;
-            this.panel2.Controls.Add(this.lblTrialTimer);
-            this.panel2.Controls.Add(this.label9);
-            this.panel2.Controls.Add(this.pnlPassword);
-            this.panel2.Controls.Add(this.pnlUsername);
-            this.panel2.Controls.Add(this.label7);
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Controls.Add(this.lblLoginMessage);
-            this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.label2);
-            this.panel2.Controls.Add(this.btnLogin);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(826, 642);
-            this.panel2.TabIndex = 2;
+            this.pnlLoginScreen.BackColor = System.Drawing.Color.Indigo;
+            this.pnlLoginScreen.Controls.Add(this.lblTrialTimer);
+            this.pnlLoginScreen.Controls.Add(this.label9);
+            this.pnlLoginScreen.Controls.Add(this.pnlPassword);
+            this.pnlLoginScreen.Controls.Add(this.pnlUsername);
+            this.pnlLoginScreen.Controls.Add(this.label7);
+            this.pnlLoginScreen.Controls.Add(this.label1);
+            this.pnlLoginScreen.Controls.Add(this.lblLoginMessage);
+            this.pnlLoginScreen.Controls.Add(this.label3);
+            this.pnlLoginScreen.Controls.Add(this.label2);
+            this.pnlLoginScreen.Controls.Add(this.btnLogin);
+            this.pnlLoginScreen.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlLoginScreen.Location = new System.Drawing.Point(0, 0);
+            this.pnlLoginScreen.Name = "pnlLoginScreen";
+            this.pnlLoginScreen.Size = new System.Drawing.Size(826, 642);
+            this.pnlLoginScreen.TabIndex = 2;
             // 
             // lblTrialTimer
             // 
@@ -105,15 +107,15 @@
             this.pnlPassword.Controls.Add(this.pnlLineForPassword);
             this.pnlPassword.Controls.Add(this.txtPassword);
             this.pnlPassword.Controls.Add(this.pbPasswordIcon);
-            this.pnlPassword.Location = new System.Drawing.Point(219, 407);
+            this.pnlPassword.Location = new System.Drawing.Point(215, 407);
             this.pnlPassword.Name = "pnlPassword";
-            this.pnlPassword.Size = new System.Drawing.Size(364, 53);
+            this.pnlPassword.Size = new System.Drawing.Size(376, 56);
             this.pnlPassword.TabIndex = 16;
             // 
             // pnlLineForPassword
             // 
             this.pnlLineForPassword.BackColor = System.Drawing.Color.White;
-            this.pnlLineForPassword.Location = new System.Drawing.Point(6, 49);
+            this.pnlLineForPassword.Location = new System.Drawing.Point(13, 49);
             this.pnlLineForPassword.Name = "pnlLineForPassword";
             this.pnlLineForPassword.Size = new System.Drawing.Size(350, 1);
             this.pnlLineForPassword.TabIndex = 10;
@@ -124,7 +126,7 @@
             this.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtPassword.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPassword.ForeColor = System.Drawing.Color.White;
-            this.txtPassword.Location = new System.Drawing.Point(39, 17);
+            this.txtPassword.Location = new System.Drawing.Point(45, 19);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(305, 24);
@@ -151,9 +153,9 @@
             this.pnlUsername.Controls.Add(this.txtUsername);
             this.pnlUsername.Controls.Add(this.pictureBox4);
             this.pnlUsername.Controls.Add(this.pnlLineForUsername);
-            this.pnlUsername.Location = new System.Drawing.Point(211, 278);
+            this.pnlUsername.Location = new System.Drawing.Point(215, 278);
             this.pnlUsername.Name = "pnlUsername";
-            this.pnlUsername.Size = new System.Drawing.Size(364, 53);
+            this.pnlUsername.Size = new System.Drawing.Size(376, 57);
             this.pnlUsername.TabIndex = 15;
             // 
             // txtUsername
@@ -167,7 +169,6 @@
             this.txtUsername.Size = new System.Drawing.Size(305, 24);
             this.txtUsername.TabIndex = 3;
             this.txtUsername.Click += new System.EventHandler(this.txtUsername_Click);
-            this.txtUsername.TextChanged += new System.EventHandler(this.txtUsername_TextChanged);
             // 
             // pictureBox4
             // 
@@ -184,7 +185,7 @@
             // pnlLineForUsername
             // 
             this.pnlLineForUsername.BackColor = System.Drawing.Color.White;
-            this.pnlLineForUsername.Location = new System.Drawing.Point(11, 46);
+            this.pnlLineForUsername.Location = new System.Drawing.Point(13, 49);
             this.pnlLineForUsername.Name = "pnlLineForUsername";
             this.pnlLineForUsername.Size = new System.Drawing.Size(350, 1);
             this.pnlLineForUsername.TabIndex = 9;
@@ -275,6 +276,10 @@
             this.TrialTimer.Interval = 5;
             this.TrialTimer.Tick += new System.EventHandler(this.TrialTimer_Tick);
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // frmLoginScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -282,27 +287,28 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(826, 642);
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.pnlLoginScreen);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "frmLoginScreen";
             this.Text = "Login ";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.pnlLoginScreen.ResumeLayout(false);
+            this.pnlLoginScreen.PerformLayout();
             this.pnlPassword.ResumeLayout(false);
             this.pnlPassword.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPasswordIcon)).EndInit();
             this.pnlUsername.ResumeLayout(false);
             this.pnlUsername.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel pnlLoginScreen;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pbPasswordIcon;
@@ -320,6 +326,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Timer TrialTimer;
         private System.Windows.Forms.Label lblTrialTimer;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
 

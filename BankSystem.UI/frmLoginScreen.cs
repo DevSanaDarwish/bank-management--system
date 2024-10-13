@@ -30,6 +30,11 @@ namespace BankSystem
         StringBuilder _formattedSelectedTime = new StringBuilder();
 
 
+        private void ShowMessage(string message, string title)
+        {
+            MessageBox.Show(message, title);
+        }
+
         private void GetFormattedTime(TimeSpan time)
         {
             _formattedSelectedTime.AppendFormat("{0:0}:{1:00}", time.Minutes, time.Seconds);
@@ -61,44 +66,72 @@ namespace BankSystem
             ClearFormattedTime();
         }
 
-        private void HandleTrialTimeUp(TimeSpan zero)
+        private void ShowNotificationMessage()
         {
-            UpdateTime(zero);
+            string notificationText = "Time's up .. you can try now", title = "Notification";
 
-            TrialTimer.Stop();
+            ShowMessage(notificationText, title);
+        }
 
-            string notificationText = "Time's up .. you can try now";
-
-            MessageBox.Show(notificationText, "Notification");
-
-            UnvisibleTrialTimerLabel();
-
+        private void EnableInputFields()
+        {
             EnableUsernameText();
 
             EnablePasswordText();
         }
+
+        private void StopTrialTimer()
+        {
+            TrialTimer.Stop();
+        }
+
+        private void StartTrialTimer()
+        {
+            TrialTimer.Start();
+        }
+
+        private void HandleTrialTimeIsUp(TimeSpan zero)
+        {
+            UpdateTime(zero);
+
+            StopTrialTimer();
+
+            ShowNotificationMessage();
+
+            UnvisibleTrialTimerLabel();
+
+            EnableInputFields();
+        }
+
+        private void CheckTrialTimeIsUp()
+        {
+            TimeSpan zero = TimeSpan.Zero;
+
+            if (_selectedTime <= zero)
+            {
+                HandleTrialTimeIsUp(zero);
+            }
+        }
+
         private void StartTimer()
         {
             DecrementSelectedTime();
 
             UpdateTime(_selectedTime);
 
-            TimeSpan zero = TimeSpan.Zero;
-
-            if (_selectedTime <= zero)
-            {
-                HandleTrialTimeUp(zero);
-            }
+            CheckTrialTimeIsUp();
         }
 
         private void VisibleTrialTimerLabel()
         {
             lblTrialTimer.Visible = true;
         }
+
         private void UnvisibleTrialTimerLabel()
         {
             lblTrialTimer.Visible = false;
         }
+
         private void EnableUsernameText()
         {
             txtUsername.Enabled = true;
@@ -108,11 +141,31 @@ namespace BankSystem
         {
             txtPassword.Enabled = true;
         }
-        private void Form1_Load(object sender, EventArgs e)
+
+        private void DisableUsernameText()
+        {
+            txtUsername.Enabled = false;
+        }
+
+        private void DisablePasswordText()
+        {
+            txtPassword.Enabled = false;
+        }
+        private void SetFormBackground()
         {
             this.BackgroundImage = Properties.Resources.R;
+        }
 
-            panel2.BackColor = Color.FromArgb(200, 0, 0, 0);
+        private void SetLoginPanelBackColor()
+        {
+            pnlLoginScreen.BackColor = Color.FromArgb(200, 0, 0, 0);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            SetFormBackground();
+
+            SetLoginPanelBackColor();
         }
 
         private void ColoringPanel(Panel panel, Color color)
@@ -123,6 +176,7 @@ namespace BankSystem
         private void ColoringPasswordAndUsernamePanel()
         {
             ColoringPanel(pnlLineForPassword, Color.White);
+
             ColoringPanel(pnlLineForUsername, Color.MidnightBlue);
         }
 
@@ -158,6 +212,7 @@ namespace BankSystem
             _isShowPassword = false;
 
         }
+
         private void TogglePasswordVisibility()
         {
             if (!_isShowPassword)
@@ -191,40 +246,62 @@ namespace BankSystem
             this.Hide();
         }
 
-        private void DisableUsernameText()
-        {
-            txtUsername.Enabled = false;
-        }
-
-        private void DisablePasswordText()
-        {
-            txtPassword.Enabled = false;
-        }
-
         private void ShowLockoutMessage()
         {
             string LockoutMessage = "Locked after" + _trialCounter.ToString() + " failed trials, You can try after 10 seconds";
 
-            MessageBox.Show(LockoutMessage);
+            ShowMessage(LockoutMessage, "");
+        }
+
+        private void UnvisibleLoginMessageLabel()
+        {
+            lblLoginMessage.Visible = false;
+        }
+
+        private void VisibleLoginMessageLabel()
+        {
+            lblLoginMessage.Visible = true;
+        }
+
+        private void UpdateSelectedTime()
+        {
+            _selectedTime = new TimeSpan(0, 10, 0);
+        }
+
+        private void DisableInputFields()
+        {
+            DisableUsernameText();
+
+            DisablePasswordText();
+        }
+
+        private void SetInputFieldsBordersColor()
+        {
+            ColoringPanel(pnlLineForPassword, Color.White);
+
+            ColoringPanel(pnlLineForUsername, Color.White);
+        }
+
+        private void ResetTimer()
+        {
+            VisibleTrialTimerLabel();
+
+            UpdateSelectedTime();
+
+            StartTrialTimer();
         }
 
         private void HandleLockout()
         {
-            lblLoginMessage.Visible = false;
+            UnvisibleLoginMessageLabel();
 
             ShowLockoutMessage();
 
-            DisableUsernameText();
-            DisablePasswordText();
+            DisableInputFields();
 
-            ColoringPanel(pnlLineForPassword, Color.White);
-            ColoringPanel(pnlLineForUsername, Color.White);
+            SetInputFieldsBordersColor();
 
-            VisibleTrialTimerLabel();
-
-            _selectedTime = new TimeSpan(0, 10, 0);
-
-            TrialTimer.Start();
+            ResetTimer();
         }
 
         private void ShowLoginMessage()
@@ -233,7 +310,7 @@ namespace BankSystem
 
             lblLoginMessage.Text = _loginMessage;
 
-            lblLoginMessage.Visible = true;
+            VisibleLoginMessageLabel();
         }
 
         private void HandleFailedLogin()
@@ -245,8 +322,6 @@ namespace BankSystem
                 _trialCounter = 3;
 
                 HandleLockout();
-
-                
 
                 return;
             }
@@ -267,8 +342,36 @@ namespace BankSystem
             }
         }
 
+        private bool ValidateControlText(TextBox Control, string messageValue)
+        {
+            if (string.IsNullOrWhiteSpace(Control.Text))
+            {
+                errorProvider1.SetError(Control, messageValue);
+
+                return false;
+            }
+
+            errorProvider1.SetError(Control, "");
+
+            return true;
+        }
+
+        private bool IsValidInputFields()
+        {
+            if (!ValidateControlText(txtUsername, "The username should not be empty"))
+                return false;
+
+            else if (!ValidateControlText(txtPassword, "The password should not be empty"))
+                return false;
+            
+            return true;
+        }
+
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            if (!IsValidInputFields())
+                return;
+
             HandleLogin();       
         }
 
@@ -277,9 +380,5 @@ namespace BankSystem
             StartTimer();
         }
 
-        private void txtUsername_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
