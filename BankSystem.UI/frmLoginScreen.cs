@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using BankSystemBusinessLayer;
 using ClassLibraryForChildForm;
 using Guna.UI2.WinForms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace BankSystem
 {
@@ -28,37 +29,65 @@ namespace BankSystem
 
         StringBuilder _formattedSelectedTime = new StringBuilder();
 
-        private void StartTimer()
+
+        private void GetFormattedTime(TimeSpan time)
+        {
+            _formattedSelectedTime.AppendFormat("{0:0}:{1:00}", time.Minutes, time.Seconds);
+        }
+
+        private void ClearFormattedTime()
+        {
+            _formattedSelectedTime.Clear();
+        }
+
+        private void DecrementSelectedTime()
         {
             TimeSpan oneSecond = new TimeSpan(0, 0, 1);
 
             _selectedTime -= oneSecond;
+        }
 
-            _formattedSelectedTime.AppendFormat("{0:0}:{1:00}", _selectedTime.Minutes, _selectedTime.Seconds);
-
+        private void SetFormattedTimeInLabel()
+        {
             lblTrialTimer.Text = _formattedSelectedTime.ToString();
+        }
 
-            _formattedSelectedTime.Clear();
+        private void UpdateTime(TimeSpan time)
+        {
+            GetFormattedTime(time);
 
+            SetFormattedTimeInLabel();
 
-            if (_selectedTime <= TimeSpan.Zero)
+            ClearFormattedTime();
+        }
+
+        private void HandleTrialTimeUp(TimeSpan zero)
+        {
+            UpdateTime(zero);
+
+            TrialTimer.Stop();
+
+            string notificationText = "Time's up .. you can try now";
+
+            MessageBox.Show(notificationText, "Notification");
+
+            UnvisibleTrialTimerLabel();
+
+            EnableUsernameText();
+
+            EnablePasswordText();
+        }
+        private void StartTimer()
+        {
+            DecrementSelectedTime();
+
+            UpdateTime(_selectedTime);
+
+            TimeSpan zero = TimeSpan.Zero;
+
+            if (_selectedTime <= zero)
             {
-                TimeSpan zero = TimeSpan.Zero;
-
-                _formattedSelectedTime.AppendFormat("{0:0}:{1:00}", zero.Minutes, zero.Seconds);
-
-                lblTrialTimer.Text = _formattedSelectedTime.ToString();
-
-                _formattedSelectedTime.Clear();
-
-                TrialTimer.Stop();
-
-
-                MessageBox.Show("Time's up .. you can try now", "Notification");
-
-                UnvisibleTrialTimerLabel();
-                EnableUsernameText();
-                EnablePasswordText();
+                HandleTrialTimeUp(zero);
             }
         }
 
@@ -107,23 +136,38 @@ namespace BankSystem
             ColoringPasswordAndUsernamePanel();
         }
 
-        private void TogglePasswordVisibility()
+        private void ShowPassword()
         {
-            Image _hidePassword = Properties.Resources.HideEye;
             Image _showPassword = Properties.Resources.visible;
 
+            pbPasswordIcon.Image = _showPassword;
+
+            txtPassword.PasswordChar = '\0';
+
+            _isShowPassword = true;
+        }
+
+        private void HidePassword()
+        {
+            Image _hidePassword = Properties.Resources.HideEye;
+
+            pbPasswordIcon.Image = _hidePassword;
+
+            txtPassword.PasswordChar = '*';
+
+            _isShowPassword = false;
+
+        }
+        private void TogglePasswordVisibility()
+        {
             if (!_isShowPassword)
             {
-                pbPasswordIcon.Image = _showPassword;
-                txtPassword.PasswordChar = '\0';
-                _isShowPassword = true;
+                ShowPassword();
             }
 
             else
             {
-                pbPasswordIcon.Image = _hidePassword;
-                txtPassword.PasswordChar = '*';
-                _isShowPassword = false;
+                HidePassword();          
             }
         }
 
@@ -157,13 +201,18 @@ namespace BankSystem
             txtPassword.Enabled = false;
         }
 
+        private void ShowLockoutMessage()
+        {
+            string LockoutMessage = "Locked after" + _trialCounter.ToString() + " failed trials, You can try after 10 seconds";
+
+            MessageBox.Show(LockoutMessage);
+        }
+
         private void HandleLockout()
         {
             lblLoginMessage.Visible = false;
 
-            string LockoutMessage = "Locked after 3 failed trials, You can try after 10 seconds";
-
-            MessageBox.Show(LockoutMessage);
+            ShowLockoutMessage();
 
             DisableUsernameText();
             DisablePasswordText();
@@ -183,6 +232,7 @@ namespace BankSystem
             string _loginMessage = "Invalid username or password\r\nYou have " + _trialCounter + " trials to login\r\n\r\n";
 
             lblLoginMessage.Text = _loginMessage;
+
             lblLoginMessage.Visible = true;
         }
 
@@ -192,10 +242,11 @@ namespace BankSystem
 
             if (_trialCounter == 0)
             {
-                HandleLockout();
-
                 _trialCounter = 3;
 
+                HandleLockout();
+
+                
 
                 return;
             }
