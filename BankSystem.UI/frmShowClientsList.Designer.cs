@@ -28,21 +28,49 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.dgvAllClients = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAllClients)).BeginInit();
             this.SuspendLayout();
+            // 
+            // dgvAllClients
+            // 
+            this.dgvAllClients.BackgroundColor = System.Drawing.Color.DeepPink;
+            this.dgvAllClients.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAllClients.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvAllClients.Location = new System.Drawing.Point(0, 0);
+            this.dgvAllClients.Name = "dgvAllClients";
+            this.dgvAllClients.RowHeadersWidth = 51;
+            this.dgvAllClients.RowTemplate.Height = 26;
+            this.dgvAllClients.Size = new System.Drawing.Size(1073, 482);
+            this.dgvAllClients.TabIndex = 0;
             // 
             // frmShowClientsList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1016, 830);
+            this.BackColor = System.Drawing.Color.DeepPink;
+            this.ClientSize = new System.Drawing.Size(1073, 830);
+            this.Controls.Add(this.dgvAllClients);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmShowClientsList";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmShowClientsList";
+            this.Load += new System.EventHandler(this.frmShowClientsList_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAllClients)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.DataGridView dgvAllClients;
     }
 }

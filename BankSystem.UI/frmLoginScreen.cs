@@ -23,8 +23,6 @@ namespace BankSystem
             InitializeComponent();
         }
 
-        Users _user = new Users();
-
         byte _waitDurationPerSeconds = 10;
 
         bool _isShowPassword = false;    
@@ -245,9 +243,9 @@ namespace BankSystem
 
         private bool ISValidUsernameAndPassword()
         {
-            _user = Users.Find(txtUsername.Text, txtPassword.Text);
+            Users user = Users.Find(txtUsername.Text, txtPassword.Text);
 
-            return (_user != null);
+            return (user != null);
         }
 
         private void OpenMainForm()
@@ -335,6 +333,7 @@ namespace BankSystem
         {
             btnLogin.Enabled = false;
         }
+
         private void HandleLockout()
         {
             UnvisibleLoginMessageLabel();
@@ -377,15 +376,24 @@ namespace BankSystem
 
         private void HandleLogin()
         {
-            if (ISValidUsernameAndPassword())
+            try
             {
-                OpenMainForm();
+                if (ISValidUsernameAndPassword())
+                {
+                    OpenMainForm();
+                }
+
+                else
+                {
+                    HandleFailedLogin();
+                }
             }
 
-            else
+            catch(Exception ex)
             {
-                HandleFailedLogin();
+                MessageBox.Show("An error occurred during the login process: " + ex.Message);
             }
+            
         }
        
         private bool ValidateControlText(TextBox control, string messageValue)
@@ -445,7 +453,16 @@ namespace BankSystem
 
         private void TrialTimer_Tick(object sender, EventArgs e)
         {
-            StartTimer();
+            try
+            {
+                StartTimer();
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while updating the timer: " + ex.Message);
+            }
+            
         }
 
     }

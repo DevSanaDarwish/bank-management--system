@@ -24,6 +24,7 @@ namespace BankSystem
             button.BackColor = Color.Transparent;
         }
 
+
         public void ResetButtonsColor()
         {
             ResetOneButtonColor(btnShowClientsList);
@@ -61,17 +62,21 @@ namespace BankSystem
 
         private void frmMainMenu_Load(object sender, EventArgs e)
         {
-
+            ChildFormManager.OpenChildForm(new frmHome(), pnlContent);
         }
 
         private void HandleButtonClick(Guna2Button button, Color color, Form form)
         {
             SetValueInLabelTitle(button.Text);
+
             ResetButtonsColor();
+
             ColoringButton(button, color);
 
             ChildFormManager.OpenChildForm(form, pnlContent);
         }
+
+
 
         private void btnShowClientsList_Click(object sender, EventArgs e)
         {
@@ -172,9 +177,43 @@ namespace BankSystem
             HandleButtonClick(btnLoginRegisters, Color.DarkMagenta, new frmLoginRegisters());
         }
 
+        private void Logout()
+        {
+            try
+            {
+                frmLoginScreen loginScreen = new frmLoginScreen();
+
+                loginScreen.Show();
+
+                this.Hide();
+            }
+
+            catch(Exception ex)
+            {
+                MessageBox.Show("An error occurred while logging out: " + ex.Message);
+            }
+            
+        }
+
         private void btnLogout_Click(object sender, EventArgs e)
         {
             HandleButtonClick(btnLogout, Color.DarkMagenta, new frmLogout());
+
+            var result = MessageBox.Show("Are you sure you want to logout?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+                Logout();
+        }
+
+        private void pbLogo_Click(object sender, EventArgs e)
+        {
+            ResetButtonsColor();
+
+            lblTitle.Text = "HOME";
+
+            pnlTitle.BackColor = Color.FromArgb(51, 51, 76);
+
+            ChildFormManager.OpenChildForm(new frmHome(), pnlContent);
         }
     }
 }

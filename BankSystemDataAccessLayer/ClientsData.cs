@@ -2,22 +2,21 @@
 using System.Data;
 using System.Data.SqlClient;
 
+
 namespace BankSystemDataAccessLayer
 {
-    public class UsersData
+    public class ClientsData
     {
-        public static bool GetUsernameAndPassword(string username, string password)
+        public static DataTable GetAllClients()
         {
-            bool isFound = false;
+            DataTable dtClients = new DataTable();
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
 
-            string query = "Select Username, Password From Users Where Username = @username And Password = @password";
+            string query = "SELECT Clients.ClientID, Persons.FirstName, Persons.LastName, Persons.Email, Clients.PinCode, Clients.Balance," +
+                " Clients.AccountNumber FROM Clients INNER JOIN Persons ON Clients.PersonID = Persons.PersonID";
 
             SqlCommand command = new SqlCommand(query, connection);
-
-            command.Parameters.AddWithValue("@username", username);
-            command.Parameters.AddWithValue("@password", password);
 
             try
             {
@@ -25,19 +24,16 @@ namespace BankSystemDataAccessLayer
 
                 SqlDataReader reader = command.ExecuteReader();
 
-                if (reader.Read())
-                    isFound = true;
-
-                else
-                    isFound = false;
+                if(reader.HasRows)
+                {
+                    dtClients.Load(reader);
+                }
 
                 reader.Close();
             }
 
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                isFound = false;
-
                 Console.WriteLine("Error: " + ex.Message);
             }
 
@@ -46,9 +42,8 @@ namespace BankSystemDataAccessLayer
                 connection.Close();
             }
 
-            return isFound;
-        }
+            return dtClients;
 
-      
+        }
     }
 }
