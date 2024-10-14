@@ -13,7 +13,7 @@ namespace BankSystemBusinessLayer
         public string pinCode { get; set; }
         public decimal balance { get; set; }
         public string accountNumber { get; set; }
-
+        public int personID { get; set; }
 
         public Clients()
         {
@@ -21,16 +21,18 @@ namespace BankSystemBusinessLayer
             this.pinCode = "";
             this.balance = 0;
             this.accountNumber = "";
+            this.personID = -1;
 
             mode = enMode.AddNew;
         }
 
-        public Clients(int clientID, string pinCode, decimal balance, string accountNumber)
+        public Clients(int clientID, string pinCode, decimal balance, string accountNumber, int personID)
         {
             this.clientID = clientID;
             this.pinCode = pinCode;
             this.balance = balance;
             this.accountNumber = accountNumber;
+            this.personID = personID;
 
             mode = enMode.Update;
         }

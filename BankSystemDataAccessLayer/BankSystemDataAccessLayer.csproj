@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="ClientsData.cs" />
     <Compile Include="PersonsData.cs" />
+    <Compile Include="PhonesData.cs" />
     <Compile Include="UsersData.cs" />
     <Compile Include="DataAccessSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

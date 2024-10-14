@@ -35,7 +35,7 @@
             // 
             // dgvAllClients
             // 
-            this.dgvAllClients.BackgroundColor = System.Drawing.Color.DeepPink;
+            this.dgvAllClients.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvAllClients.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
@@ -45,19 +45,21 @@
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvAllClients.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvAllClients.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvAllClients.GridColor = System.Drawing.Color.DeepPink;
             this.dgvAllClients.Location = new System.Drawing.Point(0, 0);
             this.dgvAllClients.Name = "dgvAllClients";
             this.dgvAllClients.RowHeadersWidth = 51;
             this.dgvAllClients.RowTemplate.Height = 26;
-            this.dgvAllClients.Size = new System.Drawing.Size(1073, 482);
+            this.dgvAllClients.Size = new System.Drawing.Size(1213, 830);
             this.dgvAllClients.TabIndex = 0;
             // 
             // frmShowClientsList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.DeepPink;
-            this.ClientSize = new System.Drawing.Size(1073, 830);
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(1213, 830);
             this.Controls.Add(this.dgvAllClients);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmShowClientsList";

@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Clients.cs" />
     <Compile Include="Persons.cs" />
+    <Compile Include="Phones.cs" />
     <Compile Include="Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

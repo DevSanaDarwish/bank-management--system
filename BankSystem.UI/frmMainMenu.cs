@@ -14,9 +14,25 @@ namespace BankSystem
 {
     public partial class frmMainMenu : Form
     {
+        private string _username { get; set; }
+
         public frmMainMenu()
         {
             InitializeComponent();
+        }
+
+        public frmMainMenu(string username)
+        {
+            InitializeComponent();
+
+            this._username = username;
+
+            SetUsernameInLabel();
+        }
+
+        private void SetUsernameInLabel()
+        {
+            lblUsername.Text = _username;
         }
 
         private void ResetOneButtonColor(Guna2Button button)

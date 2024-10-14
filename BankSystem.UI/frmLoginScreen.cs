@@ -31,7 +31,7 @@ namespace BankSystem
 
         StringBuilder _formattedSelectedTime = new StringBuilder();
 
-
+        string _username { get; set; }
         private void ShowMessage(string message, string title)
         {
             MessageBox.Show(message, title);
@@ -257,12 +257,19 @@ namespace BankSystem
         {
             Users user = Users.Find(txtUsername.Text, txtPassword.Text);
 
-            return (user != null);
+            if(user != null)
+            {
+                _username = txtUsername.Text;
+
+                return true;
+            }
+
+            return false;
         }
 
         private void OpenMainForm()
         {
-            frmMainMenu mainMenu = new frmMainMenu();
+            frmMainMenu mainMenu = new frmMainMenu(_username);
             mainMenu.Show();
 
             this.Hide();

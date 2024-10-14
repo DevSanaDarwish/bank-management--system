@@ -30,51 +30,39 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHome));
-            this.panel1 = new System.Windows.Forms.Panel();
             this.lblDate = new System.Windows.Forms.Label();
             this.lblTimeNow = new System.Windows.Forms.Label();
             this.pbLogo = new System.Windows.Forms.PictureBox();
             this.TimeNow = new System.Windows.Forms.Timer(this.components);
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.SuspendLayout();
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.panel1.Controls.Add(this.lblDate);
-            this.panel1.Controls.Add(this.lblTimeNow);
-            this.panel1.Controls.Add(this.pbLogo);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1073, 830);
-            this.panel1.TabIndex = 0;
             // 
             // lblDate
             // 
             this.lblDate.AutoSize = true;
             this.lblDate.Font = new System.Drawing.Font("Franklin Gothic Medium Cond", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDate.ForeColor = System.Drawing.Color.White;
-            this.lblDate.Location = new System.Drawing.Point(313, 602);
+            this.lblDate.Location = new System.Drawing.Point(425, 627);
             this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(0, 47);
+            this.lblDate.Size = new System.Drawing.Size(96, 47);
             this.lblDate.TabIndex = 3;
+            this.lblDate.Text = "Hello";
             // 
             // lblTimeNow
             // 
             this.lblTimeNow.AutoSize = true;
             this.lblTimeNow.Font = new System.Drawing.Font("Franklin Gothic Medium Cond", 55.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTimeNow.ForeColor = System.Drawing.Color.White;
-            this.lblTimeNow.Location = new System.Drawing.Point(270, 484);
+            this.lblTimeNow.Location = new System.Drawing.Point(378, 500);
             this.lblTimeNow.Name = "lblTimeNow";
-            this.lblTimeNow.Size = new System.Drawing.Size(0, 118);
+            this.lblTimeNow.Size = new System.Drawing.Size(227, 118);
             this.lblTimeNow.TabIndex = 2;
+            this.lblTimeNow.Text = "Hello";
             // 
             // pbLogo
             // 
             this.pbLogo.Image = ((System.Drawing.Image)(resources.GetObject("pbLogo.Image")));
-            this.pbLogo.Location = new System.Drawing.Point(259, 91);
+            this.pbLogo.Location = new System.Drawing.Point(360, 108);
             this.pbLogo.Name = "pbLogo";
             this.pbLogo.Size = new System.Drawing.Size(538, 374);
             this.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -90,22 +78,22 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1073, 830);
-            this.Controls.Add(this.panel1);
+            this.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.ClientSize = new System.Drawing.Size(1213, 830);
+            this.Controls.Add(this.lblDate);
+            this.Controls.Add(this.lblTimeNow);
+            this.Controls.Add(this.pbLogo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmHome";
             this.Text = "frmHome";
             this.Load += new System.EventHandler(this.frmHome_Load);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pbLogo;
         private System.Windows.Forms.Label lblTimeNow;
         private System.Windows.Forms.Label lblDate;

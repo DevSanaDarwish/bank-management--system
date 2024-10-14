@@ -103,6 +103,8 @@ namespace BankSystem
 
         private void frmHome_Load(object sender, EventArgs e)
         {
+            UpdateTime();
+
             StartTrialTimer();
 
             UpdateDate();
