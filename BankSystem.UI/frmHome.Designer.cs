@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHome));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblDate = new System.Windows.Forms.Label();
+            this.lblTimeNow = new System.Windows.Forms.Label();
             this.pbLogo = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.TimeNow = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.SuspendLayout();
@@ -40,14 +42,34 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.lblDate);
+            this.panel1.Controls.Add(this.lblTimeNow);
             this.panel1.Controls.Add(this.pbLogo);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1073, 830);
             this.panel1.TabIndex = 0;
+            // 
+            // lblDate
+            // 
+            this.lblDate.AutoSize = true;
+            this.lblDate.Font = new System.Drawing.Font("Franklin Gothic Medium Cond", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDate.ForeColor = System.Drawing.Color.White;
+            this.lblDate.Location = new System.Drawing.Point(313, 602);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(0, 47);
+            this.lblDate.TabIndex = 3;
+            // 
+            // lblTimeNow
+            // 
+            this.lblTimeNow.AutoSize = true;
+            this.lblTimeNow.Font = new System.Drawing.Font("Franklin Gothic Medium Cond", 55.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTimeNow.ForeColor = System.Drawing.Color.White;
+            this.lblTimeNow.Location = new System.Drawing.Point(270, 484);
+            this.lblTimeNow.Name = "lblTimeNow";
+            this.lblTimeNow.Size = new System.Drawing.Size(0, 118);
+            this.lblTimeNow.TabIndex = 2;
             // 
             // pbLogo
             // 
@@ -59,27 +81,10 @@
             this.pbLogo.TabIndex = 1;
             this.pbLogo.TabStop = false;
             // 
-            // label1
+            // TimeNow
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Franklin Gothic Medium Cond", 55.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(333, 473);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(382, 118);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "01:13:33";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Franklin Gothic Medium Cond", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(313, 602);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(413, 47);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Monday, October 14, 2024";
+            this.TimeNow.Interval = 1000;
+            this.TimeNow.Tick += new System.EventHandler(this.TimeNow_Tick);
             // 
             // frmHome
             // 
@@ -90,6 +95,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmHome";
             this.Text = "frmHome";
+            this.Load += new System.EventHandler(this.frmHome_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
@@ -101,7 +107,8 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pbLogo;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblTimeNow;
+        private System.Windows.Forms.Label lblDate;
+        private System.Windows.Forms.Timer TimeNow;
     }
 }

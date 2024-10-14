@@ -273,7 +273,7 @@
             // 
             // TrialTimer
             // 
-            this.TrialTimer.Interval = 5;
+            this.TrialTimer.Interval = 1000;
             this.TrialTimer.Tick += new System.EventHandler(this.TrialTimer_Tick);
             // 
             // errorProvider1

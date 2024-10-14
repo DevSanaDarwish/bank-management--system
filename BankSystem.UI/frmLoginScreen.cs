@@ -27,7 +27,7 @@ namespace BankSystem
 
         bool _isShowPassword = false;    
 
-        TimeSpan _selectedTime = new TimeSpan(0, 10, 0);
+        TimeSpan _selectedTime = new TimeSpan(0, 0, 10);
 
         StringBuilder _formattedSelectedTime = new StringBuilder();
 
@@ -39,7 +39,9 @@ namespace BankSystem
 
         private void GetFormattedTime(TimeSpan time)
         {
-            _formattedSelectedTime.AppendFormat("{0:0}:{1:00}", time.Minutes, time.Seconds);
+            int remainingSeconds = (int)time.TotalSeconds;
+
+            _formattedSelectedTime.AppendFormat("{0:D2}:00", remainingSeconds);
         }
 
         private void ClearFormattedTime()
@@ -47,7 +49,7 @@ namespace BankSystem
             _formattedSelectedTime.Clear();
         }
 
-        private void DecrementSelectedTime()
+        private void DecrementSelectedTimeOneSecond()
         {
             TimeSpan oneSecond = new TimeSpan(0, 0, 1);
 
@@ -124,11 +126,21 @@ namespace BankSystem
 
         private void StartTimer()
         {
-            DecrementSelectedTime();
+            DecrementSelectedTimeOneSecond();
 
-            UpdateTime(_selectedTime);
+            if (_selectedTime.TotalSeconds >= 0)
+            {
+                UpdateTime(_selectedTime);
 
-            CheckTrialTimeIsUp();
+                CheckTrialTimeIsUp();
+            }
+
+            else
+            {
+                StopTrialTimer();
+            }
+
+           
         }
 
         private void VisibleTrialTimerLabel()
@@ -277,7 +289,7 @@ namespace BankSystem
 
         private void UpdateSelectedTime()
         {
-            _selectedTime = new TimeSpan(0, 10, 0);
+            _selectedTime = new TimeSpan(0, 0, 10);
         }
 
         private void DisableInputFields()
@@ -460,7 +472,9 @@ namespace BankSystem
 
             catch (Exception ex)
             {
-                MessageBox.Show("An error occurred while updating the timer: " + ex.Message);
+                StopTrialTimer();
+
+                MessageBox.Show("An error occurred while updating the timer: " + ex.Message);           
             }
             
         }
