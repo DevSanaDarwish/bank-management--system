@@ -16,5 +16,10 @@ namespace BankSystem
         {
             InitializeComponent();
         }
+
+        private void frmAddNewClient_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

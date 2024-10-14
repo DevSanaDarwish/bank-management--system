@@ -42,7 +42,7 @@
             this.lblDate.AutoSize = true;
             this.lblDate.Font = new System.Drawing.Font("Franklin Gothic Medium Cond", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDate.ForeColor = System.Drawing.Color.White;
-            this.lblDate.Location = new System.Drawing.Point(425, 627);
+            this.lblDate.Location = new System.Drawing.Point(497, 628);
             this.lblDate.Name = "lblDate";
             this.lblDate.Size = new System.Drawing.Size(96, 47);
             this.lblDate.TabIndex = 3;
@@ -53,7 +53,7 @@
             this.lblTimeNow.AutoSize = true;
             this.lblTimeNow.Font = new System.Drawing.Font("Franklin Gothic Medium Cond", 55.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTimeNow.ForeColor = System.Drawing.Color.White;
-            this.lblTimeNow.Location = new System.Drawing.Point(378, 500);
+            this.lblTimeNow.Location = new System.Drawing.Point(450, 501);
             this.lblTimeNow.Name = "lblTimeNow";
             this.lblTimeNow.Size = new System.Drawing.Size(227, 118);
             this.lblTimeNow.TabIndex = 2;
@@ -62,7 +62,7 @@
             // pbLogo
             // 
             this.pbLogo.Image = ((System.Drawing.Image)(resources.GetObject("pbLogo.Image")));
-            this.pbLogo.Location = new System.Drawing.Point(360, 108);
+            this.pbLogo.Location = new System.Drawing.Point(432, 109);
             this.pbLogo.Name = "pbLogo";
             this.pbLogo.Size = new System.Drawing.Size(538, 374);
             this.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -79,7 +79,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.ClientSize = new System.Drawing.Size(1213, 830);
+            this.ClientSize = new System.Drawing.Size(1379, 830);
             this.Controls.Add(this.lblDate);
             this.Controls.Add(this.lblTimeNow);
             this.Controls.Add(this.pbLogo);

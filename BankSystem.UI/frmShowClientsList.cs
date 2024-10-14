@@ -24,6 +24,29 @@ namespace BankSystem
             dgvAllClients.DataSource = Clients.GetAllClients();
         }
 
+        private void EditColumnsNames()
+        {
+            dgvAllClients.Columns["FirstName"].HeaderText = "First Name";
+            dgvAllClients.Columns["LastName"].HeaderText = "Last Name";
+            dgvAllClients.Columns["Email"].HeaderText = "Email";
+            dgvAllClients.Columns["PinCode"].HeaderText = "PIN Code";
+            dgvAllClients.Columns["Balance"].HeaderText = "Balance";
+            dgvAllClients.Columns["AccountNumber"].HeaderText = "Account Number";
+            dgvAllClients.Columns["PhoneNumbers"].HeaderText = "Phone Number";
+        }
+
+        private void EditColumnsWidth()
+        {
+            dgvAllClients.Columns[0].Width = 110;
+            dgvAllClients.Columns[1].Width = 140;
+            dgvAllClients.Columns[2].Width = 140;
+            dgvAllClients.Columns[3].Width = 160;
+            dgvAllClients.Columns[4].Width = 130;
+            dgvAllClients.Columns[5].Width = 140;
+            dgvAllClients.Columns[6].Width = 191;
+            dgvAllClients.Columns[7].Width = 310;
+        }
+
         private void ConfigureDataGridView()
         {
             dgvAllClients.AllowUserToAddRows = false;
@@ -34,22 +57,9 @@ namespace BankSystem
             dgvAllClients.ColumnHeadersHeight = 300;
             dgvAllClients.DefaultCellStyle.Font = new Font("Arial", 11);
 
-            dgvAllClients.Columns["FirstName"].HeaderText = "First Name";
-            dgvAllClients.Columns["LastName"].HeaderText = "Last Name";
-            dgvAllClients.Columns["Email"].HeaderText = "Email";
-            dgvAllClients.Columns["PinCode"].HeaderText = "PIN Code";
-            dgvAllClients.Columns["Balance"].HeaderText = "Balance";
-            dgvAllClients.Columns["AccountNumber"].HeaderText = "Account Number";
-            dgvAllClients.Columns["PhoneNumbers"].HeaderText = "Phone Number";
+            EditColumnsNames();
 
-            dgvAllClients.Columns[0].Width = 110;
-            dgvAllClients.Columns[1].Width = 140;
-            dgvAllClients.Columns[2].Width = 140;
-            dgvAllClients.Columns[3].Width = 160;
-            dgvAllClients.Columns[4].Width = 130;
-            dgvAllClients.Columns[5].Width = 140;
-            dgvAllClients.Columns[6].Width = 191;
-            dgvAllClients.Columns[7].Width = 180;
+            EditColumnsWidth();
 
             dgvAllClients.ClearSelection();
         }
