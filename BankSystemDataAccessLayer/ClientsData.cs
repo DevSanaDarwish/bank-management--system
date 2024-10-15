@@ -47,5 +47,47 @@ namespace BankSystemDataAccessLayer
             return dtClients;
 
         }
+
+        public static int AddNewClient(string pinCode, decimal balance, string accountNumber, int personID)
+        {
+            int clientID = -1;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = @"INSERT INTO Clients (PinCode, Balance, AccountNumber, PersonID)
+                             VALUES (@pinCode, @balance, @accountNumber, @personID)
+                             SELECT SCOPE_IDENTITY();";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@pinCode", pinCode);
+            command.Parameters.AddWithValue("@balance", balance);
+            command.Parameters.AddWithValue("@accountNumber", accountNumber);
+            command.Parameters.AddWithValue("@personID", personID);
+
+            try
+            {
+                connection.Open();
+
+                object result = command.ExecuteScalar();
+
+                if (result != null && int.TryParse(result.ToString(), out int insertedID))
+                {
+                    clientID = insertedID;
+                }
+            }
+
+            catch(Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return clientID;
+        }
     }
 }

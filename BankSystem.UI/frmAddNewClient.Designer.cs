@@ -227,7 +227,7 @@
             this.cbPhones.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbPhones.ForeColor = System.Drawing.Color.DeepSkyBlue;
             this.cbPhones.FormattingEnabled = true;
-            this.cbPhones.Location = new System.Drawing.Point(39, 668);
+            this.cbPhones.Location = new System.Drawing.Point(39, 704);
             this.cbPhones.Name = "cbPhones";
             this.cbPhones.Size = new System.Drawing.Size(291, 36);
             this.cbPhones.TabIndex = 16;
@@ -236,7 +236,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(34, 627);
+            this.label7.Location = new System.Drawing.Point(34, 663);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(223, 28);
             this.label7.TabIndex = 17;
@@ -251,11 +251,11 @@
             this.btnAddPhone.FillColor = System.Drawing.Color.DeepSkyBlue;
             this.btnAddPhone.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddPhone.ForeColor = System.Drawing.Color.White;
-            this.btnAddPhone.Location = new System.Drawing.Point(556, 538);
+            this.btnAddPhone.Location = new System.Drawing.Point(99, 590);
             this.btnAddPhone.Name = "btnAddPhone";
-            this.btnAddPhone.Size = new System.Drawing.Size(142, 38);
+            this.btnAddPhone.Size = new System.Drawing.Size(376, 41);
             this.btnAddPhone.TabIndex = 18;
-            this.btnAddPhone.Text = "Add Phone";
+            this.btnAddPhone.Text = "Add The Phone Number To The List";
             this.btnAddPhone.Click += new System.EventHandler(this.btnAddPhone_Click);
             // 
             // errorProvider1

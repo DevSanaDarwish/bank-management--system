@@ -18,13 +18,13 @@ namespace BankSystem
             InitializeComponent();
         }
 
-        bool _isTextBoxesValid = false;
+        bool _isValidTextBoxes = false;
 
         private void btnAddNewClient_Click(object sender, EventArgs e)
         {
-            IsValidInputFields();
+            InputFieldsValidation();
 
-            if (_isTextBoxesValid)
+            if (_isValidTextBoxes)
                 AddNewClient();
         }
 
@@ -54,37 +54,42 @@ namespace BankSystem
             if (!IsControlTextNull(txtPhone))
             {
                 cbPhones.Items.Add(phoneNumber);
+
+                SetError(txtPhone, "");
             }
 
             else
             {
-                errorProvider1.SetError(txtPhone, messageValue);
+                SetError(txtPhone, messageValue);
             }
         }
 
-        private void IsValidInputFields()
+        private void SetError(TextBox control, string messageValue, bool isValid = false)
+        {
+            errorProvider1.SetError(control, messageValue);
+
+            _isValidTextBoxes = isValid;
+        }
+
+        private void InputFieldsValidation()
         {
             string messageValue = "This field should not be empty";
-           
+        
             foreach (System.Windows.Forms.Control control in this.Controls)
             {
                 if(control is TextBox textbox)
                 {
                     if (textbox == txtEmail)
                         continue;
-
+                    
                     if (IsControlTextNull(textbox))
-                    {                    
-                        errorProvider1.SetError(control, messageValue);
-
-                        _isTextBoxesValid = false;
+                    {
+                        SetError(textbox, messageValue, false);
                     }
 
                     else
                     {
-                        errorProvider1.SetError(control, "");
-
-                        _isTextBoxesValid = false;
+                        SetError(textbox, "", true);
                     }
                 }    
             }
