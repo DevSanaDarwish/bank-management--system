@@ -16,5 +16,25 @@ namespace BankSystem
         {
             InitializeComponent();
         }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label14_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frmUpdateClient_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

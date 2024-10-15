@@ -51,7 +51,7 @@
             this.dgvAllClients.Name = "dgvAllClients";
             this.dgvAllClients.RowHeadersWidth = 51;
             this.dgvAllClients.RowTemplate.Height = 26;
-            this.dgvAllClients.Size = new System.Drawing.Size(1213, 830);
+            this.dgvAllClients.Size = new System.Drawing.Size(1379, 830);
             this.dgvAllClients.TabIndex = 0;
             // 
             // frmShowClientsList
@@ -59,7 +59,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1213, 830);
+            this.ClientSize = new System.Drawing.Size(1379, 830);
             this.Controls.Add(this.dgvAllClients);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmShowClientsList";

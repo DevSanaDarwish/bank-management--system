@@ -110,6 +110,7 @@
             // 
             // btnLoginRegisters
             // 
+            this.btnLoginRegisters.BackColor = System.Drawing.Color.Transparent;
             this.btnLoginRegisters.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnLoginRegisters.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnLoginRegisters.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -131,7 +132,7 @@
             // 
             // pnlUsers
             // 
-            this.pnlUsers.BackColor = System.Drawing.Color.Gray;
+            this.pnlUsers.BackColor = System.Drawing.Color.White;
             this.pnlUsers.Controls.Add(this.btnFindUser);
             this.pnlUsers.Controls.Add(this.btnUpdateUser);
             this.pnlUsers.Controls.Add(this.btnDeleteUser);
@@ -146,8 +147,9 @@
             // 
             // btnFindUser
             // 
-            this.btnFindUser.BackColor = System.Drawing.Color.Gray;
+            this.btnFindUser.BackColor = System.Drawing.Color.White;
             this.btnFindUser.BorderRadius = 1;
+            this.btnFindUser.BorderThickness = 1;
             this.btnFindUser.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnFindUser.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnFindUser.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -155,7 +157,7 @@
             this.btnFindUser.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnFindUser.FillColor = System.Drawing.Color.Transparent;
             this.btnFindUser.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFindUser.ForeColor = System.Drawing.Color.White;
+            this.btnFindUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             this.btnFindUser.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnFindUser.ImageSize = new System.Drawing.Size(30, 30);
             this.btnFindUser.Location = new System.Drawing.Point(0, 140);
@@ -169,8 +171,9 @@
             // 
             // btnUpdateUser
             // 
-            this.btnUpdateUser.BackColor = System.Drawing.Color.Gray;
+            this.btnUpdateUser.BackColor = System.Drawing.Color.White;
             this.btnUpdateUser.BorderRadius = 1;
+            this.btnUpdateUser.BorderThickness = 1;
             this.btnUpdateUser.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnUpdateUser.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnUpdateUser.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -178,7 +181,7 @@
             this.btnUpdateUser.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnUpdateUser.FillColor = System.Drawing.Color.Transparent;
             this.btnUpdateUser.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdateUser.ForeColor = System.Drawing.Color.White;
+            this.btnUpdateUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             this.btnUpdateUser.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnUpdateUser.ImageSize = new System.Drawing.Size(30, 30);
             this.btnUpdateUser.Location = new System.Drawing.Point(0, 105);
@@ -192,8 +195,9 @@
             // 
             // btnDeleteUser
             // 
-            this.btnDeleteUser.BackColor = System.Drawing.Color.Gray;
+            this.btnDeleteUser.BackColor = System.Drawing.Color.White;
             this.btnDeleteUser.BorderRadius = 1;
+            this.btnDeleteUser.BorderThickness = 1;
             this.btnDeleteUser.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnDeleteUser.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnDeleteUser.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -201,7 +205,7 @@
             this.btnDeleteUser.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnDeleteUser.FillColor = System.Drawing.Color.Transparent;
             this.btnDeleteUser.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteUser.ForeColor = System.Drawing.Color.White;
+            this.btnDeleteUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             this.btnDeleteUser.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnDeleteUser.ImageSize = new System.Drawing.Size(30, 30);
             this.btnDeleteUser.Location = new System.Drawing.Point(0, 70);
@@ -215,8 +219,9 @@
             // 
             // btnAddNewUser
             // 
-            this.btnAddNewUser.BackColor = System.Drawing.Color.Gray;
+            this.btnAddNewUser.BackColor = System.Drawing.Color.White;
             this.btnAddNewUser.BorderRadius = 1;
+            this.btnAddNewUser.BorderThickness = 1;
             this.btnAddNewUser.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnAddNewUser.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnAddNewUser.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -224,7 +229,7 @@
             this.btnAddNewUser.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnAddNewUser.FillColor = System.Drawing.Color.Transparent;
             this.btnAddNewUser.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddNewUser.ForeColor = System.Drawing.Color.White;
+            this.btnAddNewUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             this.btnAddNewUser.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnAddNewUser.ImageSize = new System.Drawing.Size(30, 30);
             this.btnAddNewUser.Location = new System.Drawing.Point(0, 35);
@@ -238,8 +243,9 @@
             // 
             // btnShowUsersList
             // 
-            this.btnShowUsersList.BackColor = System.Drawing.Color.Gray;
+            this.btnShowUsersList.BackColor = System.Drawing.Color.White;
             this.btnShowUsersList.BorderRadius = 1;
+            this.btnShowUsersList.BorderThickness = 1;
             this.btnShowUsersList.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnShowUsersList.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnShowUsersList.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -247,7 +253,7 @@
             this.btnShowUsersList.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnShowUsersList.FillColor = System.Drawing.Color.Transparent;
             this.btnShowUsersList.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnShowUsersList.ForeColor = System.Drawing.Color.White;
+            this.btnShowUsersList.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             this.btnShowUsersList.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnShowUsersList.ImageSize = new System.Drawing.Size(30, 30);
             this.btnShowUsersList.Location = new System.Drawing.Point(0, 0);
@@ -282,7 +288,7 @@
             // 
             // pnlTransactions
             // 
-            this.pnlTransactions.BackColor = System.Drawing.Color.Gray;
+            this.pnlTransactions.BackColor = System.Drawing.Color.White;
             this.pnlTransactions.Controls.Add(this.btnTransferLogsList);
             this.pnlTransactions.Controls.Add(this.btnTransfer);
             this.pnlTransactions.Controls.Add(this.btnTotalBalances);
@@ -297,8 +303,9 @@
             // 
             // btnTransferLogsList
             // 
-            this.btnTransferLogsList.BackColor = System.Drawing.Color.Gray;
+            this.btnTransferLogsList.BackColor = System.Drawing.Color.White;
             this.btnTransferLogsList.BorderRadius = 1;
+            this.btnTransferLogsList.BorderThickness = 1;
             this.btnTransferLogsList.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnTransferLogsList.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnTransferLogsList.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -306,7 +313,7 @@
             this.btnTransferLogsList.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnTransferLogsList.FillColor = System.Drawing.Color.Transparent;
             this.btnTransferLogsList.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTransferLogsList.ForeColor = System.Drawing.Color.White;
+            this.btnTransferLogsList.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             this.btnTransferLogsList.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnTransferLogsList.ImageSize = new System.Drawing.Size(30, 30);
             this.btnTransferLogsList.Location = new System.Drawing.Point(0, 140);
@@ -320,8 +327,9 @@
             // 
             // btnTransfer
             // 
-            this.btnTransfer.BackColor = System.Drawing.Color.Gray;
+            this.btnTransfer.BackColor = System.Drawing.Color.White;
             this.btnTransfer.BorderRadius = 1;
+            this.btnTransfer.BorderThickness = 1;
             this.btnTransfer.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnTransfer.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnTransfer.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -329,7 +337,7 @@
             this.btnTransfer.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnTransfer.FillColor = System.Drawing.Color.Transparent;
             this.btnTransfer.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTransfer.ForeColor = System.Drawing.Color.White;
+            this.btnTransfer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             this.btnTransfer.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnTransfer.ImageSize = new System.Drawing.Size(30, 30);
             this.btnTransfer.Location = new System.Drawing.Point(0, 105);
@@ -343,8 +351,9 @@
             // 
             // btnTotalBalances
             // 
-            this.btnTotalBalances.BackColor = System.Drawing.Color.Gray;
+            this.btnTotalBalances.BackColor = System.Drawing.Color.White;
             this.btnTotalBalances.BorderRadius = 1;
+            this.btnTotalBalances.BorderThickness = 1;
             this.btnTotalBalances.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnTotalBalances.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnTotalBalances.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -352,7 +361,7 @@
             this.btnTotalBalances.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnTotalBalances.FillColor = System.Drawing.Color.Transparent;
             this.btnTotalBalances.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTotalBalances.ForeColor = System.Drawing.Color.White;
+            this.btnTotalBalances.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             this.btnTotalBalances.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnTotalBalances.ImageSize = new System.Drawing.Size(30, 30);
             this.btnTotalBalances.Location = new System.Drawing.Point(0, 70);
@@ -366,8 +375,9 @@
             // 
             // btnWithdraw
             // 
-            this.btnWithdraw.BackColor = System.Drawing.Color.Gray;
+            this.btnWithdraw.BackColor = System.Drawing.Color.White;
             this.btnWithdraw.BorderRadius = 1;
+            this.btnWithdraw.BorderThickness = 1;
             this.btnWithdraw.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnWithdraw.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnWithdraw.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -375,7 +385,7 @@
             this.btnWithdraw.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnWithdraw.FillColor = System.Drawing.Color.Transparent;
             this.btnWithdraw.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnWithdraw.ForeColor = System.Drawing.Color.White;
+            this.btnWithdraw.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             this.btnWithdraw.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnWithdraw.ImageSize = new System.Drawing.Size(30, 30);
             this.btnWithdraw.Location = new System.Drawing.Point(0, 35);
@@ -389,8 +399,9 @@
             // 
             // btnDeposit
             // 
-            this.btnDeposit.BackColor = System.Drawing.Color.Gray;
+            this.btnDeposit.BackColor = System.Drawing.Color.White;
             this.btnDeposit.BorderRadius = 1;
+            this.btnDeposit.BorderThickness = 1;
             this.btnDeposit.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnDeposit.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnDeposit.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -398,7 +409,7 @@
             this.btnDeposit.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnDeposit.FillColor = System.Drawing.Color.Transparent;
             this.btnDeposit.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeposit.ForeColor = System.Drawing.Color.White;
+            this.btnDeposit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             this.btnDeposit.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnDeposit.ImageSize = new System.Drawing.Size(30, 30);
             this.btnDeposit.Location = new System.Drawing.Point(0, 0);

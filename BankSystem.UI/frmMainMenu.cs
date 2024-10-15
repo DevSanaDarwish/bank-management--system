@@ -190,7 +190,7 @@ namespace BankSystem
 
         private void btnLoginRegisters_Click(object sender, EventArgs e)
         {
-            HandleButtonClick(btnLoginRegisters, Color.DarkMagenta, new frmLoginRegisters());
+            HandleButtonClick(btnLoginRegisters, Color.SteelBlue, new frmLoginRegisters());
         }
 
         private void Logout()
