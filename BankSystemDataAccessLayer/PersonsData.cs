@@ -59,6 +59,7 @@ namespace BankSystemDataAccessLayer
             SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
 
             string query = "Select * From Persons Where FirstName = @firstName";
+            //string query = "SELECT \r\n    PersonID,\r\n    FirstName,\r\n    LastName,\r\n    CASE \r\n        WHEN email IS NULL THEN 'Unknown' \r\n        ELSE email \r\n    END AS Email\r\nFROM \r\n    Persons\r\nWHERE \r\n    FirstName = 'Amna';";
 
             SqlCommand command = new SqlCommand(query, connection);
 

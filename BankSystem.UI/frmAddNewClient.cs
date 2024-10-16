@@ -14,14 +14,6 @@ namespace BankSystem
 {
     public partial class frmAddNewClient : Form
     {
-        //public frmAddNewClient(int clientID)
-        //{
-        //    InitializeComponent();
-
-        //    _clientID = clientID;
-
-        //    SetMode();
-        //}
 
         public frmAddNewClient()
         {
@@ -29,27 +21,14 @@ namespace BankSystem
         }
 
 
-        public enum enMode { AddNew = 0, Update = 1};
-        private enMode _mode;
-
         bool _isValidTextBoxes = false;
 
-        int _clientID = -1;
+        Clients _client = new Clients();
 
-        Clients _client;
+        Persons _person = new Persons();
 
-        Persons _person;
+        Phones _phone = new Phones();
 
-        Phones _phone;
-
-        private void SetMode()
-        {
-            if (_clientID == -1)
-                _mode = enMode.AddNew;
-
-            else
-                _mode = enMode.Update;
-        }
         private void btnAddNewClient_Click(object sender, EventArgs e)
         {
             InputFieldsValidation();
@@ -58,17 +37,22 @@ namespace BankSystem
                 AddNewClient();
         }
 
+        private void LoadData()
+        {
+            
+        }
+
         private void FillClientInfo()
         {
-            int personID = Persons.Find(txtFirstName.Text).personID;
+            
 
-            string firstName = Persons.Find(txtFirstName.Text).firstName;
+            //string firstName = Persons.Find(txtFirstName.Text).firstName;
 
-            string lastName = Persons.Find(txtFirstName.Text).lastName;
+            //string lastName = Persons.Find(txtFirstName.Text).lastName;
 
-            string email = Persons.Find(txtFirstName.Text).email;
+            //string email = Persons.Find(txtFirstName.Text).email;
 
-            string phoneNumber = Persons.Find(txtFirstName.Text).email;
+            //string phoneNumber = Persons.Find(txtFirstName.Text).email;
 
             _client.pinCode = txtPinCode.Text;
 
@@ -76,23 +60,33 @@ namespace BankSystem
 
             _client.accountNumber = txtAccountNumber.Text;
 
-            _client.personID = personID;
+            _person.firstName = txtFirstName.Text;
 
-            _person.personID = personID;
+            _person.lastName = txtLastName.Text;
 
-            _person.firstName = firstName;
+            _person.email = txtEmail.Text;
 
-            _person.lastName = lastName;
+            _phone.phoneNumber = txtPhone.Text;
 
-            _person.email = email;
+            
 
-            _phone.phoneNumber = phoneNumber;
         }
 
         private void ValidationSave()
         {
-            if (_client.Save())
-                MessageBox.Show("Successfully added");
+            if (_person.Save())
+            {
+                int personID = Persons.Find(txtFirstName.Text).personID;
+
+                _phone.personID = personID;
+                _client.personID = personID;
+
+                if(_phone.Save() && _client.Save())
+                {
+                    MessageBox.Show("Successfully added");
+                }
+            }
+                
 
             else
                 MessageBox.Show("Failed to add");
@@ -102,8 +96,6 @@ namespace BankSystem
             FillClientInfo();
 
             ValidationSave();
-
-            _mode = enMode.Update;
         }
 
         private void ClearPhoneText()
@@ -175,6 +167,11 @@ namespace BankSystem
             AddPhoneNumberToComboBox();
 
             ClearPhoneText();
+        }
+
+        private void frmAddNewClient_Load(object sender, EventArgs e)
+        {
+            LoadData();
         }
     }
 }

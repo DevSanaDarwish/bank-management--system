@@ -69,9 +69,10 @@ namespace BankSystemBusinessLayer
 
         public static Clients Find(string firstName)
         {
-            int clientID = -1;
-            string pinCode = "", balance = "", accountNumber = "", firstName = "", lastName = "", email = "", phoneNumber = "";
-                
+            int clientID = -1, personID = -1;
+            string pinCode = "", accountNumber = "",  lastName = "", email = "", phoneNumber = "";
+            decimal balance = 0;
+
             if (ClientsData.GetClientInfoByFirstName(firstName, ref lastName, ref email, ref phoneNumber, ref pinCode, ref balance, ref accountNumber))
                 return new Clients(clientID, pinCode, balance, accountNumber, personID);
 

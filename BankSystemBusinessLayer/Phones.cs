@@ -58,13 +58,13 @@ namespace BankSystemBusinessLayer
         }
 
 
-        public static Phones Find(string personID)
+        public static Phones Find(int personID)
         {
-            int personID = -1;
-            string lastName = "", email = "";
+            string phoneNumber = "";
+            int phoneID = -1;
 
-            if (PersonsData.GetPersonInfoByFirstName(firstName, ref personID, ref lastName, ref email))
-                return new Persons(personID, firstName, lastName, email);
+            if (PhonesData.GetPhoneInfoByPersonID(personID, ref phoneNumber, ref phoneID))
+                return new Phones(phoneID, phoneNumber, personID);
 
             else
                 return null;
