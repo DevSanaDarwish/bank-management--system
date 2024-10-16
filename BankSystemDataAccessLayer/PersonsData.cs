@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Reflection;
 
 namespace BankSystemDataAccessLayer
 {
@@ -50,5 +51,67 @@ namespace BankSystemDataAccessLayer
 
             return personID;
         }
+
+        public static bool GetPersonInfoByFirstName(string firstName, ref int personID, ref string lastName, ref string email)
+        {
+            bool isFound = false;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = "Select * From Persons Where FirstName = @firstName";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@firstName", firstName);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if(reader.Read())
+                {
+                    isFound = true;
+
+                    personID = (int)reader["PersonID"];
+
+                    lastName = (string)reader["LastName"];
+
+                    if (reader["Email"] != DBNull.Value)
+                    {
+                        email = (string)reader["Email"];
+                    }
+
+                    else
+                    {
+                        email = "";
+                    }
+                }
+
+                else
+                {
+                    isFound = false;
+                }
+
+                reader.Close();
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+
+                isFound = false;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return isFound;
+        }
+
+        
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BankSystemBusinessLayer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,13 +14,42 @@ namespace BankSystem
 {
     public partial class frmAddNewClient : Form
     {
+        //public frmAddNewClient(int clientID)
+        //{
+        //    InitializeComponent();
+
+        //    _clientID = clientID;
+
+        //    SetMode();
+        //}
+
         public frmAddNewClient()
         {
             InitializeComponent();
         }
 
+
+        public enum enMode { AddNew = 0, Update = 1};
+        private enMode _mode;
+
         bool _isValidTextBoxes = false;
 
+        int _clientID = -1;
+
+        Clients _client;
+
+        Persons _person;
+
+        Phones _phone;
+
+        private void SetMode()
+        {
+            if (_clientID == -1)
+                _mode = enMode.AddNew;
+
+            else
+                _mode = enMode.Update;
+        }
         private void btnAddNewClient_Click(object sender, EventArgs e)
         {
             InputFieldsValidation();
@@ -28,9 +58,52 @@ namespace BankSystem
                 AddNewClient();
         }
 
+        private void FillClientInfo()
+        {
+            int personID = Persons.Find(txtFirstName.Text).personID;
+
+            string firstName = Persons.Find(txtFirstName.Text).firstName;
+
+            string lastName = Persons.Find(txtFirstName.Text).lastName;
+
+            string email = Persons.Find(txtFirstName.Text).email;
+
+            string phoneNumber = Persons.Find(txtFirstName.Text).email;
+
+            _client.pinCode = txtPinCode.Text;
+
+            _client.balance = Convert.ToDecimal(txtBalance.Text);
+
+            _client.accountNumber = txtAccountNumber.Text;
+
+            _client.personID = personID;
+
+            _person.personID = personID;
+
+            _person.firstName = firstName;
+
+            _person.lastName = lastName;
+
+            _person.email = email;
+
+            _phone.phoneNumber = phoneNumber;
+        }
+
+        private void ValidationSave()
+        {
+            if (_client.Save())
+                MessageBox.Show("Successfully added");
+
+            else
+                MessageBox.Show("Failed to add");
+        }
         private void AddNewClient()
         {
+            FillClientInfo();
 
+            ValidationSave();
+
+            _mode = enMode.Update;
         }
 
         private void ClearPhoneText()

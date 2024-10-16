@@ -32,5 +32,42 @@ namespace BankSystemBusinessLayer
 
             mode = enMode.Update;
         }
+
+        private bool AddNewPhone()
+        {
+            this.phoneID = PhonesData.AddNewPhone(this.phoneNumber, this.personID);
+
+            return (this.phoneID != -1);
+        }
+
+        public bool Save()
+        {
+            switch(mode)
+            {
+                case enMode.AddNew:
+                    if(AddNewPhone())
+                    {
+                        mode = enMode.Update;
+                        return true;
+                    }
+
+                    return false;
+            }
+
+            return false;
+        }
+
+
+        public static Phones Find(string personID)
+        {
+            int personID = -1;
+            string lastName = "", email = "";
+
+            if (PersonsData.GetPersonInfoByFirstName(firstName, ref personID, ref lastName, ref email))
+                return new Persons(personID, firstName, lastName, email);
+
+            else
+                return null;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Runtime.InteropServices;
 using BankSystemDataAccessLayer;
 
 namespace BankSystemBusinessLayer
@@ -32,6 +33,42 @@ namespace BankSystemBusinessLayer
             this.email = email;
 
             mode = enMode.Update;
+        }
+
+        private bool AddNewPerson()
+        {
+            this.personID = PersonsData.AddNewPerson(this.firstName, this.lastName, this.email);
+
+            return (personID != -1);
+        }
+
+        public bool Save()
+        {
+            switch (mode)
+            {
+                case enMode.AddNew:
+                    if(AddNewPerson())
+                    {
+                        mode = enMode.Update;
+                        return true;
+                    }
+
+                    return false;
+            }
+
+            return false;
+        }
+
+        public static Persons Find(string firstName)
+        {
+            int personID = -1;
+            string lastName = "", email = "";
+
+            if (PersonsData.GetPersonInfoByFirstName(firstName, ref personID, ref lastName, ref email))
+                return new Persons(personID, firstName, lastName, email);
+
+            else
+                return null;
         }
     }
 }

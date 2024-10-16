@@ -45,5 +45,57 @@ namespace BankSystemDataAccessLayer
 
             return phoneID;
         }
+
+        public static bool GetPhoneInfoByPersonID(int personID, ref string phoneNumber, ref int phoneID)
+        {
+            bool isFound = false;
+
+            SqlConnection connection = new SqlConnection( DataAccessSettings.connectionString);
+
+            string query = "Select * From Phones Where PhoneNumber = @phoneNumber";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@personID", personID);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if(reader.Read())
+                {
+                    isFound = true;
+
+                    phoneID = (int)reader["PhoneID"];
+
+                    phoneNumber = (string)reader["PhoneNumber"];
+                }
+
+                else
+                {
+                    isFound = false;
+                }
+
+                reader.Close();
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+
+                isFound = false;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return isFound;
+
+
+        }
     }
 }
