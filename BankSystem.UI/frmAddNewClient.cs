@@ -23,11 +23,18 @@ namespace BankSystem
 
         bool _isValidTextBoxes = false;
 
+        int _personID = -1;
+
         Clients _client = new Clients();
 
         Persons _person = new Persons();
 
         Phones _phone = new Phones();
+
+        private void ShowMessage(string message)
+        {
+            MessageBox.Show(message);
+        }
 
         private void btnAddNewClient_Click(object sender, EventArgs e)
         {
@@ -42,18 +49,31 @@ namespace BankSystem
             
         }
 
+        private void FillPhoneObject(string item)
+        {
+            _phone.phoneNumber = item;
+            _phone.personID = _personID;
+        }
+
+        private void ValidationPhoneNumbersSave()
+        {
+            byte itemsCount = Convert.ToByte(cbPhones.Items.Count);
+            string item = "";
+
+            for (byte itemIndex = 0; itemIndex < itemsCount; itemIndex++)
+            {
+                 item = cbPhones.Items[itemIndex].ToString();
+               
+                 FillPhoneObject(item);
+               
+                 if (_phone.Save())
+                 {
+                     _phone = new Phones();
+                 }
+            }
+        }
         private void FillClientInfo()
         {
-            
-
-            //string firstName = Persons.Find(txtFirstName.Text).firstName;
-
-            //string lastName = Persons.Find(txtFirstName.Text).lastName;
-
-            //string email = Persons.Find(txtFirstName.Text).email;
-
-            //string phoneNumber = Persons.Find(txtFirstName.Text).email;
-
             _client.pinCode = txtPinCode.Text;
 
             _client.balance = Convert.ToDecimal(txtBalance.Text);
@@ -66,31 +86,39 @@ namespace BankSystem
 
             _person.email = txtEmail.Text;
 
-            _phone.phoneNumber = txtPhone.Text;
+            //_phone.phoneNumber = txtPhone.Text;           
+        }
 
-            
+        private void SetPersonIDToClientObject()
+        {
+            string firstName = txtFirstName.Text, lastName = txtLastName.Text;
 
+            _personID = Persons.Find(firstName, lastName).personID;
+
+            _client.personID = _personID;
+        }
+
+        private void ValidationClientsAndPhonesSave()
+        {
+            SetPersonIDToClientObject();
+
+            ValidationPhoneNumbersSave();
+
+            if (_client.Save())
+            {
+                ShowMessage("Successfully added");
+            }
         }
 
         private void ValidationSave()
         {
             if (_person.Save())
-            {
-                int personID = Persons.Find(txtFirstName.Text).personID;
-
-                _phone.personID = personID;
-                _client.personID = personID;
-
-                if(_phone.Save() && _client.Save())
-                {
-                    MessageBox.Show("Successfully added");
-                }
-            }
-                
+                ValidationClientsAndPhonesSave();
 
             else
-                MessageBox.Show("Failed to add");
+                ShowMessage("Failed to add");
         }
+
         private void AddNewClient()
         {
             FillClientInfo();
@@ -136,31 +164,47 @@ namespace BankSystem
             _isValidTextBoxes = isValid;
         }
 
-        private void InputFieldsValidation()
+        private void PhoneNumbersValidation()
+        {
+            byte itemsCount = Convert.ToByte(cbPhones.Items.Count);
+
+            string messageValue = "Please Add One Phone Number At Least";
+
+            if (itemsCount == 0)
+            {
+                SetError(txtPhone, messageValue, false);
+            }
+        }
+
+        private void SetTextBoxError(TextBox textbox)
         {
             string messageValue = "This field should not be empty";
-        
+
+            if (IsControlTextNull(textbox))
+            {
+                SetError(textbox, messageValue, false);
+            }
+
+            else
+            {
+                SetError(textbox, "", true);
+            }
+        }
+        private void InputFieldsValidation()
+        {
             foreach (System.Windows.Forms.Control control in this.Controls)
             {
                 if(control is TextBox textbox)
                 {
-                    if (textbox == txtEmail)
+                    if (textbox == txtEmail || textbox == txtPhone)
                         continue;
-                    
-                    if (IsControlTextNull(textbox))
-                    {
-                        SetError(textbox, messageValue, false);
-                    }
 
-                    else
-                    {
-                        SetError(textbox, "", true);
-                    }
+                    SetTextBoxError(textbox);
                 }    
             }
-        }
 
-       
+            PhoneNumbersValidation();
+        }  
 
         private void btnAddPhone_Click(object sender, EventArgs e)
         {

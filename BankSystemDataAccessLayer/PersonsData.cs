@@ -52,18 +52,18 @@ namespace BankSystemDataAccessLayer
             return personID;
         }
 
-        public static bool GetPersonInfoByFirstName(string firstName, ref int personID, ref string lastName, ref string email)
+        public static bool GetPersonInfoByFirstName(string firstName, ref int personID, string lastName, ref string email)
         {
             bool isFound = false;
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
 
-            string query = "Select * From Persons Where FirstName = @firstName";
-            //string query = "SELECT \r\n    PersonID,\r\n    FirstName,\r\n    LastName,\r\n    CASE \r\n        WHEN email IS NULL THEN 'Unknown' \r\n        ELSE email \r\n    END AS Email\r\nFROM \r\n    Persons\r\nWHERE \r\n    FirstName = 'Amna';";
+            string query = "Select * From Persons Where FirstName = @firstName And LastName = @lastName";
 
             SqlCommand command = new SqlCommand(query, connection);
 
             command.Parameters.AddWithValue("@firstName", firstName);
+            command.Parameters.AddWithValue("@lastName", lastName);
 
             try
             {
@@ -76,8 +76,6 @@ namespace BankSystemDataAccessLayer
                     isFound = true;
 
                     personID = (int)reader["PersonID"];
-
-                    lastName = (string)reader["LastName"];
 
                     if (reader["Email"] != DBNull.Value)
                     {

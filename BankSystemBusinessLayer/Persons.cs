@@ -59,12 +59,12 @@ namespace BankSystemBusinessLayer
             return false;
         }
 
-        public static Persons Find(string firstName)
+        public static Persons Find(string firstName, string lastName)
         {
             int personID = -1;
-            string lastName = "", email = "";
+            string email = "";
 
-            if (PersonsData.GetPersonInfoByFirstName(firstName, ref personID, ref lastName, ref email))
+            if (PersonsData.GetPersonInfoByFirstName(firstName, ref personID, lastName, ref email))
                 return new Persons(personID, firstName, lastName, email);
 
             else
