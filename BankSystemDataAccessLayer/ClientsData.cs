@@ -97,7 +97,9 @@ namespace BankSystemDataAccessLayer
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
 
-            string query = "\r\nSELECT Persons.FirstName, Persons.LastName, Persons.Email, Clients.PinCode, Clients.Balance, Clients.AccountNumber, Phones.PhoneNumber\r\nFROM     Clients INNER JOIN\r\n                  Persons ON Clients.PersonID = Persons.PersonID INNER JOIN\r\n                  Phones ON Persons.PersonID = Phones.PersonID\r\n\r\n\t\t\t\t  Where FirstName = 'Sana';";
+            //string query = "\r\nSELECT Persons.FirstName, Persons.LastName, Persons.Email, Clients.PinCode, Clients.Balance, Clients.AccountNumber, Phones.PhoneNumber\r\nFROM     Clients INNER JOIN\r\n                  Persons ON Clients.PersonID = Persons.PersonID INNER JOIN\r\n                  Phones ON Persons.PersonID = Phones.PersonID\r\n\r\n\t\t\t\t  Where FirstName = 'Sana';";
+
+            string query = "Select * From vwClientsWithoutClientID Where FirstName = @firstName";
 
             SqlCommand command = new SqlCommand(query, connection);
 
