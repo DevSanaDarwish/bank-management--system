@@ -44,11 +44,6 @@ namespace BankSystem
                 AddNewClient();
         }
 
-        private void LoadData()
-        {
-            
-        }
-
         private void FillPhoneObject(string item)
         {
             _phone.phoneNumber = item;
@@ -72,6 +67,7 @@ namespace BankSystem
                  }
             }
         }
+
         private void FillClientInfo()
         {
             _client.pinCode = txtPinCode.Text;
@@ -84,9 +80,7 @@ namespace BankSystem
 
             _person.lastName = txtLastName.Text;
 
-            _person.email = txtEmail.Text;
-
-            //_phone.phoneNumber = txtPhone.Text;           
+            _person.email = txtEmail.Text;         
         }
 
         private void SetPersonIDToClientObject()
@@ -131,20 +125,18 @@ namespace BankSystem
             txtPhone.Clear();
         }
 
-        private bool IsControlTextNull(TextBox control)
-        {
-            if (string.IsNullOrWhiteSpace(control.Text))
-                return true;
+      
 
-            return false;
-        }
+        ///
+
+        
 
         private void AddPhoneNumberToComboBox()
         {
             string phoneNumber = txtPhone.Text;
             string messageValue = "This field should not be empty";
 
-            if (!IsControlTextNull(txtPhone))
+            if (!InputValidator.IsControlTextNull(txtPhone.Text))
             {
                 cbPhones.Items.Add(phoneNumber);
 
@@ -157,12 +149,7 @@ namespace BankSystem
             }
         }
 
-        private void SetError(TextBox control, string messageValue, bool isValid = false)
-        {
-            errorProvider1.SetError(control, messageValue);
-
-            _isValidTextBoxes = isValid;
-        }
+        
 
         private void PhoneNumbersValidation()
         {
@@ -180,7 +167,7 @@ namespace BankSystem
         {
             string messageValue = "This field should not be empty";
 
-            if (IsControlTextNull(textbox))
+            if (InputValidator.IsControlTextNull(textbox.Text))
             {
                 SetError(textbox, messageValue, false);
             }
@@ -190,6 +177,7 @@ namespace BankSystem
                 SetError(textbox, "", true);
             }
         }
+
         private void InputFieldsValidation()
         {
             foreach (System.Windows.Forms.Control control in this.Controls)
@@ -211,11 +199,6 @@ namespace BankSystem
             AddPhoneNumberToComboBox();
 
             ClearPhoneText();
-        }
-
-        private void frmAddNewClient_Load(object sender, EventArgs e)
-        {
-            LoadData();
         }
     }
 }
