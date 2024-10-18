@@ -11,14 +11,19 @@ namespace BankSystem
     public static class InputValidator
     {
 
-        public static bool IsNumeric(string input)
+        public static bool IsNumeric(string text)
         {
-            return clsInputValidator.IsTextNumeric(input);
+            return clsInputValidator.IsTextNumeric(text);
+        }
+
+        public static bool IsString(string text)
+        {
+            return clsInputValidator.IsTextString(text);
         }
 
         public static bool IsControlTextNull(string controlText)
         {
-            return clsInputValidator.IsTextEmpty(controlText);
+            return clsInputValidator.IsEmpty(controlText);
         }
 
         public static void SetError(TextBox control, string messageValue, ErrorProvider errorProvider, ref bool isValidTextBoxes, bool isValid = false)

@@ -49,8 +49,15 @@ namespace BankSystemBusinessLayer
             return (clientID != -1);
         }
 
+
         public bool Save()
         {
+            if (clsInputValidator.IsEmpty(this.clientID.ToString()) || clsInputValidator.IsEmpty(this.pinCode) || clsInputValidator.IsEmpty(this.balance.ToString()) ||
+                clsInputValidator.IsEmpty(this.accountNumber.ToString()) || clsInputValidator.IsEmpty(this.personID.ToString()))
+            {
+                return false;
+            }
+                
             switch (mode)
             {
                 case enMode.AddNew:

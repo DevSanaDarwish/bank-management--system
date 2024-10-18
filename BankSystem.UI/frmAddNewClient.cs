@@ -173,6 +173,7 @@ namespace BankSystem
             }
         }
 
+
         private void InputFieldsValidation()
         {
             foreach (System.Windows.Forms.Control control in this.Controls)
@@ -187,6 +188,10 @@ namespace BankSystem
             }
 
             PhoneNumbersValidation();
+
+            BalancePhonePinCodeValidation();
+
+            FullNameValidation();
         }  
 
         private void btnAddPhone_Click(object sender, EventArgs e)
@@ -195,7 +200,60 @@ namespace BankSystem
 
             ClearPhoneText();
         }
+        
+        private void NumericTextBoxValueValidation(TextBox textbox)
+        {
+            string messageValue = "You must enter a valid value";
 
+            if (!NumericValidation(textbox))
+            {
+                InputValidator.SetError(textbox, messageValue, errorProvider1, ref _isValidTextBoxes, false);
+            }
+
+            else
+            {
+                InputValidator.SetError(textbox, "", errorProvider1, ref _isValidTextBoxes, true);
+            }
+        }
+
+        private void StringTextBoxValueValidation(TextBox textbox)
+        {
+            string messageValue = "You must enter a valid value";
+
+            if (!StringValidation(textbox))
+            {
+                InputValidator.SetError(textbox, messageValue, errorProvider1, ref _isValidTextBoxes, false);
+            }
+
+            else
+            {
+                InputValidator.SetError(textbox, "", errorProvider1, ref _isValidTextBoxes, true);
+            }
+        }
+
+        private void BalancePhonePinCodeValidation()
+        {
+            NumericTextBoxValueValidation(txtBalance);
+            NumericTextBoxValueValidation(txtPhone);
+            NumericTextBoxValueValidation(txtPinCode);
+        }
+
+        private void FullNameValidation()
+        {
+            StringTextBoxValueValidation(txtFirstName);
+            StringTextBoxValueValidation(txtLastName);
+        }
+
+        private bool NumericValidation(TextBox textbox)
+        {
+            return (InputValidator.IsNumeric(textbox.Text));
+        }
+
+        private bool StringValidation(TextBox textbox)
+        {
+            return (InputValidator.IsString(textbox.Text));
+        }
+        
         private void ResetTablesIdentity()
         {
             Clients.ResetClientIdentity();
