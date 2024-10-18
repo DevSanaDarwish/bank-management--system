@@ -7,6 +7,36 @@ namespace BankSystemDataAccessLayer
 {
     public class PersonsData
     {
+
+        public static bool ResetPersonIdentity()
+        {
+            int rowsAffected = 0;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = "DBCC CHECKIDENT ('Persons', RESEED, 7);";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            try
+            {
+                connection.Open();
+
+                rowsAffected = command.ExecuteNonQuery();
+            }
+
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return (rowsAffected > 0);
+        }
         public static int AddNewPerson(string firstName, string lastName, string email)
         {
             int personID = -1;

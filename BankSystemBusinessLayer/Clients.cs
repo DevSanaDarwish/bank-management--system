@@ -79,5 +79,11 @@ namespace BankSystemBusinessLayer
             else
                 return null;
         }
+
+        public static void ResetClientIdentity()
+        {
+            if (!ClientsData.ResetClientIdentity())
+                return;
+        }
     }
 }

@@ -7,6 +7,37 @@ namespace BankSystemDataAccessLayer
 {
     public class ClientsData
     {
+
+        public static bool ResetClientIdentity()
+        {
+            int rowsAffected = 0;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = "DBCC CHECKIDENT ('Clients', RESEED, 7);";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            try
+            {
+                connection.Open();
+
+                rowsAffected = command.ExecuteNonQuery();
+            }
+
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return (rowsAffected > 0);
+        }
+
         public static DataTable GetAllClients()
         {
             DataTable dtClients = new DataTable();

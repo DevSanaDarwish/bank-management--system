@@ -124,11 +124,6 @@ namespace BankSystem
         {
             txtPhone.Clear();
         }
-
-      
-
-        ///
-
         
 
         private void AddPhoneNumberToComboBox()
@@ -140,12 +135,12 @@ namespace BankSystem
             {
                 cbPhones.Items.Add(phoneNumber);
 
-                SetError(txtPhone, "");
+                InputValidator.SetError(txtPhone, "", errorProvider1, ref _isValidTextBoxes);
             }
 
             else
             {
-                SetError(txtPhone, messageValue);
+                InputValidator.SetError(txtPhone, messageValue ,errorProvider1, ref _isValidTextBoxes);
             }
         }
 
@@ -159,7 +154,7 @@ namespace BankSystem
 
             if (itemsCount == 0)
             {
-                SetError(txtPhone, messageValue, false);
+                InputValidator.SetError(txtPhone, messageValue, errorProvider1, ref _isValidTextBoxes, false);
             }
         }
 
@@ -169,12 +164,12 @@ namespace BankSystem
 
             if (InputValidator.IsControlTextNull(textbox.Text))
             {
-                SetError(textbox, messageValue, false);
+                InputValidator.SetError(textbox, messageValue, errorProvider1, ref _isValidTextBoxes, false);
             }
 
             else
             {
-                SetError(textbox, "", true);
+                InputValidator.SetError(textbox, "",errorProvider1, ref _isValidTextBoxes, true);
             }
         }
 
@@ -199,6 +194,27 @@ namespace BankSystem
             AddPhoneNumberToComboBox();
 
             ClearPhoneText();
+        }
+
+        private void ResetTablesIdentity()
+        {
+            Clients.ResetClientIdentity();
+            Persons.ResetPersonIdentity();
+            Phones.ResetPersonIdentity();
+        }
+
+        private void frmAddNewClient_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                ResetTablesIdentity();
+            }
+
+            catch (Exception ex)
+            {
+                ShowMessage(ex.Message);
+            }
+            
         }
     }
 }

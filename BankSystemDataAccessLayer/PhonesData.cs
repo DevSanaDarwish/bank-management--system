@@ -6,6 +6,36 @@ namespace BankSystemDataAccessLayer
 {
     public class PhonesData
     {
+
+        public static bool ResetPhonesIdentity()
+        {
+            int rowsAffected = 0;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = "DBCC CHECKIDENT ('Phones', RESEED, 7);";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            try
+            {
+                connection.Open();
+
+                rowsAffected = command.ExecuteNonQuery();
+            }
+
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return (rowsAffected > 0);
+        }
         public static int AddNewPhone(string phoneNumber, int personID)
         {
             int phoneID = -1;

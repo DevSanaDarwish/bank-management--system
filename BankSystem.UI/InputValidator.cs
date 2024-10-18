@@ -4,31 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BankSystemBusinessLayer;
 
 namespace BankSystem
 {
     public static class InputValidator
     {
-        static bool _isValidTextBoxes = false;
 
         public static bool IsNumeric(string input)
         {
-            return input.All(char.IsDigit);
+            return clsInputValidator.IsTextNumeric(input);
         }
 
         public static bool IsControlTextNull(string controlText)
         {
-            if (string.IsNullOrWhiteSpace(controlText))
-                return true;
-
-            return false;
+            return clsInputValidator.IsTextEmpty(controlText);
         }
 
-        public static void SetError(TextBox control, string messageValue, bool isValid = false, ErrorProvider errorProvider)
+        public static void SetError(TextBox control, string messageValue, ErrorProvider errorProvider, ref bool isValidTextBoxes, bool isValid = false)
         {
             errorProvider.SetError(control, messageValue);
 
-            _isValidTextBoxes = isValid;
+            isValidTextBoxes = isValid;
         }
     }
 }
