@@ -10,19 +10,30 @@ namespace BankSystemDataAccessLayer
 
         public static bool ResetClientIdentity()
         {
-            int rowsAffected = 0;
+            int rowsAffected = 0, maxClientID = 0;
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
 
-            string query = "DBCC CHECKIDENT ('Clients', RESEED, 7);";
+            string getMaxClientIDQuery = "SELECT ISNULL(MAX(ClientID), 0) FROM Clients;";
 
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand getMaxClientIDcommand = new SqlCommand(getMaxClientIDQuery, connection);
 
             try
             {
                 connection.Open();
 
-                rowsAffected = command.ExecuteNonQuery();
+                object result = getMaxClientIDcommand.ExecuteScalar();
+
+                if(result != null)
+                {
+                    maxClientID = (int)result;
+                }
+
+                string resetIdentityQuery = $"DBCC CHECKIDENT ('Clients', RESEED, {maxClientID});";
+
+                SqlCommand resetIdentityCommand = new SqlCommand(resetIdentityQuery, connection);
+
+                rowsAffected = resetIdentityCommand.ExecuteNonQuery();
             }
 
             catch (Exception ex)

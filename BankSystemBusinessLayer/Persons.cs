@@ -73,7 +73,7 @@ namespace BankSystemBusinessLayer
 
         public static void ResetPersonIdentity()
         {
-            if (!PersonsData.ResetPersonIdentity())
+            if (!PersonsData.ResetPersonsIdentity())
                 return;
         }
     }

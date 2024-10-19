@@ -8,34 +8,45 @@ namespace BankSystemDataAccessLayer
     public class PersonsData
     {
 
-        public static bool ResetPersonIdentity()
-        {
-            int rowsAffected = 0;
+        public static bool ResetPersonsIdentity()
+        {     
+                int rowsAffected = 0, maxPersonID = 0;
 
-            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+                SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
 
-            string query = "DBCC CHECKIDENT ('Persons', RESEED, 7);";
+                string getMaxPersonIDQuery = "SELECT ISNULL(MAX(PersonID), 0) FROM Persons;";
 
-            SqlCommand command = new SqlCommand(query, connection);
+                SqlCommand getMaxPersonIDCommand = new SqlCommand(getMaxPersonIDQuery, connection);
 
-            try
-            {
-                connection.Open();
+                try
+                {
+                    connection.Open();
 
-                rowsAffected = command.ExecuteNonQuery();
-            }
+                    object result = getMaxPersonIDCommand.ExecuteScalar();
 
-            catch (Exception ex)
-            {
-                return false;
-            }
+                    if (result != null)
+                    {
+                        maxPersonID = (int)result;
+                    }
 
-            finally
-            {
-                connection.Close();
-            }
+                    string resetIdentityQuery = $"DBCC CHECKIDENT ('Persons', RESEED, {maxPersonID});";
 
-            return (rowsAffected > 0);
+                    SqlCommand resetIdentityCommand = new SqlCommand(resetIdentityQuery, connection);
+
+                    rowsAffected = resetIdentityCommand.ExecuteNonQuery();
+                }
+
+                catch (Exception ex)
+                {
+                    return false;
+                }
+
+                finally
+                {
+                    connection.Close();
+                }
+
+                return (rowsAffected > 0);           
         }
         public static int AddNewPerson(string firstName, string lastName, string email)
         {

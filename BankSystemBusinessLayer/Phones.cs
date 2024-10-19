@@ -70,9 +70,9 @@ namespace BankSystemBusinessLayer
                 return null;
         }
 
-        public static void ResetPersonIdentity()
+        public static void ResetPhonesIdentity()
         {
-            if (!PersonsData.ResetPersonIdentity())
+            if (!PhonesData.ResetPhonesIdentity())
                 return;
         }
     }

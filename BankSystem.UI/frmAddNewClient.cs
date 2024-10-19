@@ -21,7 +21,9 @@ namespace BankSystem
         }
 
 
-        bool _isValidTextBoxes = false;
+        bool _isValidTextBoxes = true, _isNullTextBoxes = true;
+
+        bool _isValid = true;
 
         int _personID = -1;
 
@@ -40,7 +42,7 @@ namespace BankSystem
         {
             InputFieldsValidation();
 
-            if (_isValidTextBoxes)
+            if (_isValid)
                 AddNewClient();
         }
 
@@ -135,12 +137,12 @@ namespace BankSystem
             {
                 cbPhones.Items.Add(phoneNumber);
 
-                InputValidator.SetError(txtPhone, "", errorProvider1, ref _isValidTextBoxes);
+                InputValidator.SetMessageError(txtPhone, "", errorProvider1, ref _isValidTextBoxes);
             }
 
             else
             {
-                InputValidator.SetError(txtPhone, messageValue ,errorProvider1, ref _isValidTextBoxes);
+                InputValidator.SetMessageError(txtPhone, messageValue ,errorProvider1, ref _isValidTextBoxes);
             }
         }
 
@@ -154,44 +156,71 @@ namespace BankSystem
 
             if (itemsCount == 0)
             {
-                InputValidator.SetError(txtPhone, messageValue, errorProvider1, ref _isValidTextBoxes, false);
+                InputValidator.SetMessageError(txtPhone, messageValue, errorProvider1, ref _isValidTextBoxes);
             }
         }
 
-        private void SetTextBoxError(TextBox textbox)
+        private void NullValidation(TextBox textbox)
         {
             string messageValue = "This field should not be empty";
 
             if (InputValidator.IsControlTextNull(textbox.Text))
             {
-                InputValidator.SetError(textbox, messageValue, errorProvider1, ref _isValidTextBoxes, false);
+                InputValidator.SetMessageError(textbox, messageValue, errorProvider1, ref _isNullTextBoxes, true);
             }
 
             else
             {
-                InputValidator.SetError(textbox, "",errorProvider1, ref _isValidTextBoxes, true);
+                InputValidator.SetMessageError(textbox, "",errorProvider1, ref _isNullTextBoxes, false);
             }
         }
 
+        private void AllValidation(TextBox textbox, bool typeValidation, string message)
+        {
+            if(typeValidation)
+            {
+                InputValidator.SetMessageError(textbox, "", errorProvider1, ref _isValid, true);
+                
+            }
 
+            else
+            {
+                InputValidator.SetMessageError(textbox, message, errorProvider1, ref _isValid, false);
+            }
+        }
         private void InputFieldsValidation()
         {
             foreach (System.Windows.Forms.Control control in this.Controls)
             {
-                if(control is TextBox textbox)
+                if (control is TextBox textbox)
                 {
                     if (textbox == txtEmail || textbox == txtPhone)
                         continue;
 
-                    SetTextBoxError(textbox);
+                    //NullValidation(textbox);
+                    AllValidation(textbox, !NullValidation(), "This field should not be empty");
+
+                    if(_isValid)
+                    {
+                        if (textbox == txtBalance || textbox == txtPinCode)
+                        {
+                            AllValidation(textbox, NumericValidation(textbox), "You must enter a valid value");
+                        }
+                            
+                    }
+
+
                 }    
             }
 
-            PhoneNumbersValidation();
+            //AllValidation(txtBalance, NumericValidation(txtBalance), "You must enter a valid value");
+            //AllValidation(txtPinCode, NumericValidation(txtPinCode), "You must enter a valid value");
 
-            BalancePhonePinCodeValidation();
+            //PhoneNumbersValidation();
 
-            FullNameValidation();
+            //BalancePhonePinCodeValidation();
+
+            //FullNameValidation();
         }  
 
         private void btnAddPhone_Click(object sender, EventArgs e)
@@ -207,12 +236,12 @@ namespace BankSystem
 
             if (!NumericValidation(textbox))
             {
-                InputValidator.SetError(textbox, messageValue, errorProvider1, ref _isValidTextBoxes, false);
+                InputValidator.SetMessageError(textbox, messageValue, errorProvider1, ref _isValidTextBoxes, false);
             }
 
             else
             {
-                InputValidator.SetError(textbox, "", errorProvider1, ref _isValidTextBoxes, true);
+                InputValidator.SetMessageError(textbox, "", errorProvider1, ref _isValidTextBoxes, true);
             }
         }
 
@@ -222,19 +251,19 @@ namespace BankSystem
 
             if (!StringValidation(textbox))
             {
-                InputValidator.SetError(textbox, messageValue, errorProvider1, ref _isValidTextBoxes, false);
+                InputValidator.SetMessageError(textbox, messageValue, errorProvider1, ref _isValidTextBoxes, false);
             }
 
             else
             {
-                InputValidator.SetError(textbox, "", errorProvider1, ref _isValidTextBoxes, true);
+                InputValidator.SetMessageError(textbox, "", errorProvider1, ref _isValidTextBoxes, true);
             }
         }
 
         private void BalancePhonePinCodeValidation()
         {
             NumericTextBoxValueValidation(txtBalance);
-            NumericTextBoxValueValidation(txtPhone);
+            //NumericTextBoxValueValidation(txtPhone);
             NumericTextBoxValueValidation(txtPinCode);
         }
 
@@ -242,6 +271,11 @@ namespace BankSystem
         {
             StringTextBoxValueValidation(txtFirstName);
             StringTextBoxValueValidation(txtLastName);
+        }
+
+        private bool NullValidation()
+        {
+            return (InputValidator.IsControlTextNull(txtPhone.Text));
         }
 
         private bool NumericValidation(TextBox textbox)
@@ -258,7 +292,7 @@ namespace BankSystem
         {
             Clients.ResetClientIdentity();
             Persons.ResetPersonIdentity();
-            Phones.ResetPersonIdentity();
+            Phones.ResetPhonesIdentity();
         }
 
         private void frmAddNewClient_Load(object sender, EventArgs e)
