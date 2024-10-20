@@ -26,11 +26,9 @@ namespace BankSystem
             return clsInputValidator.IsEmpty(controlText);
         }
 
-        public static void SetMessageError(TextBox control, string messageValue, ErrorProvider errorProvider, ref bool isValidTextBoxes, bool isValid = false)
+        public static void SetMessageError(TextBox control, string messageValue, ErrorProvider errorProvider)
         {
             errorProvider.SetError(control, messageValue);
-
-            isValidTextBoxes = isValid;
         }
     }
 }

@@ -40,10 +40,13 @@ namespace BankSystem
 
         private void btnAddNewClient_Click(object sender, EventArgs e)
         {
-            InputFieldsValidation();
-
-            if (_isValid)
-                AddNewClient();
+            if (IsInputFieldsNotNull())
+            {
+                if (IsInputFieldsValid())
+                {
+                    AddNewClient();
+                }
+            }           
         }
 
         private void FillPhoneObject(string item)
@@ -131,24 +134,40 @@ namespace BankSystem
         private void AddPhoneNumberToComboBox()
         {
             string phoneNumber = txtPhone.Text;
-            string messageValue = "This field should not be empty";
 
-            if (!InputValidator.IsControlTextNull(txtPhone.Text))
+            if(!IsPhoneNumberNull())
             {
-                cbPhones.Items.Add(phoneNumber);
-
-                InputValidator.SetMessageError(txtPhone, "", errorProvider1, ref _isValidTextBoxes);
+                if(IsPhoneNumberValid())
+                {
+                    cbPhones.Items.Add(phoneNumber);
+                }
             }
+                
 
-            else
-            {
-                InputValidator.SetMessageError(txtPhone, messageValue ,errorProvider1, ref _isValidTextBoxes);
-            }
+            //string phoneNumber = txtPhone.Text;
+            //string messageValue = "This field should not be empty";
+
+            //if (!NullValidation(txtPhone))
+            //{
+            //    cbPhones.Items.Add(phoneNumber);
+
+            //    Set_isValid(txtPhone, "", true);
+            //}
+
+            //else
+            //{
+            //    Set_isValid(txtPhone, messageValue, false);
+            //}
         }
 
-        
+        private void Set_isValid(TextBox textbox, string messageValue, bool validValue)
+        {
+            InputValidator.SetMessageError(textbox, messageValue, errorProvider1);
 
-        private void PhoneNumbersValidation()
+            _isValid = validValue;
+        }
+
+        private bool IsPhoneNumberNull()
         {
             byte itemsCount = Convert.ToByte(cbPhones.Items.Count);
 
@@ -156,40 +175,49 @@ namespace BankSystem
 
             if (itemsCount == 0)
             {
-                InputValidator.SetMessageError(txtPhone, messageValue, errorProvider1, ref _isValidTextBoxes);
-            }
-        }
-
-        private void NullValidation(TextBox textbox)
-        {
-            string messageValue = "This field should not be empty";
-
-            if (InputValidator.IsControlTextNull(textbox.Text))
-            {
-                InputValidator.SetMessageError(textbox, messageValue, errorProvider1, ref _isNullTextBoxes, true);
+                Set_isValid(txtPhone, messageValue, false);
+                return true;
             }
 
             else
             {
-                InputValidator.SetMessageError(textbox, "",errorProvider1, ref _isNullTextBoxes, false);
+                Set_isValid(txtPhone, "", true);
+                return false;
             }
         }
+
+        private bool IsPhoneNumberValid()
+        {
+            string messageValue = "You must enter a valid value";
+
+            AllValidation(txtPhone, NumericValidation(txtPhone), messageValue);
+
+            if (_isValid == true)
+                return true;
+
+            return false;
+        }
+
 
         private void AllValidation(TextBox textbox, bool typeValidation, string message)
         {
             if(typeValidation)
             {
-                InputValidator.SetMessageError(textbox, "", errorProvider1, ref _isValid, true);
-                
+                Set_isValid(textbox, "", true);
             }
 
             else
             {
-                InputValidator.SetMessageError(textbox, message, errorProvider1, ref _isValid, false);
+                Set_isValid(textbox, message, false);
             }
         }
-        private void InputFieldsValidation()
+        
+        private bool IsInputFieldsNotNull()
         {
+            bool isNotNull = true;
+            string message = "This field should not be empty";
+
+            //all controls null validation
             foreach (System.Windows.Forms.Control control in this.Controls)
             {
                 if (control is TextBox textbox)
@@ -197,32 +225,50 @@ namespace BankSystem
                     if (textbox == txtEmail || textbox == txtPhone)
                         continue;
 
-                    //NullValidation(textbox);
-                    AllValidation(textbox, !NullValidation(), "This field should not be empty");
+                    AllValidation(textbox, !NullValidation(textbox), message);
 
-                    if(_isValid)
+                    if (!_isValid)
+                          isNotNull = _isValid;
+                }
+            }
+
+            //phone control null validation
+            IsPhoneNumberNull();
+            if (!_isValid)
+                isNotNull = _isValid;
+
+            return isNotNull;
+        }
+
+        private bool IsInputFieldsValid()
+        {
+            bool isValid = true;
+            string message = "You must enter a valid value";
+
+            foreach (System.Windows.Forms.Control control in this.Controls)
+            {
+                if (control is TextBox textbox)
+                {
+                    if (textbox == txtBalance || textbox == txtPinCode)
                     {
-                        if (textbox == txtBalance || textbox == txtPinCode)
-                        {
-                            AllValidation(textbox, NumericValidation(textbox), "You must enter a valid value");
-                        }
-                            
+                        AllValidation(textbox, NumericValidation(textbox), message);
+                    }
+
+                    if (textbox == txtFirstName || textbox == txtLastName)
+                    {
+                        AllValidation(textbox, StringValidation(textbox), message);
                     }
 
 
-                }    
+                    if (!_isValid)
+                        isValid = _isValid;
+                }
             }
 
-            //AllValidation(txtBalance, NumericValidation(txtBalance), "You must enter a valid value");
-            //AllValidation(txtPinCode, NumericValidation(txtPinCode), "You must enter a valid value");
+            return isValid;
+        }
 
-            //PhoneNumbersValidation();
-
-            //BalancePhonePinCodeValidation();
-
-            //FullNameValidation();
-        }  
-
+       
         private void btnAddPhone_Click(object sender, EventArgs e)
         {
             AddPhoneNumberToComboBox();
@@ -230,52 +276,10 @@ namespace BankSystem
             ClearPhoneText();
         }
         
-        private void NumericTextBoxValueValidation(TextBox textbox)
+
+        private bool NullValidation(TextBox textbox)
         {
-            string messageValue = "You must enter a valid value";
-
-            if (!NumericValidation(textbox))
-            {
-                InputValidator.SetMessageError(textbox, messageValue, errorProvider1, ref _isValidTextBoxes, false);
-            }
-
-            else
-            {
-                InputValidator.SetMessageError(textbox, "", errorProvider1, ref _isValidTextBoxes, true);
-            }
-        }
-
-        private void StringTextBoxValueValidation(TextBox textbox)
-        {
-            string messageValue = "You must enter a valid value";
-
-            if (!StringValidation(textbox))
-            {
-                InputValidator.SetMessageError(textbox, messageValue, errorProvider1, ref _isValidTextBoxes, false);
-            }
-
-            else
-            {
-                InputValidator.SetMessageError(textbox, "", errorProvider1, ref _isValidTextBoxes, true);
-            }
-        }
-
-        private void BalancePhonePinCodeValidation()
-        {
-            NumericTextBoxValueValidation(txtBalance);
-            //NumericTextBoxValueValidation(txtPhone);
-            NumericTextBoxValueValidation(txtPinCode);
-        }
-
-        private void FullNameValidation()
-        {
-            StringTextBoxValueValidation(txtFirstName);
-            StringTextBoxValueValidation(txtLastName);
-        }
-
-        private bool NullValidation()
-        {
-            return (InputValidator.IsControlTextNull(txtPhone.Text));
+            return (InputValidator.IsControlTextNull(textbox.Text));
         }
 
         private bool NumericValidation(TextBox textbox)
