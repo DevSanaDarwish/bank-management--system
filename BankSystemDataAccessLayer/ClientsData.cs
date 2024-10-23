@@ -133,7 +133,7 @@ namespace BankSystemDataAccessLayer
             return clientID;
         }
 
-        public static bool GetClientInfoByFirstName(string firstName, ref string lastName, ref string email, ref string phoneNumber, ref string pinCode, ref decimal balance, ref string accountNumber)
+        public static bool GetClientInfoByFirstName(string firstName, ref string lastName, ref string email, ref string phoneNumber, ref string pinCode, ref decimal balance, ref string accountNumber, ref int clientID)
         {
             bool isFound = false;
 
@@ -156,6 +156,8 @@ namespace BankSystemDataAccessLayer
                 if (reader.Read())
                 {
                     isFound = true;
+
+                    clientID = (int)reader["ClientID"];
 
                     lastName = (string)reader["LastName"];
 
@@ -197,5 +199,81 @@ namespace BankSystemDataAccessLayer
 
             return isFound;
         }
+
+        public static bool GetClientInfoByAccountNumber(string accountNumber, ref string pinCode, ref decimal balance, ref int personID)
+        {
+            bool isFound = false;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = "Select * From Clients Where AccountNumber = @accountNumber";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@accountNumber", accountNumber);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if(reader.Read())
+                {
+                    isFound = true;
+
+                    balance = (decimal)reader["Balance"];
+
+                    pinCode = (string)reader["PinCode"];
+
+                    personID = (int)reader["PersonID"];
+                }
+            }
+
+            catch(Exception ex)
+            {
+                isFound = false;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return isFound;
+        }
+
+        public static bool DeleteClient(string accountNumber)
+        {
+            int rowsAffected = 0;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = "Delete Clients Where AccountNumber = @accountNumber";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@accountNumber", accountNumber);
+
+            try
+            {
+                connection.Open();
+
+                rowsAffected = command.ExecuteNonQuery();
+            }
+
+            catch(Exception ex)
+            {
+                rowsAffected = 0;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return (rowsAffected > 0);
+        }
+
     }
 }

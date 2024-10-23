@@ -105,7 +105,7 @@ namespace BankSystem
 
             if (_client.Save())
             {
-                ShowMessage("Successfully added");
+                ShowMessage("Successfully Added");
             }
         }
 
@@ -131,7 +131,7 @@ namespace BankSystem
         }
         
 
-        private void AddPhoneNumberToComboBox()
+        private bool AddPhoneNumberToComboBox()
         {
             string phoneNumber = txtPhone.Text;
 
@@ -140,24 +140,11 @@ namespace BankSystem
                 if(IsPhoneNumberValid())
                 {
                     cbPhones.Items.Add(phoneNumber);
+                    return true;
                 }
             }
-                
 
-            //string phoneNumber = txtPhone.Text;
-            //string messageValue = "This field should not be empty";
-
-            //if (!NullValidation(txtPhone))
-            //{
-            //    cbPhones.Items.Add(phoneNumber);
-
-            //    Set_isValid(txtPhone, "", true);
-            //}
-
-            //else
-            //{
-            //    Set_isValid(txtPhone, messageValue, false);
-            //}
+            return false;
         }
 
         private void Set_isValid(TextBox textbox, string messageValue, bool validValue)
@@ -167,13 +154,29 @@ namespace BankSystem
             _isValid = validValue;
         }
 
-        private bool IsPhoneNumberNull()
+        private bool IsComboBoxNull()
         {
             byte itemsCount = Convert.ToByte(cbPhones.Items.Count);
 
             string messageValue = "Please Add One Phone Number At Least";
 
             if (itemsCount == 0)
+            {
+                Set_isValid(txtPhone, messageValue, false);
+                return true;
+            }
+
+            else
+            {
+                Set_isValid(txtPhone, "", true);
+                return false;
+            }
+        }
+        private bool IsPhoneNumberNull()
+        {
+            string messageValue = "Please Add One Phone Number At Least";
+
+            if(NullValidation(txtPhone))
             {
                 Set_isValid(txtPhone, messageValue, false);
                 return true;
@@ -197,7 +200,7 @@ namespace BankSystem
 
             return false;
         }
-
+        
 
         private void AllValidation(TextBox textbox, bool typeValidation, string message)
         {
@@ -222,6 +225,7 @@ namespace BankSystem
             {
                 if (control is TextBox textbox)
                 {
+                    //ignore txtEmail & txtPhone
                     if (textbox == txtEmail || textbox == txtPhone)
                         continue;
 
@@ -232,8 +236,9 @@ namespace BankSystem
                 }
             }
 
-            //phone control null validation
-            IsPhoneNumberNull();
+            //_phone control null validation
+            IsComboBoxNull();
+
             if (!_isValid)
                 isNotNull = _isValid;
 
@@ -259,7 +264,6 @@ namespace BankSystem
                         AllValidation(textbox, StringValidation(textbox), message);
                     }
 
-
                     if (!_isValid)
                         isValid = _isValid;
                 }
@@ -271,9 +275,10 @@ namespace BankSystem
        
         private void btnAddPhone_Click(object sender, EventArgs e)
         {
-            AddPhoneNumberToComboBox();
-
-            ClearPhoneText();
+            if(AddPhoneNumberToComboBox())
+            {
+                ClearPhoneText();
+            }        
         }
         
 

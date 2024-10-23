@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUpdateClient));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnUpdateClient = new Guna.UI2.WinForms.Guna2Button();
@@ -60,8 +61,11 @@
             this.txtPinCode = new System.Windows.Forms.TextBox();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.txtPhone = new System.Windows.Forms.TextBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnShowInfo = new Guna.UI2.WinForms.Guna2Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.gbClientCard.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -90,13 +94,14 @@
             this.btnUpdateClient.Size = new System.Drawing.Size(296, 71);
             this.btnUpdateClient.TabIndex = 17;
             this.btnUpdateClient.Text = "Update";
+            this.btnUpdateClient.Click += new System.EventHandler(this.btnUpdateClient_Click);
             // 
             // txtAccountNumber
             // 
             this.txtAccountNumber.BackColor = System.Drawing.Color.White;
             this.txtAccountNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtAccountNumber.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAccountNumber.Location = new System.Drawing.Point(172, 70);
+            this.txtAccountNumber.Location = new System.Drawing.Point(28, 54);
             this.txtAccountNumber.Name = "txtAccountNumber";
             this.txtAccountNumber.Size = new System.Drawing.Size(257, 35);
             this.txtAccountNumber.TabIndex = 20;
@@ -105,12 +110,11 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(99, 18);
+            this.label6.Location = new System.Drawing.Point(15, 9);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(420, 28);
             this.label6.TabIndex = 19;
             this.label6.Text = "Please Enter Client Account Number: ";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // gbClientCard
             // 
@@ -132,9 +136,10 @@
             this.gbClientCard.ForeColor = System.Drawing.Color.White;
             this.gbClientCard.Location = new System.Drawing.Point(20, 124);
             this.gbClientCard.Name = "gbClientCard";
-            this.gbClientCard.Size = new System.Drawing.Size(601, 183);
+            this.gbClientCard.Size = new System.Drawing.Size(761, 183);
             this.gbClientCard.TabIndex = 21;
             this.gbClientCard.Text = "Client Card";
+            this.gbClientCard.Visible = false;
             // 
             // lblPhone
             // 
@@ -327,7 +332,6 @@
             this.label13.Size = new System.Drawing.Size(138, 28);
             this.label13.TabIndex = 24;
             this.label13.Text = "Last Name: ";
-            this.label13.Click += new System.EventHandler(this.label13_Click);
             // 
             // label14
             // 
@@ -338,7 +342,6 @@
             this.label14.Size = new System.Drawing.Size(143, 28);
             this.label14.TabIndex = 23;
             this.label14.Text = "First Name: ";
-            this.label14.Click += new System.EventHandler(this.label14_Click);
             // 
             // label15
             // 
@@ -410,12 +413,33 @@
             this.txtPhone.Size = new System.Drawing.Size(291, 35);
             this.txtPhone.TabIndex = 36;
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
+            // btnShowInfo
+            // 
+            this.btnShowInfo.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnShowInfo.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnShowInfo.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnShowInfo.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnShowInfo.FillColor = System.Drawing.Color.DarkSeaGreen;
+            this.btnShowInfo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnShowInfo.ForeColor = System.Drawing.Color.White;
+            this.btnShowInfo.Location = new System.Drawing.Point(445, 54);
+            this.btnShowInfo.Name = "btnShowInfo";
+            this.btnShowInfo.Size = new System.Drawing.Size(134, 35);
+            this.btnShowInfo.TabIndex = 37;
+            this.btnShowInfo.Text = "Show Info";
+            this.btnShowInfo.Click += new System.EventHandler(this.btnShowInfo_Click);
+            // 
             // frmUpdateClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1379, 830);
+            this.Controls.Add(this.btnShowInfo);
             this.Controls.Add(this.txtPhone);
             this.Controls.Add(this.txtEmail);
             this.Controls.Add(this.txtPinCode);
@@ -438,10 +462,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmUpdateClient";
             this.Text = "UpdateClient";
-            this.Load += new System.EventHandler(this.frmUpdateClient_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.gbClientCard.ResumeLayout(false);
             this.gbClientCard.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -480,5 +504,7 @@
         private System.Windows.Forms.TextBox txtPinCode;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.TextBox txtPhone;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private Guna.UI2.WinForms.Guna2Button btnShowInfo;
     }
 }

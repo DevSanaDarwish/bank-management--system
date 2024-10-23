@@ -37,6 +37,16 @@ namespace BankSystemBusinessLayer
             mode = enMode.Update;
         }
 
+        public Clients(string pinCode, decimal balance, string accountNumber, int personID)
+        {
+            this.pinCode = pinCode;
+            this.balance = balance;
+            this.accountNumber = accountNumber;
+            this.personID = personID;
+
+            mode = enMode.Update;
+        }
+
         public static DataTable GetAllClients()
         {
             return ClientsData.GetAllClients();
@@ -49,15 +59,35 @@ namespace BankSystemBusinessLayer
             return (clientID != -1);
         }
 
+        private bool IsEmptyValidation()
+        {
+            if (clsInputValidator.IsEmpty(this.clientID.ToString()) || clsInputValidator.IsEmpty(this.pinCode) || clsInputValidator.IsEmpty(this.balance.ToString()) ||
+                clsInputValidator.IsEmpty(this.accountNumber) || clsInputValidator.IsEmpty(this.personID.ToString()))
+            {
+                return true;
+            }
 
+            return false;
+        }
+
+        private bool IsNotNumericValidation()
+        {
+            if (!clsInputValidator.IsTextNumeric(this.clientID.ToString()) || !clsInputValidator.IsTextNumeric(this.pinCode) ||
+                !clsInputValidator.IsTextNumeric(this.personID.ToString()) || !clsInputValidator.IsTextNumeric(this.balance.ToString()))
+            {
+                return true;
+            }
+
+            return false;
+        }
         public bool Save()
         {
-            //if (clsInputValidator.IsEmpty(this.clientID.ToString()) || clsInputValidator.IsEmpty(this.pinCode) || clsInputValidator.IsEmpty(this.balance.ToString()) ||
-            //    clsInputValidator.IsEmpty(this.accountNumber.ToString()) || clsInputValidator.IsEmpty(this.personID.ToString()))
-            //{
-            //    return false;
-            //}
-                
+            if (IsEmptyValidation())
+                return false;
+
+            if (IsNotNumericValidation())
+                return false;
+
             switch (mode)
             {
                 case enMode.AddNew:
@@ -73,15 +103,14 @@ namespace BankSystemBusinessLayer
             return false;
         }
 
-
-        public static Clients Find(string firstName)
+        public static Clients FindByAccountNumber(string accountNumber)
         {
-            int clientID = -1, personID = -1;
-            string pinCode = "", accountNumber = "",  lastName = "", email = "", phoneNumber = "";
+            string pinCode = "";
             decimal balance = 0;
+            int personID = -1;
 
-            if (ClientsData.GetClientInfoByFirstName(firstName, ref lastName, ref email, ref phoneNumber, ref pinCode, ref balance, ref accountNumber))
-                return new Clients(clientID, pinCode, balance, accountNumber, personID);
+            if (ClientsData.GetClientInfoByAccountNumber(accountNumber, ref pinCode, ref balance, ref personID))
+                return new Clients(pinCode, balance, accountNumber, personID);
 
             else
                 return null;
@@ -91,6 +120,11 @@ namespace BankSystemBusinessLayer
         {
             if (!ClientsData.ResetClientIdentity())
                 return;
+        }
+
+        public static bool DeleteClient(string accountNumber)
+        {
+            return (ClientsData.DeleteClient(accountNumber));
         }
     }
 }

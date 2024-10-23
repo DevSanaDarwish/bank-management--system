@@ -87,13 +87,13 @@ namespace BankSystemDataAccessLayer
             return phoneID;
         }
 
-        public static bool GetPhoneInfoByPersonID(int personID, ref string phoneNumber, ref int phoneID)
+        public static bool GetPhoneNumberByPersonID(int personID, ref string phoneNumber)
         {
             bool isFound = false;
 
             SqlConnection connection = new SqlConnection( DataAccessSettings.connectionString);
 
-            string query = "Select * From Phones Where PhoneNumber = @phoneNumber";
+            string query = "Select * From Phones Where PersonID = @personID";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -108,8 +108,6 @@ namespace BankSystemDataAccessLayer
                 if(reader.Read())
                 {
                     isFound = true;
-
-                    phoneID = (int)reader["PhoneID"];
 
                     phoneNumber = (string)reader["PhoneNumber"];
                 }
@@ -137,6 +135,38 @@ namespace BankSystemDataAccessLayer
             return isFound;
 
 
+        }
+
+        public static bool DeletePhone(int personID)
+        {
+            int rowsAffected = 0;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = "Delete Phones Where personID = @personID";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@personID", personID);
+
+            try
+            {
+                connection.Open();
+
+                rowsAffected = command.ExecuteNonQuery();
+            }
+
+            catch (Exception ex)
+            {
+                rowsAffected = 0;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return (rowsAffected > 0);
         }
     }
 }

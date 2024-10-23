@@ -93,7 +93,7 @@ namespace BankSystemDataAccessLayer
             return personID;
         }
 
-        public static bool GetPersonInfoByFirstName(string firstName, ref int personID, string lastName, ref string email)
+        public static bool GetPersonInfoByFirstNameAndLastName(string firstName, ref int personID, string lastName, ref string email)
         {
             bool isFound = false;
 
@@ -112,7 +112,7 @@ namespace BankSystemDataAccessLayer
 
                 SqlDataReader reader = command.ExecuteReader();
 
-                if(reader.Read())
+                if (reader.Read())
                 {
                     isFound = true;
 
@@ -151,7 +151,96 @@ namespace BankSystemDataAccessLayer
 
             return isFound;
         }
+        public static bool GetPersonInfoByPersonID(int personID, ref string firstName, ref string lastName, ref string email)
+        {
+            bool isFound = false;
 
-        
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = "Select * From Persons Where PersonID = @personID";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@personID", personID);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if(reader.Read())
+                {
+                    isFound = true;
+
+                    firstName = (string)reader["FirstName"];
+
+                    lastName = (string)reader["LastName"];
+
+                    if (reader["Email"] != DBNull.Value)
+                    {
+                        email = (string)reader["Email"];
+                    }
+
+                    else
+                    {
+                        email = "";
+                    }
+                }
+
+                else
+                {
+                    isFound = false;
+                }
+
+                reader.Close();
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+
+                isFound = false;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return isFound;
+        }
+
+        public static bool DeletePerson(int personID)
+        {
+            int rowsAffected = 0;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = "Delete Persons Where personID = @personID";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@personID", personID);
+
+            try
+            {
+                connection.Open();
+
+                rowsAffected = command.ExecuteNonQuery();
+            }
+
+            catch (Exception ex)
+            {
+                rowsAffected = 0;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return (rowsAffected > 0);
+        }
     }
 }

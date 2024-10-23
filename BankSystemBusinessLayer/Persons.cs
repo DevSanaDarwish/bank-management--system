@@ -35,6 +35,15 @@ namespace BankSystemBusinessLayer
             mode = enMode.Update;
         }
 
+        private Persons(string firstName, string lastName, string email)
+        {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.email = email;
+
+            mode = enMode.Update;
+        }
+
         private bool AddNewPerson()
         {
             this.personID = PersonsData.AddNewPerson(this.firstName, this.lastName, this.email);
@@ -42,8 +51,38 @@ namespace BankSystemBusinessLayer
             return (personID != -1);
         }
 
+        private bool IsEmptyValidation()
+        {
+            if (clsInputValidator.IsEmpty(this.personID.ToString()) || clsInputValidator.IsEmpty(this.firstName) ||
+                clsInputValidator.IsEmpty(this.lastName) || clsInputValidator.IsEmpty(this.email))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool IsNotNumericValidation()
+        {
+            return (!clsInputValidator.IsTextNumeric(this.personID.ToString()));        
+        }
+
+        private bool IsNotStringValidation()
+        {
+            return (!clsInputValidator.IsTextString(this.firstName) || !clsInputValidator.IsTextString(this.lastName));          
+        }
+
         public bool Save()
         {
+            if (IsEmptyValidation())
+                return false;
+
+            if (IsNotNumericValidation())
+                return false;
+
+            if (IsNotStringValidation())
+                return false;
+
             switch (mode)
             {
                 case enMode.AddNew:
@@ -59,22 +98,37 @@ namespace BankSystemBusinessLayer
             return false;
         }
 
-        public static Persons Find(string firstName, string lastName)
+        public static Persons Find(int personID)
         {
-            int personID = -1;
-            string email = "";
+            string email = "", firstName = "", lastName = "";
 
-            if (PersonsData.GetPersonInfoByFirstName(firstName, ref personID, lastName, ref email))
-                return new Persons(personID, firstName, lastName, email);
+            if (PersonsData.GetPersonInfoByPersonID(personID, ref firstName, ref lastName, ref email))
+                return new Persons(firstName, lastName, email);
 
             else
                 return null;
         }
 
+        public static Persons Find(string firstName, string lastName)
+        {
+            int personID = -1;
+            string email = "";
+
+            if (PersonsData.GetPersonInfoByFirstNameAndLastName(firstName, ref personID, lastName, ref email))
+                return new Persons(personID, firstName, lastName, email);
+
+            else
+                return null;
+        }
         public static void ResetPersonIdentity()
         {
             if (!PersonsData.ResetPersonsIdentity())
                 return;
+        }
+
+        public static bool DeletePerson(int personID)
+        {
+            return PersonsData.DeletePerson(personID);
         }
     }
 }

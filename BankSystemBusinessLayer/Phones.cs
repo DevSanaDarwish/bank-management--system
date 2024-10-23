@@ -33,6 +33,13 @@ namespace BankSystemBusinessLayer
             mode = enMode.Update;
         }
 
+        public Phones(string phoneNumber)
+        {
+            this.phoneNumber = phoneNumber;
+
+            mode = enMode.Update;
+        }
+
         private bool AddNewPhone()
         {
             this.phoneID = PhonesData.AddNewPhone(this.phoneNumber, this.personID);
@@ -40,9 +47,37 @@ namespace BankSystemBusinessLayer
             return (this.phoneID != -1);
         }
 
+        private bool IsEmptyValidation()
+        {
+            if (clsInputValidator.IsEmpty(this.phoneID.ToString()) || clsInputValidator.IsEmpty(this.personID.ToString()) ||
+                clsInputValidator.IsEmpty(this.phoneNumber))
+            { 
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool IsNotNumericValidation()
+        {
+            if (!clsInputValidator.IsTextNumeric(this.phoneID.ToString()) || !clsInputValidator.IsTextNumeric(this.personID.ToString())
+                || !clsInputValidator.IsTextNumeric(this.phoneNumber))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public bool Save()
         {
-            switch(mode)
+            if (IsEmptyValidation())
+                return false;
+
+            if (IsNotNumericValidation())
+                return false;
+
+            switch (mode)
             {
                 case enMode.AddNew:
                     if(AddNewPhone())
@@ -57,14 +92,12 @@ namespace BankSystemBusinessLayer
             return false;
         }
 
-
         public static Phones Find(int personID)
         {
             string phoneNumber = "";
-            int phoneID = -1;
 
-            if (PhonesData.GetPhoneInfoByPersonID(personID, ref phoneNumber, ref phoneID))
-                return new Phones(phoneID, phoneNumber, personID);
+            if (PhonesData.GetPhoneNumberByPersonID(personID, ref phoneNumber))
+                return new Phones(phoneNumber);
 
             else
                 return null;
@@ -74,6 +107,11 @@ namespace BankSystemBusinessLayer
         {
             if (!PhonesData.ResetPhonesIdentity())
                 return;
+        }
+
+        public static bool DeletePhone(int personID)
+        {
+            return PhonesData.DeletePhone(personID);
         }
     }
 }

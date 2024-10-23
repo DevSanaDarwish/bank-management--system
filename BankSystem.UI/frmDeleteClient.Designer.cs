@@ -28,12 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDeleteClient));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txtAccountNumber = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.gbClientCard = new Guna.UI2.WinForms.Guna2GroupBox();
-            this.btnDeleteClient = new Guna.UI2.WinForms.Guna2Button();
+            this.lblPhone = new System.Windows.Forms.Label();
+            this.lblAccountNumber = new System.Windows.Forms.Label();
+            this.lblEmail = new System.Windows.Forms.Label();
+            this.lblPinCode = new System.Windows.Forms.Label();
+            this.lblBalance = new System.Windows.Forms.Label();
+            this.lblLastName = new System.Windows.Forms.Label();
+            this.lblFirstName = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -41,15 +48,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label = new System.Windows.Forms.Label();
-            this.lblFirstName = new System.Windows.Forms.Label();
-            this.lblLastName = new System.Windows.Forms.Label();
-            this.lblBalance = new System.Windows.Forms.Label();
-            this.lblPinCode = new System.Windows.Forms.Label();
-            this.lblEmail = new System.Windows.Forms.Label();
-            this.lblAccountNumber = new System.Windows.Forms.Label();
-            this.lblPhone = new System.Windows.Forms.Label();
+            this.btnDeleteClient = new Guna.UI2.WinForms.Guna2Button();
+            this.btnShowInfo = new Guna.UI2.WinForms.Guna2Button();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.gbClientCard.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -103,26 +107,89 @@
             this.gbClientCard.CustomBorderColor = System.Drawing.Color.Gold;
             this.gbClientCard.Font = new System.Drawing.Font("Segoe UI Semibold", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbClientCard.ForeColor = System.Drawing.Color.White;
-            this.gbClientCard.Location = new System.Drawing.Point(42, 122);
+            this.gbClientCard.Location = new System.Drawing.Point(19, 125);
             this.gbClientCard.Name = "gbClientCard";
-            this.gbClientCard.Size = new System.Drawing.Size(430, 471);
+            this.gbClientCard.Size = new System.Drawing.Size(694, 471);
             this.gbClientCard.TabIndex = 19;
             this.gbClientCard.Text = "Client Card";
+            this.gbClientCard.Visible = false;
             // 
-            // btnDeleteClient
+            // lblPhone
             // 
-            this.btnDeleteClient.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnDeleteClient.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnDeleteClient.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnDeleteClient.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnDeleteClient.FillColor = System.Drawing.Color.Gold;
-            this.btnDeleteClient.Font = new System.Drawing.Font("Segoe UI Semibold", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteClient.ForeColor = System.Drawing.Color.White;
-            this.btnDeleteClient.Location = new System.Drawing.Point(94, 680);
-            this.btnDeleteClient.Name = "btnDeleteClient";
-            this.btnDeleteClient.Size = new System.Drawing.Size(296, 71);
-            this.btnDeleteClient.TabIndex = 21;
-            this.btnDeleteClient.Text = "Delete";
+            this.lblPhone.AutoSize = true;
+            this.lblPhone.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPhone.ForeColor = System.Drawing.Color.Black;
+            this.lblPhone.Location = new System.Drawing.Point(241, 419);
+            this.lblPhone.Name = "lblPhone";
+            this.lblPhone.Size = new System.Drawing.Size(124, 26);
+            this.lblPhone.TabIndex = 33;
+            this.lblPhone.Text = "First Name: ";
+            // 
+            // lblAccountNumber
+            // 
+            this.lblAccountNumber.AutoSize = true;
+            this.lblAccountNumber.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAccountNumber.ForeColor = System.Drawing.Color.Black;
+            this.lblAccountNumber.Location = new System.Drawing.Point(241, 362);
+            this.lblAccountNumber.Name = "lblAccountNumber";
+            this.lblAccountNumber.Size = new System.Drawing.Size(124, 26);
+            this.lblAccountNumber.TabIndex = 32;
+            this.lblAccountNumber.Text = "First Name: ";
+            // 
+            // lblEmail
+            // 
+            this.lblEmail.AutoSize = true;
+            this.lblEmail.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmail.ForeColor = System.Drawing.Color.Black;
+            this.lblEmail.Location = new System.Drawing.Point(241, 304);
+            this.lblEmail.Name = "lblEmail";
+            this.lblEmail.Size = new System.Drawing.Size(124, 26);
+            this.lblEmail.TabIndex = 31;
+            this.lblEmail.Text = "First Name: ";
+            // 
+            // lblPinCode
+            // 
+            this.lblPinCode.AutoSize = true;
+            this.lblPinCode.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPinCode.ForeColor = System.Drawing.Color.Black;
+            this.lblPinCode.Location = new System.Drawing.Point(241, 246);
+            this.lblPinCode.Name = "lblPinCode";
+            this.lblPinCode.Size = new System.Drawing.Size(124, 26);
+            this.lblPinCode.TabIndex = 30;
+            this.lblPinCode.Text = "First Name: ";
+            // 
+            // lblBalance
+            // 
+            this.lblBalance.AutoSize = true;
+            this.lblBalance.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBalance.ForeColor = System.Drawing.Color.Black;
+            this.lblBalance.Location = new System.Drawing.Point(241, 188);
+            this.lblBalance.Name = "lblBalance";
+            this.lblBalance.Size = new System.Drawing.Size(124, 26);
+            this.lblBalance.TabIndex = 29;
+            this.lblBalance.Text = "First Name: ";
+            // 
+            // lblLastName
+            // 
+            this.lblLastName.AutoSize = true;
+            this.lblLastName.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLastName.ForeColor = System.Drawing.Color.Black;
+            this.lblLastName.Location = new System.Drawing.Point(241, 129);
+            this.lblLastName.Name = "lblLastName";
+            this.lblLastName.Size = new System.Drawing.Size(124, 26);
+            this.lblLastName.TabIndex = 28;
+            this.lblLastName.Text = "First Name: ";
+            // 
+            // lblFirstName
+            // 
+            this.lblFirstName.AutoSize = true;
+            this.lblFirstName.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFirstName.ForeColor = System.Drawing.Color.Black;
+            this.lblFirstName.Location = new System.Drawing.Point(241, 72);
+            this.lblFirstName.Name = "lblFirstName";
+            this.lblFirstName.Size = new System.Drawing.Size(124, 26);
+            this.lblFirstName.TabIndex = 27;
+            this.lblFirstName.Text = "First Name: ";
             // 
             // label1
             // 
@@ -201,87 +268,41 @@
             this.label.TabIndex = 14;
             this.label.Text = "First Name: ";
             // 
-            // lblFirstName
+            // btnDeleteClient
             // 
-            this.lblFirstName.AutoSize = true;
-            this.lblFirstName.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFirstName.ForeColor = System.Drawing.Color.Black;
-            this.lblFirstName.Location = new System.Drawing.Point(241, 72);
-            this.lblFirstName.Name = "lblFirstName";
-            this.lblFirstName.Size = new System.Drawing.Size(124, 26);
-            this.lblFirstName.TabIndex = 27;
-            this.lblFirstName.Text = "First Name: ";
-            this.lblFirstName.Click += new System.EventHandler(this.label8_Click);
+            this.btnDeleteClient.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnDeleteClient.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnDeleteClient.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnDeleteClient.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnDeleteClient.FillColor = System.Drawing.Color.Gold;
+            this.btnDeleteClient.Font = new System.Drawing.Font("Segoe UI Semibold", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeleteClient.ForeColor = System.Drawing.Color.White;
+            this.btnDeleteClient.Location = new System.Drawing.Point(94, 680);
+            this.btnDeleteClient.Name = "btnDeleteClient";
+            this.btnDeleteClient.Size = new System.Drawing.Size(296, 71);
+            this.btnDeleteClient.TabIndex = 21;
+            this.btnDeleteClient.Text = "Delete";
+            this.btnDeleteClient.Click += new System.EventHandler(this.btnDeleteClient_Click);
             // 
-            // lblLastName
+            // btnShowInfo
             // 
-            this.lblLastName.AutoSize = true;
-            this.lblLastName.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLastName.ForeColor = System.Drawing.Color.Black;
-            this.lblLastName.Location = new System.Drawing.Point(241, 129);
-            this.lblLastName.Name = "lblLastName";
-            this.lblLastName.Size = new System.Drawing.Size(124, 26);
-            this.lblLastName.TabIndex = 28;
-            this.lblLastName.Text = "First Name: ";
-            this.lblLastName.Click += new System.EventHandler(this.label9_Click);
+            this.btnShowInfo.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnShowInfo.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnShowInfo.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnShowInfo.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnShowInfo.FillColor = System.Drawing.Color.Gold;
+            this.btnShowInfo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnShowInfo.ForeColor = System.Drawing.Color.White;
+            this.btnShowInfo.Location = new System.Drawing.Point(500, 32);
+            this.btnShowInfo.Name = "btnShowInfo";
+            this.btnShowInfo.Size = new System.Drawing.Size(134, 35);
+            this.btnShowInfo.TabIndex = 22;
+            this.btnShowInfo.Text = "Show Info";
+            this.btnShowInfo.Click += new System.EventHandler(this.btnShowInfo_Click);
             // 
-            // lblBalance
+            // errorProvider1
             // 
-            this.lblBalance.AutoSize = true;
-            this.lblBalance.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBalance.ForeColor = System.Drawing.Color.Black;
-            this.lblBalance.Location = new System.Drawing.Point(241, 188);
-            this.lblBalance.Name = "lblBalance";
-            this.lblBalance.Size = new System.Drawing.Size(124, 26);
-            this.lblBalance.TabIndex = 29;
-            this.lblBalance.Text = "First Name: ";
-            this.lblBalance.Click += new System.EventHandler(this.label10_Click);
-            // 
-            // lblPinCode
-            // 
-            this.lblPinCode.AutoSize = true;
-            this.lblPinCode.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPinCode.ForeColor = System.Drawing.Color.Black;
-            this.lblPinCode.Location = new System.Drawing.Point(241, 246);
-            this.lblPinCode.Name = "lblPinCode";
-            this.lblPinCode.Size = new System.Drawing.Size(124, 26);
-            this.lblPinCode.TabIndex = 30;
-            this.lblPinCode.Text = "First Name: ";
-            this.lblPinCode.Click += new System.EventHandler(this.label11_Click);
-            // 
-            // lblEmail
-            // 
-            this.lblEmail.AutoSize = true;
-            this.lblEmail.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEmail.ForeColor = System.Drawing.Color.Black;
-            this.lblEmail.Location = new System.Drawing.Point(241, 304);
-            this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(124, 26);
-            this.lblEmail.TabIndex = 31;
-            this.lblEmail.Text = "First Name: ";
-            this.lblEmail.Click += new System.EventHandler(this.label12_Click);
-            // 
-            // lblAccountNumber
-            // 
-            this.lblAccountNumber.AutoSize = true;
-            this.lblAccountNumber.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAccountNumber.ForeColor = System.Drawing.Color.Black;
-            this.lblAccountNumber.Location = new System.Drawing.Point(241, 362);
-            this.lblAccountNumber.Name = "lblAccountNumber";
-            this.lblAccountNumber.Size = new System.Drawing.Size(124, 26);
-            this.lblAccountNumber.TabIndex = 32;
-            this.lblAccountNumber.Text = "First Name: ";
-            // 
-            // lblPhone
-            // 
-            this.lblPhone.AutoSize = true;
-            this.lblPhone.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPhone.ForeColor = System.Drawing.Color.Black;
-            this.lblPhone.Location = new System.Drawing.Point(241, 419);
-            this.lblPhone.Name = "lblPhone";
-            this.lblPhone.Size = new System.Drawing.Size(124, 26);
-            this.lblPhone.TabIndex = 33;
-            this.lblPhone.Text = "First Name: ";
+            this.errorProvider1.ContainerControl = this;
             // 
             // frmDeleteClient
             // 
@@ -289,6 +310,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1379, 830);
+            this.Controls.Add(this.btnShowInfo);
             this.Controls.Add(this.btnDeleteClient);
             this.Controls.Add(this.gbClientCard);
             this.Controls.Add(this.txtAccountNumber);
@@ -300,6 +322,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.gbClientCard.ResumeLayout(false);
             this.gbClientCard.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -326,5 +349,7 @@
         private System.Windows.Forms.Label lblBalance;
         private System.Windows.Forms.Label lblLastName;
         private System.Windows.Forms.Label lblFirstName;
+        private Guna.UI2.WinForms.Guna2Button btnShowInfo;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

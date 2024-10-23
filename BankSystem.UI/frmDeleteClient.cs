@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BankSystemBusinessLayer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,29 +18,165 @@ namespace BankSystem
             InitializeComponent();
         }
 
-        private void label12_Click(object sender, EventArgs e)
-        {
+        Clients _client = new Clients();
+        Persons _person = new Persons();
+        Phones _phone = new Phones();
 
+        enum enClientAction { Delete = 0, ShowInfo = 1 };
+
+
+        private void ShowMessage(string text)
+        {
+            MessageBox.Show(text, "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void label11_Click(object sender, EventArgs e)
+        private bool IsDeletionSuccessful(string accountNumber)
         {
+            int personID = _client.personID;
 
+            return (Clients.DeleteClient(accountNumber) && Phones.DeletePhone(personID) && Persons.DeletePerson(personID));
         }
 
-        private void label10_Click(object sender, EventArgs e)
+        private void ClearAccountNumberText()
         {
+            txtAccountNumber.Text = "";
+        }
+        private void DeleteClient(string accountNumber)
+        {
+                if (IsDeletionSuccessful(accountNumber))
+                {
+                    ShowMessage("Client Deleted Successfully");
 
+                    HideClientCard();
+
+                    ClearAccountNumberText();
+                }                 
+
+                else
+                    ShowMessage("Deletion Failed");            
         }
 
-        private void label9_Click(object sender, EventArgs e)
+        private void ConfirmDeletion()
         {
+            string accountNumber = txtAccountNumber.Text;
 
+            if (IsObjectsInfoSuccessfullyLoaded(accountNumber))
+            {
+                if (MessageBox.Show("Ary you sure to delete this client?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    DeleteClient(accountNumber);
+                }
+            }
+                   
+        }
+        private bool IsClientObjectNull()
+        {
+            return (_client == null);
         }
 
-        private void label8_Click(object sender, EventArgs e)
+        private bool IsObjectsInfoSuccessfullyLoaded(string accountNumber)
         {
+            _client = Clients.FindByAccountNumber(accountNumber);
 
+            if (IsClientObjectNull())
+            {
+                HideClientCard();
+
+                ShowMessage("Sorry, This Account Number Information Does Not Exist");
+
+                return false;
+            }
+
+            _person = Persons.Find(_client.personID);
+          
+            _phone = Phones.Find(_client.personID);
+
+            return true;
+        }
+
+        private void FillClientCard(string accountNumber)
+        {
+            lblFirstName.Text = _person.firstName;
+
+            lblLastName.Text = _person.lastName;
+
+            lblEmail.Text = _person.email;
+
+            lblBalance.Text = _client.balance.ToString();
+
+            lblPinCode.Text = _client.pinCode.ToString();
+
+            lblPhone.Text = _phone.phoneNumber;
+
+            lblAccountNumber.Text = accountNumber;
+        }
+        private void ShowClientInfo()
+        {
+            string accountNumber = txtAccountNumber.Text;
+
+            if (!IsObjectsInfoSuccessfullyLoaded(accountNumber))
+                return;
+            
+            FillClientCard(accountNumber);
+          
+            VisibleClientCard();
+        }
+
+
+        private void VisibleClientCard()
+        {
+            gbClientCard.Visible = true;
+        }
+
+        private void HideClientCard()
+        {
+            gbClientCard.Visible = false;
+        }
+
+        private bool NullValidation(TextBox textbox)
+        {
+            return (InputValidator.IsControlTextNull(textbox.Text));
+        }
+
+        private void SetErrorOnAccountNumber(string message = "This field should not be empty")
+        {
+            InputValidator.SetMessageError(txtAccountNumber, message, errorProvider1);
+        }
+
+        private void ExecuteClientAction(enClientAction clientAction)
+        {
+            switch (clientAction)
+            {
+                case enClientAction.Delete:
+                    ConfirmDeletion();
+                    break;
+
+                case enClientAction.ShowInfo:
+                    ShowClientInfo();
+                    break;
+            }
+        }
+
+        private void HandleClientAction(enClientAction clientAction)
+        {
+            if (!NullValidation(txtAccountNumber))
+            {
+                SetErrorOnAccountNumber("");
+
+                ExecuteClientAction(clientAction);
+            }
+
+            else
+                SetErrorOnAccountNumber();
+        }
+        private void btnDeleteClient_Click(object sender, EventArgs e)
+        {
+            HandleClientAction(enClientAction.Delete);
+        }
+
+        private void btnShowInfo_Click(object sender, EventArgs e)
+        {
+            HandleClientAction(enClientAction.ShowInfo);
         }
     }
 }
