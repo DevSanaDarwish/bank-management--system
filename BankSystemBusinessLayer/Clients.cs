@@ -37,15 +37,6 @@ namespace BankSystemBusinessLayer
             mode = enMode.Update;
         }
 
-        public Clients(string pinCode, decimal balance, string accountNumber, int personID)
-        {
-            this.pinCode = pinCode;
-            this.balance = balance;
-            this.accountNumber = accountNumber;
-            this.personID = personID;
-
-            mode = enMode.Update;
-        }
 
         public static DataTable GetAllClients()
         {
@@ -98,6 +89,9 @@ namespace BankSystemBusinessLayer
                     }
 
                     return false;
+
+                case enMode.Update:
+                    return UpdateClient();
             }
 
             return false;
@@ -107,10 +101,10 @@ namespace BankSystemBusinessLayer
         {
             string pinCode = "";
             decimal balance = 0;
-            int personID = -1;
+            int personID = -1, clientID = -1;
 
-            if (ClientsData.GetClientInfoByAccountNumber(accountNumber, ref pinCode, ref balance, ref personID))
-                return new Clients(pinCode, balance, accountNumber, personID);
+            if (ClientsData.GetClientInfoByAccountNumber(accountNumber, ref pinCode, ref balance, ref personID, ref clientID))
+                return new Clients(clientID, pinCode, balance, accountNumber, personID);
 
             else
                 return null;
@@ -125,6 +119,11 @@ namespace BankSystemBusinessLayer
         public static bool DeleteClient(string accountNumber)
         {
             return (ClientsData.DeleteClient(accountNumber));
+        }
+
+        public bool UpdateClient()
+        {
+            return ClientsData.UpdateClient(this.accountNumber, this.pinCode, this.balance);
         }
     }
 }

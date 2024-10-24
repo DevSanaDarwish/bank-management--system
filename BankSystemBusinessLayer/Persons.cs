@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using BankSystemDataAccessLayer;
 
@@ -93,6 +94,9 @@ namespace BankSystemBusinessLayer
                     }
 
                     return false;
+
+                case enMode.Update:
+                    return UpdatePerson();
             }
 
             return false;
@@ -129,6 +133,11 @@ namespace BankSystemBusinessLayer
         public static bool DeletePerson(int personID)
         {
             return PersonsData.DeletePerson(personID);
+        }
+
+        public bool UpdatePerson()
+        {
+            return PersonsData.UpdatePerson(this.personID, this.firstName, this.lastName, this.email);
         }
     }
 }

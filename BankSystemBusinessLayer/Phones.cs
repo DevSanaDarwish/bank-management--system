@@ -87,16 +87,19 @@ namespace BankSystemBusinessLayer
                     }
 
                     return false;
+
+                case enMode.Update:
+                    return UpdatePhone();
             }
 
             return false;
         }
 
-        public static Phones Find(int personID)
+        public static Phones Find(int clientID)
         {
             string phoneNumber = "";
 
-            if (PhonesData.GetPhoneNumberByPersonID(personID, ref phoneNumber))
+            if (PhonesData.GetPhoneNumberByClientID(clientID, ref phoneNumber))
                 return new Phones(phoneNumber);
 
             else
@@ -112,6 +115,11 @@ namespace BankSystemBusinessLayer
         public static bool DeletePhone(int personID)
         {
             return PhonesData.DeletePhone(personID);
+        }
+
+        public bool UpdatePhone()
+        {
+            return PhonesData.UpdatePhone(this.personID, this.phoneNumber);
         }
     }
 }

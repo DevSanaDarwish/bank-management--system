@@ -87,17 +87,18 @@ namespace BankSystemDataAccessLayer
             return phoneID;
         }
 
-        public static bool GetPhoneNumberByPersonID(int personID, ref string phoneNumber)
+        public static bool GetPhoneNumberByClientID(int clientID, ref string phoneNumber)
         {
             bool isFound = false;
 
             SqlConnection connection = new SqlConnection( DataAccessSettings.connectionString);
-
-            string query = "Select * From Phones Where PersonID = @personID";
+            
+            //string query = "Select * From Phones Where PersonID = @clientID";
+            string query = "Select PhoneNumbers From vwClients Where ClientID = @clientID";
 
             SqlCommand command = new SqlCommand(query, connection);
 
-            command.Parameters.AddWithValue("@personID", personID);
+            command.Parameters.AddWithValue("@clientID", clientID);
 
             try
             {
@@ -109,7 +110,7 @@ namespace BankSystemDataAccessLayer
                 {
                     isFound = true;
 
-                    phoneNumber = (string)reader["PhoneNumber"];
+                    phoneNumber = (string)reader["PhoneNumbers"];
                 }
 
                 else
@@ -168,5 +169,42 @@ namespace BankSystemDataAccessLayer
 
             return (rowsAffected > 0);
         }
+
+        public static bool UpdatePhone(int personID, string phoneNumber)
+        {
+            int rowsAffected = 0;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = @"Update Phones 
+                           set PhoneNumber = @phoneNumber
+                           Where PersonID = @personID;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@phoneNumber", phoneNumber);
+            command.Parameters.AddWithValue("@personID", personID);
+
+            try
+            {
+                connection.Open();
+
+                rowsAffected = command.ExecuteNonQuery();
+            }
+
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+
+            return (rowsAffected > 0);
+        }
+
     }
 }

@@ -16,13 +16,13 @@ namespace BankSystemDataAccessLayer
 
             string getMaxClientIDQuery = "SELECT ISNULL(MAX(ClientID), 0) FROM Clients;";
 
-            SqlCommand getMaxClientIDcommand = new SqlCommand(getMaxClientIDQuery, connection);
+            SqlCommand getMaxClientIDCommand = new SqlCommand(getMaxClientIDQuery, connection);
 
             try
             {
                 connection.Open();
 
-                object result = getMaxClientIDcommand.ExecuteScalar();
+                object result = getMaxClientIDCommand.ExecuteScalar();
 
                 if(result != null)
                 {
@@ -200,7 +200,7 @@ namespace BankSystemDataAccessLayer
             return isFound;
         }
 
-        public static bool GetClientInfoByAccountNumber(string accountNumber, ref string pinCode, ref decimal balance, ref int personID)
+        public static bool GetClientInfoByAccountNumber(string accountNumber, ref string pinCode, ref decimal balance, ref int personID, ref int clientID)
         {
             bool isFound = false;
 
@@ -221,6 +221,8 @@ namespace BankSystemDataAccessLayer
                 if(reader.Read())
                 {
                     isFound = true;
+
+                    clientID = (int)reader["ClientID"];
 
                     balance = (decimal)reader["Balance"];
 
@@ -271,6 +273,43 @@ namespace BankSystemDataAccessLayer
             {
                 connection.Close();
             }
+
+            return (rowsAffected > 0);
+        }
+
+        public static bool UpdateClient(string accountNumber, string pinCode, decimal balance)
+        {
+            int rowsAffected = 0;
+
+            SqlConnection connection = new SqlConnection( DataAccessSettings.connectionString);
+
+            string query = @"Update Clients 
+                           set PinCode = @pinCode,   Balance = @balance
+                           Where AccountNumber = @accountNumber;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@pinCode", pinCode);
+            command.Parameters.AddWithValue("@balance", balance);
+            command.Parameters.AddWithValue("@accountNumber", accountNumber);
+
+            try
+            {
+                connection.Open();
+
+                rowsAffected = command.ExecuteNonQuery();
+            }
+
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
 
             return (rowsAffected > 0);
         }

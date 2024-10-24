@@ -242,5 +242,43 @@ namespace BankSystemDataAccessLayer
 
             return (rowsAffected > 0);
         }
+
+        public static bool UpdatePerson(int personID, string firstName, string lastName, string email)
+        {
+            int rowsAffected = 0;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = @"Update Persons 
+                           set FirstName = @firstName,   LastName = @lastName,   Email = @email
+                           Where PersonID = @personID;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@firstName", firstName);
+            command.Parameters.AddWithValue("@lastName", lastName);
+            command.Parameters.AddWithValue("@email", email);
+            command.Parameters.AddWithValue("@personID", personID);
+
+            try
+            {
+                connection.Open();
+
+                rowsAffected = command.ExecuteNonQuery();
+            }
+
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+
+            return (rowsAffected > 0);
+        }
     }
 }

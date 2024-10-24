@@ -30,6 +30,48 @@ namespace BankSystem
             MessageBox.Show(text, "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private bool IsObjectNull(object obj)
+        {
+            return (obj == null);
+        }
+        private bool IsClientNotFound(object obj)
+        {
+            if (IsObjectNull(obj))
+            {
+                HideClientCard();
+
+                ShowMessage("Sorry, This Account Number Information Does Not Exist");
+
+                return true;
+            }
+
+            return false;
+
+        }
+
+        private bool AreObjectsInfoSuccessfullyLoaded(string accountNumber)
+        {
+            _client = Clients.FindByAccountNumber(accountNumber);
+
+            if (IsClientNotFound(_client))
+                return false;
+
+
+            _person = Persons.Find(_client.personID);
+
+            if (IsClientNotFound(_person))
+                return false;
+
+
+            _phone = Phones.Find(_client.clientID);
+
+            if (IsClientNotFound(_phone))
+                return false;
+
+
+            return true;
+        }
+
         private bool IsDeletionSuccessful(string accountNumber)
         {
             int personID = _client.personID;
@@ -60,7 +102,7 @@ namespace BankSystem
         {
             string accountNumber = txtAccountNumber.Text;
 
-            if (IsObjectsInfoSuccessfullyLoaded(accountNumber))
+            if (AreObjectsInfoSuccessfullyLoaded(accountNumber))
             {
                 if (MessageBox.Show("Ary you sure to delete this client?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
@@ -74,33 +116,11 @@ namespace BankSystem
             return (_client == null);
         }
 
-        private bool IsObjectsInfoSuccessfullyLoaded(string accountNumber)
-        {
-            _client = Clients.FindByAccountNumber(accountNumber);
-
-            if (IsClientObjectNull())
-            {
-                HideClientCard();
-
-                ShowMessage("Sorry, This Account Number Information Does Not Exist");
-
-                return false;
-            }
-
-            _person = Persons.Find(_client.personID);
-          
-            _phone = Phones.Find(_client.personID);
-
-            return true;
-        }
-
         private void FillClientCard(string accountNumber)
         {
             lblFirstName.Text = _person.firstName;
 
             lblLastName.Text = _person.lastName;
-
-            lblEmail.Text = _person.email;
 
             lblBalance.Text = _client.balance.ToString();
 
@@ -109,12 +129,18 @@ namespace BankSystem
             lblPhone.Text = _phone.phoneNumber;
 
             lblAccountNumber.Text = accountNumber;
+
+            if (_person.email != "")
+                lblEmail.Text = _person.email;
+
+            else
+                lblEmail.Text = "Unknown";
         }
         private void ShowClientInfo()
         {
             string accountNumber = txtAccountNumber.Text;
 
-            if (!IsObjectsInfoSuccessfullyLoaded(accountNumber))
+            if (!AreObjectsInfoSuccessfullyLoaded(accountNumber))
                 return;
             
             FillClientCard(accountNumber);
