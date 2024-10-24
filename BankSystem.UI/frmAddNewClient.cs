@@ -38,14 +38,16 @@ namespace BankSystem
             MessageBox.Show(message);
         }
 
+        private bool ValidateInputFields()
+        {
+            return IsInputFieldsNotNull() && IsInputFieldsValid();
+        }
+
         private void btnAddNewClient_Click(object sender, EventArgs e)
         {
-            if (IsInputFieldsNotNull())
-            {
-                if (IsInputFieldsValid())
-                {
+            if (ValidateInputFields())
+            { 
                     AddNewClient();
-                }
             }           
         }
 

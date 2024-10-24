@@ -50,6 +50,9 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnShowInfo = new Guna.UI2.WinForms.Guna2Button();
             this.pnlClientInfo = new Guna.UI2.WinForms.Guna2Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cbPhones = new System.Windows.Forms.ComboBox();
+            this.btnAddPhone = new Guna.UI2.WinForms.Guna2Button();
             this.txtPhone = new System.Windows.Forms.TextBox();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.txtPinCode = new System.Windows.Forms.TextBox();
@@ -64,9 +67,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btnUpdateClient = new Guna.UI2.WinForms.Guna2Button();
-            this.btnAddPhone = new Guna.UI2.WinForms.Guna2Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.cbPhones = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.gbClientCard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -315,6 +315,43 @@
             this.pnlClientInfo.TabIndex = 38;
             this.pnlClientInfo.Visible = false;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(32, 473);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(223, 28);
+            this.label8.TabIndex = 53;
+            this.label8.Text = "All Phone Numbers: ";
+            // 
+            // cbPhones
+            // 
+            this.cbPhones.BackColor = System.Drawing.Color.White;
+            this.cbPhones.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbPhones.ForeColor = System.Drawing.Color.DarkSeaGreen;
+            this.cbPhones.FormattingEnabled = true;
+            this.cbPhones.Location = new System.Drawing.Point(37, 514);
+            this.cbPhones.Name = "cbPhones";
+            this.cbPhones.Size = new System.Drawing.Size(291, 36);
+            this.cbPhones.TabIndex = 52;
+            // 
+            // btnAddPhone
+            // 
+            this.btnAddPhone.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnAddPhone.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnAddPhone.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnAddPhone.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnAddPhone.FillColor = System.Drawing.Color.DarkSeaGreen;
+            this.btnAddPhone.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddPhone.ForeColor = System.Drawing.Color.White;
+            this.btnAddPhone.Location = new System.Drawing.Point(148, 404);
+            this.btnAddPhone.Name = "btnAddPhone";
+            this.btnAddPhone.Size = new System.Drawing.Size(376, 41);
+            this.btnAddPhone.TabIndex = 51;
+            this.btnAddPhone.Text = "Add The Phone Number To The List";
+            this.btnAddPhone.Click += new System.EventHandler(this.btnAddPhone_Click);
+            // 
             // txtPhone
             // 
             this.txtPhone.BackColor = System.Drawing.Color.White;
@@ -460,43 +497,8 @@
             this.btnUpdateClient.Size = new System.Drawing.Size(296, 71);
             this.btnUpdateClient.TabIndex = 37;
             this.btnUpdateClient.Text = "Update";
+            this.btnUpdateClient.Visible = false;
             this.btnUpdateClient.Click += new System.EventHandler(this.btnUpdateClient_Click);
-            // 
-            // btnAddPhone
-            // 
-            this.btnAddPhone.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnAddPhone.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnAddPhone.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnAddPhone.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnAddPhone.FillColor = System.Drawing.Color.DarkSeaGreen;
-            this.btnAddPhone.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddPhone.ForeColor = System.Drawing.Color.White;
-            this.btnAddPhone.Location = new System.Drawing.Point(148, 404);
-            this.btnAddPhone.Name = "btnAddPhone";
-            this.btnAddPhone.Size = new System.Drawing.Size(376, 41);
-            this.btnAddPhone.TabIndex = 51;
-            this.btnAddPhone.Text = "Add The Phone Number To The List";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(32, 473);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(223, 28);
-            this.label8.TabIndex = 53;
-            this.label8.Text = "All Phone Numbers: ";
-            // 
-            // cbPhones
-            // 
-            this.cbPhones.BackColor = System.Drawing.Color.White;
-            this.cbPhones.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbPhones.ForeColor = System.Drawing.Color.DarkSeaGreen;
-            this.cbPhones.FormattingEnabled = true;
-            this.cbPhones.Location = new System.Drawing.Point(37, 514);
-            this.cbPhones.Name = "cbPhones";
-            this.cbPhones.Size = new System.Drawing.Size(291, 36);
-            this.cbPhones.TabIndex = 52;
             // 
             // frmUpdateClient
             // 

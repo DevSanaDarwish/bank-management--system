@@ -55,7 +55,7 @@ namespace BankSystemBusinessLayer
         private bool IsEmptyValidation()
         {
             if (clsInputValidator.IsEmpty(this.personID.ToString()) || clsInputValidator.IsEmpty(this.firstName) ||
-                clsInputValidator.IsEmpty(this.lastName) || clsInputValidator.IsEmpty(this.email))
+                clsInputValidator.IsEmpty(this.lastName))
             {
                 return true;
             }

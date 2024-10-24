@@ -24,6 +24,7 @@ namespace BankSystem
 
         int _personID = -1;
 
+        bool _isValid = true;
 
         enum enClientAction { Update = 0, ShowInfo = 1 };
 
@@ -99,23 +100,25 @@ namespace BankSystem
 
         private void ValidationClientsAndPhonesSave()
         {
-            SetPersonIDToClientObject();
+            //SetPersonIDToClientObject();
 
             ValidationPhoneNumbersSave();
 
             if (_client.Save())
             {
-                ShowMessage("Successfully Added");
+                ShowMessage("Successfully Updated");
             }
         }
 
         private void ValidationSave()
         {
+            _person.personID = _personID;
+
             if (_person.Save())
                 ValidationClientsAndPhonesSave();
 
             else
-                ShowMessage("Failed to add");
+                ShowMessage("Failed to update");
         }
 
         private void ValidationPhoneNumbersSave()
@@ -145,6 +148,7 @@ namespace BankSystem
            
 
             _person = Persons.Find(_client.personID);
+            _personID = _client.personID;
 
             if (IsClientNotFound(_person))
                 return false;
@@ -221,35 +225,67 @@ namespace BankSystem
             _person.email = txtEmail.Text;
         }
 
-        //private bool IsUpdateSuccessful(string accountNumber)
-        //{
-        //    //int personID = _client.personID;
-
-        //    //return (Clients.DeleteClient(accountNumber) && Phones.DeletePhone(personID) && Persons.DeletePerson(personID));
-
-
-        //}
-
         private void UpdateClient(string accountNumber)
         {
             FillClientInfo();
 
             ValidationSave();
         }
+
+        private bool StringValidation(TextBox textbox)
+        {
+            return (InputValidator.IsString(textbox.Text));
+        }
+
+        private bool IsInputFieldsValid()
+        {
+            bool isValid = true;
+            string message = "You must enter a valid value";
+
+            foreach (System.Windows.Forms.Control control in pnlClientInfo.Controls)
+            {
+                if (control is TextBox textbox)
+                {
+                    if (textbox == txtBalance || textbox == txtPinCode)
+                    {
+                        AllValidation(textbox, NumericValidation(textbox), message);
+                    }
+
+                    if (textbox == txtFirstName || textbox == txtLastName)
+                    {
+                        AllValidation(textbox, StringValidation(textbox), message);
+                    }
+
+                    if (!_isValid)
+                        isValid = _isValid;
+                }
+            }
+
+            return isValid;
+        }
+
+        private bool ValidateInputFields()
+        {
+            return IsInputFieldsNotNull() && IsInputFieldsValid();
+        }
+
         private void ConfirmUpdate()
         {
             string accountNumber = txtAccountNumber.Text;
 
             if (AreObjectsInfoSuccessfullyLoaded(accountNumber))
             {
-                if (MessageBox.Show("Ary you sure to update information this client?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (ValidateInputFields())
                 {
-                    UpdateClient(accountNumber);
+                    if (MessageBox.Show("Ary you sure to update information this client?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        UpdateClient(accountNumber);
+                    }
                 }
             }
-
+               
         }
-
+        
         private void ExecuteClientAction(enClientAction clientAction)
         {
             switch (clientAction)
@@ -285,6 +321,137 @@ namespace BankSystem
         private void btnUpdateClient_Click(object sender, EventArgs e)
         {
             HandleClientAction(enClientAction.Update);
+        }
+
+        private bool IsPhoneNumberNull()
+        {
+            string messageValue = "Please Add One Phone Number At Least";
+
+            if (NullValidation(txtPhone))
+            {
+                Set_isValid(txtPhone, messageValue, false);
+                return true;
+            }
+
+            else
+            {
+                Set_isValid(txtPhone, "", true);
+                return false;
+            }
+        }
+        private void Set_isValid(TextBox textbox, string messageValue, bool validValue)
+        {
+            InputValidator.SetMessageError(textbox, messageValue, errorProvider1);
+
+            _isValid = validValue;
+        }
+
+        private void AllValidation(TextBox textbox, bool typeValidation, string message)
+        {
+            if (typeValidation)
+            {
+                Set_isValid(textbox, "", true);
+            }
+
+            else
+            {
+                Set_isValid(textbox, message, false);
+            }
+        }
+
+        private bool NumericValidation(TextBox textbox)
+        {
+            return (InputValidator.IsNumeric(textbox.Text));
+        }
+
+        private bool IsPhoneNumberValid()
+        {
+            string messageValue = "You must enter a valid value";
+
+            AllValidation(txtPhone, NumericValidation(txtPhone), messageValue);
+
+            if (_isValid == true)
+                return true;
+
+            return false;
+        }
+
+        private bool IsInputFieldsNotNull()
+        {
+            bool isNotNull = true;
+            string message = "This field should not be empty";
+
+            //all controls null validation
+            foreach (System.Windows.Forms.Control control in pnlClientInfo.Controls)
+            {
+                if (control is TextBox textbox)
+                {
+                    //ignore txtEmail & txtPhone
+                    if (textbox == txtEmail || textbox == txtPhone)
+                        continue;
+
+                    AllValidation(textbox, !NullValidation(textbox), message);
+
+                    if (!_isValid)
+                        isNotNull = _isValid;
+                }
+            }
+
+            //_phone control null validation
+            IsComboBoxNull();
+
+            if (!_isValid)
+                isNotNull = _isValid;
+
+            return isNotNull;
+        }
+
+        private bool IsComboBoxNull()
+        {
+            byte itemsCount = Convert.ToByte(cbPhones.Items.Count);
+
+            string messageValue = "Please Add One Phone Number At Least";
+
+            if (itemsCount == 0)
+            {
+                Set_isValid(txtPhone, messageValue, false);
+                return true;
+            }
+
+            else
+            {
+                Set_isValid(txtPhone, "", true);
+                return false;
+            }
+        }
+
+        private bool AddPhoneNumberToComboBox()
+        {
+            string phoneNumber = txtPhone.Text;
+
+            if (!IsPhoneNumberNull())
+            {
+                if (IsPhoneNumberValid())
+                {
+                    cbPhones.Items.Add(phoneNumber);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void ClearPhoneText()
+        {
+            txtPhone.Clear();
+        }
+
+        private void btnAddPhone_Click(object sender, EventArgs e)
+        {
+            if (AddPhoneNumberToComboBox())
+            {
+                ClearPhoneText();
+            }
         }
     }
 }
