@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmFindClient));
             this.txtAccountNumber = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -48,8 +49,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.gbClientCard.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // txtAccountNumber
@@ -98,6 +101,7 @@
             this.btnFindClient.Size = new System.Drawing.Size(168, 59);
             this.btnFindClient.TabIndex = 24;
             this.btnFindClient.Text = "Search";
+            this.btnFindClient.Click += new System.EventHandler(this.btnFindClient_Click);
             // 
             // gbClientCard
             // 
@@ -119,11 +123,12 @@
             this.gbClientCard.CustomBorderColor = System.Drawing.Color.DarkRed;
             this.gbClientCard.Font = new System.Drawing.Font("Segoe UI Semibold", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbClientCard.ForeColor = System.Drawing.Color.White;
-            this.gbClientCard.Location = new System.Drawing.Point(37, 317);
+            this.gbClientCard.Location = new System.Drawing.Point(12, 317);
             this.gbClientCard.Name = "gbClientCard";
-            this.gbClientCard.Size = new System.Drawing.Size(430, 471);
+            this.gbClientCard.Size = new System.Drawing.Size(582, 471);
             this.gbClientCard.TabIndex = 25;
             this.gbClientCard.Text = "Client Card";
+            this.gbClientCard.Visible = false;
             // 
             // lblPhone
             // 
@@ -279,6 +284,10 @@
             this.label.TabIndex = 14;
             this.label.Text = "First Name: ";
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // frmFindClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -296,6 +305,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.gbClientCard.ResumeLayout(false);
             this.gbClientCard.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -322,5 +332,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
