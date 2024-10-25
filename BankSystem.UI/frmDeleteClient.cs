@@ -83,7 +83,7 @@ namespace BankSystem
         {
             txtAccountNumber.Text = "";
         }
-        private void DeleteClient(string accountNumber)
+        public void DeleteClient(string accountNumber)
         {
                 if (IsDeletionSuccessful(accountNumber))
                 {

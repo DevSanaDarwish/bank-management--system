@@ -3,6 +3,7 @@ using Guna.UI2.WinForms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -23,7 +24,8 @@ namespace BankSystem
         Persons _person = new Persons();
         Phones _phone = new Phones();
 
-
+        public enum enClientAction { Update = 0, ShowInfo = 1, Delete = 2 };
+        public enClientAction clientAction = enClientAction.ShowInfo;
         public ClientUIHelper(ErrorProvider errorProvider1, Guna2GroupBox gbClientCard, TextBox txtAccountNumber,
             Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, Label lblAccountNumber, Label lblEmail,
             Clients client, Persons person, Phones phone)
@@ -37,6 +39,24 @@ namespace BankSystem
             this._lblPinCode = lblPinCode;
             this._lblPhone = lblPhone;
             this._lblAccountNumber = lblAccountNumber;
+            this._lblEmail = lblEmail;
+            this._client = client;
+            this._person = person;
+            this._phone = phone;
+        }
+
+        public ClientUIHelper(ErrorProvider errorProvider1, Guna2GroupBox gbClientCard, TextBox txtAccountNumber,
+           Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, Label lblEmail,
+           Clients client, Persons person, Phones phone)
+        {
+            this._errorProvider1 = errorProvider1;
+            this._gbClientCard = gbClientCard;
+            this._txtAccountNumber = txtAccountNumber;
+            this._lblFirstName = lblFirstName;
+            this._lblLastName = lblLastName;
+            this._lblBalance = lblBalance;
+            this._lblPinCode = lblPinCode;
+            this._lblPhone = lblPhone;
             this._lblEmail = lblEmail;
             this._client = client;
             this._person = person;
@@ -143,20 +163,72 @@ namespace BankSystem
             VisibleClientCard();
         }
 
-        public void HandleClientInfo()
+        private bool ValidateInputFields()
+        {
+            return IsInputFieldsNotNull() && IsInputFieldsValid();
+        }
+
+
+
+        private void ConfirmOperation(enClientAction clientAction, string confirmMessage)
+        {
+            string accountNumber = _txtAccountNumber.Text;
+
+            if (AreObjectsInfoSuccessfullyLoaded(accountNumber))
+            {
+                if (clientAction == enClientAction.Update && !ValidateInputFields())
+                    return;
+
+                if (MessageBox.Show(confirmMessage, "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    if (clientAction == enClientAction.Update)
+                    {
+                        frmUpdateClient updateClient = new frmUpdateClient();
+
+                        updateClient.UpdateClient(accountNumber);
+                    }
+
+
+                    else if (clientAction == enClientAction.Delete)
+                    {
+                        frmDeleteClient deleteClient = new frmDeleteClient();
+
+                        deleteClient.DeleteClient(accountNumber);
+                    }
+                }
+            }
+        }
+        private void ExecuteClientAction(enClientAction clientAction)
+        {
+            switch (clientAction)
+            {
+                case enClientAction.Update:
+                    ConfirmOperation(clientAction, "Ary you sure to update information this client?");
+                    break;
+
+                case enClientAction.Delete:
+                    ConfirmOperation(clientAction, "Ary you sure to delete this client?");
+                    break;
+
+                case enClientAction.ShowInfo:
+                    ShowClientInfo();
+                    break;
+            }
+        }
+
+        public void HandleClientInfo(enClientAction clientAction)
         {
             if (!NullValidation(_txtAccountNumber))
             {
                 SetErrorOnAccountNumber("");
 
-                ShowClientInfo();
+                ExecuteClientAction(clientAction);
             }
 
             else
                 SetErrorOnAccountNumber();
         }
 
-
-
+}
     }
 }
