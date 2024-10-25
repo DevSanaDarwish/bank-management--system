@@ -67,7 +67,7 @@
             this.pictureBox1.TabIndex = 16;
             this.pictureBox1.TabStop = false;
             // 
-            // txtAccountNumber
+            // _txtAccountNumber
             // 
             this.txtAccountNumber.BackColor = System.Drawing.Color.White;
             this.txtAccountNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -87,7 +87,7 @@
             this.label6.TabIndex = 17;
             this.label6.Text = "Account Number: ";
             // 
-            // gbClientCard
+            // _gbClientCard
             // 
             this.gbClientCard.BorderColor = System.Drawing.Color.Gold;
             this.gbClientCard.Controls.Add(this.lblPhone);
@@ -114,7 +114,7 @@
             this.gbClientCard.Text = "Client Card";
             this.gbClientCard.Visible = false;
             // 
-            // lblPhone
+            // _lblPhone
             // 
             this.lblPhone.AutoSize = true;
             this.lblPhone.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -125,7 +125,7 @@
             this.lblPhone.TabIndex = 33;
             this.lblPhone.Text = "First Name: ";
             // 
-            // lblAccountNumber
+            // _lblAccountNumber
             // 
             this.lblAccountNumber.AutoSize = true;
             this.lblAccountNumber.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -136,7 +136,7 @@
             this.lblAccountNumber.TabIndex = 32;
             this.lblAccountNumber.Text = "First Name: ";
             // 
-            // lblEmail
+            // _lblEmail
             // 
             this.lblEmail.AutoSize = true;
             this.lblEmail.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -147,7 +147,7 @@
             this.lblEmail.TabIndex = 31;
             this.lblEmail.Text = "First Name: ";
             // 
-            // lblPinCode
+            // _lblPinCode
             // 
             this.lblPinCode.AutoSize = true;
             this.lblPinCode.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -158,7 +158,7 @@
             this.lblPinCode.TabIndex = 30;
             this.lblPinCode.Text = "First Name: ";
             // 
-            // lblBalance
+            // _lblBalance
             // 
             this.lblBalance.AutoSize = true;
             this.lblBalance.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -169,7 +169,7 @@
             this.lblBalance.TabIndex = 29;
             this.lblBalance.Text = "First Name: ";
             // 
-            // lblLastName
+            // _lblLastName
             // 
             this.lblLastName.AutoSize = true;
             this.lblLastName.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -180,7 +180,7 @@
             this.lblLastName.TabIndex = 28;
             this.lblLastName.Text = "First Name: ";
             // 
-            // lblFirstName
+            // _lblFirstName
             // 
             this.lblFirstName.AutoSize = true;
             this.lblFirstName.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -300,7 +300,7 @@
             this.btnShowInfo.Text = "Show Info";
             this.btnShowInfo.Click += new System.EventHandler(this.btnShowInfo_Click);
             // 
-            // errorProvider1
+            // _errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
             // 

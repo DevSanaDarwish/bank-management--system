@@ -54,7 +54,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
-            // lblFirstName
+            // _lblFirstName
             // 
             this.lblFirstName.AutoSize = true;
             this.lblFirstName.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -184,7 +184,7 @@
             this.label6.TabIndex = 12;
             this.label6.Text = "Account Number: ";
             // 
-            // txtAccountNumber
+            // _txtAccountNumber
             // 
             this.txtAccountNumber.BackColor = System.Drawing.Color.White;
             this.txtAccountNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -258,7 +258,7 @@
             this.btnAddPhone.Text = "Add The Phone Number To The List";
             this.btnAddPhone.Click += new System.EventHandler(this.btnAddPhone_Click);
             // 
-            // errorProvider1
+            // _errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
             // 

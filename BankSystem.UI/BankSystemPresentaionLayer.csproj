@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientUIHelper.cs" />
     <Compile Include="frmAddNewClient.cs">
       <SubType>Form</SubType>
     </Compile>
