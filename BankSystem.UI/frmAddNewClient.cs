@@ -33,6 +33,8 @@ namespace BankSystem
 
         Phones _phone = new Phones();
 
+        ClientUIHelper _clientUI;
+
         private void ShowMessage(string message)
         {
             MessageBox.Show(message);
@@ -45,7 +47,11 @@ namespace BankSystem
 
         private void btnAddNewClient_Click(object sender, EventArgs e)
         {
-            if (ValidateInputFields())
+            _clientUI = new ClientUIHelper(errorProvider1, txtAccountNumber, txtEmail, txtPhone, txtBalance, txtPinCode, txtFirstName,
+                txtLastName, pnlClientInfo, _isValid, _client, _person,
+                _phone, cbPhones);
+
+            if (_clientUI.ValidateInputFields())
             { 
                     AddNewClient();
             }           

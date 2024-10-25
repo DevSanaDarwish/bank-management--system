@@ -22,6 +22,8 @@ namespace BankSystem
         Persons _person = new Persons();
         Phones _phone = new Phones();
 
+        ClientUIHelper _clientUI;
+
         enum enClientAction { Delete = 0, ShowInfo = 1 };
 
 
@@ -183,17 +185,27 @@ namespace BankSystem
             }
         }
 
+        //private void HandleClientAction(enClientAction clientAction)
+        //{
+        //    if (!NullValidation(txtAccountNumber))
+        //    {
+        //        SetErrorOnAccountNumber("");
+
+        //        ExecuteClientAction(clientAction);
+        //    }
+
+        //    else
+        //        SetErrorOnAccountNumber();
+        //}
+
         private void HandleClientAction(enClientAction clientAction)
         {
-            if (!NullValidation(txtAccountNumber))
-            {
-                SetErrorOnAccountNumber("");
+            _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode, lblPhone,
+                lblAccountNumber, lblEmail, _client, _person, _phone);
 
-                ExecuteClientAction(clientAction);
-            }
+            _clientUI.clientAction = (ClientUIHelper.enClientAction)clientAction;
 
-            else
-                SetErrorOnAccountNumber();
+            _clientUI.HandleClientInfo(_clientUI.clientAction);
         }
         private void btnDeleteClient_Click(object sender, EventArgs e)
         {

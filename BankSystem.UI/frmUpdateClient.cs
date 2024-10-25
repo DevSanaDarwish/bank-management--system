@@ -301,35 +301,37 @@ namespace BankSystem
             }
         }
 
+        //private void HandleClientAction(enClientAction clientAction)
+        //{
+        //    if (!NullValidation(txtAccountNumber))
+        //    {
+        //        SetErrorOnAccountNumber("");
+
+        //        ExecuteClientAction(clientAction);
+        //    }
+
+        //    else
+        //        SetErrorOnAccountNumber();
+        //}
+        
         private void HandleClientAction(enClientAction clientAction)
         {
-            if (!NullValidation(txtAccountNumber))
-            {
-                SetErrorOnAccountNumber("");
+            _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, txtEmail, txtPhone, txtBalance, txtPinCode, txtFirstName,
+                txtLastName, pnlClientInfo, _isValid, lblFirstName, lblLastName, lblBalance, lblPinCode, lblPhone, lblEmail, _client, _person,
+                _phone, cbPhones);
 
-                ExecuteClientAction(clientAction);
-            }
-
-            else
-                SetErrorOnAccountNumber();
-        }
-
-        private void btnShowInfo_Click(object sender, EventArgs e)
-        {
-            _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode, lblPhone, lblEmail, _client, _person, _phone);
-
-            _clientUI.clientAction = ClientUIHelper.enClientAction.ShowInfo;
+            _clientUI.clientAction = (ClientUIHelper.enClientAction)clientAction;
 
             _clientUI.HandleClientInfo(_clientUI.clientAction);
+        }
+        private void btnShowInfo_Click(object sender, EventArgs e)
+        {
+            HandleClientAction(enClientAction.ShowInfo);
         }
 
         private void btnUpdateClient_Click(object sender, EventArgs e)
         {
-            _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode, lblPhone, lblEmail, _client, _person, _phone);
-
-            _clientUI.clientAction = ClientUIHelper.enClientAction.Update;
-
-            _clientUI.HandleClientInfo(_clientUI.clientAction);
+            HandleClientAction(enClientAction.Update);
         }
 
         private bool IsPhoneNumberNull()
