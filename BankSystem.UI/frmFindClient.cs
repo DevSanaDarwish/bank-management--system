@@ -28,12 +28,12 @@ namespace BankSystem
         
         private void btnFindClient_Click(object sender, EventArgs e)
         {
-            _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode, 
-                lblPhone ,lblAccountNumber, lblEmail, _client, _person, _phone);
+            //_clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode, 
+            //    lblPhone ,lblAccountNumber, lblEmail, _client, _person, _phone);
 
-            _clientUI.clientAction = enClientAction.ShowInfo;
+            //_clientUI._clientAction = enClientAction.ShowInfo;
 
-            _clientUI.HandleClientInfo(_clientUI.clientAction);
+            //_clientUI.HandleClientInfo(_clientUI._clientAction);
         }
     }
 }

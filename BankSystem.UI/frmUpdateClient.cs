@@ -301,13 +301,13 @@ namespace BankSystem
             }
         }
 
-        //private void HandleClientAction(enClientAction clientAction)
+        //private void HandleClientAction(enClientAction _clientAction)
         //{
         //    if (!NullValidation(txtAccountNumber))
         //    {
         //        SetErrorOnAccountNumber("");
 
-        //        ExecuteClientAction(clientAction);
+        //        ExecuteClientAction(_clientAction);
         //    }
 
         //    else
@@ -318,11 +318,11 @@ namespace BankSystem
         {
             _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, txtEmail, txtPhone, txtBalance, txtPinCode, txtFirstName,
                 txtLastName, pnlClientInfo, _isValid, lblFirstName, lblLastName, lblBalance, lblPinCode, lblPhone, lblEmail, _client, _person,
-                _phone, cbPhones);
+                _phone, cbPhones, btnUpdateClient);
 
-            _clientUI.clientAction = (ClientUIHelper.enClientAction)clientAction;
+            _clientUI._clientAction = (ClientUIHelper.enClientAction)clientAction;
 
-            _clientUI.HandleClientInfo(_clientUI.clientAction);
+            //_clientUI.HandleClientInfo(_clientUI._clientAction);
         }
         private void btnShowInfo_Click(object sender, EventArgs e)
         {

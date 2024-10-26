@@ -12,6 +12,12 @@ namespace BankSystem
 {
     public class ClientUIHelper
     {
+        public enum enClientAction { Update = 0, ShowInfo = 1, Delete = 2 };
+        public enClientAction _clientAction;
+
+
+        Guna2Button _btnUpdateClient;
+
         ErrorProvider _errorProvider1;
 
         Guna2GroupBox _gbClientCard;
@@ -30,15 +36,12 @@ namespace BankSystem
         Persons _person = new Persons();
         Phones _phone = new Phones();
 
-        public enum enClientAction { Update = 0, ShowInfo = 1, Delete = 2 };
-        public enClientAction clientAction = enClientAction.ShowInfo;
-
-
+       
         //Constructor For frmUpdateClient
         public ClientUIHelper(ErrorProvider errorProvider1, Guna2GroupBox gbClientCard, TextBox txtAccountNumber, TextBox txtEmail, TextBox txtPhone,
             TextBox txtBalance, TextBox txtPinCode, TextBox txtFirstName, TextBox txtLastName, Guna2Panel pnlClientInfo, bool isValid,
             Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, Label lblEmail,
-            Clients client, Persons person, Phones phone, ComboBox cbPhones)
+            Clients client, Persons person, Phones phone, ComboBox cbPhones, Guna2Button btnUpdateClient)
         {
             this._errorProvider1 = errorProvider1;
             this._gbClientCard = gbClientCard;
@@ -61,6 +64,9 @@ namespace BankSystem
             this._lblLastName = lblLastName;
             this._isValid = isValid;
             this._cbPhones = cbPhones;
+            this._btnUpdateClient  = btnUpdateClient;
+            this._txtFirstName = txtFirstName;
+            this._txtLastName = txtLastName;
         }
 
         //Constructor For frmAddNewClient
@@ -80,12 +86,35 @@ namespace BankSystem
             this._txtPinCode = txtPinCode;
             this._isValid = isValid;
             this._cbPhones = cbPhones;
+            this._txtFirstName = txtFirstName;
+            this._txtLastName = txtLastName;
         }
 
-        //Constructor For frmFindClient and frmDeleteClient
+        //Constructor For frmFindClient And frmDeleteClient
+        //public ClientUIHelper(ErrorProvider errorProvider1, Guna2GroupBox gbClientCard, TextBox txtAccountNumber,
+        //   Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, Label lblAccountNumber, Label lblEmail,
+        //   Clients client, Persons person, Phones phone)
+        //{
+        //    this._errorProvider1 = errorProvider1;
+        //    this._gbClientCard = gbClientCard;
+        //    this._txtAccountNumber = txtAccountNumber;
+        //    this._lblFirstName = lblFirstName;
+        //    this._lblLastName = lblLastName;
+        //    this._lblBalance = lblBalance;
+        //    this._lblPinCode = lblPinCode;
+        //    this._lblPhone = lblPhone;
+        //    this._lblAccountNumber = lblAccountNumber;
+        //    this._lblEmail = lblEmail;
+        //    this._client = client;
+        //    this._person = person;
+        //    this._phone = phone;
+           
+        //}
+
+        //Constructor For frmDeleteClient
         public ClientUIHelper(ErrorProvider errorProvider1, Guna2GroupBox gbClientCard, TextBox txtAccountNumber,
-           Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, Label lblAccountNumber, Label lblEmail,
-           Clients client, Persons person, Phones phone)
+          Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, Label lblAccountNumber, Label lblEmail,
+          Clients client, Persons person, Phones phone, enClientAction clientAction)
         {
             this._errorProvider1 = errorProvider1;
             this._gbClientCard = gbClientCard;
@@ -100,7 +129,7 @@ namespace BankSystem
             this._client = client;
             this._person = person;
             this._phone = phone;
-           
+            this._clientAction = clientAction;
         }
 
         private bool NullValidation(TextBox textbox)
@@ -123,6 +152,16 @@ namespace BankSystem
             return (obj == null);
         }
 
+        private void VisibleUpdateButton()
+        {
+            _btnUpdateClient.Visible = true;
+        }
+
+        private void VisibleClientInfoPanel()
+        {
+            _pnlClientInfo.Visible = true;
+        }
+
         private void VisibleClientCard()
         {
             _gbClientCard.Visible = true;
@@ -132,6 +171,18 @@ namespace BankSystem
         {
             _gbClientCard.Visible = false;
         }
+
+        private void HideUpdateButton()
+        {
+            _btnUpdateClient.Visible = false;
+        }
+
+        private void HideClientInfoPanel()
+        {
+            _pnlClientInfo.Visible = false;
+        }
+
+
         private bool IsClientNotFound(object obj)
         {
             if (IsObjectNull(obj))
@@ -178,16 +229,19 @@ namespace BankSystem
 
             _lblPinCode.Text = _client.pinCode.ToString();
 
-            _lblPhone.Text = _phone.phoneNumber;
-
-            _lblAccountNumber.Text = accountNumber;
+            _lblPhone.Text = _phone.phoneNumber;         
 
             if (_person.email != "")
                 _lblEmail.Text = _person.email;
 
             else
                 _lblEmail.Text = "Unknown";
+
+            if(_clientAction == enClientAction.Delete)
+                _lblAccountNumber.Text = accountNumber;
         }
+
+        
 
         private void ShowClientInfo()
         {
@@ -199,6 +253,12 @@ namespace BankSystem
             FillClientCard(accountNumber);
 
             VisibleClientCard();
+
+            if(_clientAction == enClientAction.Update)
+            {
+                VisibleClientInfoPanel();
+                VisibleUpdateButton();
+            }
         }
 
         private void Set_isValid(TextBox textbox, string messageValue, bool validValue)
@@ -313,18 +373,21 @@ namespace BankSystem
 
 
 
-        private void ConfirmOperation(enClientAction clientAction, string confirmMessage)
+        
+
+        private void ConfirmOperation(string confirmMessage)
         {
             string accountNumber = _txtAccountNumber.Text;
 
             if (AreObjectsInfoSuccessfullyLoaded(accountNumber))
             {
-                if (clientAction == enClientAction.Update && !ValidateInputFields())
-                    return;
+                if (_clientAction == enClientAction.Update)
+                    if (!ValidateInputFields())
+                        return;
 
                 if (MessageBox.Show(confirmMessage, "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    switch (clientAction)
+                    switch (_clientAction)
                     {
                         case enClientAction.Update:
                             frmUpdateClient updateClient = new frmUpdateClient();
@@ -332,23 +395,26 @@ namespace BankSystem
                             break;
 
                         case enClientAction.Delete:
-                            frmDeleteClient deleteClient = new frmDeleteClient();
+                            frmDeleteClient deleteClient = new frmDeleteClient(_client, _person, _phone);
                             deleteClient.DeleteClient(accountNumber);
                             break;
                     }
                 }
             }
         }
-        private void ExecuteClientAction(enClientAction clientAction)
+
+        private void ExecuteClientAction()
         {
-            switch (clientAction)
+            //MessageBox.Show(_clientAction.ToString());
+
+            switch (_clientAction)
             {
                 case enClientAction.Update:
-                    ConfirmOperation(clientAction, "Ary you sure to update information this client?");
+                    ConfirmOperation("Ary you sure to update information this client?");
                     break;
 
                 case enClientAction.Delete:
-                    ConfirmOperation(clientAction, "Ary you sure to delete this client?");
+                    ConfirmOperation("Ary you sure to delete this client?");
                     break;
 
                 case enClientAction.ShowInfo:
@@ -357,19 +423,88 @@ namespace BankSystem
             }
         }
 
-        public void HandleClientInfo(enClientAction clientAction)
+        public void HandleClientInfo()
         {
+            //MessageBox.Show(_clientAction.ToString());
+
             if (!NullValidation(_txtAccountNumber))
             {
                 SetErrorOnAccountNumber("");
 
-                ExecuteClientAction(clientAction);
+                ExecuteClientAction();
             }
 
             else
                 SetErrorOnAccountNumber();
         }
 
-}
+       
+
+
+            //private void ConfirmOperation(ClientAction clientAction, string confirmMessage)
+            //{
+            //    string accountNumber = _txtAccountNumber.Text;
+
+            //    if (AreObjectsInfoSuccessfullyLoaded(accountNumber))
+            //    {
+            //        if (clientAction == ClientAction.Update)
+            //            if (!ValidateInputFields())
+            //                return;
+
+            //        if (MessageBox.Show(confirmMessage, "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            //        {
+            //            switch (clientAction)
+            //            {
+            //                case ClientAction.Update:
+            //                    frmUpdateClient updateClient = new frmUpdateClient();
+            //                    updateClient.UpdateClient(accountNumber);
+            //                    break;
+
+            //                case ClientAction.Delete:
+            //                    frmDeleteClient deleteClient = new frmDeleteClient();
+            //                    deleteClient.DeleteClient(accountNumber);
+            //                    break;
+            //            }
+            //        }
+            //    }
+            //}
+            //}
+
+            //private void ExecuteClientAction(enClientAction clientAction)
+            //{
+            //    MessageBox.Show(clientAction.ToString());
+
+            //    switch (clientAction)
+            //    {
+            //        case enClientAction.Update:
+            //            ConfirmOperation(clientAction, "Ary you sure to update information this client?");
+            //            break;
+
+            //        case enClientAction.Delete:
+            //            ConfirmOperation(clientAction, "Ary you sure to delete this client?");
+            //            break;
+
+            //        case enClientAction.ShowInfo:
+            //            ShowClientInfo();
+            //            break;
+            //    }
+            //}
+
+            //public void HandleClientInfo(enClientAction clientAction)
+            //{
+            //    MessageBox.Show(clientAction.ToString());
+
+            //    if (!NullValidation(_txtAccountNumber))
+            //    {
+            //        SetErrorOnAccountNumber("");
+
+            //        ExecuteClientAction(clientAction);
+            //    }
+
+            //    else
+            //        SetErrorOnAccountNumber();
+            //}
+
+        }
     }
 

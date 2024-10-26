@@ -11,20 +11,83 @@ using System.Windows.Forms;
 
 namespace BankSystem
 {
+
+
     public partial class frmDeleteClient : Form
     {
+
         public frmDeleteClient()
         {
             InitializeComponent();
         }
 
+        public frmDeleteClient(Clients client, Persons person, Phones phone)
+        {
+            InitializeComponent();
+
+            this._client = client;
+            this._person = person;
+            this._phone = phone;
+        }
+        
         Clients _client = new Clients();
         Persons _person = new Persons();
         Phones _phone = new Phones();
 
         ClientUIHelper _clientUI;
 
-        enum enClientAction { Delete = 0, ShowInfo = 1 };
+        public enum enClientAction { Delete = 0, ShowInfo = 1 };
+        public ClientUIHelper.enClientAction clientAction;
+
+
+        private void HandleClientAction()
+        {
+            _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode,
+                lblPhone, lblAccountNumber, lblEmail, _client, _person, _phone, clientAction);
+
+            _clientUI.HandleClientInfo();
+        }
+        private void btnDeleteClient_Click(object sender, EventArgs e)
+        {
+            clientAction = ClientUIHelper.enClientAction.Delete;
+            HandleClientAction();
+        }
+
+        private void btnShowInfo_Click(object sender, EventArgs e)
+        {
+            clientAction = ClientUIHelper.enClientAction.ShowInfo;
+            HandleClientAction();
+        }
+
+
+
+
+        //private void HandleClientAction(enClientAction clientAction)
+        //{
+        //    _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode,
+        //        lblPhone, lblAccountNumber, lblEmail, _client, _person, _phone);
+
+        //    _clientUI._clientAction = (ClientUIHelper.enClientAction)clientAction;
+
+        //    MessageBox.Show(clientAction.ToString());
+        //    MessageBox.Show(_clientUI._clientAction.ToString());
+
+
+        //    _clientUI.HandleClientInfo(_clientUI._clientAction);
+        //}
+        //private void btnDeleteClient_Click(object sender, EventArgs e)
+        //{
+        //    HandleClientAction(enClientAction.Delete);
+        //}
+
+        //private void btnShowInfo_Click(object sender, EventArgs e)
+        //{
+        //    HandleClientAction(enClientAction.ShowInfo);
+        //}
+
+
+
+
 
 
         private void ShowMessage(string text)
@@ -185,36 +248,24 @@ namespace BankSystem
             }
         }
 
-        //private void HandleClientAction(enClientAction clientAction)
+        //private void HandleClientAction(enClientAction _clientAction)
         //{
         //    if (!NullValidation(txtAccountNumber))
         //    {
         //        SetErrorOnAccountNumber("");
 
-        //        ExecuteClientAction(clientAction);
+        //        ExecuteClientAction(_clientAction);
         //    }
 
         //    else
         //        SetErrorOnAccountNumber();
         //}
 
-        private void HandleClientAction(enClientAction clientAction)
-        {
-            _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode, lblPhone,
-                lblAccountNumber, lblEmail, _client, _person, _phone);
 
-            _clientUI.clientAction = (ClientUIHelper.enClientAction)clientAction;
 
-            _clientUI.HandleClientInfo(_clientUI.clientAction);
-        }
-        private void btnDeleteClient_Click(object sender, EventArgs e)
-        {
-            HandleClientAction(enClientAction.Delete);
-        }
 
-        private void btnShowInfo_Click(object sender, EventArgs e)
-        {
-            HandleClientAction(enClientAction.ShowInfo);
-        }
+
+
+     
     }
 }
