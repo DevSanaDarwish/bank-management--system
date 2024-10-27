@@ -101,7 +101,6 @@
             this.btnFindClient.Size = new System.Drawing.Size(168, 59);
             this.btnFindClient.TabIndex = 24;
             this.btnFindClient.Text = "Search";
-            this.btnFindClient.Click += new System.EventHandler(this.btnFindClient_Click);
             // 
             // _gbClientCard
             // 

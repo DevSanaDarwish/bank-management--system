@@ -36,59 +36,24 @@ namespace BankSystem
 
         ClientUIHelper _clientUI;
 
-        public enum enClientAction { Delete = 0, ShowInfo = 1 };
-        public ClientUIHelper.enClientAction clientAction;
-
-
-        private void HandleClientAction()
+        private void HandleClientAction(ClientUIHelper.enClientAction clientAction)
         {
             _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode,
-                lblPhone, lblAccountNumber, lblEmail, _client, _person, _phone, clientAction);
+                lblPhone, lblAccountNumber, lblEmail, _client, _person, _phone);
+
+            _clientUI._clientAction = clientAction;
 
             _clientUI.HandleClientInfo();
         }
         private void btnDeleteClient_Click(object sender, EventArgs e)
         {
-            clientAction = ClientUIHelper.enClientAction.Delete;
-            HandleClientAction();
+            HandleClientAction(ClientUIHelper.enClientAction.Delete);
         }
 
         private void btnShowInfo_Click(object sender, EventArgs e)
-        {
-            clientAction = ClientUIHelper.enClientAction.ShowInfo;
-            HandleClientAction();
+        { 
+            HandleClientAction(ClientUIHelper.enClientAction.ShowInfo);
         }
-
-
-
-
-        //private void HandleClientAction(enClientAction clientAction)
-        //{
-        //    _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode,
-        //        lblPhone, lblAccountNumber, lblEmail, _client, _person, _phone);
-
-        //    _clientUI._clientAction = (ClientUIHelper.enClientAction)clientAction;
-
-        //    MessageBox.Show(clientAction.ToString());
-        //    MessageBox.Show(_clientUI._clientAction.ToString());
-
-
-        //    _clientUI.HandleClientInfo(_clientUI._clientAction);
-        //}
-        //private void btnDeleteClient_Click(object sender, EventArgs e)
-        //{
-        //    HandleClientAction(enClientAction.Delete);
-        //}
-
-        //private void btnShowInfo_Click(object sender, EventArgs e)
-        //{
-        //    HandleClientAction(enClientAction.ShowInfo);
-        //}
-
-
-
-
-
 
         private void ShowMessage(string text)
         {
@@ -234,21 +199,21 @@ namespace BankSystem
             InputValidator.SetMessageError(txtAccountNumber, message, errorProvider1);
         }
 
-        private void ExecuteClientAction(enClientAction clientAction)
-        {
-            switch (clientAction)
-            {
-                case enClientAction.Delete:
-                    ConfirmDeletion();
-                    break;
+        //private void ExecuteClientAction(frmClientAction clientAction)
+        //{
+        //    switch (clientAction)
+        //    {
+        //        case frmClientAction.Delete:
+        //            ConfirmDeletion();
+        //            break;
 
-                case enClientAction.ShowInfo:
-                    ShowClientInfo();
-                    break;
-            }
-        }
+        //        case frmClientAction.ShowInfo:
+        //            ShowClientInfo();
+        //            break;
+        //    }
+        //}
 
-        //private void HandleClientAction(enClientAction _clientAction)
+        //private void HandleClientAction(frmClientAction _clientAction)
         //{
         //    if (!NullValidation(txtAccountNumber))
         //    {

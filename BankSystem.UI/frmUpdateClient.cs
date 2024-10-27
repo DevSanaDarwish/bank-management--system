@@ -301,7 +301,7 @@ namespace BankSystem
             }
         }
 
-        //private void HandleClientAction(enClientAction _clientAction)
+        //private void HandleClientAction(frmClientAction _clientAction)
         //{
         //    if (!NullValidation(txtAccountNumber))
         //    {

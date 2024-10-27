@@ -25,15 +25,22 @@ namespace BankSystem
 
         ClientUIHelper _clientUI;
 
-        
+        public enum enClientAction { Delete = 0, ShowInfo = 1 };
+        public ClientUIHelper.enClientAction clientAction;
+
+
+        private void HandleClientAction()
+        {
+            //_clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode,
+            //    lblPhone, lblAccountNumber, lblEmail, _client, _person, _phone, clientAction);
+
+            _clientUI.HandleClientInfo();
+        }
+
         private void btnFindClient_Click(object sender, EventArgs e)
         {
-            //_clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode, 
-            //    lblPhone ,lblAccountNumber, lblEmail, _client, _person, _phone);
-
-            //_clientUI._clientAction = enClientAction.ShowInfo;
-
-            //_clientUI.HandleClientInfo(_clientUI._clientAction);
+            clientAction = ClientUIHelper.enClientAction.ShowInfo;
+            HandleClientAction();
         }
     }
 }
