@@ -147,7 +147,7 @@ namespace BankSystem
             _gbClientCard.Visible = true;
         }
 
-        private void HideClientCard()
+        public void HideClientCard()
         {
             _gbClientCard.Visible = false;
         }
@@ -246,7 +246,7 @@ namespace BankSystem
             //}
         }
 
-        private void Set_isValid(TextBox textbox, string messageValue, bool validValue)
+        public void Set_isValid(TextBox textbox, string messageValue, bool validValue)
         {
             InputValidator.SetMessageError(textbox, messageValue, _errorProvider1);
 
@@ -371,8 +371,8 @@ namespace BankSystem
                     switch (_clientAction)
                     {
                         case enClientAction.Update:
-                            frmUpdateClient updateClient = new frmUpdateClient(_client, _person, _phone, _personID, _txtEmail, _txtPhone, _txtBalance, _txtPinCode, _txtFirstName, _txtLastName);
-                            updateClient.UpdateClient(accountNumber);
+                            frmUpdateClient updateClient = new frmUpdateClient(_client, _person, _phone, _personID, _txtEmail, _txtBalance, _txtPinCode, _txtFirstName, _txtLastName);
+                            updateClient.UpdateClient();
                             break;
 
                         case enClientAction.Delete:

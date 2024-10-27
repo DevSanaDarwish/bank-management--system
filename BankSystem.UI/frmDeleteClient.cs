@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static BankSystem.ClientUIHelper;
 
 namespace BankSystem
 {
@@ -36,10 +37,15 @@ namespace BankSystem
 
         ClientUIHelper _clientUI;
 
-        private void HandleClientAction(ClientUIHelper.enClientAction clientAction)
+        private void InitializeClientUIObject()
         {
             _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode,
-                lblPhone, lblAccountNumber, lblEmail, _client, _person, _phone);
+                 lblPhone, lblAccountNumber, lblEmail, _client, _person, _phone);
+        }
+
+        private void HandleClientAction(enClientAction clientAction)
+        {
+            InitializeClientUIObject();
 
             _clientUI._clientAction = clientAction;
 
@@ -47,61 +53,15 @@ namespace BankSystem
         }
         private void btnDeleteClient_Click(object sender, EventArgs e)
         {
-            HandleClientAction(ClientUIHelper.enClientAction.Delete);
+            HandleClientAction(enClientAction.Delete);
         }
 
         private void btnShowInfo_Click(object sender, EventArgs e)
         { 
-            HandleClientAction(ClientUIHelper.enClientAction.ShowInfo);
+            HandleClientAction(enClientAction.ShowInfo);
         }
 
-        private void ShowMessage(string text)
-        {
-            MessageBox.Show(text, "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private bool IsObjectNull(object obj)
-        {
-            return (obj == null);
-        }
-        private bool IsClientNotFound(object obj)
-        {
-            if (IsObjectNull(obj))
-            {
-                HideClientCard();
-
-                ShowMessage("Sorry, This Account Number Information Does Not Exist");
-
-                return true;
-            }
-
-            return false;
-
-        }
-
-        private bool AreObjectsInfoSuccessfullyLoaded(string accountNumber)
-        {
-            _client = Clients.FindByAccountNumber(accountNumber);
-
-            if (IsClientNotFound(_client))
-                return false;
-
-
-            _person = Persons.Find(_client.personID);
-
-            if (IsClientNotFound(_person))
-                return false;
-
-
-            _phone = Phones.Find(_client.clientID);
-
-            if (IsClientNotFound(_phone))
-                return false;
-
-
-            return true;
-        }
-
+       
         private bool IsDeletionSuccessful(string accountNumber)
         {
             int personID = _client.personID;
@@ -117,87 +77,136 @@ namespace BankSystem
         {
                 if (IsDeletionSuccessful(accountNumber))
                 {
-                    ShowMessage("Client Deleted Successfully");
+                    _clientUI.ShowMessage("Client Deleted Successfully");
 
-                    HideClientCard();
+                    _clientUI.HideClientCard();
 
                     ClearAccountNumberText();
                 }                 
 
                 else
-                    ShowMessage("Deletion Failed");            
-        }
-
-        private void ConfirmDeletion()
-        {
-            string accountNumber = txtAccountNumber.Text;
-
-            if (AreObjectsInfoSuccessfullyLoaded(accountNumber))
-            {
-                if (MessageBox.Show("Ary you sure to delete this client?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    DeleteClient(accountNumber);
-                }
-            }
-                   
-        }
-        private bool IsClientObjectNull()
-        {
-            return (_client == null);
-        }
-
-        private void FillClientCard(string accountNumber)
-        {
-            lblFirstName.Text = _person.firstName;
-
-            lblLastName.Text = _person.lastName;
-
-            lblBalance.Text = _client.balance.ToString();
-
-            lblPinCode.Text = _client.pinCode.ToString();
-
-            lblPhone.Text = _phone.phoneNumber;
-
-            lblAccountNumber.Text = accountNumber;
-
-            if (_person.email != "")
-                lblEmail.Text = _person.email;
-
-            else
-                lblEmail.Text = "Unknown";
-        }
-        private void ShowClientInfo()
-        {
-            string accountNumber = txtAccountNumber.Text;
-
-            if (!AreObjectsInfoSuccessfullyLoaded(accountNumber))
-                return;
-            
-            FillClientCard(accountNumber);
-          
-            VisibleClientCard();
+                _clientUI.ShowMessage("Deletion Failed");            
         }
 
 
-        private void VisibleClientCard()
-        {
-            gbClientCard.Visible = true;
-        }
+        //private void ShowMessage(string text)
+        //{
+        //    MessageBox.Show(text, "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //}
 
-        private void HideClientCard()
-        {
-            gbClientCard.Visible = false;
-        }
+        //private bool IsObjectNull(object obj)
+        //{
+        //    return (obj == null);
+        //}
+        //private bool IsClientNotFound(object obj)
+        //{
+        //    if (IsObjectNull(obj))
+        //    {
+        //        _clientUI.HideClientCard();
 
-        private bool NullValidation(TextBox textbox)
-        {
-            return (InputValidator.IsControlTextNull(textbox.Text));
-        }
+        //        ShowMessage("Sorry, This Account Number Information Does Not Exist");
 
-        private void SetErrorOnAccountNumber(string message = "This field should not be empty")
-        {
-            InputValidator.SetMessageError(txtAccountNumber, message, errorProvider1);
-        }
+        //        return true;
+        //    }
+
+        //    return false;
+
+        //}
+
+        //private bool AreObjectsInfoSuccessfullyLoaded(string accountNumber)
+        //{
+        //    _client = Clients.FindByAccountNumber(accountNumber);
+
+        //    if (IsClientNotFound(_client))
+        //        return false;
+
+
+        //    _person = Persons.Find(_client.personID);
+
+        //    if (IsClientNotFound(_person))
+        //        return false;
+
+
+        //    _phone = Phones.Find(_client.clientID);
+
+        //    if (IsClientNotFound(_phone))
+        //        return false;
+
+
+        //    return true;
+        //}
+
+
+        //private void ConfirmDeletion()
+        //{
+        //    string accountNumber = txtAccountNumber.Text;
+
+        //    if (AreObjectsInfoSuccessfullyLoaded(accountNumber))
+        //    {
+        //        if (MessageBox.Show("Ary you sure to delete this client?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+        //        {
+        //            DeleteClient(accountNumber);
+        //        }
+        //    }
+
+        //}
+        //private bool IsClientObjectNull()
+        //{
+        //    return (_client == null);
+        //}
+
+        //private void FillClientCard(string accountNumber)
+        //{
+        //    lblFirstName.Text = _person.firstName;
+
+        //    lblLastName.Text = _person.lastName;
+
+        //    lblBalance.Text = _client.balance.ToString();
+
+        //    lblPinCode.Text = _client.pinCode.ToString();
+
+        //    lblPhone.Text = _phone.phoneNumber;
+
+        //    lblAccountNumber.Text = accountNumber;
+
+        //    if (_person.email != "")
+        //        lblEmail.Text = _person.email;
+
+        //    else
+        //        lblEmail.Text = "Unknown";
+        //}
+        //private void ShowClientInfo()
+        //{
+        //    string accountNumber = txtAccountNumber.Text;
+
+        //    if (!AreObjectsInfoSuccessfullyLoaded(accountNumber))
+        //        return;
+
+        //    FillClientCard(accountNumber);
+
+        //    VisibleClientCard();
+        //}
+
+
+        //private void VisibleClientCard()
+        //{
+        //    gbClientCard.Visible = true;
+        //}
+
+        //private void HideClientCard()
+        //{
+        //    gbClientCard.Visible = false;
+        //}
+
+        //private bool NullValidation(TextBox textbox)
+        //{
+        //    return (InputValidator.IsControlTextNull(textbox.Text));
+        //}
+
+        //private void SetErrorOnAccountNumber(string message = "This field should not be empty")
+        //{
+        //    InputValidator.SetMessageError(txtAccountNumber, message, errorProvider1);
+        //}
 
         //private void ExecuteClientAction(frmClientAction clientAction)
         //{
@@ -231,6 +240,6 @@ namespace BankSystem
 
 
 
-     
+
     }
 }

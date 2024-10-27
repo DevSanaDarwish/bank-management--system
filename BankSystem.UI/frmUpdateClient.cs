@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static BankSystem.ClientUIHelper;
 
 namespace BankSystem
 {
@@ -18,7 +19,7 @@ namespace BankSystem
             InitializeComponent();
         }
 
-        public frmUpdateClient(Clients client, Persons person, Phones phone, int personID, TextBox txtEmail, TextBox txtPhone, TextBox txtBalance, TextBox txtPinCode, TextBox txtFirstName, TextBox txtLastName)
+        public frmUpdateClient(Clients client, Persons person, Phones phone, int personID, TextBox txtEmail, TextBox txtBalance, TextBox txtPinCode, TextBox txtFirstName, TextBox txtLastName)
         {
             InitializeComponent();
 
@@ -28,7 +29,6 @@ namespace BankSystem
             this._phone = phone;
             this._personID = personID;
             this._txtEmail = txtEmail;
-            this._txtPhone = txtPhone;
             this._txtBalance = txtBalance;
             this._txtPinCode = txtPinCode;
             this._txtFirstName = txtFirstName;
@@ -38,16 +38,118 @@ namespace BankSystem
 
         ClientUIHelper _clientUI;
 
-
         Clients _client = new Clients();
         Persons _person = new Persons();
         Phones _phone = new Phones();
 
         int _personID = -1;
 
-        TextBox _txtEmail, _txtPhone, _txtBalance, _txtPinCode, _txtFirstName, _txtLastName;
+        TextBox _txtEmail, _txtBalance, _txtPinCode, _txtFirstName, _txtLastName;
 
         bool _isValid = true;
+
+        private void ValidationClientsAndPhonesSave()
+        {
+            ValidationPhoneNumbersSave();
+
+            if (_client.Save())
+            {
+                _clientUI.ShowMessage("Successfully Updated");
+            }
+        }
+
+        private void ValidationSave()
+        {
+            _person.personID = _personID;
+
+            if (_person.Save())
+                ValidationClientsAndPhonesSave();
+
+            else
+                _clientUI.ShowMessage("Failed to update");
+        }
+
+        private void ValidationPhoneNumbersSave()
+        {
+            byte itemsCount = Convert.ToByte(cbPhones.Items.Count);
+            string item = "";
+
+            for (byte itemIndex = 0; itemIndex < itemsCount; itemIndex++)
+            {
+                item = cbPhones.Items[itemIndex].ToString();
+
+                FillPhoneObject(item);
+
+                if (_phone.Save())
+                {
+                    _phone = new Phones();
+                }
+            }
+        }
+
+
+        private void FillPhoneObject(string item)
+        {
+            _phone.phoneNumber = item;
+            _phone.personID = _personID;
+        }
+
+        private void FillClientInfo()
+        {
+            _client.pinCode = _txtPinCode.Text;
+
+            _client.balance = Convert.ToDecimal(_txtBalance.Text);
+
+            _person.firstName = _txtFirstName.Text;
+
+            _person.lastName = _txtLastName.Text;
+
+            _person.email = _txtEmail.Text;
+        }
+
+        private void InitializeClientUIObject()
+        {
+            _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, txtEmail, txtPhone, txtBalance, txtPinCode, txtFirstName,
+              txtLastName, pnlClientInfo, _isValid, lblFirstName, lblLastName, lblBalance, lblPinCode, lblPhone, lblEmail, _client, _person,
+              _phone, cbPhones, btnUpdateClient);
+        }
+
+        public void UpdateClient()
+        {
+            InitializeClientUIObject();
+
+            FillClientInfo();
+
+            ValidationSave();
+        }
+
+        private void HandleClientAction(enClientAction clientAction)
+        {
+            InitializeClientUIObject();
+
+            _clientUI._clientAction = clientAction;
+
+            _clientUI.HandleClientInfo();
+        }
+        private void btnShowInfo_Click(object sender, EventArgs e)
+        {
+            HandleClientAction(enClientAction.ShowInfo);
+        }
+
+        private void btnUpdateClient_Click(object sender, EventArgs e)
+        {
+            HandleClientAction(enClientAction.Update);
+        }
+
+        private void AddPhone()
+        {
+            _clientUI.AddPhone();
+        }
+        private void btnAddPhone_Click(object sender, EventArgs e)
+        {
+            AddPhone();
+        }
+
 
         //enum enClientAction { Update = 0, ShowInfo = 1 };
 
@@ -109,7 +211,7 @@ namespace BankSystem
         //    }
 
         //    return false;
-                
+
         //}
 
         //private void SetPersonIDToClientObject()
@@ -121,48 +223,7 @@ namespace BankSystem
         //    _client.personID = _personID;
         //}
 
-        private void ValidationClientsAndPhonesSave()
-        {
-            //SetPersonIDToClientObject();
 
-            InitializeClientUIObject();
-
-            ValidationPhoneNumbersSave();
-
-            if (_client.Save())
-            {
-                _clientUI.ShowMessage("Successfully Updated");
-            }
-        }
-
-        private void ValidationSave()
-        {
-            _person.personID = _personID;
-
-            if (_person.Save())
-                ValidationClientsAndPhonesSave();
-
-            else
-                _clientUI.ShowMessage("Failed to update");
-        }
-
-        private void ValidationPhoneNumbersSave()
-        {
-            byte itemsCount = Convert.ToByte(cbPhones.Items.Count);
-            string item = "";
-
-            for (byte itemIndex = 0; itemIndex < itemsCount; itemIndex++)
-            {
-                item = cbPhones.Items[itemIndex].ToString();
-
-                FillPhoneObject(item);
-
-                if (_phone.Save())
-                {
-                    _phone = new Phones();
-                }
-            }
-        }
 
         //private bool AreObjectsInfoSuccessfullyLoaded(string accountNumber)
         //{
@@ -198,22 +259,22 @@ namespace BankSystem
         //    gbClientCard.Visible = false;
         //}
 
-        private void VisibleUpdateButton()
-        {
-            btnUpdateClient.Visible = true;
-        }
-
-        //private void HideUpdateButton()
+        //private void VisibleUpdateButton()
         //{
-        //    btnUpdateClient.Visible = false;
+        //    btnUpdateClient.Visible = true;
         //}
 
-        private void VisibleClientInfoPanel()
-        {
-            pnlClientInfo.Visible = true;
-        }
+        ////private void HideUpdateButton()
+        ////{
+        ////    btnUpdateClient.Visible = false;
+        ////}
 
-        
+        //private void VisibleClientInfoPanel()
+        //{
+        //    pnlClientInfo.Visible = true;
+        //}
+
+
         //private void ShowClientInfo()
         //{
         //    string accountNumber = txtAccountNumber.Text;
@@ -228,42 +289,6 @@ namespace BankSystem
         //    VisibleUpdateButton();
         //}
 
-        private void FillPhoneObject(string item)
-        {
-            _phone.phoneNumber = item;
-            _phone.personID = _personID;
-        }
-
-        private void FillClientInfo()
-        {
-            //_client.pinCode = txtPinCode.Text;
-
-            //_client.balance = Convert.ToDecimal(txtBalance.Text);
-
-            //_person.firstName = txtFirstName.Text;
-
-            //_person.lastName = txtLastName.Text;
-
-            //_person.email = txtEmail.Text;
-
-
-            _client.pinCode = _txtPinCode.Text;
-
-            _client.balance = Convert.ToDecimal(_txtBalance.Text);
-
-            _person.firstName = _txtFirstName.Text;
-
-            _person.lastName = _txtLastName.Text;
-
-            _person.email = _txtEmail.Text;
-        }
-
-        public void UpdateClient(string accountNumber)
-        {
-            FillClientInfo();
-
-            ValidationSave();
-        }
 
         //private bool StringValidation(TextBox textbox)
         //{
@@ -316,9 +341,9 @@ namespace BankSystem
         //            }
         //        }
         //    }
-               
+
         //}
-        
+
         //private void ExecuteClientAction(enClientAction clientAction)
         //{
         //    switch (clientAction)
@@ -345,79 +370,62 @@ namespace BankSystem
         //    else
         //        SetErrorOnAccountNumber();
         //}
-        
-        private void HandleClientAction(ClientUIHelper.enClientAction clientAction)
-        {
-            InitializeClientUIObject();
 
-            _clientUI._clientAction = clientAction;
 
-            _clientUI.HandleClientInfo();
-        }
-        private void btnShowInfo_Click(object sender, EventArgs e)
-        {
-            HandleClientAction(ClientUIHelper.enClientAction.ShowInfo);
-            //VisibleClientInfoPanel();
-            //VisibleUpdateButton();
-        }
 
-        private void btnUpdateClient_Click(object sender, EventArgs e)
-        {
-            HandleClientAction(ClientUIHelper.enClientAction.Update);
-        }
 
-        private bool IsPhoneNumberNull()
-        {
-            string messageValue = "Please Add One Phone Number At Least";
+        //private bool IsPhoneNumberNull(ClientUIHelper _clientUI)
+        //{
+        //    string messageValue = "Please Add One Phone Number At Least";
 
-            if (_clientUI.NullValidation(txtPhone))
-            {
-                Set_isValid(txtPhone, messageValue, false);
-                return true;
-            }
+        //    if (_clientUI.NullValidation(txtPhone))
+        //    {
+        //        Set_isValid(txtPhone, messageValue, false);
+        //        return true;
+        //    }
 
-            else
-            {
-                Set_isValid(txtPhone, "", true);
-                return false;
-            }
-        }
-        private void Set_isValid(TextBox textbox, string messageValue, bool validValue)
-        {
-            InputValidator.SetMessageError(textbox, messageValue, errorProvider1);
+        //    else
+        //    {
+        //        Set_isValid(txtPhone, "", true);
+        //        return false;
+        //    }
+        //}
+        //private void Set_isValid(TextBox textbox, string messageValue, bool validValue)
+        //{
+        //    InputValidator.SetMessageError(textbox, messageValue, errorProvider1);
 
-            _isValid = validValue;
-        }
+        //    _isValid = validValue;
+        //}
 
-        private void AllValidation(TextBox textbox, bool typeValidation, string message)
-        {
-            if (typeValidation)
-            {
-                Set_isValid(textbox, "", true);
-            }
+        //private void AllValidation(TextBox textbox, bool typeValidation, string message)
+        //{
+        //    if (typeValidation)
+        //    {
+        //        Set_isValid(textbox, "", true);
+        //    }
 
-            else
-            {
-                Set_isValid(textbox, message, false);
-            }
-        }
+        //    else
+        //    {
+        //        Set_isValid(textbox, message, false);
+        //    }
+        //}
 
-        private bool NumericValidation(TextBox textbox)
-        {
-            return (InputValidator.IsNumeric(textbox.Text));
-        }
+        //private bool NumericValidation(TextBox textbox)
+        //{
+        //    return (InputValidator.IsNumeric(textbox.Text));
+        //}
 
-        private bool IsPhoneNumberValid()
-        {
-            string messageValue = "You must enter a valid value";
+        //private bool IsPhoneNumberValid()
+        //{
+        //    string messageValue = "You must enter a valid value";
 
-            AllValidation(txtPhone, NumericValidation(txtPhone), messageValue);
+        //    AllValidation(txtPhone, NumericValidation(txtPhone), messageValue);
 
-            if (_isValid == true)
-                return true;
+        //    if (_isValid == true)
+        //        return true;
 
-            return false;
-        }
+        //    return false;
+        //}
 
         //private bool IsInputFieldsNotNull()
         //{
@@ -468,43 +476,33 @@ namespace BankSystem
         //    }
         //}
 
-        private bool AddPhoneNumberToComboBox()
-        {
-            string phoneNumber = txtPhone.Text;
+        //private bool AddPhoneNumberToComboBox()
+        //{
+        //    string phoneNumber = txtPhone.Text;
 
-            if (!IsPhoneNumberNull())
-            {
-                if (IsPhoneNumberValid())
-                {
-                    cbPhones.Items.Add(phoneNumber);
-                    return true;
-                }
-            }
+        //    if (!IsPhoneNumberNull())
+        //    {
+        //        if (IsPhoneNumberValid())
+        //        {
+        //            cbPhones.Items.Add(phoneNumber);
+        //            return true;
+        //        }
+        //    }
 
-            return false;
-        }
+        //    return false;
+        //}
 
-        private void ClearPhoneText()
-        {
-            txtPhone.Clear();
-        }
+        //private void ClearPhoneText()
+        //{
+        //    txtPhone.Clear();
+        //}
 
-        private void btnAddPhone_Click(object sender, EventArgs e)
-        {
-            //if (AddPhoneNumberToComboBox())
-            //{
-            //    ClearPhoneText();
-            //}
-            InitializeClientUIObject();
 
-            _clientUI.AddPhone();
-        }
-
-        private void InitializeClientUIObject()
-        {
-            _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, txtEmail, txtPhone, txtBalance, txtPinCode, txtFirstName,
-                txtLastName, pnlClientInfo, _isValid, lblFirstName, lblLastName, lblBalance, lblPinCode, lblPhone, lblEmail, _client, _person,
-                _phone, cbPhones, btnUpdateClient);
-        }
+        //private void InitializeClientUIObject(ClientUIHelper _clientUI)
+        //{
+        //       _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, txtEmail, txtPhone, txtBalance, txtPinCode, txtFirstName,
+        //        txtLastName, pnlClientInfo, _isValid, lblFirstName, lblLastName, lblBalance, lblPinCode, lblPhone, lblEmail, _client, _person,
+        //        _phone, cbPhones, btnUpdateClient);
+        //}
     }
 }

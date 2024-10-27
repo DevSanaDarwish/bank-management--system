@@ -24,11 +24,16 @@ namespace BankSystem
         Phones _phone = new Phones();
 
         ClientUIHelper _clientUI;
-        private void HandleClientAction(ClientUIHelper.enClientAction clientAction)
+
+
+        private void InitializeClientUIObject()
         {
             _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode,
                 lblPhone, lblAccountNumber, lblEmail, _client, _person, _phone);
-            
+        }
+        private void HandleClientAction(enClientAction clientAction)
+        {
+            InitializeClientUIObject();
 
             _clientUI._clientAction = clientAction;
 
@@ -37,7 +42,7 @@ namespace BankSystem
 
         private void btnFindClient_Click(object sender, EventArgs e)
         {
-            HandleClientAction(ClientUIHelper.enClientAction.ShowInfo);
+            HandleClientAction(enClientAction.ShowInfo);
         }
     }
 }
