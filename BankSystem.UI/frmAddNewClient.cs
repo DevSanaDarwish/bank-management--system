@@ -283,10 +283,15 @@ namespace BankSystem
        
         private void btnAddPhone_Click(object sender, EventArgs e)
         {
-            if(AddPhoneNumberToComboBox())
-            {
-                ClearPhoneText();
-            }        
+            //if(AddPhoneNumberToComboBox())
+            //{
+            //    ClearPhoneText();
+            //}        
+            _clientUI = new ClientUIHelper(errorProvider1, txtAccountNumber, txtEmail, txtPhone, txtBalance, txtPinCode, txtFirstName,
+               txtLastName, pnlClientInfo, _isValid, _client, _person,
+               _phone, cbPhones);
+
+            _clientUI.AddPhone();
         }
         
 

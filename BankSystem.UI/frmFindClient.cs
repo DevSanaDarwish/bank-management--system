@@ -24,23 +24,20 @@ namespace BankSystem
         Phones _phone = new Phones();
 
         ClientUIHelper _clientUI;
-
-        public enum enClientAction { Delete = 0, ShowInfo = 1 };
-        public ClientUIHelper.enClientAction clientAction;
-
-
-        private void HandleClientAction()
+        private void HandleClientAction(ClientUIHelper.enClientAction clientAction)
         {
-            //_clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode,
-            //    lblPhone, lblAccountNumber, lblEmail, _client, _person, _phone, clientAction);
+            _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode,
+                lblPhone, lblAccountNumber, lblEmail, _client, _person, _phone);
+            
+
+            _clientUI._clientAction = clientAction;
 
             _clientUI.HandleClientInfo();
         }
 
         private void btnFindClient_Click(object sender, EventArgs e)
         {
-            clientAction = ClientUIHelper.enClientAction.ShowInfo;
-            HandleClientAction();
+            HandleClientAction(ClientUIHelper.enClientAction.ShowInfo);
         }
     }
 }

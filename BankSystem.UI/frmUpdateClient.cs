@@ -17,7 +17,27 @@ namespace BankSystem
         {
             InitializeComponent();
         }
+
+        public frmUpdateClient(Clients client, Persons person, Phones phone, int personID, TextBox txtEmail, TextBox txtPhone, TextBox txtBalance, TextBox txtPinCode, TextBox txtFirstName, TextBox txtLastName)
+        {
+            InitializeComponent();
+
+
+            this._client = client;
+            this._person = person;
+            this._phone = phone;
+            this._personID = personID;
+            this._txtEmail = txtEmail;
+            this._txtPhone = txtPhone;
+            this._txtBalance = txtBalance;
+            this._txtPinCode = txtPinCode;
+            this._txtFirstName = txtFirstName;
+            this._txtLastName = txtLastName;
+        }
+
+
         ClientUIHelper _clientUI;
+
 
         Clients _client = new Clients();
         Persons _person = new Persons();
@@ -25,89 +45,93 @@ namespace BankSystem
 
         int _personID = -1;
 
+        TextBox _txtEmail, _txtPhone, _txtBalance, _txtPinCode, _txtFirstName, _txtLastName;
+
         bool _isValid = true;
 
-        enum enClientAction { Update = 0, ShowInfo = 1 };
+        //enum enClientAction { Update = 0, ShowInfo = 1 };
 
-        private bool NullValidation(TextBox textbox)
-        {
-            return (InputValidator.IsControlTextNull(textbox.Text));
-        }
+        ////private bool NullValidation(TextBox textbox)
+        ////{
+        ////    return (InputValidator.IsControlTextNull(textbox.Text));
+        ////}
 
-        private void SetErrorOnAccountNumber(string message = "This field should not be empty")
-        {
-            InputValidator.SetMessageError(txtAccountNumber, message, errorProvider1);
-        }
+        //private void SetErrorOnAccountNumber(string message = "This field should not be empty")
+        //{
+        //    InputValidator.SetMessageError(txtAccountNumber, message, errorProvider1);
+        //}
 
-        private void FillClientCard(string accountNumber)
-        {
-            lblFirstName.Text = _person.firstName;
+        //private void FillClientCard(string accountNumber)
+        //{
+        //    lblFirstName.Text = _person.firstName;
 
-            lblLastName.Text = _person.lastName;
+        //    lblLastName.Text = _person.lastName;
 
-            lblBalance.Text = _client.balance.ToString();
+        //    lblBalance.Text = _client.balance.ToString();
 
-            lblPinCode.Text = _client.pinCode.ToString();
+        //    lblPinCode.Text = _client.pinCode.ToString();
 
-            lblPhone.Text = _phone.phoneNumber;
+        //    lblPhone.Text = _phone.phoneNumber;
 
-            if(_person.email != "")
-                lblEmail.Text = _person.email;
+        //    if(_person.email != "")
+        //        lblEmail.Text = _person.email;
 
-            else
-                lblEmail.Text = "Unknown";
-        }
+        //    else
+        //        lblEmail.Text = "Unknown";
+        //}
 
-        private void ClearAccountNumberText()
-        {
-            txtAccountNumber.Text = "";
-        }
+        //private void ClearAccountNumberText()
+        //{
+        //    txtAccountNumber.Text = "";
+        //}
 
-        private void ShowMessage(string text)
-        {
-            MessageBox.Show(text, "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
+        ////private void ShowMessage(string text)
+        ////{
+        ////    MessageBox.Show(text, "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        ////}
 
-        private bool IsObjectNull(object obj)
-        {
-            return (obj == null);
-        }
+        //private bool IsObjectNull(object obj)
+        //{
+        //    return (obj == null);
+        //}
 
-        private bool IsClientNotFound(object obj)
-        {
-            if (IsObjectNull(obj))
-            {
-                HideClientCard();
-                HideClientInfoPanel();
-                HideUpdateButton();
+        //private bool IsClientNotFound(object obj)
+        //{
+        //    if (IsObjectNull(obj))
+        //    {
+        //        HideClientCard();
+        //        HideClientInfoPanel();
+        //        HideUpdateButton();
 
-                ShowMessage("Sorry, This Account Number Information Does Not Exist");
+        //        ShowMessage("Sorry, This Account Number Information Does Not Exist");
 
-                return true;
-            }
+        //        return true;
+        //    }
 
-            return false;
+        //    return false;
                 
-        }
+        //}
 
-        private void SetPersonIDToClientObject()
-        {
-            string firstName = txtFirstName.Text, lastName = txtLastName.Text;
+        //private void SetPersonIDToClientObject()
+        //{
+        //    string firstName = txtFirstName.Text, lastName = txtLastName.Text;
 
-            _personID = Persons.Find(firstName, lastName).personID;
+        //    _personID = Persons.Find(firstName, lastName).personID;
 
-            _client.personID = _personID;
-        }
+        //    _client.personID = _personID;
+        //}
 
         private void ValidationClientsAndPhonesSave()
         {
             //SetPersonIDToClientObject();
 
+            InitializeClientUIObject();
+
             ValidationPhoneNumbersSave();
 
             if (_client.Save())
             {
-                ShowMessage("Successfully Updated");
+                _clientUI.ShowMessage("Successfully Updated");
             }
         }
 
@@ -119,7 +143,7 @@ namespace BankSystem
                 ValidationClientsAndPhonesSave();
 
             else
-                ShowMessage("Failed to update");
+                _clientUI.ShowMessage("Failed to update");
         }
 
         private void ValidationPhoneNumbersSave()
@@ -140,72 +164,69 @@ namespace BankSystem
             }
         }
 
-        private bool AreObjectsInfoSuccessfullyLoaded(string accountNumber)
-        {
-            _client = Clients.FindByAccountNumber(accountNumber);
+        //private bool AreObjectsInfoSuccessfullyLoaded(string accountNumber)
+        //{
+        //    _client = Clients.FindByAccountNumber(accountNumber);
 
-            if (IsClientNotFound(_client))
-                return false;
-           
-
-            _person = Persons.Find(_client.personID);
-            _personID = _client.personID;
-
-            if (IsClientNotFound(_person))
-                return false;
+        //    if (IsClientNotFound(_client))
+        //        return false;
 
 
-            _phone = Phones.Find(_client.clientID);
+        //    _person = Persons.Find(_client.personID);
+        //    _personID = _client.personID;
 
-            if (IsClientNotFound(_phone))
-                return false;
+        //    if (IsClientNotFound(_person))
+        //        return false;
 
 
-            return true;
-        }
+        //    _phone = Phones.Find(_client.clientID);
 
-        private void VisibleClientCard()
-        {
-            gbClientCard.Visible = true;
-        }
+        //    if (IsClientNotFound(_phone))
+        //        return false;
 
-        private void HideClientCard()
-        {
-            gbClientCard.Visible = false;
-        }
+
+        //    return true;
+        //}
+
+        //private void VisibleClientCard()
+        //{
+        //    gbClientCard.Visible = true;
+        //}
+
+        //private void HideClientCard()
+        //{
+        //    gbClientCard.Visible = false;
+        //}
 
         private void VisibleUpdateButton()
         {
             btnUpdateClient.Visible = true;
         }
 
-        private void HideUpdateButton()
-        {
-            btnUpdateClient.Visible = false;
-        }
+        //private void HideUpdateButton()
+        //{
+        //    btnUpdateClient.Visible = false;
+        //}
 
         private void VisibleClientInfoPanel()
         {
             pnlClientInfo.Visible = true;
         }
 
-        private void HideClientInfoPanel()
-        {
-            pnlClientInfo.Visible = false;
-        }
-        private void ShowClientInfo()
-        {
-            string accountNumber = txtAccountNumber.Text;
+        
+        //private void ShowClientInfo()
+        //{
+        //    string accountNumber = txtAccountNumber.Text;
 
-            if (!AreObjectsInfoSuccessfullyLoaded(accountNumber))
-                return;
+        //    if (!AreObjectsInfoSuccessfullyLoaded(accountNumber))
+        //        return;
 
-            FillClientCard(accountNumber);
+        //    FillClientCard(accountNumber);
 
-            VisibleClientCard();
-            VisibleClientInfoPanel();
-            VisibleUpdateButton();
-        }
+        //    VisibleClientCard();
+        //    VisibleClientInfoPanel();
+        //    VisibleUpdateButton();
+        //}
 
         private void FillPhoneObject(string item)
         {
@@ -215,15 +236,26 @@ namespace BankSystem
 
         private void FillClientInfo()
         {
-            _client.pinCode = txtPinCode.Text;
+            //_client.pinCode = txtPinCode.Text;
 
-            _client.balance = Convert.ToDecimal(txtBalance.Text);
+            //_client.balance = Convert.ToDecimal(txtBalance.Text);
 
-            _person.firstName = txtFirstName.Text;
+            //_person.firstName = txtFirstName.Text;
 
-            _person.lastName = txtLastName.Text;
+            //_person.lastName = txtLastName.Text;
 
-            _person.email = txtEmail.Text;
+            //_person.email = txtEmail.Text;
+
+
+            _client.pinCode = _txtPinCode.Text;
+
+            _client.balance = Convert.ToDecimal(_txtBalance.Text);
+
+            _person.firstName = _txtFirstName.Text;
+
+            _person.lastName = _txtLastName.Text;
+
+            _person.email = _txtEmail.Text;
         }
 
         public void UpdateClient(string accountNumber)
@@ -233,73 +265,73 @@ namespace BankSystem
             ValidationSave();
         }
 
-        private bool StringValidation(TextBox textbox)
-        {
-            return (InputValidator.IsString(textbox.Text));
-        }
+        //private bool StringValidation(TextBox textbox)
+        //{
+        //    return (InputValidator.IsString(textbox.Text));
+        //}
 
-        private bool IsInputFieldsValid()
-        {
-            bool isValid = true;
-            string message = "You must enter a valid value";
+        //private bool IsInputFieldsValid()
+        //{
+        //    bool isValid = true;
+        //    string message = "You must enter a valid value";
 
-            foreach (System.Windows.Forms.Control control in pnlClientInfo.Controls)
-            {
-                if (control is TextBox textbox)
-                {
-                    if (textbox == txtBalance || textbox == txtPinCode)
-                    {
-                        AllValidation(textbox, NumericValidation(textbox), message);
-                    }
+        //    foreach (System.Windows.Forms.Control control in pnlClientInfo.Controls)
+        //    {
+        //        if (control is TextBox textbox)
+        //        {
+        //            if (textbox == txtBalance || textbox == txtPinCode)
+        //            {
+        //                AllValidation(textbox, NumericValidation(textbox), message);
+        //            }
 
-                    if (textbox == txtFirstName || textbox == txtLastName)
-                    {
-                        AllValidation(textbox, StringValidation(textbox), message);
-                    }
+        //            if (textbox == txtFirstName || textbox == txtLastName)
+        //            {
+        //                AllValidation(textbox, StringValidation(textbox), message);
+        //            }
 
-                    if (!_isValid)
-                        isValid = _isValid;
-                }
-            }
+        //            if (!_isValid)
+        //                isValid = _isValid;
+        //        }
+        //    }
 
-            return isValid;
-        }
+        //    return isValid;
+        //}
 
-        private bool ValidateInputFields()
-        {
-            return IsInputFieldsNotNull() && IsInputFieldsValid();
-        }
+        //private bool ValidateInputFields()
+        //{
+        //    return IsInputFieldsNotNull() && IsInputFieldsValid();
+        //}
 
-        private void ConfirmUpdate()
-        {
-            string accountNumber = txtAccountNumber.Text;
+        //private void ConfirmUpdate()
+        //{
+        //    string accountNumber = txtAccountNumber.Text;
 
-            if (AreObjectsInfoSuccessfullyLoaded(accountNumber))
-            {
-                if (ValidateInputFields())
-                {
-                    if (MessageBox.Show("Ary you sure to update information this client?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    {
-                        UpdateClient(accountNumber);
-                    }
-                }
-            }
+        //    if (AreObjectsInfoSuccessfullyLoaded(accountNumber))
+        //    {
+        //        if (ValidateInputFields())
+        //        {
+        //            if (MessageBox.Show("Ary you sure to update information this client?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+        //            {
+        //                UpdateClient(accountNumber);
+        //            }
+        //        }
+        //    }
                
-        }
+        //}
         
-        private void ExecuteClientAction(enClientAction clientAction)
-        {
-            switch (clientAction)
-            {
-                case enClientAction.Update:
-                    ConfirmUpdate();
-                    break;
+        //private void ExecuteClientAction(enClientAction clientAction)
+        //{
+        //    switch (clientAction)
+        //    {
+        //        case enClientAction.Update:
+        //            ConfirmUpdate();
+        //            break;
 
-                case enClientAction.ShowInfo:
-                    ShowClientInfo();
-                    break;
-            }
-        }
+        //        case enClientAction.ShowInfo:
+        //            ShowClientInfo();
+        //            break;
+        //    }
+        //}
 
         //private void HandleClientAction(frmClientAction _clientAction)
         //{
@@ -314,31 +346,31 @@ namespace BankSystem
         //        SetErrorOnAccountNumber();
         //}
         
-        private void HandleClientAction(enClientAction clientAction)
+        private void HandleClientAction(ClientUIHelper.enClientAction clientAction)
         {
-            _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, txtEmail, txtPhone, txtBalance, txtPinCode, txtFirstName,
-                txtLastName, pnlClientInfo, _isValid, lblFirstName, lblLastName, lblBalance, lblPinCode, lblPhone, lblEmail, _client, _person,
-                _phone, cbPhones, btnUpdateClient);
+            InitializeClientUIObject();
 
-            _clientUI._clientAction = (ClientUIHelper.enClientAction)clientAction;
+            _clientUI._clientAction = clientAction;
 
-            //_clientUI.HandleClientInfo(_clientUI._clientAction);
+            _clientUI.HandleClientInfo();
         }
         private void btnShowInfo_Click(object sender, EventArgs e)
         {
-            HandleClientAction(enClientAction.ShowInfo);
+            HandleClientAction(ClientUIHelper.enClientAction.ShowInfo);
+            //VisibleClientInfoPanel();
+            //VisibleUpdateButton();
         }
 
         private void btnUpdateClient_Click(object sender, EventArgs e)
         {
-            HandleClientAction(enClientAction.Update);
+            HandleClientAction(ClientUIHelper.enClientAction.Update);
         }
 
         private bool IsPhoneNumberNull()
         {
             string messageValue = "Please Add One Phone Number At Least";
 
-            if (NullValidation(txtPhone))
+            if (_clientUI.NullValidation(txtPhone))
             {
                 Set_isValid(txtPhone, messageValue, false);
                 return true;
@@ -387,54 +419,54 @@ namespace BankSystem
             return false;
         }
 
-        private bool IsInputFieldsNotNull()
-        {
-            bool isNotNull = true;
-            string message = "This field should not be empty";
+        //private bool IsInputFieldsNotNull()
+        //{
+        //    bool isNotNull = true;
+        //    string message = "This field should not be empty";
 
-            //all controls null validation
-            foreach (System.Windows.Forms.Control control in pnlClientInfo.Controls)
-            {
-                if (control is TextBox textbox)
-                {
-                    //ignore txtEmail & txtPhone
-                    if (textbox == txtEmail || textbox == txtPhone)
-                        continue;
+        //    //all controls null validation
+        //    foreach (System.Windows.Forms.Control control in pnlClientInfo.Controls)
+        //    {
+        //        if (control is TextBox textbox)
+        //        {
+        //            //ignore txtEmail & txtPhone
+        //            if (textbox == txtEmail || textbox == txtPhone)
+        //                continue;
 
-                    AllValidation(textbox, !NullValidation(textbox), message);
+        //            AllValidation(textbox, !NullValidation(textbox), message);
 
-                    if (!_isValid)
-                        isNotNull = _isValid;
-                }
-            }
+        //            if (!_isValid)
+        //                isNotNull = _isValid;
+        //        }
+        //    }
 
-            //_phone control null validation
-            IsComboBoxNull();
+        //    //_phone control null validation
+        //    IsComboBoxNull();
 
-            if (!_isValid)
-                isNotNull = _isValid;
+        //    if (!_isValid)
+        //        isNotNull = _isValid;
 
-            return isNotNull;
-        }
+        //    return isNotNull;
+        //}
 
-        private bool IsComboBoxNull()
-        {
-            byte itemsCount = Convert.ToByte(cbPhones.Items.Count);
+        //private bool IsComboBoxNull()
+        //{
+        //    byte itemsCount = Convert.ToByte(cbPhones.Items.Count);
 
-            string messageValue = "Please Add One Phone Number At Least";
+        //    string messageValue = "Please Add One Phone Number At Least";
 
-            if (itemsCount == 0)
-            {
-                Set_isValid(txtPhone, messageValue, false);
-                return true;
-            }
+        //    if (itemsCount == 0)
+        //    {
+        //        Set_isValid(txtPhone, messageValue, false);
+        //        return true;
+        //    }
 
-            else
-            {
-                Set_isValid(txtPhone, "", true);
-                return false;
-            }
-        }
+        //    else
+        //    {
+        //        Set_isValid(txtPhone, "", true);
+        //        return false;
+        //    }
+        //}
 
         private bool AddPhoneNumberToComboBox()
         {
@@ -459,10 +491,20 @@ namespace BankSystem
 
         private void btnAddPhone_Click(object sender, EventArgs e)
         {
-            if (AddPhoneNumberToComboBox())
-            {
-                ClearPhoneText();
-            }
+            //if (AddPhoneNumberToComboBox())
+            //{
+            //    ClearPhoneText();
+            //}
+            InitializeClientUIObject();
+
+            _clientUI.AddPhone();
+        }
+
+        private void InitializeClientUIObject()
+        {
+            _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, txtEmail, txtPhone, txtBalance, txtPinCode, txtFirstName,
+                txtLastName, pnlClientInfo, _isValid, lblFirstName, lblLastName, lblBalance, lblPinCode, lblPhone, lblEmail, _client, _person,
+                _phone, cbPhones, btnUpdateClient);
         }
     }
 }

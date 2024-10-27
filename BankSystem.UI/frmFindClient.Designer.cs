@@ -55,7 +55,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
-            // _txtAccountNumber
+            // txtAccountNumber
             // 
             this.txtAccountNumber.BackColor = System.Drawing.Color.White;
             this.txtAccountNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -101,8 +101,9 @@
             this.btnFindClient.Size = new System.Drawing.Size(168, 59);
             this.btnFindClient.TabIndex = 24;
             this.btnFindClient.Text = "Search";
+            this.btnFindClient.Click += new System.EventHandler(this.btnFindClient_Click);
             // 
-            // _gbClientCard
+            // gbClientCard
             // 
             this.gbClientCard.BorderColor = System.Drawing.Color.DarkRed;
             this.gbClientCard.Controls.Add(this.lblPhone);
@@ -129,7 +130,7 @@
             this.gbClientCard.Text = "Client Card";
             this.gbClientCard.Visible = false;
             // 
-            // _lblPhone
+            // lblPhone
             // 
             this.lblPhone.AutoSize = true;
             this.lblPhone.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -140,7 +141,7 @@
             this.lblPhone.TabIndex = 33;
             this.lblPhone.Text = "First Name: ";
             // 
-            // _lblAccountNumber
+            // lblAccountNumber
             // 
             this.lblAccountNumber.AutoSize = true;
             this.lblAccountNumber.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -151,7 +152,7 @@
             this.lblAccountNumber.TabIndex = 32;
             this.lblAccountNumber.Text = "First Name: ";
             // 
-            // _lblEmail
+            // lblEmail
             // 
             this.lblEmail.AutoSize = true;
             this.lblEmail.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -162,7 +163,7 @@
             this.lblEmail.TabIndex = 31;
             this.lblEmail.Text = "First Name: ";
             // 
-            // _lblPinCode
+            // lblPinCode
             // 
             this.lblPinCode.AutoSize = true;
             this.lblPinCode.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -173,7 +174,7 @@
             this.lblPinCode.TabIndex = 30;
             this.lblPinCode.Text = "First Name: ";
             // 
-            // _lblBalance
+            // lblBalance
             // 
             this.lblBalance.AutoSize = true;
             this.lblBalance.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -184,7 +185,7 @@
             this.lblBalance.TabIndex = 29;
             this.lblBalance.Text = "First Name: ";
             // 
-            // _lblLastName
+            // lblLastName
             // 
             this.lblLastName.AutoSize = true;
             this.lblLastName.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -195,7 +196,7 @@
             this.lblLastName.TabIndex = 28;
             this.lblLastName.Text = "First Name: ";
             // 
-            // _lblFirstName
+            // lblFirstName
             // 
             this.lblFirstName.AutoSize = true;
             this.lblFirstName.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -283,7 +284,7 @@
             this.label.TabIndex = 14;
             this.label.Text = "First Name: ";
             // 
-            // _errorProvider1
+            // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
             // 
