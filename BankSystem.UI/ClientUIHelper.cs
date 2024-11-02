@@ -12,8 +12,14 @@ namespace BankSystem
 {
     public class ClientUIHelper
     {
-        public enum enClientAction { Update = 0, ShowInfo = 1, Delete = 2 };
+        public enum enClientAction { ShowInfo = 0, Update = 1, Delete = 2 };
         public enClientAction _clientAction;
+
+        enum enOperationType { Update = 0, Add = 1};
+        enOperationType _typeWord;
+
+        enum enOperationStatus { Updated = 0, Added = 1 };
+        enOperationStatus _statusWord;
 
 
         Guna2Button _btnUpdateClient;
@@ -38,12 +44,13 @@ namespace BankSystem
         Persons _person = new Persons();
         Phones _phone = new Phones();
 
+        ClientUIHelper _clientUI;
 
         //Constructor For frmUpdateClient
         public ClientUIHelper(ErrorProvider errorProvider1, Guna2GroupBox gbClientCard, TextBox txtAccountNumber, TextBox txtEmail, TextBox txtPhone,
             TextBox txtBalance, TextBox txtPinCode, TextBox txtFirstName, TextBox txtLastName, Guna2Panel pnlClientInfo, bool isValid,
             Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, Label lblEmail,
-            Clients client, Persons person, Phones phone, ComboBox cbPhones, Guna2Button btnUpdateClient)
+            Clients client, Persons person, Phones phone, ComboBox cbPhones, Guna2Button btnUpdateClient, int personID, ClientUIHelper clientUI)
         {
             this._errorProvider1 = errorProvider1;
             this._gbClientCard = gbClientCard;
@@ -69,6 +76,8 @@ namespace BankSystem
             this._btnUpdateClient = btnUpdateClient;
             this._txtFirstName = txtFirstName;
             this._txtLastName = txtLastName;
+            this._personID = personID;
+            this._clientUI = clientUI;
         }
 
         //Constructor For frmAddNewClient
@@ -112,6 +121,7 @@ namespace BankSystem
             this._phone = phone;
         }
 
+        
         public bool NullValidation(TextBox textbox)
         {
             return (InputValidator.IsControlTextNull(textbox.Text));
@@ -162,7 +172,6 @@ namespace BankSystem
             _pnlClientInfo.Visible = false;
         }
 
-
         private bool IsClientNotFound(object obj)
         {
             if (IsObjectNull(obj))
@@ -178,9 +187,7 @@ namespace BankSystem
 
             return false;
 
-        }
-
-      
+        }    
 
         private bool AreObjectsInfoSuccessfullyLoaded(string accountNumber)
         {
@@ -225,8 +232,6 @@ namespace BankSystem
             if (_clientAction == enClientAction.Delete)
                 _lblAccountNumber.Text = accountNumber;
         }
-
-        
         
         private void ShowClientInfo()
         {
@@ -265,6 +270,7 @@ namespace BankSystem
                 Set_isValid(textbox, message, false);
             }
         }
+
         private bool IsComboBoxNull()
         {
             byte itemsCount = Convert.ToByte(_cbPhones.Items.Count);
@@ -283,7 +289,6 @@ namespace BankSystem
                 return false;
             }
         }
-
 
         private bool IsInputFieldsNotNull()
         {
@@ -351,11 +356,12 @@ namespace BankSystem
 
             return isValid;
         }
+
         public bool ValidateInputFields()
         {
             return IsInputFieldsNotNull() && IsInputFieldsValid();
         }
-
+        
         private void ConfirmOperation(string confirmMessage)
         {
             string accountNumber = _txtAccountNumber.Text;
@@ -371,7 +377,14 @@ namespace BankSystem
                     switch (_clientAction)
                     {
                         case enClientAction.Update:
-                            frmUpdateClient updateClient = new frmUpdateClient(_client, _person, _phone, _personID, _txtEmail, _txtBalance, _txtPinCode, _txtFirstName, _txtLastName);
+                            //frmUpdateClient updateClient = new frmUpdateClient(_client, _person, _phone, _personID, _txtEmail, _txtBalance, _txtPinCode, _txtFirstName, _txtLastName);
+
+
+
+                            frmUpdateClient updateClient = new frmUpdateClient();
+
+                            updateClient = new frmUpdateClient(_clientUI);
+
                             updateClient.UpdateClient();
                             break;
 
@@ -462,9 +475,6 @@ namespace BankSystem
             return false;
         }
 
-
-
-
         private void ClearPhoneText()
         {
             _txtPhone.Clear();
@@ -477,6 +487,100 @@ namespace BankSystem
                 ClearPhoneText();
             }
         }
+
+        public void FillClientInfo()
+        {
+            _client.pinCode = _txtPinCode.Text;
+
+            _client.balance = Convert.ToDecimal(_txtBalance.Text);
+
+            _person.firstName = _txtFirstName.Text;
+
+            _person.lastName = _txtLastName.Text;
+
+            _person.email = _txtEmail.Text;
+
+            if (!(_clientAction == enClientAction.Update))
+                _client.accountNumber = _txtAccountNumber.Text;
+        }
+
+        public void ValidationSave()
+        {
+            if (_clientAction == enClientAction.Update)
+            {
+                _person.personID = _personID;
+                _typeWord = enOperationType.Update;
+            }
+
+            else
+            {
+                _typeWord = enOperationType.Add;
+            }
+               
+
+            if (_person.Save())
+                ValidationClientsAndPhonesSave();
+
+            else
+                ShowMessage($"Failed to {_typeWord}");
+        }
+
+        private void ValidationPhoneNumbersSave()
+        {
+            byte itemsCount = Convert.ToByte(_cbPhones.Items.Count);
+            string item = "";
+
+            for (byte itemIndex = 0; itemIndex < itemsCount; itemIndex++)
+            {
+                item = _cbPhones.Items[itemIndex].ToString();
+
+                FillPhoneObject(item);
+
+                if (_phone.Save())
+                {
+                    _phone = new Phones();
+                }
+            }
+        }
+        
+        private void FillPhoneObject(string item)
+        {
+            _phone.phoneNumber = item;
+            _phone.personID = _personID;
+        }
+
+        private void SetPersonIDToClientObject()
+        {
+            string firstName = _txtFirstName.Text, lastName = _txtLastName.Text;
+
+            _personID = Persons.Find(firstName, lastName).personID;
+
+            _client.personID = _personID;
+        }
+
+        private void ValidationClientsAndPhonesSave()
+        {
+            if (_clientAction == enClientAction.Update)
+            {
+                _statusWord = enOperationStatus.Updated;
+            }
+
+            else
+            {
+                SetPersonIDToClientObject();
+
+                _statusWord = enOperationStatus.Added;
+            }
+
+
+            ValidationPhoneNumbersSave();
+
+            if (_client.Save())
+            {
+                ShowMessage($"Successfully {_statusWord}");
+            }
+        }
+
     }
 
 }
