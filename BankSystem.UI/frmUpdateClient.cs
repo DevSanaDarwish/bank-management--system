@@ -44,7 +44,7 @@ namespace BankSystem
 
 
         }
-
+        
         public ClientUIHelper _clientUI;
 
         Clients _client = new Clients();
@@ -57,24 +57,31 @@ namespace BankSystem
 
         bool _isValid = true;
 
+        
         private void InitializeClientUIObject()
         {
-            _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, _txtEmail, txtPhone, _txtBalance, _txtPinCode, _txtFirstName,
-              _txtLastName, pnlClientInfo, _isValid, lblFirstName, lblLastName, lblBalance, lblPinCode, lblPhone, lblEmail, _client, _person,
+            _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, txtEmail, txtPhone, txtBalance, txtPinCode, txtFirstName,
+              txtLastName, pnlClientInfo, _isValid, lblFirstName, lblLastName, lblBalance, lblPinCode, lblPhone, lblEmail, _client, _person,
               _phone, cbPhones, btnUpdateClient, _personID, _clientUI);
+        }
+
+        private void SetClientAction(enClientAction clientAction)
+        {
+            _clientUI._clientAction = clientAction;
         }
 
         private void Update()
         {
+            enClientAction clientAction = enClientAction.Update;
+            SetClientAction(clientAction);
+
             _clientUI.FillClientInfo();
+
             _clientUI.ValidationSave();
         }
 
         public void UpdateClient()
         {
-            //InitializeClientUIObject();
-
-
             Update();
         }
 
@@ -82,7 +89,7 @@ namespace BankSystem
         {
             InitializeClientUIObject();
 
-            _clientUI._clientAction = clientAction;
+            SetClientAction(clientAction);
 
             _clientUI.HandleClientInfo();
         }
@@ -95,7 +102,7 @@ namespace BankSystem
         {
             HandleClientAction(enClientAction.Update);
         }
-
+        
         private void AddPhone()
         {
             _clientUI.AddPhone();

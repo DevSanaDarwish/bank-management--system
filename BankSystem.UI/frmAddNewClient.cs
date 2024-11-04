@@ -20,12 +20,7 @@ namespace BankSystem
             InitializeComponent();
         }
 
-
-        bool _isValidTextBoxes = true, _isNullTextBoxes = true;
-
         bool _isValid = true;
-
-        int _personID = -1;
 
         Clients _client = new Clients();
 
@@ -70,14 +65,6 @@ namespace BankSystem
 
         private void btnAddPhone_Click(object sender, EventArgs e)
         {
-            //if(AddPhoneNumberToComboBox())
-            //{
-            //    ClearPhoneText();
-            ////}        
-            //_clientUI = new ClientUIHelper(errorProvider1, txtAccountNumber, txtEmail, txtPhone, txtBalance, txtPinCode, txtFirstName,
-            //   txtLastName, pnlClientInfo, _isValid, _client, _person,
-            //   _phone, cbPhones);
-
             InitializeClientUIObject();
 
             _clientUI.AddPhone();

@@ -50,7 +50,42 @@ namespace BankSystem
         public ClientUIHelper(ErrorProvider errorProvider1, Guna2GroupBox gbClientCard, TextBox txtAccountNumber, TextBox txtEmail, TextBox txtPhone,
             TextBox txtBalance, TextBox txtPinCode, TextBox txtFirstName, TextBox txtLastName, Guna2Panel pnlClientInfo, bool isValid,
             Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, Label lblEmail,
-            Clients client, Persons person, Phones phone, ComboBox cbPhones, Guna2Button btnUpdateClient, int personID, ClientUIHelper clientUI)
+            Clients client, Persons person, Phones phone, ComboBox cbPhones, Guna2Button btnUpdateClient, int personID, ClientUIHelper clientUI, enClientAction clientAction)
+        {
+            this._errorProvider1 = errorProvider1;
+            this._gbClientCard = gbClientCard;
+            this._txtAccountNumber = txtAccountNumber;
+            this._lblFirstName = lblFirstName;
+            this._lblLastName = lblLastName;
+            this._lblBalance = lblBalance;
+            this._lblPinCode = lblPinCode;
+            this._lblPhone = lblPhone;
+            this._lblEmail = lblEmail;
+            this._client = client;
+            this._person = person;
+            this._phone = phone;
+            this._pnlClientInfo = pnlClientInfo;
+            this._txtEmail = txtEmail;
+            this._txtPhone = txtPhone;
+            this._txtBalance = txtBalance;
+            this._txtPinCode = txtPinCode;
+            this._lblFirstName = lblFirstName;
+            this._lblLastName = lblLastName;
+            this._isValid = isValid;
+            this._cbPhones = cbPhones;
+            this._btnUpdateClient = btnUpdateClient;
+            this._txtFirstName = txtFirstName;
+            this._txtLastName = txtLastName;
+            this._personID = personID;
+            this._clientUI = clientUI;
+            this._clientAction = clientAction;
+        }
+
+        //Constructor For frmUpdateClient Without clientAction
+        public ClientUIHelper(ErrorProvider errorProvider1, Guna2GroupBox gbClientCard, TextBox txtAccountNumber, TextBox txtEmail, TextBox txtPhone,
+           TextBox txtBalance, TextBox txtPinCode, TextBox txtFirstName, TextBox txtLastName, Guna2Panel pnlClientInfo, bool isValid,
+           Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, Label lblEmail,
+           Clients client, Persons person, Phones phone, ComboBox cbPhones, Guna2Button btnUpdateClient, int personID, ClientUIHelper clientUI)
         {
             this._errorProvider1 = errorProvider1;
             this._gbClientCard = gbClientCard;
@@ -377,15 +412,10 @@ namespace BankSystem
                     switch (_clientAction)
                     {
                         case enClientAction.Update:
-                            //frmUpdateClient updateClient = new frmUpdateClient(_client, _person, _phone, _personID, _txtEmail, _txtBalance, _txtPinCode, _txtFirstName, _txtLastName);
-
-
-
-                            frmUpdateClient updateClient = new frmUpdateClient();
-
-                            updateClient = new frmUpdateClient(_clientUI);
+                            frmUpdateClient updateClient = new frmUpdateClient(_client, _person, _phone, _personID, _txtEmail, _txtBalance, _txtPinCode, _txtFirstName, _txtLastName, _clientUI);
 
                             updateClient.UpdateClient();
+
                             break;
 
                         case enClientAction.Delete:
@@ -490,6 +520,7 @@ namespace BankSystem
 
         public void FillClientInfo()
         {
+             
             _client.pinCode = _txtPinCode.Text;
 
             _client.balance = Convert.ToDecimal(_txtBalance.Text);
@@ -506,6 +537,9 @@ namespace BankSystem
 
         public void ValidationSave()
         {
+            //MessageBox.Show($"Current Action: {_clientAction}");
+
+
             if (_clientAction == enClientAction.Update)
             {
                 _person.personID = _personID;
