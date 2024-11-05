@@ -12,7 +12,7 @@ namespace BankSystem
 {
     public class ClientUIHelper
     {
-        public enum enClientAction { ShowInfo = 0, Update = 1, Delete = 2 };
+        public enum enClientAction { DeleteShowInfo = 0, UpdateShowInfo = 1, Update= 2, Delete = 3, Find = 4 };
         public enClientAction _clientAction;
 
         enum enOperationType { Update = 0, Add = 1};
@@ -46,42 +46,8 @@ namespace BankSystem
 
         ClientUIHelper _clientUI;
 
-        //Constructor For frmUpdateClient
-        public ClientUIHelper(ErrorProvider errorProvider1, Guna2GroupBox gbClientCard, TextBox txtAccountNumber, TextBox txtEmail, TextBox txtPhone,
-            TextBox txtBalance, TextBox txtPinCode, TextBox txtFirstName, TextBox txtLastName, Guna2Panel pnlClientInfo, bool isValid,
-            Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, Label lblEmail,
-            Clients client, Persons person, Phones phone, ComboBox cbPhones, Guna2Button btnUpdateClient, int personID, ClientUIHelper clientUI, enClientAction clientAction)
-        {
-            this._errorProvider1 = errorProvider1;
-            this._gbClientCard = gbClientCard;
-            this._txtAccountNumber = txtAccountNumber;
-            this._lblFirstName = lblFirstName;
-            this._lblLastName = lblLastName;
-            this._lblBalance = lblBalance;
-            this._lblPinCode = lblPinCode;
-            this._lblPhone = lblPhone;
-            this._lblEmail = lblEmail;
-            this._client = client;
-            this._person = person;
-            this._phone = phone;
-            this._pnlClientInfo = pnlClientInfo;
-            this._txtEmail = txtEmail;
-            this._txtPhone = txtPhone;
-            this._txtBalance = txtBalance;
-            this._txtPinCode = txtPinCode;
-            this._lblFirstName = lblFirstName;
-            this._lblLastName = lblLastName;
-            this._isValid = isValid;
-            this._cbPhones = cbPhones;
-            this._btnUpdateClient = btnUpdateClient;
-            this._txtFirstName = txtFirstName;
-            this._txtLastName = txtLastName;
-            this._personID = personID;
-            this._clientUI = clientUI;
-            this._clientAction = clientAction;
-        }
 
-        //Constructor For frmUpdateClient Without clientAction
+        //Constructor For frmUpdateClient 
         public ClientUIHelper(ErrorProvider errorProvider1, Guna2GroupBox gbClientCard, TextBox txtAccountNumber, TextBox txtEmail, TextBox txtPhone,
            TextBox txtBalance, TextBox txtPinCode, TextBox txtFirstName, TextBox txtLastName, Guna2Panel pnlClientInfo, bool isValid,
            Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, Label lblEmail,
@@ -136,10 +102,10 @@ namespace BankSystem
             this._txtLastName = txtLastName;
         }
 
-        //Constructor For frmDeleteClient and frmFindClient
+        //Constructor For frmFindClient
         public ClientUIHelper(ErrorProvider errorProvider1, Guna2GroupBox gbClientCard, TextBox txtAccountNumber,
           Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, Label lblAccountNumber, Label lblEmail,
-          Clients client, Persons person, Phones phone)
+          Clients client, Persons person, Phones phone, Guna2Panel pnlClientInfo)
         {
             this._errorProvider1 = errorProvider1;
             this._gbClientCard = gbClientCard;
@@ -154,9 +120,32 @@ namespace BankSystem
             this._client = client;
             this._person = person;
             this._phone = phone;
+            this._pnlClientInfo = pnlClientInfo;
         }
 
-        
+        //Constructor For frmDeleteClient
+        public ClientUIHelper(ErrorProvider errorProvider1, Guna2GroupBox gbClientCard, TextBox txtAccountNumber,
+         Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, Label lblAccountNumber, Label lblEmail,
+         Clients client, Persons person, Phones phone, ClientUIHelper clientUI, Guna2Panel pnlClientInfo)
+        {
+            this._errorProvider1 = errorProvider1;
+            this._gbClientCard = gbClientCard;
+            this._txtAccountNumber = txtAccountNumber;
+            this._lblFirstName = lblFirstName;
+            this._lblLastName = lblLastName;
+            this._lblBalance = lblBalance;
+            this._lblPinCode = lblPinCode;
+            this._lblPhone = lblPhone;
+            this._lblAccountNumber = lblAccountNumber;
+            this._lblEmail = lblEmail;
+            this._client = client;
+            this._person = person;
+            this._phone = phone;
+            this._clientUI = clientUI;
+            this._pnlClientInfo = pnlClientInfo;
+        }
+
+
         public bool NullValidation(TextBox textbox)
         {
             return (InputValidator.IsControlTextNull(textbox.Text));
@@ -177,43 +166,38 @@ namespace BankSystem
             return (obj == null);
         }
 
-        private void VisibleUpdateButton()
-        {
-            _btnUpdateClient.Visible = true;
-        }
+        //public void VisibleControl(System.Windows.Forms.Control control)
+        //{
+        //    control.Visible = true;
+        //}
 
-        private void VisibleClientInfoPanel()
-        {
-            _pnlClientInfo.Visible = true;
-        }
+        //public void HideControl(System.Windows.Forms.Control control)
+        //{
+        //    control.Visible = false;
+        //}
 
-        private void VisibleClientCard()
-        {
-            _gbClientCard.Visible = true;
-        }
+        //public void EnableControl(System.Windows.Forms.Control control)
+        //{
+        //    control.Enabled = true;
+        //}
 
-        public void HideClientCard()
-        {
-            _gbClientCard.Visible = false;
-        }
-
-        private void HideUpdateButton()
-        {
-            _btnUpdateClient.Visible = false;
-        }
-
-        private void HideClientInfoPanel()
-        {
-            _pnlClientInfo.Visible = false;
-        }
+        //public void DisableControl(System.Windows.Forms.Control control)
+        //{
+        //    control.Enabled = false;
+        //}
 
         private bool IsClientNotFound(object obj)
         {
             if (IsObjectNull(obj))
             {
-                HideClientCard();
-                HideClientInfoPanel(); 
-                HideUpdateButton();
+                //HideClientCard();
+                ControlHelper.HideControl(_gbClientCard);
+
+                //HideClientInfoPanel();
+                ControlHelper.HideControl(_pnlClientInfo);
+
+                //HideUpdateButton();
+                ControlHelper.HideControl(_btnUpdateClient);
 
                 ShowMessage("Sorry, This Account Number Information Does Not Exist");
 
@@ -264,7 +248,7 @@ namespace BankSystem
             else
                 _lblEmail.Text = "Unknown";
 
-            if (_clientAction == enClientAction.Delete)
+            if (_clientAction == enClientAction.DeleteShowInfo || _clientAction == enClientAction.Find)
                 _lblAccountNumber.Text = accountNumber;
         }
         
@@ -277,13 +261,8 @@ namespace BankSystem
 
             FillClientCard(accountNumber);
 
-            VisibleClientCard();
-
-            //if (_clientAction == enClientAction.Update)
-            //{
-            //    VisibleClientInfoPanel();
-            //    VisibleUpdateButton();
-            //}
+            //VisibleClientCard();
+            ControlHelper.VisibleControl(_gbClientCard);
         }
 
         public void Set_isValid(TextBox textbox, string messageValue, bool validValue)
@@ -413,14 +392,14 @@ namespace BankSystem
                     {
                         case enClientAction.Update:
                             frmUpdateClient updateClient = new frmUpdateClient(_client, _person, _phone, _personID, _txtEmail, _txtBalance, _txtPinCode, _txtFirstName, _txtLastName, _clientUI);
-
                             updateClient.UpdateClient();
 
                             break;
 
                         case enClientAction.Delete:
-                            frmDeleteClient deleteClient = new frmDeleteClient(_client, _person, _phone);
+                            frmDeleteClient deleteClient = new frmDeleteClient(_client, _person, _phone, _clientUI, _txtAccountNumber);
                             deleteClient.DeleteClient(accountNumber);
+
                             break;
                     }
                 }
@@ -439,7 +418,10 @@ namespace BankSystem
                     ConfirmOperation("Ary you sure to delete this client?");
                     break;
 
-                case enClientAction.ShowInfo:
+                //case enClientAction.DeleteShowInfo:
+                //case enClientAction.UpdateShowInfo:
+                //case enClientAction.Find:
+                default:
                     ShowClientInfo();
                     break;
             }
@@ -449,8 +431,9 @@ namespace BankSystem
         {
             if (!NullValidation(_txtAccountNumber))
             {
-                VisibleClientInfoPanel();
-                VisibleUpdateButton();
+                //VisibleClientInfoPanel();
+                ControlHelper.VisibleControl(_pnlClientInfo);
+
                 SetErrorOnAccountNumber("");
 
                 ExecuteClientAction();
@@ -537,9 +520,6 @@ namespace BankSystem
 
         public void ValidationSave()
         {
-            //MessageBox.Show($"Current Action: {_clientAction}");
-
-
             if (_clientAction == enClientAction.Update)
             {
                 _person.personID = _personID;

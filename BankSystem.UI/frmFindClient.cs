@@ -29,7 +29,7 @@ namespace BankSystem
         private void InitializeClientUIObject()
         {
             _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode,
-                lblPhone, lblAccountNumber, lblEmail, _client, _person, _phone);
+                lblPhone, lblAccountNumber, lblEmail, _client, _person, _phone, pnlClientInfo);
         }
         private void HandleClientAction(enClientAction clientAction)
         {
@@ -42,7 +42,7 @@ namespace BankSystem
 
         private void btnFindClient_Click(object sender, EventArgs e)
         {
-            HandleClientAction(enClientAction.ShowInfo);
+            HandleClientAction(enClientAction.Find);
         }
     }
 }

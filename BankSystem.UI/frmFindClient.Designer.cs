@@ -34,6 +34,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnFindClient = new Guna.UI2.WinForms.Guna2Button();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.pnlClientInfo = new Guna.UI2.WinForms.Guna2Panel();
             this.gbClientCard = new Guna.UI2.WinForms.Guna2GroupBox();
             this.lblPhone = new System.Windows.Forms.Label();
             this.lblAccountNumber = new System.Windows.Forms.Label();
@@ -49,10 +51,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label = new System.Windows.Forms.Label();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.gbClientCard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            this.pnlClientInfo.SuspendLayout();
+            this.gbClientCard.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtAccountNumber
@@ -103,6 +105,18 @@
             this.btnFindClient.Text = "Search";
             this.btnFindClient.Click += new System.EventHandler(this.btnFindClient_Click);
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
+            // pnlClientInfo
+            // 
+            this.pnlClientInfo.Controls.Add(this.gbClientCard);
+            this.pnlClientInfo.Location = new System.Drawing.Point(12, 229);
+            this.pnlClientInfo.Name = "pnlClientInfo";
+            this.pnlClientInfo.Size = new System.Drawing.Size(604, 486);
+            this.pnlClientInfo.TabIndex = 26;
+            // 
             // gbClientCard
             // 
             this.gbClientCard.BorderColor = System.Drawing.Color.DarkRed;
@@ -123,10 +137,10 @@
             this.gbClientCard.CustomBorderColor = System.Drawing.Color.DarkRed;
             this.gbClientCard.Font = new System.Drawing.Font("Segoe UI Semibold", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbClientCard.ForeColor = System.Drawing.Color.White;
-            this.gbClientCard.Location = new System.Drawing.Point(12, 317);
+            this.gbClientCard.Location = new System.Drawing.Point(3, 3);
             this.gbClientCard.Name = "gbClientCard";
             this.gbClientCard.Size = new System.Drawing.Size(582, 471);
-            this.gbClientCard.TabIndex = 25;
+            this.gbClientCard.TabIndex = 26;
             this.gbClientCard.Text = "Client Card";
             this.gbClientCard.Visible = false;
             // 
@@ -284,17 +298,13 @@
             this.label.TabIndex = 14;
             this.label.Text = "First Name: ";
             // 
-            // errorProvider1
-            // 
-            this.errorProvider1.ContainerControl = this;
-            // 
             // frmFindClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1379, 830);
-            this.Controls.Add(this.gbClientCard);
+            this.Controls.Add(this.pnlClientInfo);
             this.Controls.Add(this.btnFindClient);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.txtAccountNumber);
@@ -303,9 +313,10 @@
             this.Name = "frmFindClient";
             this.Text = "frmFindClient";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            this.pnlClientInfo.ResumeLayout(false);
             this.gbClientCard.ResumeLayout(false);
             this.gbClientCard.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -317,6 +328,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.PictureBox pictureBox1;
         private Guna.UI2.WinForms.Guna2Button btnFindClient;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private Guna.UI2.WinForms.Guna2Panel pnlClientInfo;
         private Guna.UI2.WinForms.Guna2GroupBox gbClientCard;
         private System.Windows.Forms.Label lblPhone;
         private System.Windows.Forms.Label lblAccountNumber;
@@ -332,6 +345,5 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label;
-        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

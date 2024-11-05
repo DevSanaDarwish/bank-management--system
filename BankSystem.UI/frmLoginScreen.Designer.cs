@@ -276,7 +276,7 @@
             this.TrialTimer.Interval = 1000;
             this.TrialTimer.Tick += new System.EventHandler(this.TrialTimer_Tick);
             // 
-            // _errorProvider1
+            // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
             // 

@@ -30,8 +30,8 @@ namespace BankSystem
         TimeSpan _selectedTime = new TimeSpan(0, 0, 10);
 
         StringBuilder _formattedSelectedTime = new StringBuilder();
-
         string _username { get; set; }
+
         private void ShowMessage(string message, string title)
         {
             MessageBox.Show(message, title);
@@ -79,9 +79,9 @@ namespace BankSystem
 
         private void EnableInputFields()
         {
-            EnableUsernameText();
+            ControlHelper.EnableControl(txtUsername);
 
-            EnablePasswordText();
+            ControlHelper.EnableControl(txtPassword);
         }
 
         private void StopTrialTimer()
@@ -94,11 +94,6 @@ namespace BankSystem
             TrialTimer.Start();
         }
 
-        private void EnableLoginButton()
-        {
-            btnLogin.Enabled = true;
-        }
-
         private void HandleTrialTimeIsUp(TimeSpan zero)
         {
             UpdateTime(zero);
@@ -107,11 +102,11 @@ namespace BankSystem
 
             ShowNotificationMessage();
 
-            UnvisibleTrialTimerLabel();
+            ControlHelper.HideControl(lblTrialTimer);
 
             EnableInputFields();
 
-            EnableLoginButton();
+            ControlHelper.EnableControl(btnLogin);
         }
 
         private void CheckTrialTimeIsUp()
@@ -139,38 +134,6 @@ namespace BankSystem
             {
                 StopTrialTimer();
             }
-
-           
-        }
-
-        private void VisibleTrialTimerLabel()
-        {
-            lblTrialTimer.Visible = true;
-        }
-
-        private void UnvisibleTrialTimerLabel()
-        {
-            lblTrialTimer.Visible = false;
-        }
-
-        private void EnableUsernameText()
-        {
-            txtUsername.Enabled = true;
-        }
-
-        private void EnablePasswordText()
-        {
-            txtPassword.Enabled = true;
-        }
-
-        private void DisableUsernameText()
-        {
-            txtUsername.Enabled = false;
-        }
-
-        private void DisablePasswordText()
-        {
-            txtPassword.Enabled = false;
         }
 
         private void SetFormBackground()
@@ -253,7 +216,7 @@ namespace BankSystem
             TogglePasswordVisibility();
         }
 
-        private bool ISValidUsernameAndPassword()
+        private bool IsValidUsernameAndPassword()
         {
             Users user = Users.Find(txtUsername.Text, txtPassword.Text);
 
@@ -284,16 +247,6 @@ namespace BankSystem
             ShowMessage(LockoutMessage, "");
         }
 
-        private void UnvisibleLoginMessageLabel()
-        {
-            lblLoginMessage.Visible = false;
-        }
-
-        private void VisibleLoginMessageLabel()
-        {
-            lblLoginMessage.Visible = true;
-        }
-
         private void UpdateSelectedTime()
         {
             _selectedTime = new TimeSpan(0, 0, 10);
@@ -301,9 +254,9 @@ namespace BankSystem
 
         private void DisableInputFields()
         {
-            DisableUsernameText();
+            ControlHelper.DisableControl(txtUsername);
 
-            DisablePasswordText();
+            ControlHelper.DisableControl(txtPassword);
         }
 
         private void SetInputFieldsBordersColor()
@@ -315,7 +268,7 @@ namespace BankSystem
 
         private void ResetTimer()
         {
-            VisibleTrialTimerLabel();
+            ControlHelper.VisibleControl(lblTrialTimer);
 
             UpdateSelectedTime();
 
@@ -348,20 +301,16 @@ namespace BankSystem
             SetInputFieldsBordersColor();
         }
 
-        private void DisableLoginButton()
-        {
-            btnLogin.Enabled = false;
-        }
 
         private void HandleLockout()
         {
-            UnvisibleLoginMessageLabel();
+            ControlHelper.HideControl(lblLoginMessage);
 
             ShowLockoutMessage();
 
             ResetInputFields();
 
-            DisableLoginButton();
+            ControlHelper.DisableControl(btnLogin);
 
             ResetTimer();
         }
@@ -374,7 +323,7 @@ namespace BankSystem
 
             lblLoginMessage.Text = _loginMessage;
 
-            VisibleLoginMessageLabel();
+            ControlHelper.VisibleControl(lblLoginMessage);
         }
 
         private void HandleFailedLogin()
@@ -397,7 +346,7 @@ namespace BankSystem
         {
             try
             {
-                if (ISValidUsernameAndPassword())
+                if (IsValidUsernameAndPassword())
                 {
                     OpenMainForm();
                 }
@@ -485,6 +434,5 @@ namespace BankSystem
             }
             
         }
-
     }
 }

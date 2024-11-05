@@ -121,12 +121,17 @@ namespace BankSystem
 
         private void btnTransactions_Click(object sender, EventArgs e)
         {
-            if(!pnlTransactions.Visible)
-                pnlTransactions.Visible = true;
+            TogglePanelVisibility(pnlTransactions);
+        }
 
-            else
-                pnlTransactions.Visible = false;
+        private void btnManageUsers_Click(object sender, EventArgs e)
+        {
+            TogglePanelVisibility(pnlUsers);
+        }
 
+        private void TogglePanelVisibility(Panel panel)
+        {
+            panel.Visible = !panel.Visible;
         }
 
         private void btnDeposit_Click(object sender, EventArgs e)
@@ -134,14 +139,7 @@ namespace BankSystem
             HandleButtonClick(btnDeposit, Color.DarkViolet, new frmDeposit());
         }
 
-        private void btnManageUsers_Click(object sender, EventArgs e)
-        {
-            if (!pnlUsers.Visible)
-                pnlUsers.Visible = true;
-
-            else
-                pnlUsers.Visible = false;
-        }
+       
 
         private void btnWithdraw_Click(object sender, EventArgs e)
         {

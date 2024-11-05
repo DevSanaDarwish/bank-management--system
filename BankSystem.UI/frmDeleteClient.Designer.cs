@@ -33,6 +33,10 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txtAccountNumber = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.btnDeleteClient = new Guna.UI2.WinForms.Guna2Button();
+            this.btnShowInfo = new Guna.UI2.WinForms.Guna2Button();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.pnlClientInfo = new Guna.UI2.WinForms.Guna2Panel();
             this.gbClientCard = new Guna.UI2.WinForms.Guna2GroupBox();
             this.lblPhone = new System.Windows.Forms.Label();
             this.lblAccountNumber = new System.Windows.Forms.Label();
@@ -48,12 +52,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label = new System.Windows.Forms.Label();
-            this.btnDeleteClient = new Guna.UI2.WinForms.Guna2Button();
-            this.btnShowInfo = new Guna.UI2.WinForms.Guna2Button();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.gbClientCard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            this.pnlClientInfo.SuspendLayout();
+            this.gbClientCard.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -67,7 +69,7 @@
             this.pictureBox1.TabIndex = 16;
             this.pictureBox1.TabStop = false;
             // 
-            // _txtAccountNumber
+            // txtAccountNumber
             // 
             this.txtAccountNumber.BackColor = System.Drawing.Color.White;
             this.txtAccountNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -87,7 +89,51 @@
             this.label6.TabIndex = 17;
             this.label6.Text = "Account Number: ";
             // 
-            // _gbClientCard
+            // btnDeleteClient
+            // 
+            this.btnDeleteClient.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnDeleteClient.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnDeleteClient.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnDeleteClient.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnDeleteClient.FillColor = System.Drawing.Color.Gold;
+            this.btnDeleteClient.Font = new System.Drawing.Font("Segoe UI Semibold", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeleteClient.ForeColor = System.Drawing.Color.White;
+            this.btnDeleteClient.Location = new System.Drawing.Point(94, 680);
+            this.btnDeleteClient.Name = "btnDeleteClient";
+            this.btnDeleteClient.Size = new System.Drawing.Size(296, 71);
+            this.btnDeleteClient.TabIndex = 21;
+            this.btnDeleteClient.Text = "Delete";
+            this.btnDeleteClient.Click += new System.EventHandler(this.btnDeleteClient_Click);
+            // 
+            // btnShowInfo
+            // 
+            this.btnShowInfo.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnShowInfo.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnShowInfo.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnShowInfo.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnShowInfo.FillColor = System.Drawing.Color.Gold;
+            this.btnShowInfo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnShowInfo.ForeColor = System.Drawing.Color.White;
+            this.btnShowInfo.Location = new System.Drawing.Point(500, 32);
+            this.btnShowInfo.Name = "btnShowInfo";
+            this.btnShowInfo.Size = new System.Drawing.Size(134, 35);
+            this.btnShowInfo.TabIndex = 22;
+            this.btnShowInfo.Text = "Show Info";
+            this.btnShowInfo.Click += new System.EventHandler(this.btnShowInfo_Click);
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
+            // pnlClientInfo
+            // 
+            this.pnlClientInfo.Controls.Add(this.gbClientCard);
+            this.pnlClientInfo.Location = new System.Drawing.Point(5, 98);
+            this.pnlClientInfo.Name = "pnlClientInfo";
+            this.pnlClientInfo.Size = new System.Drawing.Size(725, 538);
+            this.pnlClientInfo.TabIndex = 23;
+            // 
+            // gbClientCard
             // 
             this.gbClientCard.BorderColor = System.Drawing.Color.Gold;
             this.gbClientCard.Controls.Add(this.lblPhone);
@@ -107,14 +153,14 @@
             this.gbClientCard.CustomBorderColor = System.Drawing.Color.Gold;
             this.gbClientCard.Font = new System.Drawing.Font("Segoe UI Semibold", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbClientCard.ForeColor = System.Drawing.Color.White;
-            this.gbClientCard.Location = new System.Drawing.Point(19, 125);
+            this.gbClientCard.Location = new System.Drawing.Point(3, 3);
             this.gbClientCard.Name = "gbClientCard";
             this.gbClientCard.Size = new System.Drawing.Size(694, 471);
-            this.gbClientCard.TabIndex = 19;
+            this.gbClientCard.TabIndex = 20;
             this.gbClientCard.Text = "Client Card";
             this.gbClientCard.Visible = false;
             // 
-            // _lblPhone
+            // lblPhone
             // 
             this.lblPhone.AutoSize = true;
             this.lblPhone.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -125,7 +171,7 @@
             this.lblPhone.TabIndex = 33;
             this.lblPhone.Text = "First Name: ";
             // 
-            // _lblAccountNumber
+            // lblAccountNumber
             // 
             this.lblAccountNumber.AutoSize = true;
             this.lblAccountNumber.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -136,7 +182,7 @@
             this.lblAccountNumber.TabIndex = 32;
             this.lblAccountNumber.Text = "First Name: ";
             // 
-            // _lblEmail
+            // lblEmail
             // 
             this.lblEmail.AutoSize = true;
             this.lblEmail.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -147,7 +193,7 @@
             this.lblEmail.TabIndex = 31;
             this.lblEmail.Text = "First Name: ";
             // 
-            // _lblPinCode
+            // lblPinCode
             // 
             this.lblPinCode.AutoSize = true;
             this.lblPinCode.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -158,7 +204,7 @@
             this.lblPinCode.TabIndex = 30;
             this.lblPinCode.Text = "First Name: ";
             // 
-            // _lblBalance
+            // lblBalance
             // 
             this.lblBalance.AutoSize = true;
             this.lblBalance.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -169,7 +215,7 @@
             this.lblBalance.TabIndex = 29;
             this.lblBalance.Text = "First Name: ";
             // 
-            // _lblLastName
+            // lblLastName
             // 
             this.lblLastName.AutoSize = true;
             this.lblLastName.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -180,7 +226,7 @@
             this.lblLastName.TabIndex = 28;
             this.lblLastName.Text = "First Name: ";
             // 
-            // _lblFirstName
+            // lblFirstName
             // 
             this.lblFirstName.AutoSize = true;
             this.lblFirstName.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -268,51 +314,15 @@
             this.label.TabIndex = 14;
             this.label.Text = "First Name: ";
             // 
-            // btnDeleteClient
-            // 
-            this.btnDeleteClient.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnDeleteClient.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnDeleteClient.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnDeleteClient.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnDeleteClient.FillColor = System.Drawing.Color.Gold;
-            this.btnDeleteClient.Font = new System.Drawing.Font("Segoe UI Semibold", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteClient.ForeColor = System.Drawing.Color.White;
-            this.btnDeleteClient.Location = new System.Drawing.Point(94, 680);
-            this.btnDeleteClient.Name = "btnDeleteClient";
-            this.btnDeleteClient.Size = new System.Drawing.Size(296, 71);
-            this.btnDeleteClient.TabIndex = 21;
-            this.btnDeleteClient.Text = "Delete";
-            this.btnDeleteClient.Click += new System.EventHandler(this.btnDeleteClient_Click);
-            // 
-            // btnShowInfo
-            // 
-            this.btnShowInfo.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnShowInfo.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnShowInfo.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnShowInfo.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnShowInfo.FillColor = System.Drawing.Color.Gold;
-            this.btnShowInfo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnShowInfo.ForeColor = System.Drawing.Color.White;
-            this.btnShowInfo.Location = new System.Drawing.Point(500, 32);
-            this.btnShowInfo.Name = "btnShowInfo";
-            this.btnShowInfo.Size = new System.Drawing.Size(134, 35);
-            this.btnShowInfo.TabIndex = 22;
-            this.btnShowInfo.Text = "Show Info";
-            this.btnShowInfo.Click += new System.EventHandler(this.btnShowInfo_Click);
-            // 
-            // _errorProvider1
-            // 
-            this.errorProvider1.ContainerControl = this;
-            // 
             // frmDeleteClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1379, 830);
+            this.Controls.Add(this.pnlClientInfo);
             this.Controls.Add(this.btnShowInfo);
             this.Controls.Add(this.btnDeleteClient);
-            this.Controls.Add(this.gbClientCard);
             this.Controls.Add(this.txtAccountNumber);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.pictureBox1);
@@ -320,9 +330,10 @@
             this.Name = "frmDeleteClient";
             this.Text = "frmDeleteClient";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            this.pnlClientInfo.ResumeLayout(false);
             this.gbClientCard.ResumeLayout(false);
             this.gbClientCard.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -333,15 +344,11 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox txtAccountNumber;
         private System.Windows.Forms.Label label6;
-        private Guna.UI2.WinForms.Guna2GroupBox gbClientCard;
         private Guna.UI2.WinForms.Guna2Button btnDeleteClient;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label;
+        private Guna.UI2.WinForms.Guna2Button btnShowInfo;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private Guna.UI2.WinForms.Guna2Panel pnlClientInfo;
+        private Guna.UI2.WinForms.Guna2GroupBox gbClientCard;
         private System.Windows.Forms.Label lblPhone;
         private System.Windows.Forms.Label lblAccountNumber;
         private System.Windows.Forms.Label lblEmail;
@@ -349,7 +356,12 @@
         private System.Windows.Forms.Label lblBalance;
         private System.Windows.Forms.Label lblLastName;
         private System.Windows.Forms.Label lblFirstName;
-        private Guna.UI2.WinForms.Guna2Button btnShowInfo;
-        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label;
     }
 }

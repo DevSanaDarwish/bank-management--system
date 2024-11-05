@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientUIHelper.cs" />
+    <Compile Include="ControlHelper.cs" />
     <Compile Include="frmAddNewClient.cs">
       <SubType>Form</SubType>
     </Compile>
