@@ -330,7 +330,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmDeleteClient";
             this.Text = "frmDeleteClient";
-            this.Load += new System.EventHandler(this.frmDeleteClient_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.pnlClientInfo.ResumeLayout(false);

@@ -63,6 +63,7 @@ namespace BankSystem
 
             dgvAllClients.ClearSelection();
         }
+
         private void frmShowClientsList_Load(object sender, EventArgs e)
         {
             RefreshClientsList();

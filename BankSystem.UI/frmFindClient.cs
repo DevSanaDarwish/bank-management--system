@@ -39,7 +39,6 @@ namespace BankSystem
 
             _clientUI.HandleClientInfo();
         }
-
         private void btnFindClient_Click(object sender, EventArgs e)
         {
             HandleClientAction(enClientAction.Find);

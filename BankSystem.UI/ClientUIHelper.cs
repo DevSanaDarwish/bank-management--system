@@ -12,7 +12,7 @@ namespace BankSystem
 {
     public class ClientUIHelper
     {
-        public enum enClientAction { DeleteShowInfo = 0, UpdateShowInfo = 1, Update= 2, Delete = 3, Find = 4 };
+        public enum enClientAction { DeleteShowInfo = 0, UpdateShowInfo = 1, DepositShowInfo = 2, Update= 3, Delete = 4, Find = 5, Deposit = 6};
         public enClientAction _clientAction;
 
         enum enOperationType { Update = 0, Add = 1};
@@ -46,6 +46,11 @@ namespace BankSystem
 
         ClientUIHelper _clientUI;
 
+        //Empty Constructor
+        public ClientUIHelper()
+        {
+
+        }
 
         //Constructor For frmUpdateClient 
         public ClientUIHelper(ErrorProvider errorProvider1, Guna2GroupBox gbClientCard, TextBox txtAccountNumber, TextBox txtEmail, TextBox txtPhone,
@@ -146,12 +151,6 @@ namespace BankSystem
             this._btnDeleteClient = btnDeleteClient;
         }
         
-
-        //public bool NullValidation(TextBox textbox)
-        //{
-        //    return (InputValidator.IsControlTextNull(textbox.Text));
-        //}
-
         private void SetErrorOnAccountNumber(string message = "This field should not be empty")
         {
             InputValidator.SetMessageError(_txtAccountNumber, message, _errorProvider1);
@@ -326,16 +325,6 @@ namespace BankSystem
             return isNotNull;
         }
 
-        //private bool NumericValidation(TextBox textbox)
-        //{
-        //    return (InputValidator.IsNumeric(textbox.Text));
-        //}
-
-        //private bool StringValidation(TextBox textbox)
-        //{
-        //    return (InputValidator.IsString(textbox.Text));
-        //}
-
         private bool IsInputFieldsValid()
         {
             bool isValid = true;
@@ -436,8 +425,6 @@ namespace BankSystem
                 ControlHelper.VisibleControl(_pnlClientInfo);
 
                 SetErrorOnAccountNumber("");
-
-                
 
                 ExecuteClientAction();
             }

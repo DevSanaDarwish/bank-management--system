@@ -90,10 +90,7 @@ namespace BankSystem
 
             _clientUI.HandleClientInfo();
         }
-        private void VisibleUpdateButton()
-        {
-            btnUpdateClient.Visible = true;
-        }
+
         private void btnShowInfo_Click(object sender, EventArgs e)
         {
             HandleClientAction(enClientAction.UpdateShowInfo);
@@ -108,6 +105,7 @@ namespace BankSystem
         {
             _clientUI.AddPhone();
         }
+
         private void btnAddPhone_Click(object sender, EventArgs e)
         {
             AddPhone();

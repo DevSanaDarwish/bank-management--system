@@ -88,7 +88,6 @@ namespace BankSystem
             {
                 ShowMessage(ex.Message);
             }
-
         }
     }
 }

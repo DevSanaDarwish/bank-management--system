@@ -266,7 +266,6 @@ namespace BankSystem
             StartTrialTimer();
         }
 
-
         private void ClearInputFields()
         {
             ControlHelper.ClearTextBox(txtUsername);
@@ -282,7 +281,6 @@ namespace BankSystem
 
             SetInputFieldsBordersColor();
         }
-
 
         private void HandleLockout()
         {

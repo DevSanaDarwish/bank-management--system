@@ -40,7 +40,6 @@ namespace BankSystem
             button.BackColor = Color.Transparent;
         }
 
-
         public void ResetButtonsColor()
         {
             ResetOneButtonColor(btnShowClientsList);
@@ -92,8 +91,6 @@ namespace BankSystem
             ChildFormManager.OpenChildForm(form, pnlContent);
         }
 
-
-
         private void btnShowClientsList_Click(object sender, EventArgs e)
         {
             HandleButtonClick(btnShowClientsList, Color.DeepPink, new frmShowClientsList());
@@ -138,8 +135,6 @@ namespace BankSystem
         {
             HandleButtonClick(btnDeposit, Color.DarkViolet, new frmDeposit());
         }
-
-       
 
         private void btnWithdraw_Click(object sender, EventArgs e)
         {

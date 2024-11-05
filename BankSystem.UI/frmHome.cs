@@ -67,18 +67,6 @@ namespace BankSystem
             lblTimeNow.Text = _formattedSelectedTime.ToString();
         }
 
-        private void ShowMessage(string message, string title)
-        {
-            MessageBox.Show(message, title);
-        }
-
-        private void ShowNotificationMessage()
-        {
-            string notificationText = "Time's up .. you can try now", title = "Notification";
-
-            ShowMessage(notificationText, title);
-        }
-
         private void StartTimer()
         {
             EncrementSelectedTimeOneSecond();

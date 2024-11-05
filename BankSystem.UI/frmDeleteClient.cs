@@ -95,10 +95,5 @@ namespace BankSystem
                 else
                 _clientUI.ShowMessage("Deletion Failed");            
         }
-
-        private void frmDeleteClient_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }
