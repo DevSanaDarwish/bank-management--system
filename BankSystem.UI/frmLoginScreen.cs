@@ -32,10 +32,6 @@ namespace BankSystem
         StringBuilder _formattedSelectedTime = new StringBuilder();
         string _username { get; set; }
 
-        private void ShowMessage(string message, string title)
-        {
-            MessageBox.Show(message, title);
-        }
 
         private void GetFormattedTime(TimeSpan time)
         {
@@ -74,7 +70,7 @@ namespace BankSystem
         {
             string notificationText = "Time's up .. you can try now", title = "Notification";
 
-            ShowMessage(notificationText, title);
+            ControlHelper.ShowMessage(notificationText, title);
         }
 
         private void EnableInputFields()
@@ -153,16 +149,11 @@ namespace BankSystem
             SetLoginPanelBackColor();
         }
 
-        private void ColoringPanel(Panel panel, Color color)
-        {
-            panel.BackColor = color;
-        }
-
         private void ColoringPasswordAndUsernamePanel()
         {
-            ColoringPanel(pnlLineForPassword, Color.White);
+            ControlHelper.ColoringPanel(pnlLineForPassword, Color.White);
 
-            ColoringPanel(pnlLineForUsername, Color.MidnightBlue);
+            ControlHelper.ColoringPanel(pnlLineForUsername, Color.MidnightBlue);
         }
 
         private void txtUsername_Click(object sender, EventArgs e)
@@ -244,7 +235,7 @@ namespace BankSystem
 
             string LockoutMessage = $"Locked after {remainingTrials} failed trials, You can try after {_waitDurationPerSeconds} seconds";
 
-            ShowMessage(LockoutMessage, "");
+            ControlHelper.ShowMessage(LockoutMessage, "");
         }
 
         private void UpdateSelectedTime()
@@ -261,9 +252,9 @@ namespace BankSystem
 
         private void SetInputFieldsBordersColor()
         {
-            ColoringPanel(pnlLineForPassword, Color.White);
+            ControlHelper.ColoringPanel(pnlLineForPassword, Color.White);
 
-            ColoringPanel(pnlLineForUsername, Color.White);
+            ControlHelper.ColoringPanel(pnlLineForUsername, Color.White);
         }
 
         private void ResetTimer()
@@ -275,21 +266,12 @@ namespace BankSystem
             StartTrialTimer();
         }
 
-        private void ClearUsernameText()
-        {
-            txtUsername.Text = string.Empty;
-        }
-
-        private void ClearPasswordText()
-        {
-            txtPassword.Text = string.Empty;
-        }
 
         private void ClearInputFields()
         {
-            ClearUsernameText();
+            ControlHelper.ClearTextBox(txtUsername);
 
-            ClearPasswordText();
+            ControlHelper.ClearTextBox(txtPassword);
         }
 
         private void ResetInputFields()

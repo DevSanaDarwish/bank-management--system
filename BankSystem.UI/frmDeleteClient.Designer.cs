@@ -103,6 +103,7 @@
             this.btnDeleteClient.Size = new System.Drawing.Size(296, 71);
             this.btnDeleteClient.TabIndex = 21;
             this.btnDeleteClient.Text = "Delete";
+            this.btnDeleteClient.Visible = false;
             this.btnDeleteClient.Click += new System.EventHandler(this.btnDeleteClient_Click);
             // 
             // btnShowInfo
@@ -329,6 +330,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmDeleteClient";
             this.Text = "frmDeleteClient";
+            this.Load += new System.EventHandler(this.frmDeleteClient_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.pnlClientInfo.ResumeLayout(false);

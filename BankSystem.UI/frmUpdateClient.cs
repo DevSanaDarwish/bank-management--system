@@ -97,8 +97,6 @@ namespace BankSystem
         private void btnShowInfo_Click(object sender, EventArgs e)
         {
             HandleClientAction(enClientAction.UpdateShowInfo);
-
-            VisibleUpdateButton();
         }
 
         private void btnUpdateClient_Click(object sender, EventArgs e)

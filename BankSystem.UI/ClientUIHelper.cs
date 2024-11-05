@@ -22,7 +22,7 @@ namespace BankSystem
         enOperationStatus _statusWord;
 
 
-        Guna2Button _btnUpdateClient;
+        Guna2Button _btnUpdateClient, _btnDeleteClient;
 
         ErrorProvider _errorProvider1;
 
@@ -126,7 +126,7 @@ namespace BankSystem
         //Constructor For frmDeleteClient
         public ClientUIHelper(ErrorProvider errorProvider1, Guna2GroupBox gbClientCard, TextBox txtAccountNumber,
          Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, Label lblAccountNumber, Label lblEmail,
-         Clients client, Persons person, Phones phone, ClientUIHelper clientUI, Guna2Panel pnlClientInfo)
+         Clients client, Persons person, Phones phone, ClientUIHelper clientUI, Guna2Panel pnlClientInfo, Guna2Button btnDeleteClient)
         {
             this._errorProvider1 = errorProvider1;
             this._gbClientCard = gbClientCard;
@@ -143,13 +143,14 @@ namespace BankSystem
             this._phone = phone;
             this._clientUI = clientUI;
             this._pnlClientInfo = pnlClientInfo;
+            this._btnDeleteClient = btnDeleteClient;
         }
+        
 
-
-        public bool NullValidation(TextBox textbox)
-        {
-            return (InputValidator.IsControlTextNull(textbox.Text));
-        }
+        //public bool NullValidation(TextBox textbox)
+        //{
+        //    return (InputValidator.IsControlTextNull(textbox.Text));
+        //}
 
         private void SetErrorOnAccountNumber(string message = "This field should not be empty")
         {
@@ -166,38 +167,28 @@ namespace BankSystem
             return (obj == null);
         }
 
-        //public void VisibleControl(System.Windows.Forms.Control control)
-        //{
-        //    control.Visible = true;
-        //}
+        private void HideUpdateDeleteButton()
+        {
+            if (_clientAction == enClientAction.UpdateShowInfo)
+            {
+                ControlHelper.HideControl(_btnUpdateClient);
+            }
 
-        //public void HideControl(System.Windows.Forms.Control control)
-        //{
-        //    control.Visible = false;
-        //}
-
-        //public void EnableControl(System.Windows.Forms.Control control)
-        //{
-        //    control.Enabled = true;
-        //}
-
-        //public void DisableControl(System.Windows.Forms.Control control)
-        //{
-        //    control.Enabled = false;
-        //}
+            else if (_clientAction == enClientAction.DeleteShowInfo)
+            {
+                ControlHelper.HideControl(_btnDeleteClient);
+            }
+        }
 
         private bool IsClientNotFound(object obj)
         {
             if (IsObjectNull(obj))
             {
-                //HideClientCard();
                 ControlHelper.HideControl(_gbClientCard);
 
-                //HideClientInfoPanel();
                 ControlHelper.HideControl(_pnlClientInfo);
 
-                //HideUpdateButton();
-                ControlHelper.HideControl(_btnUpdateClient);
+                HideUpdateDeleteButton();
 
                 ShowMessage("Sorry, This Account Number Information Does Not Exist");
 
@@ -259,9 +250,10 @@ namespace BankSystem
             if (!AreObjectsInfoSuccessfullyLoaded(accountNumber))
                 return;
 
+            ShowUpdateDeleteButton();
+
             FillClientCard(accountNumber);
 
-            //VisibleClientCard();
             ControlHelper.VisibleControl(_gbClientCard);
         }
 
@@ -318,7 +310,7 @@ namespace BankSystem
                     if (textbox == _txtEmail || textbox == _txtPhone)
                         continue;
 
-                    AllValidation(textbox, !NullValidation(textbox), message);
+                    AllValidation(textbox, !ControlHelper.NullValidation(textbox), message);
 
                     if (!_isValid)
                         isNotNull = _isValid;
@@ -334,15 +326,15 @@ namespace BankSystem
             return isNotNull;
         }
 
-        private bool NumericValidation(TextBox textbox)
-        {
-            return (InputValidator.IsNumeric(textbox.Text));
-        }
+        //private bool NumericValidation(TextBox textbox)
+        //{
+        //    return (InputValidator.IsNumeric(textbox.Text));
+        //}
 
-        private bool StringValidation(TextBox textbox)
-        {
-            return (InputValidator.IsString(textbox.Text));
-        }
+        //private bool StringValidation(TextBox textbox)
+        //{
+        //    return (InputValidator.IsString(textbox.Text));
+        //}
 
         private bool IsInputFieldsValid()
         {
@@ -355,12 +347,12 @@ namespace BankSystem
                 {
                     if (textbox == _txtBalance || textbox == _txtPinCode)
                     {
-                        AllValidation(textbox, NumericValidation(textbox), message);
+                        AllValidation(textbox, ControlHelper.NumericValidation(textbox), message);
                     }
 
                     if (textbox == _txtFirstName || textbox == _txtLastName)
                     {
-                        AllValidation(textbox, StringValidation(textbox), message);
+                        AllValidation(textbox, ControlHelper.StringValidation(textbox), message);
                     }
 
                     if (!_isValid)
@@ -418,27 +410,38 @@ namespace BankSystem
                     ConfirmOperation("Ary you sure to delete this client?");
                     break;
 
-                //case enClientAction.DeleteShowInfo:
-                //case enClientAction.UpdateShowInfo:
-                //case enClientAction.Find:
                 default:
                     ShowClientInfo();
                     break;
             }
         }
 
+        private void ShowUpdateDeleteButton()
+        {
+            if (_clientAction == enClientAction.UpdateShowInfo)
+            {
+                ControlHelper.VisibleControl(_btnUpdateClient);
+            }
+
+            else if (_clientAction == enClientAction.DeleteShowInfo)
+            {
+                ControlHelper.VisibleControl(_btnDeleteClient);
+            }
+        }
+
         public void HandleClientInfo()
         {
-            if (!NullValidation(_txtAccountNumber))
+            if (!ControlHelper.NullValidation(_txtAccountNumber))
             {
-                //VisibleClientInfoPanel();
                 ControlHelper.VisibleControl(_pnlClientInfo);
 
                 SetErrorOnAccountNumber("");
 
+                
+
                 ExecuteClientAction();
             }
-
+            
             else
                 SetErrorOnAccountNumber();
         }
@@ -447,7 +450,7 @@ namespace BankSystem
         {
             string messageValue = "You must enter a valid value";
 
-            AllValidation(_txtPhone, NumericValidation(_txtPhone), messageValue);
+            AllValidation(_txtPhone, ControlHelper.NumericValidation(_txtPhone), messageValue);
 
             if (_isValid == true)
                 return true;
@@ -459,7 +462,7 @@ namespace BankSystem
         {
             string messageValue = "Please Add One Phone Number At Least";
 
-            if (NullValidation(_txtPhone))
+            if (ControlHelper.NullValidation(_txtPhone))
             {
                 Set_isValid(_txtPhone, messageValue, false);
                 return true;

@@ -42,7 +42,7 @@ namespace BankSystem
         private void InitializeClientUIObject()
         {
             _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode,
-                 lblPhone, lblAccountNumber, lblEmail, _client, _person, _phone, _clientUI, pnlClientInfo);
+                 lblPhone, lblAccountNumber, lblEmail, _client, _person, _phone, _clientUI, pnlClientInfo, btnDeleteClient);
         }
 
         private void SetClientAction(enClientAction clientAction)
@@ -87,14 +87,18 @@ namespace BankSystem
                 {
                     _clientUI.ShowMessage("Client Deleted Successfully");
 
-                //_clientUI.HideClientCard();
-                ControlHelper.HideControl(gbClientCard);
+                    ControlHelper.HideControl(gbClientCard);
 
                     ClearAccountNumberText();
                 }                 
 
                 else
                 _clientUI.ShowMessage("Deletion Failed");            
+        }
+
+        private void frmDeleteClient_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
