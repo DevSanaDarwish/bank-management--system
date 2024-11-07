@@ -49,6 +49,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnShowInfo = new Guna.UI2.WinForms.Guna2Button();
+            this.btnUpdateClient = new Guna.UI2.WinForms.Guna2Button();
             this.pnlClientInfo = new Guna.UI2.WinForms.Guna2Panel();
             this.label8 = new System.Windows.Forms.Label();
             this.cbPhones = new System.Windows.Forms.ComboBox();
@@ -66,7 +67,6 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnUpdateClient = new Guna.UI2.WinForms.Guna2Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.gbClientCard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -84,7 +84,7 @@
             this.pictureBox1.TabIndex = 16;
             this.pictureBox1.TabStop = false;
             // 
-            // _txtAccountNumber
+            // txtAccountNumber
             // 
             this.txtAccountNumber.BackColor = System.Drawing.Color.White;
             this.txtAccountNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -104,7 +104,7 @@
             this.label6.TabIndex = 19;
             this.label6.Text = "Please Enter Client Account Number: ";
             // 
-            // _gbClientCard
+            // gbClientCard
             // 
             this.gbClientCard.BorderColor = System.Drawing.Color.DarkSeaGreen;
             this.gbClientCard.Controls.Add(this.lblPhone);
@@ -129,7 +129,7 @@
             this.gbClientCard.Text = "Client Card";
             this.gbClientCard.Visible = false;
             // 
-            // _lblPhone
+            // lblPhone
             // 
             this.lblPhone.AutoSize = true;
             this.lblPhone.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -140,7 +140,7 @@
             this.lblPhone.TabIndex = 32;
             this.lblPhone.Text = "First Name: ";
             // 
-            // _lblEmail
+            // lblEmail
             // 
             this.lblEmail.AutoSize = true;
             this.lblEmail.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -151,7 +151,7 @@
             this.lblEmail.TabIndex = 31;
             this.lblEmail.Text = "First Name: ";
             // 
-            // _lblPinCode
+            // lblPinCode
             // 
             this.lblPinCode.AutoSize = true;
             this.lblPinCode.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -162,7 +162,7 @@
             this.lblPinCode.TabIndex = 30;
             this.lblPinCode.Text = "First Name: ";
             // 
-            // _lblBalance
+            // lblBalance
             // 
             this.lblBalance.AutoSize = true;
             this.lblBalance.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -173,7 +173,7 @@
             this.lblBalance.TabIndex = 29;
             this.lblBalance.Text = "First Name: ";
             // 
-            // _lblLastName
+            // lblLastName
             // 
             this.lblLastName.AutoSize = true;
             this.lblLastName.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -184,7 +184,7 @@
             this.lblLastName.TabIndex = 28;
             this.lblLastName.Text = "First Name: ";
             // 
-            // _lblFirstName
+            // lblFirstName
             // 
             this.lblFirstName.AutoSize = true;
             this.lblFirstName.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -271,7 +271,7 @@
             this.label9.TabIndex = 28;
             this.label9.Text = "Phone: ";
             // 
-            // _errorProvider1
+            // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
             // 
@@ -291,9 +291,28 @@
             this.btnShowInfo.Text = "Show Info";
             this.btnShowInfo.Click += new System.EventHandler(this.btnShowInfo_Click);
             // 
+            // btnUpdateClient
+            // 
+            this.btnUpdateClient.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.btnUpdateClient.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnUpdateClient.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnUpdateClient.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnUpdateClient.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnUpdateClient.FillColor = System.Drawing.Color.Empty;
+            this.btnUpdateClient.Font = new System.Drawing.Font("Segoe UI Semibold", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpdateClient.ForeColor = System.Drawing.Color.White;
+            this.btnUpdateClient.Location = new System.Drawing.Point(521, 546);
+            this.btnUpdateClient.Name = "btnUpdateClient";
+            this.btnUpdateClient.Size = new System.Drawing.Size(296, 71);
+            this.btnUpdateClient.TabIndex = 37;
+            this.btnUpdateClient.Text = "Update";
+            this.btnUpdateClient.Visible = false;
+            this.btnUpdateClient.Click += new System.EventHandler(this.btnUpdateClient_Click);
+            // 
             // pnlClientInfo
             // 
             this.pnlClientInfo.Controls.Add(this.label8);
+            this.pnlClientInfo.Controls.Add(this.btnUpdateClient);
             this.pnlClientInfo.Controls.Add(this.cbPhones);
             this.pnlClientInfo.Controls.Add(this.btnAddPhone);
             this.pnlClientInfo.Controls.Add(this.txtPhone);
@@ -312,7 +331,7 @@
             this.pnlClientInfo.Location = new System.Drawing.Point(12, 201);
             this.pnlClientInfo.Name = "pnlClientInfo";
             this.pnlClientInfo.Size = new System.Drawing.Size(897, 629);
-            this.pnlClientInfo.TabIndex = 38;
+            this.pnlClientInfo.TabIndex = 39;
             this.pnlClientInfo.Visible = false;
             // 
             // label8
@@ -482,38 +501,19 @@
             this.label1.TabIndex = 38;
             this.label1.Text = "Update Client Info: ";
             // 
-            // btnUpdateClient
-            // 
-            this.btnUpdateClient.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.btnUpdateClient.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnUpdateClient.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnUpdateClient.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnUpdateClient.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnUpdateClient.FillColor = System.Drawing.Color.Empty;
-            this.btnUpdateClient.Font = new System.Drawing.Font("Segoe UI Semibold", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdateClient.ForeColor = System.Drawing.Color.White;
-            this.btnUpdateClient.Location = new System.Drawing.Point(526, 747);
-            this.btnUpdateClient.Name = "btnUpdateClient";
-            this.btnUpdateClient.Size = new System.Drawing.Size(296, 71);
-            this.btnUpdateClient.TabIndex = 37;
-            this.btnUpdateClient.Text = "Update";
-            this.btnUpdateClient.Visible = false;
-            this.btnUpdateClient.Click += new System.EventHandler(this.btnUpdateClient_Click);
-            // 
             // frmUpdateClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1379, 830);
-            this.Controls.Add(this.btnUpdateClient);
+            this.Controls.Add(this.pnlClientInfo);
             this.Controls.Add(this.btnShowInfo);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.gbClientCard);
             this.Controls.Add(this.txtAccountNumber);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.pnlClientInfo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmUpdateClient";
             this.Text = "UpdateClient";
@@ -550,6 +550,10 @@
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private Guna.UI2.WinForms.Guna2Button btnShowInfo;
         private Guna.UI2.WinForms.Guna2Panel pnlClientInfo;
+        private System.Windows.Forms.Label label8;
+        private Guna.UI2.WinForms.Guna2Button btnUpdateClient;
+        private System.Windows.Forms.ComboBox cbPhones;
+        private Guna.UI2.WinForms.Guna2Button btnAddPhone;
         private System.Windows.Forms.TextBox txtPhone;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.TextBox txtPinCode;
@@ -563,9 +567,5 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label1;
-        private Guna.UI2.WinForms.Guna2Button btnUpdateClient;
-        private Guna.UI2.WinForms.Guna2Button btnAddPhone;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ComboBox cbPhones;
     }
 }

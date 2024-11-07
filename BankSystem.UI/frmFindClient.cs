@@ -29,7 +29,7 @@ namespace BankSystem
         private void InitializeClientUIObject()
         {
             _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode,
-                lblPhone, lblAccountNumber, lblEmail, _client, _person, _phone, pnlClientInfo);
+                lblPhone, lblAccountNumber, lblEmail, _client, _person, _phone);
         }
         private void HandleClientAction(enClientAction clientAction)
         {

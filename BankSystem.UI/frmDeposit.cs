@@ -23,7 +23,7 @@ namespace BankSystem
 
         private void InitializeClientUIObject()
         {
-            _clientUI = new ClientUIHelper();
+            _clientUI = new ClientUIHelper(btnDeposit);
         }
 
         private void SetClientAction(enClientAction clientAction)

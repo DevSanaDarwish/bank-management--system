@@ -30,7 +30,7 @@ namespace BankSystem
             this._clientUI = clientUI;
             this._txtAccountNumber = txtAccountNumber;
         }
-        
+
         Clients _client = new Clients();
         Persons _person = new Persons();
         Phones _phone = new Phones();
@@ -42,7 +42,7 @@ namespace BankSystem
         private void InitializeClientUIObject()
         {
             _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode,
-                 lblPhone, lblAccountNumber, lblEmail, _client, _person, _phone, _clientUI, pnlClientInfo, btnDeleteClient);
+                 lblPhone, lblAccountNumber, lblEmail, _client, _person, _phone, _clientUI, btnDeleteClient);
         }
 
         private void SetClientAction(enClientAction clientAction)
@@ -63,12 +63,12 @@ namespace BankSystem
         {
             HandleClientAction(enClientAction.Delete);
         }
-        
+
         private void btnShowInfo_Click(object sender, EventArgs e)
-        { 
+        {
             HandleClientAction(enClientAction.DeleteShowInfo);
         }
- 
+
         private bool IsDeletionSuccessful(string accountNumber)
         {
             int personID = _client.personID;
@@ -83,17 +83,18 @@ namespace BankSystem
 
         public void DeleteClient(string accountNumber)
         {
-                if (IsDeletionSuccessful(accountNumber))
-                {
-                    _clientUI.ShowMessage("Client Deleted Successfully");
+            if (IsDeletionSuccessful(accountNumber))
+            {
+                _clientUI.ShowMessage("Client Deleted Successfully");
 
-                    ControlHelper.HideControl(gbClientCard);
+                ControlHelper.HideControl(gbClientCard);
 
-                    ClearAccountNumberText();
-                }                 
+                ClearAccountNumberText();
+            }
 
-                else
-                _clientUI.ShowMessage("Deletion Failed");            
+            else
+                _clientUI.ShowMessage("Deletion Failed");
         }
     }
 }
+

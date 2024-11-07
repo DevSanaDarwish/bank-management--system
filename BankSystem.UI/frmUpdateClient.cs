@@ -41,7 +41,7 @@ namespace BankSystem
 
             this._clientUI = clientUI;
         }
-        
+
         public ClientUIHelper _clientUI;
 
         Clients _client = new Clients();
@@ -54,7 +54,7 @@ namespace BankSystem
 
         bool _isValid = true;
 
-        
+
         private void InitializeClientUIObject()
         {
             _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, txtEmail, txtPhone, txtBalance, txtPinCode, txtFirstName,
@@ -100,7 +100,7 @@ namespace BankSystem
         {
             HandleClientAction(enClientAction.Update);
         }
-        
+
         private void AddPhone()
         {
             _clientUI.AddPhone();

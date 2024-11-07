@@ -138,6 +138,7 @@
             this.btnDeposit.Size = new System.Drawing.Size(228, 59);
             this.btnDeposit.TabIndex = 30;
             this.btnDeposit.Text = "Deposit";
+            this.btnDeposit.Visible = false;
             this.btnDeposit.Click += new System.EventHandler(this.btnDeposit_Click);
             // 
             // gbClientCard

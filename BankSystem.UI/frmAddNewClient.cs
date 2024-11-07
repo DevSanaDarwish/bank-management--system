@@ -45,9 +45,9 @@ namespace BankSystem
             InitializeClientUIObject();
 
             if (_clientUI.ValidateInputFields())
-            { 
-                    AddNewClient();
-            }           
+            {
+                AddNewClient();
+            }
         }
 
         private void Add()
