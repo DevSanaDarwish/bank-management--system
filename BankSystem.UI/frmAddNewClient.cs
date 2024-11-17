@@ -79,15 +79,15 @@ namespace BankSystem
 
         private void frmAddNewClient_Load(object sender, EventArgs e)
         {
-            try
-            {
-                ResetTablesIdentity();
-            }
+            //try
+            //{
+            //    ResetTablesIdentity();
+            //}
 
-            catch (Exception ex)
-            {
-                ShowMessage(ex.Message);
-            }
+            //catch (Exception ex)
+            //{
+            //    ShowMessage(ex.Message);
+            //}
         }
     }
 }

@@ -423,20 +423,25 @@ namespace BankSystem
             }
         }
 
+        private void ShowPanelOrGroup()
+        {
+            switch (_clientAction)
+            {
+                case enClientAction.UpdateShowInfo:
+                    ControlHelper.VisibleControl(_pnlClientInfo);
+                    break;
+
+                default:
+                    ControlHelper.VisibleControl(_gbClientCard);
+                    break;
+            }
+        }
+
         public void HandleClientInfo()
         {
             if (!ControlHelper.NullValidation(_txtAccountNumber))
             {
-                switch (_clientAction)
-                { 
-                    case enClientAction.UpdateShowInfo:
-                        ControlHelper.VisibleControl(_pnlClientInfo);
-                        break;
-
-                    default:
-                        ControlHelper.VisibleControl(_gbClientCard);
-                        break;
-                }
+                ShowPanelOrGroup();
 
                 SetErrorOnAccountNumber("");
 

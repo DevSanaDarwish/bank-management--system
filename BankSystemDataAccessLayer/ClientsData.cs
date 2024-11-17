@@ -7,46 +7,76 @@ namespace BankSystemDataAccessLayer
 {
     public class ClientsData
     {
-
-        public static bool ResetClientIdentity()
-        {
-            int rowsAffected = 0, maxClientID = 0;
-
-            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
-
-            string getMaxClientIDQuery = "SELECT ISNULL(MAX(ClientID), 0) FROM Clients;";
-
-            SqlCommand getMaxClientIDCommand = new SqlCommand(getMaxClientIDQuery, connection);
-
-            try
+            public static bool ResetClientIdentity()
             {
-                connection.Open();
+                int rowsAffected = 0;
 
-                object result = getMaxClientIDCommand.ExecuteScalar();
+                SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
 
-                if(result != null)
-                {
-                    maxClientID = (int)result;
-                }
-
-                string resetIdentityQuery = $"DBCC CHECKIDENT ('Clients', RESEED, {maxClientID});";
+                string resetIdentityQuery = @"
+                         DECLARE @maxClientID INT;
+                         SELECT @maxClientID = ISNULL(MAX(ClientID), 0) FROM Clients;
+                         DBCC CHECKIDENT ('Clients', RESEED, @maxClientID);";
 
                 SqlCommand resetIdentityCommand = new SqlCommand(resetIdentityQuery, connection);
 
-                rowsAffected = resetIdentityCommand.ExecuteNonQuery();
-            }
+                try
+                {
+                    connection.Open();
+                    rowsAffected = resetIdentityCommand.ExecuteNonQuery();
+                }
 
-            catch (Exception ex)
-            {
-                return false;
-            }
+                catch (Exception ex)
+                {
+                    return false;
+                }
 
-            finally
-            {
-                connection.Close();
-            }
+                finally
+                {
+                    connection.Close();
+                }
 
-            return (rowsAffected > 0);
+                return (rowsAffected > 0);
+            
+            
+
+            //int rowsAffected = 0, maxClientID = 0;
+
+            //SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            //string getMaxClientIDQuery = "SELECT ISNULL(MAX(ClientID), 0) FROM Clients;";
+
+            //SqlCommand getMaxClientIDCommand = new SqlCommand(getMaxClientIDQuery, connection);
+
+            //try
+            //{
+            //    connection.Open();
+
+            //    object result = getMaxClientIDCommand.ExecuteScalar();
+
+            //    if(result != null)
+            //    {
+            //        maxClientID = (int)result;
+            //    }
+
+            //    string resetIdentityQuery = $"DBCC CHECKIDENT ('Clients', RESEED, {maxClientID});";
+
+            //    SqlCommand resetIdentityCommand = new SqlCommand(resetIdentityQuery, connection);
+
+            //    rowsAffected = resetIdentityCommand.ExecuteNonQuery();
+            //}
+
+            //catch (Exception ex)
+            //{
+            //    return false;
+            //}
+
+            //finally
+            //{
+            //    connection.Close();
+            //}
+
+            //return (rowsAffected > 0);
         }
 
         public static DataTable GetAllClients()
