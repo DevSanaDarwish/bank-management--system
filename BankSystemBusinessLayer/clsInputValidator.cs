@@ -35,6 +35,11 @@ namespace BankSystemBusinessLayer
                 return true;
 
             return false;
-        }      
+        }
+
+        public static bool IsObjectNull(object obj)
+        {
+            return (obj == null);
+        }
     }
 }

@@ -110,11 +110,11 @@ namespace BankSystemBusinessLayer
                 return null;
         }
 
-        public static void ResetClientIdentity()
-        {
-            if (!ClientsData.ResetClientIdentity())
-                return;
-        }
+        //public static void ResetClientIdentity()
+        //{
+        //    if (!ClientsData.ResetClientIdentity())
+        //        return;
+        //}
 
         public static bool DeleteClient(string accountNumber)
         {

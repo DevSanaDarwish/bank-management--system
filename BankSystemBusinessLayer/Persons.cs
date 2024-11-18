@@ -124,11 +124,11 @@ namespace BankSystemBusinessLayer
             else
                 return null;
         }
-        public static void ResetPersonIdentity()
-        {
-            if (!PersonsData.ResetPersonsIdentity())
-                return;
-        }
+        //public static void ResetPersonIdentity()
+        //{
+        //    if (!PersonsData.ResetPersonsIdentity())
+        //        return;
+        //}
 
         public static bool DeletePerson(int personID)
         {

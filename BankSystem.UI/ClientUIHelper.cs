@@ -53,6 +53,27 @@ namespace BankSystem
             this._btnDepositClient = btnDepositClient;
         }
 
+        // الدالة المشتركة لتمرير الحقول المشتركة بين جميع الفونكشنات
+        private void InitializeCommonFields(ErrorProvider errorProvider1, TextBox txtAccountNumber, TextBox txtEmail,
+            TextBox txtPhone, TextBox txtBalance, TextBox txtPinCode, TextBox txtFirstName, TextBox txtLastName,
+            Clients client, Persons person, Phones phone, ComboBox cbPhones, Guna2Panel pnlClientInfo, bool isValid)
+        {
+            _errorProvider1 = errorProvider1;
+            _txtAccountNumber = txtAccountNumber;
+            _txtEmail = txtEmail;
+            _txtPhone = txtPhone;
+            _txtBalance = txtBalance;
+            _txtPinCode = txtPinCode;
+            _txtFirstName = txtFirstName;
+            _txtLastName = txtLastName;
+            _client = client;
+            _person = person;
+            _phone = phone;
+            _cbPhones = cbPhones;
+            _pnlClientInfo = pnlClientInfo;
+            _isValid = isValid;
+        }
+
         //Constructor For frmUpdateClient 
         public ClientUIHelper(ErrorProvider errorProvider1, Guna2GroupBox gbClientCard, TextBox txtAccountNumber, TextBox txtEmail, TextBox txtPhone,
            TextBox txtBalance, TextBox txtPinCode, TextBox txtFirstName, TextBox txtLastName, Guna2Panel pnlClientInfo, bool isValid,
@@ -160,63 +181,89 @@ namespace BankSystem
             MessageBox.Show(text, "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private bool IsObjectNull(object obj)
-        {
-            return (obj == null);
-        }
+        //private bool IsObjectNull(object obj)
+        //{
+        //    return (obj == null);
+        //}
 
         private void HideUpdateDeleteButton()
         {
-            if (_clientAction == enClientAction.UpdateShowInfo)
+            switch (_clientAction)
             {
-                ControlHelper.HideControl(_btnUpdateClient);
-            }
+                case enClientAction.UpdateShowInfo:
+                    ControlHelper.HideControl(_btnUpdateClient);
+                    break;
 
-            else if (_clientAction == enClientAction.DeleteShowInfo)
-            {
-                ControlHelper.HideControl(_btnDeleteClient);
+                case enClientAction.DeleteShowInfo:
+                    ControlHelper.HideControl(_btnDeleteClient);
+                    break;
+
+                default:
+                    break;
             }
         }
 
         private bool IsClientNotFound(object obj)
         {
-            if (IsObjectNull(obj))
-            {
-                ControlHelper.HideControl(_gbClientCard);
+            string message = "Sorry, This Account Number Information Does Not Exist";
 
-                ControlHelper.HideControl(_pnlClientInfo);
+            if (InputValidator.IsObjectNull(obj))
+            {
+                HidePanelOrGroup();
 
                 HideUpdateDeleteButton();
 
-                ShowMessage("Sorry, This Account Number Information Does Not Exist");
+                ShowMessage(message);
 
                 return true;
             }
-
+            
             return false;
+        }
 
+        private bool LoadClientInfo(string accountNumber)
+        {
+            _client = Clients.FindByAccountNumber(accountNumber);
+
+            return !IsClientNotFound(_client);
+        }
+
+        private bool LoadPersonInfo()
+        {
+            _person = Persons.Find(_client.personID);
+
+            _personID = _client.personID;
+
+            return !IsClientNotFound(_person);
+        }
+
+        private bool LoadPhoneInfo()
+        {
+            _phone = Phones.Find(_client.clientID);
+
+            return !IsClientNotFound(_phone);
         }
 
         private bool AreObjectsInfoSuccessfullyLoaded(string accountNumber)
         {
-            _client = Clients.FindByAccountNumber(accountNumber);
+            return LoadClientInfo(accountNumber) && LoadPersonInfo() && LoadPhoneInfo();
+        }
 
-            if (IsClientNotFound(_client))
-                return false;
+        private void SetEmailLabel()
+        {
+            if (_person.email != "")
+                _lblEmail.Text = _person.email;
 
-            _person = Persons.Find(_client.personID);
-            _personID = _client.personID;
+            else
+                _lblEmail.Text = "Unknown";
+        }
 
-            if (IsClientNotFound(_person))
-                return false;
-
-            _phone = Phones.Find(_client.clientID);
-
-            if (IsClientNotFound(_phone))
-                return false;
-
-
-            return true;
+        private void SetAccountNumberLabel(string accountNumber)
+        {
+            if (_clientAction == enClientAction.DeleteShowInfo || _clientAction == enClientAction.Find)
+            {
+                _lblAccountNumber.Text = accountNumber;
+            }       
         }
 
         private void FillClientCard(string accountNumber)
@@ -231,14 +278,9 @@ namespace BankSystem
 
             _lblPhone.Text = _phone.phoneNumber;
 
-            if (_person.email != "")
-                _lblEmail.Text = _person.email;
+            SetEmailLabel();
 
-            else
-                _lblEmail.Text = "Unknown";
-
-            if (_clientAction == enClientAction.DeleteShowInfo || _clientAction == enClientAction.Find)
-                _lblAccountNumber.Text = accountNumber;
+            SetAccountNumberLabel(accountNumber);
         }
 
         private void ShowClientInfo()
@@ -437,6 +479,20 @@ namespace BankSystem
             }
         }
 
+        private void HidePanelOrGroup()
+        {
+            switch (_clientAction)
+            {
+                case enClientAction.UpdateShowInfo:
+                    ControlHelper.HideControl(_pnlClientInfo);
+                    break;
+
+                default:
+                    ControlHelper.HideControl(_gbClientCard);
+                    break;
+            }
+        }
+
         public void HandleClientInfo()
         {
             if (!ControlHelper.NullValidation(_txtAccountNumber))
@@ -458,10 +514,7 @@ namespace BankSystem
 
             AllValidation(_txtPhone, ControlHelper.NumericValidation(_txtPhone), messageValue);
 
-            if (_isValid == true)
-                return true;
-
-            return false;
+            return _isValid;
         }
 
         private bool IsPhoneNumberNull()
@@ -481,15 +534,21 @@ namespace BankSystem
             }
         }
 
-        private bool AddPhoneNumberToComboBox()
+        private void AddPhoneNumberToComboBox()
         {
             string phoneNumber = _txtPhone.Text;
 
+            _cbPhones.Items.Add(phoneNumber);
+        }
+
+        private bool AddPhoneNumber()
+        {
             if (!IsPhoneNumberNull())
             {
                 if (IsPhoneNumberValid())
                 {
-                    _cbPhones.Items.Add(phoneNumber);
+                    AddPhoneNumber();
+
                     return true;
                 }
             }
@@ -504,7 +563,7 @@ namespace BankSystem
 
         public void AddPhone()
         {
-            if (AddPhoneNumberToComboBox())
+            if (AddPhoneNumber())
             {
                 ClearPhoneText();
             }
@@ -526,19 +585,24 @@ namespace BankSystem
                 _client.accountNumber = _txtAccountNumber.Text;
         }
 
+        private void SetTypeWord()
+        {
+            switch (_clientAction)
+            {
+                case enClientAction.Update:
+                    _person.personID = _personID;
+                    _typeWord = enOperationType.Update;
+                    break;
+
+                default:
+                    _typeWord = enOperationType.Add;
+                    break;
+            }
+        }
+
         public void ValidationSave()
         {
-            if (_clientAction == enClientAction.Update)
-            {
-                _person.personID = _personID;
-                _typeWord = enOperationType.Update;
-            }
-
-            else
-            {
-                _typeWord = enOperationType.Add;
-            }
-
+            SetTypeWord();
 
             if (_person.Save())
                 ValidationClientsAndPhonesSave();
@@ -556,13 +620,23 @@ namespace BankSystem
             {
                 item = _cbPhones.Items[itemIndex].ToString();
 
-                FillPhoneObject(item);
-
-                if (_phone.Save())
-                {
-                    _phone = new Phones();
-                }
+                ProcessPhoneItem(item);
             }
+        }
+
+        private void ProcessPhoneItem(string phoneItem)
+        {
+            FillPhoneObject(phoneItem);
+
+            if (_phone.Save())
+            {
+                ResetPhoneObject();
+            }
+        }
+
+        private void ResetPhoneObject()
+        {
+            _phone = new Phones();
         }
 
         private void FillPhoneObject(string item)
@@ -581,29 +655,36 @@ namespace BankSystem
             _client.personID = _personID;
         }
 
-        private void ValidationClientsAndPhonesSave()
+        private void SetStatusWord()
         {
-            if (_clientAction == enClientAction.Update)
+            switch (_clientAction)
             {
-                _statusWord = enOperationStatus.Updated;
+                case enClientAction.Update:
+                    _statusWord = enOperationStatus.Updated;
+                    break;
+
+                default:
+                    SetPersonIDToClientObject();
+                    _statusWord = enOperationStatus.Added;
+                    break;
             }
+        }
 
-            else
-            {
-                SetPersonIDToClientObject();
-
-                _statusWord = enOperationStatus.Added;
-            }
-
-
-            ValidationPhoneNumbersSave();
-
+        private void ShowSaveMessage()
+        {
             if (_client.Save())
             {
                 ShowMessage($"Successfully {_statusWord}");
             }
         }
 
-    }
+        private void ValidationClientsAndPhonesSave()
+        {
+            SetStatusWord();
 
+            ValidationPhoneNumbersSave();
+
+            ShowSaveMessage();
+        }
+    }
 }

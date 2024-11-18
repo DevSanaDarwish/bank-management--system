@@ -106,11 +106,11 @@ namespace BankSystemBusinessLayer
                 return null;
         }
 
-        public static void ResetPhonesIdentity()
-        {
-            if (!PhonesData.ResetPhonesIdentity())
-                return;
-        }
+        //public static void ResetPhonesIdentity()
+        //{
+        //    if (!PhonesData.ResetPhonesIdentity())
+        //        return;
+        //}
 
         public static bool DeletePhone(int personID)
         {

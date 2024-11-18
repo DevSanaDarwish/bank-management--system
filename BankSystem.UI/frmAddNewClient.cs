@@ -70,12 +70,12 @@ namespace BankSystem
             _clientUI.AddPhone();
         }
 
-        private void ResetTablesIdentity()
-        {
-            Clients.ResetClientIdentity();
-            Persons.ResetPersonIdentity();
-            Phones.ResetPhonesIdentity();
-        }
+        //private void ResetTablesIdentity()
+        //{
+        //    Clients.ResetClientIdentity();
+        //    Persons.ResetPersonIdentity();
+        //    Phones.ResetPhonesIdentity();
+        //}
 
         private void frmAddNewClient_Load(object sender, EventArgs e)
         {

@@ -30,5 +30,10 @@ namespace BankSystem
         {
             errorProvider.SetError(control, messageValue);
         }
+
+        public static bool IsObjectNull(object obj)
+        {
+            return clsInputValidator.IsObjectNull(obj);
+        }
     }
 }
