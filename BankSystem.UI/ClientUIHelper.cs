@@ -54,24 +54,13 @@ namespace BankSystem
         }
 
         // الدالة المشتركة لتمرير الحقول المشتركة بين جميع الفونكشنات
-        private void InitializeCommonFields(ErrorProvider errorProvider1, TextBox txtAccountNumber, TextBox txtEmail,
-            TextBox txtPhone, TextBox txtBalance, TextBox txtPinCode, TextBox txtFirstName, TextBox txtLastName,
-            Clients client, Persons person, Phones phone, ComboBox cbPhones, Guna2Panel pnlClientInfo, bool isValid)
+        private void InitializeCommonFields(ErrorProvider errorProvider1, TextBox txtAccountNumber, Clients client, Persons person, Phones phone)
         {
-            _errorProvider1 = errorProvider1;
-            _txtAccountNumber = txtAccountNumber;
-            _txtEmail = txtEmail;
-            _txtPhone = txtPhone;
-            _txtBalance = txtBalance;
-            _txtPinCode = txtPinCode;
-            _txtFirstName = txtFirstName;
-            _txtLastName = txtLastName;
-            _client = client;
-            _person = person;
-            _phone = phone;
-            _cbPhones = cbPhones;
-            _pnlClientInfo = pnlClientInfo;
-            _isValid = isValid;
+            this._errorProvider1 = errorProvider1;
+            this._txtAccountNumber = txtAccountNumber;
+            this._client = client;
+            this._person = person;
+            this._phone = phone;
         }
 
         //Constructor For frmUpdateClient 
@@ -80,18 +69,21 @@ namespace BankSystem
            Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, Label lblEmail,
            Clients client, Persons person, Phones phone, ComboBox cbPhones, Guna2Button btnUpdateClient, int personID, ClientUIHelper clientUI)
         {
-            this._errorProvider1 = errorProvider1;
+            //this._errorProvider1 = errorProvider1;          
+            //this._txtAccountNumber = txtAccountNumber;
+            //this._client = client;
+            //this._person = person;
+            //this._phone = phone;
+
+            InitializeCommonFields(errorProvider1, txtAccountNumber, client, person, phone);    
+
             this._gbClientCard = gbClientCard;
-            this._txtAccountNumber = txtAccountNumber;
             this._lblFirstName = lblFirstName;
             this._lblLastName = lblLastName;
             this._lblBalance = lblBalance;
             this._lblPinCode = lblPinCode;
             this._lblPhone = lblPhone;
-            this._lblEmail = lblEmail;
-            this._client = client;
-            this._person = person;
-            this._phone = phone;
+            this._lblEmail = lblEmail;        
             this._pnlClientInfo = pnlClientInfo;
             this._txtEmail = txtEmail;
             this._txtPhone = txtPhone;
@@ -113,11 +105,14 @@ namespace BankSystem
             TextBox txtBalance, TextBox txtPinCode, TextBox txtFirstName, TextBox txtLastName, Guna2Panel pnlClientInfo, bool isValid,
             Clients client, Persons person, Phones phone, ComboBox cbPhones)
         {
-            this._errorProvider1 = errorProvider1;
-            this._txtAccountNumber = txtAccountNumber;
-            this._client = client;
-            this._person = person;
-            this._phone = phone;
+            //this._errorProvider1 = errorProvider1;
+            //this._txtAccountNumber = txtAccountNumber;
+            //this._client = client;
+            //this._person = person;
+            //this._phone = phone;
+
+            InitializeCommonFields(errorProvider1, txtAccountNumber, client, person, phone);
+
             this._pnlClientInfo = pnlClientInfo;
             this._txtEmail = txtEmail;
             this._txtPhone = txtPhone;
@@ -134,9 +129,16 @@ namespace BankSystem
           Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, Label lblAccountNumber, Label lblEmail,
           Clients client, Persons person, Phones phone)
         {
-            this._errorProvider1 = errorProvider1;
-            this._gbClientCard = gbClientCard;
-            this._txtAccountNumber = txtAccountNumber;
+            InitializeCommonFields(errorProvider1, txtAccountNumber, client, person, phone);
+
+            //this._errorProvider1 = errorProvider1;
+            //this._txtAccountNumber = txtAccountNumber;
+            //this._client = client;
+            //this._person = person;
+            //this._phone = phone;
+
+
+            this._gbClientCard = gbClientCard;         
             this._lblFirstName = lblFirstName;
             this._lblLastName = lblLastName;
             this._lblBalance = lblBalance;
@@ -144,9 +146,7 @@ namespace BankSystem
             this._lblPhone = lblPhone;
             this._lblAccountNumber = lblAccountNumber;
             this._lblEmail = lblEmail;
-            this._client = client;
-            this._person = person;
-            this._phone = phone;
+          
         }
 
         //Constructor For frmDeleteClient
@@ -154,19 +154,22 @@ namespace BankSystem
          Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, Label lblAccountNumber, Label lblEmail,
          Clients client, Persons person, Phones phone, ClientUIHelper clientUI, Guna2Button btnDeleteClient)
         {
-            this._errorProvider1 = errorProvider1;
-            this._gbClientCard = gbClientCard;
-            this._txtAccountNumber = txtAccountNumber;
+            InitializeCommonFields(errorProvider1, txtAccountNumber, client, person, phone);
+
+            //this._errorProvider1 = errorProvider1;
+            //this._txtAccountNumber = txtAccountNumber;
+            //this._client = client;
+            //this._person = person;
+            //this._phone = phone;
+
+            this._gbClientCard = gbClientCard;     
             this._lblFirstName = lblFirstName;
             this._lblLastName = lblLastName;
             this._lblBalance = lblBalance;
             this._lblPinCode = lblPinCode;
             this._lblPhone = lblPhone;
             this._lblAccountNumber = lblAccountNumber;
-            this._lblEmail = lblEmail;
-            this._client = client;
-            this._person = person;
-            this._phone = phone;
+            this._lblEmail = lblEmail;   
             this._clientUI = clientUI;
             this._btnDeleteClient = btnDeleteClient;
         }
