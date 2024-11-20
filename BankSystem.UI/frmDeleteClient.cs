@@ -14,7 +14,6 @@ namespace BankSystem
 {
     public partial class frmDeleteClient : Form
     {
-
         public frmDeleteClient()
         {
             InitializeComponent();
@@ -42,7 +41,7 @@ namespace BankSystem
         private void InitializeClientUIObject()
         {
             _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode,
-                 lblPhone, lblAccountNumber, lblEmail, _client, _person, _phone, _clientUI, btnDeleteClient);
+                 lblPhone, lblAccountNumber, lblEmail, _client, _person, _phone, _clientUI, btnDeleteClient, this);
         }
 
         private void SetClientAction(enClientAction clientAction)

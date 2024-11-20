@@ -19,28 +19,30 @@ namespace BankSystem
             InitializeComponent();
         }
 
-        public frmUpdateClient(Clients client, Persons person, Phones phone, int personID, TextBox txtEmail, TextBox txtBalance, TextBox txtPinCode, TextBox txtFirstName, TextBox txtLastName, ClientUIHelper clientUI)
-        {
-            InitializeComponent();
+         private Form _form { get; set; }
 
-            this._client = client;
-            this._person = person;
-            this._phone = phone;
-            this._personID = personID;
-            this._txtEmail = txtEmail;
-            this._txtBalance = txtBalance;
-            this._txtPinCode = txtPinCode;
-            this._txtFirstName = txtFirstName;
-            this._txtLastName = txtLastName;
-            this._clientUI = clientUI;
-        }
+        //public frmUpdateClient(Clients client, Persons person, Phones phone, int personID, TextBox txtEmail, TextBox txtBalance, TextBox txtPinCode, TextBox txtFirstName, TextBox txtLastName, ClientUIHelper clientUI)
+        //{
+        //    InitializeComponent();
 
-        public frmUpdateClient(ClientUIHelper clientUI)
-        {
-            InitializeComponent();
+        //    this._client = client;
+        //    this._person = person;
+        //    this._phone = phone;
+        //    this._personID = personID;
+        //    this._txtEmail = txtEmail;
+        //    this._txtBalance = txtBalance;
+        //    this._txtPinCode = txtPinCode;
+        //    this._txtFirstName = txtFirstName;
+        //    this._txtLastName = txtLastName;
+        //    this._clientUI = clientUI;
+        //}
 
-            this._clientUI = clientUI;
-        }
+        //public frmUpdateClient(ClientUIHelper clientUI)
+        //{
+        //    InitializeComponent();
+
+        //    this._clientUI = clientUI;
+        //}
 
         public ClientUIHelper _clientUI;
 
@@ -59,7 +61,7 @@ namespace BankSystem
         {
             _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, txtEmail, txtPhone, txtBalance, txtPinCode, txtFirstName,
               txtLastName, pnlClientInfo, _isValid, lblFirstName, lblLastName, lblBalance, lblPinCode, lblPhone, lblEmail, _client, _person,
-              _phone, cbPhones, btnUpdateClient, _personID, _clientUI);
+              _phone, cbPhones, btnUpdateClient, _personID, _clientUI, this);
         }
 
         private void SetClientAction(enClientAction clientAction)
@@ -73,10 +75,10 @@ namespace BankSystem
             SetClientAction(clientAction);
 
             _clientUI.FillClientInfo();
-
+            
             _clientUI.ValidationSave();
         }
-
+        
         public void UpdateClient()
         {
             Update();

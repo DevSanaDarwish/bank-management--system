@@ -13,6 +13,7 @@ namespace BankSystem
 {
     public class ClientUIHelper
     {
+        private Form _form { get; set; }
         public enum enClientAction { DeleteShowInfo = 0, UpdateShowInfo = 1, DepositShowInfo = 2, Update = 3, Delete = 4, Find = 5, Deposit = 6 };
         public enClientAction _clientAction;
 
@@ -47,13 +48,6 @@ namespace BankSystem
 
         ClientUIHelper _clientUI;
 
-        //Constructor for frmFind
-        public ClientUIHelper(Guna2Button btnDepositClient)
-        {
-            this._btnDepositClient = btnDepositClient;
-        }
-
-        // الدالة المشتركة لتمرير الحقول المشتركة بين جميع الفونكشنات
         private void InitializeCommonFields(ErrorProvider errorProvider1, TextBox txtAccountNumber, Clients client, Persons person, Phones phone)
         {
             this._errorProvider1 = errorProvider1;
@@ -63,11 +57,17 @@ namespace BankSystem
             this._phone = phone;
         }
 
+        //Constructor for frmDeposit
+        public ClientUIHelper(Guna2Button btnDepositClient)
+        {
+            this._btnDepositClient = btnDepositClient;
+        }
+
         //Constructor For frmUpdateClient 
         public ClientUIHelper(ErrorProvider errorProvider1, Guna2GroupBox gbClientCard, TextBox txtAccountNumber, TextBox txtEmail, TextBox txtPhone,
            TextBox txtBalance, TextBox txtPinCode, TextBox txtFirstName, TextBox txtLastName, Guna2Panel pnlClientInfo, bool isValid,
            Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, Label lblEmail,
-           Clients client, Persons person, Phones phone, ComboBox cbPhones, Guna2Button btnUpdateClient, int personID, ClientUIHelper clientUI)
+           Clients client, Persons person, Phones phone, ComboBox cbPhones, Guna2Button btnUpdateClient, int personID, ClientUIHelper clientUI, Form form)
         {
             //this._errorProvider1 = errorProvider1;          
             //this._txtAccountNumber = txtAccountNumber;
@@ -98,6 +98,7 @@ namespace BankSystem
             this._txtLastName = txtLastName;
             this._personID = personID;
             this._clientUI = clientUI;
+            this._form = form;
         }
 
         //Constructor For frmAddNewClient
@@ -152,7 +153,7 @@ namespace BankSystem
         //Constructor For frmDeleteClient
         public ClientUIHelper(ErrorProvider errorProvider1, Guna2GroupBox gbClientCard, TextBox txtAccountNumber,
          Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, Label lblAccountNumber, Label lblEmail,
-         Clients client, Persons person, Phones phone, ClientUIHelper clientUI, Guna2Button btnDeleteClient)
+         Clients client, Persons person, Phones phone, ClientUIHelper clientUI, Guna2Button btnDeleteClient, Form form)
         {
             InitializeCommonFields(errorProvider1, txtAccountNumber, client, person, phone);
 
@@ -172,6 +173,7 @@ namespace BankSystem
             this._lblEmail = lblEmail;   
             this._clientUI = clientUI;
             this._btnDeleteClient = btnDeleteClient;
+            this._form = form;
         }
 
         private void SetErrorOnAccountNumber(string message = "This field should not be empty")
@@ -416,14 +418,18 @@ namespace BankSystem
                     switch (_clientAction)
                     {
                         case enClientAction.Update:
-                            frmUpdateClient updateClient = new frmUpdateClient(_client, _person, _phone, _personID, _txtEmail, _txtBalance, _txtPinCode, _txtFirstName, _txtLastName, _clientUI);
-                            updateClient.UpdateClient();
+                            //frmUpdateClient updateClient = new frmUpdateClient(_client, _person, _phone, _personID, _txtEmail, _txtBalance, _txtPinCode, _txtFirstName, _txtLastName, _clientUI);
+                            //updateClient.UpdateClient();
+
+                            ((frmUpdateClient)_form).UpdateClient();
 
                             break;
 
                         case enClientAction.Delete:
-                            frmDeleteClient deleteClient = new frmDeleteClient(_client, _person, _phone, _clientUI, _txtAccountNumber);
-                            deleteClient.DeleteClient(accountNumber);
+                            //frmDeleteClient deleteClient = new frmDeleteClient(_client, _person, _phone, _clientUI, _txtAccountNumber);
+                            //deleteClient.DeleteClient(accountNumber);
+
+                            ((frmDeleteClient)_form).DeleteClient(accountNumber);
 
                             break;
                     }
@@ -550,7 +556,7 @@ namespace BankSystem
             {
                 if (IsPhoneNumberValid())
                 {
-                    AddPhoneNumber();
+                    AddPhoneNumberToComboBox();
 
                     return true;
                 }
