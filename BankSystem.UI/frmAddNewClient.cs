@@ -14,58 +14,59 @@ namespace BankSystem
 {
     public partial class frmAddNewClient : Form
     {
-
         public frmAddNewClient()
         {
             InitializeComponent();
         }
 
-        bool _isValid = true;
-
-        Clients _client = new Clients();
-        Persons _person = new Persons();
-        Phones _phone = new Phones();
 
         ClientUIHelper _clientUI;
 
-        private void ShowMessage(string message)
+        private void InitializeAllObjects()
         {
-            MessageBox.Show(message);
+            Clients client = new Clients();
+            Persons person = new Persons();
+            Phones phone = new Phones();
+
+            InitializeClientUIObject(client, person, phone);
         }
 
-        private void InitializeClientUIObject()
+        private void InitializeClientUIObject(Clients client, Persons person, Phones phone)
         {
             _clientUI = new ClientUIHelper(errorProvider1, txtAccountNumber, txtEmail, txtPhone, txtBalance, txtPinCode, txtFirstName,
-                 txtLastName, pnlClientInfo, _isValid, _client, _person,
-                 _phone, cbPhones);
-        }
+                 txtLastName, pnlClientInfo, true, client, person,
+                 phone, cbPhones);
+        }      
 
         private void btnAddNewClient_Click(object sender, EventArgs e)
         {
-            InitializeClientUIObject();
+            InitializeAllObjects();
 
             if (_clientUI.ValidateInputFields())
             {
                 AddNewClient();
+
+                _clientUI.ClearForm();
             }
         }
 
         private void Add()
         {
             _clientUI.FillClientInfo();
+
             _clientUI.ValidationSave();
         }
 
         private void AddNewClient()
         {
-            InitializeClientUIObject();
+            InitializeAllObjects();
 
             Add();
         }
 
         private void btnAddPhone_Click(object sender, EventArgs e)
         {
-            InitializeClientUIObject();
+            InitializeAllObjects();
 
             _clientUI.AddPhone();
         }

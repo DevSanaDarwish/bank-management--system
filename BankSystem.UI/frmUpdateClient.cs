@@ -46,9 +46,9 @@ namespace BankSystem
 
         public ClientUIHelper _clientUI;
 
-        Clients _client = new Clients();
-        Persons _person = new Persons();
-        Phones _phone = new Phones();
+        //Clients _client = new Clients();
+        //Persons _person = new Persons();
+        //Phones _phone = new Phones();
 
         int _personID = -1;
 
@@ -57,11 +57,20 @@ namespace BankSystem
         bool _isValid = true;
 
 
-        private void InitializeClientUIObject()
+        private void InitializeAllObjects()
+        {
+            Clients client = new Clients();
+            Persons person = new Persons();
+            Phones phone = new Phones();
+
+            InitializeClientUIObject(client, person, phone);
+        }
+
+        private void InitializeClientUIObject(Clients client, Persons person, Phones phone)
         {
             _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, txtEmail, txtPhone, txtBalance, txtPinCode, txtFirstName,
-              txtLastName, pnlClientInfo, _isValid, lblFirstName, lblLastName, lblBalance, lblPinCode, lblPhone, lblEmail, _client, _person,
-              _phone, cbPhones, btnUpdateClient, _personID, _clientUI, this);
+              txtLastName, pnlClientInfo, _isValid, lblFirstName, lblLastName, lblBalance, lblPinCode, lblPhone, lblEmail, client, person,
+              phone, cbPhones, btnUpdateClient, _personID, _clientUI, this);
         }
 
         private void SetClientAction(enClientAction clientAction)
@@ -82,11 +91,15 @@ namespace BankSystem
         public void UpdateClient()
         {
             Update();
+
+            _clientUI.ClearForm();
+
+            ControlHelper.HideControl(gbClientCard);
         }
 
         private void HandleClientAction(enClientAction clientAction)
         {
-            InitializeClientUIObject();
+            InitializeAllObjects();
 
             SetClientAction(clientAction);
 

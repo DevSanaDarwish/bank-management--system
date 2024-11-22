@@ -30,18 +30,21 @@ namespace BankSystem
         //    this._txtAccountNumber = txtAccountNumber;
         //}
 
-        Clients _client = new Clients();
-        Persons _person = new Persons();
-        Phones _phone = new Phones();
-
-        TextBox _txtAccountNumber;
-
         ClientUIHelper _clientUI;
 
-        private void InitializeClientUIObject()
+        private void InitializeAllObjects()
+        {
+            Clients client = new Clients();
+            Persons person = new Persons();
+            Phones phone = new Phones();
+
+            InitializeClientUIObject(client, person, phone);
+        }
+
+        private void InitializeClientUIObject(Clients client, Persons person, Phones phone)
         {
             _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode,
-                 lblPhone, lblAccountNumber, lblEmail, _client, _person, _phone, _clientUI, btnDeleteClient, this);
+                 lblPhone, lblAccountNumber, lblEmail, client, person, phone, _clientUI, btnDeleteClient, this);
         }
 
         private void SetClientAction(enClientAction clientAction)
@@ -51,7 +54,7 @@ namespace BankSystem
 
         private void HandleClientAction(enClientAction clientAction)
         {
-            InitializeClientUIObject();
+            InitializeAllObjects();
 
             SetClientAction(clientAction);
 
@@ -80,15 +83,22 @@ namespace BankSystem
             txtAccountNumber.Text = "";
         }
 
+        private void HandleClientDeletionUI()
+        {
+            _clientUI.ShowMessage("Client Deleted Successfully");
+
+            _clientUI.ClearAccountNumberText();
+
+            _clientUI.HidePanelOrGroup();
+
+            _clientUI.HideUpdateDeleteButton();
+        }
+
         public void DeleteClient(string accountNumber, Clients client)
         {
             if (IsDeletionSuccessful(accountNumber, client))
             {
-                _clientUI.ShowMessage("Client Deleted Successfully");
-
-                ControlHelper.HideControl(gbClientCard);
-
-                ClearAccountNumberText();
+                HandleClientDeletionUI();
             }
 
             else

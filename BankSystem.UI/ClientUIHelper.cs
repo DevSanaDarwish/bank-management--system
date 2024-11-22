@@ -192,7 +192,7 @@ namespace BankSystem
         //    return (obj == null);
         //}
 
-        private void HideUpdateDeleteButton()
+        public void HideUpdateDeleteButton()
         {
             switch (_clientAction)
             {
@@ -201,6 +201,7 @@ namespace BankSystem
                     break;
 
                 case enClientAction.DeleteShowInfo:
+                case enClientAction.Delete:
                     ControlHelper.HideControl(_btnDeleteClient);
                     break;
 
@@ -399,6 +400,37 @@ namespace BankSystem
             return isValid;
         }
 
+        private void ClearComboBoxPhones()
+        {
+            _cbPhones.Items.Clear();
+        }
+
+        private void ClearTextBoxes()
+        {
+            foreach (System.Windows.Forms.Control control in _pnlClientInfo.Controls)
+            {
+                if(control is TextBox textBox)
+                {
+                    textBox.Clear();
+                }
+            }
+
+            if (_clientAction == enClientAction.Update)
+                ClearAccountNumberText();
+        }
+
+        public void ClearAccountNumberText()
+        {
+            _txtAccountNumber.Clear();
+        }
+
+        public void ClearForm()
+        {
+            ClearTextBoxes();
+
+            ClearComboBoxPhones();
+        }
+
         public bool ValidateInputFields()
         {
             return IsInputFieldsNotNull() && IsInputFieldsValid();
@@ -445,26 +477,30 @@ namespace BankSystem
                     break;
             }
         }
+
+        private void Confirm(string confirmMessage)
+        {
+            if (!IsUpdateAndValid())
+                return;
+
+            if (ShowConfirmMessage(confirmMessage))
+            {
+                ExecuteUpdateDeleteClient();
+            }
+        }
         
         private void ConfirmOperation(string confirmMessage)
         {
             if (AreObjectsInfoSuccessfullyLoaded(GetAccountNumber()))
             {
-                if (!IsUpdateAndValid())
-                    return;
-                    
-                if (ShowConfirmMessage(confirmMessage))
-                {
-                    ExecuteUpdateDeleteClient();
-                }
+                Confirm(confirmMessage);
             }
 
             else
             {
                 ShowMessage("Failed to load client data");
             }
-        }
-        
+        }   
 
         private void ExecuteClientAction()
         {
@@ -516,7 +552,7 @@ namespace BankSystem
             }
         }
 
-        private void HidePanelOrGroup()
+        public void HidePanelOrGroup()
         {
             switch (_clientAction)
             {
@@ -723,5 +759,7 @@ namespace BankSystem
 
             ShowSaveMessage();
         }
+
+        
     }
 }
