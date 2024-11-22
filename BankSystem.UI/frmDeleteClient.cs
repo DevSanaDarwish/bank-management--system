@@ -19,16 +19,16 @@ namespace BankSystem
             InitializeComponent();
         }
 
-        public frmDeleteClient(Clients client, Persons person, Phones phone, ClientUIHelper clientUI, TextBox txtAccountNumber)
-        {
-            InitializeComponent();
+        //public frmDeleteClient(Clients client, Persons person, Phones phone, ClientUIHelper clientUI, TextBox txtAccountNumber)
+        //{
+        //    InitializeComponent();
 
-            this._client = client;
-            this._person = person;
-            this._phone = phone;
-            this._clientUI = clientUI;
-            this._txtAccountNumber = txtAccountNumber;
-        }
+        //    this._client = client;
+        //    this._person = person;
+        //    this._phone = phone;
+        //    this._clientUI = clientUI;
+        //    this._txtAccountNumber = txtAccountNumber;
+        //}
 
         Clients _client = new Clients();
         Persons _person = new Persons();
@@ -68,9 +68,9 @@ namespace BankSystem
             HandleClientAction(enClientAction.DeleteShowInfo);
         }
 
-        private bool IsDeletionSuccessful(string accountNumber)
+        private bool IsDeletionSuccessful(string accountNumber, Clients client)
         {
-            int personID = _client.personID;
+            int personID = client.personID;
 
             return (Clients.DeleteClient(accountNumber) && Phones.DeletePhone(personID) && Persons.DeletePerson(personID));
         }
@@ -80,9 +80,9 @@ namespace BankSystem
             txtAccountNumber.Text = "";
         }
 
-        public void DeleteClient(string accountNumber)
+        public void DeleteClient(string accountNumber, Clients client)
         {
-            if (IsDeletionSuccessful(accountNumber))
+            if (IsDeletionSuccessful(accountNumber, client))
             {
                 _clientUI.ShowMessage("Client Deleted Successfully");
 

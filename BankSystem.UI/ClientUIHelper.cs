@@ -1,6 +1,7 @@
 ﻿using BankSystemBusinessLayer;
 using Guna.UI2.WinForms;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
@@ -403,40 +404,67 @@ namespace BankSystem
             return IsInputFieldsNotNull() && IsInputFieldsValid();
         }
 
-        private void ConfirmOperation(string confirmMessage)
+        private string GetAccountNumber()
         {
             string accountNumber = _txtAccountNumber.Text;
 
-            if (AreObjectsInfoSuccessfullyLoaded(accountNumber))
-            {
-                if (_clientAction == enClientAction.Update)
-                    if (!ValidateInputFields())
-                        return;
-
-                if (MessageBox.Show(confirmMessage, "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    switch (_clientAction)
-                    {
-                        case enClientAction.Update:
-                            //frmUpdateClient updateClient = new frmUpdateClient(_client, _person, _phone, _personID, _txtEmail, _txtBalance, _txtPinCode, _txtFirstName, _txtLastName, _clientUI);
-                            //updateClient.UpdateClient();
-
-                            ((frmUpdateClient)_form).UpdateClient();
-
-                            break;
-
-                        case enClientAction.Delete:
-                            //frmDeleteClient deleteClient = new frmDeleteClient(_client, _person, _phone, _clientUI, _txtAccountNumber);
-                            //deleteClient.DeleteClient(accountNumber);
-
-                            ((frmDeleteClient)_form).DeleteClient(accountNumber);
-
-                            break;
-                    }
-                }
-            }
+            return accountNumber;
         }
 
+        private bool IsUpdateAndValid()
+        {
+            if (_clientAction == enClientAction.Update)
+                return (ValidateInputFields());
+
+            return true;
+        }
+
+        private bool ShowConfirmMessage(string confirmMessage)
+        {
+            return (MessageBox.Show(confirmMessage, "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes);
+        }
+
+        private void ExecuteUpdateDeleteClient()
+        {
+            switch (_clientAction)
+            {
+                case enClientAction.Update:
+                    //frmUpdateClient updateClient = new frmUpdateClient(_client, _person, _phone, _personID, _txtEmail, _txtBalance, _txtPinCode, _txtFirstName, _txtLastName, _clientUI);
+                    //updateClient.UpdateClient();
+
+                    ((frmUpdateClient)_form).UpdateClient();
+
+                    break;
+
+                case enClientAction.Delete:
+                    //frmDeleteClient deleteClient = new frmDeleteClient(_client, _person, _phone, _clientUI, _txtAccountNumber);
+                    //deleteClient.DeleteClient(accountNumber);
+
+                    ((frmDeleteClient)_form).DeleteClient(GetAccountNumber(), _client);
+
+                    break;
+            }
+        }
+        
+        private void ConfirmOperation(string confirmMessage)
+        {
+            if (AreObjectsInfoSuccessfullyLoaded(GetAccountNumber()))
+            {
+                if (!IsUpdateAndValid())
+                    return;
+                    
+                if (ShowConfirmMessage(confirmMessage))
+                {
+                    ExecuteUpdateDeleteClient();
+                }
+            }
+
+            else
+            {
+                ShowMessage("Failed to load client data");
+            }
+        }
+        
 
         private void ExecuteClientAction()
         {
