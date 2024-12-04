@@ -192,7 +192,7 @@ namespace BankSystemDataAccessLayer
                 rowsAffected = command.ExecuteNonQuery();
             }
 
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 return false;
             }

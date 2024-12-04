@@ -354,6 +354,7 @@
             this.cbPhones.Name = "cbPhones";
             this.cbPhones.Size = new System.Drawing.Size(291, 36);
             this.cbPhones.TabIndex = 52;
+            this.cbPhones.SelectedIndexChanged += new System.EventHandler(this.cbPhones_SelectedIndexChanged);
             // 
             // btnAddPhone
             // 

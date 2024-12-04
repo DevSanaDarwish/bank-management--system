@@ -71,10 +71,7 @@ namespace BankSystemBusinessLayer
 
         public bool Save()
         {
-            if (IsEmptyValidation())
-                return false;
-
-            if (IsNotNumericValidation())
+            if (IsEmptyValidation() || IsNotNumericValidation())
                 return false;
 
             switch (mode)

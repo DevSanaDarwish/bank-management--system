@@ -15,7 +15,8 @@ namespace BankSystem
     public class ClientUIHelper
     {
         private Form _form { get; set; }
-        public enum enClientAction { DeleteShowInfo = 0, UpdateShowInfo = 1, DepositShowInfo = 2, Update = 3, Delete = 4, Find = 5, Deposit = 6 };
+
+        public enum enClientAction { DeleteShowInfo = 0, UpdateShowInfo = 1, DepositShowInfo = 2, WithdrawShowInfo = 3, Update = 4, Delete = 5, Find = 6, Deposit = 7, Withdraw = 8 };
         public enClientAction _clientAction;
 
         enum enOperationType { Update = 0, Add = 1 };
@@ -31,11 +32,11 @@ namespace BankSystem
 
         Guna2GroupBox _gbClientCard;
 
-        TextBox _txtAccountNumber, _txtEmail, _txtPhone, _txtBalance, _txtPinCode, _txtFirstName, _txtLastName;
+        TextBox _txtAccountNumber, _txtEmail, _txtPhone, _txtBalance, _txtPinCode, _txtFirstName, _txtLastName, _txtDepositAmount;
 
         Guna2Panel _pnlClientInfo;
 
-        Label _lblFirstName, _lblLastName, _lblBalance, _lblPinCode, _lblPhone, _lblAccountNumber, _lblEmail;
+        Label _lblFirstName, _lblLastName, _lblBalance, _lblPinCode, _lblPhone, _lblAccountNumber, _lblEmail, _lblDepositAmount;
 
         ComboBox _cbPhones;
 
@@ -58,10 +59,26 @@ namespace BankSystem
             this._phone = phone;
         }
 
+        
+
         //Constructor for frmDeposit
-        public ClientUIHelper(Guna2Button btnDepositClient)
+        public ClientUIHelper(Guna2Button btnDepositClient, TextBox txtAccountNumber, Guna2GroupBox gbClientCard, ErrorProvider errorProvider1, 
+            Clients client, Persons person, Phones phone, Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, 
+            Label lblAccountNumber, Label lblEmail, TextBox txtDepositAmount, Label lblDepositAmount)
         {
-            this._btnDepositClient = btnDepositClient;
+            InitializeCommonFields(errorProvider1, txtAccountNumber, client, person, phone);
+
+            this._btnDepositClient = btnDepositClient; 
+            this._gbClientCard = gbClientCard;
+            this._lblFirstName = lblFirstName;
+            this._lblLastName = lblLastName;
+            this._lblBalance = lblBalance;
+            this._lblPinCode = lblPinCode;
+            this._lblPhone = lblPhone;
+            this._lblAccountNumber = lblAccountNumber;
+            this._lblEmail = lblEmail;
+            this._txtDepositAmount = txtDepositAmount;
+            this._lblDepositAmount = lblDepositAmount;
         }
 
         //Constructor For frmUpdateClient 
@@ -192,7 +209,7 @@ namespace BankSystem
         //    return (obj == null);
         //}
 
-        public void HideUpdateDeleteButton()
+        public void HideButton()
         {
             switch (_clientAction)
             {
@@ -203,6 +220,10 @@ namespace BankSystem
                 case enClientAction.DeleteShowInfo:
                 case enClientAction.Delete:
                     ControlHelper.HideControl(_btnDeleteClient);
+                    break;
+
+                case enClientAction.DepositShowInfo:
+                    ControlHelper.HideControl(_btnDepositClient);
                     break;
 
                 default:
@@ -218,7 +239,13 @@ namespace BankSystem
             {
                 HidePanelOrGroup();
 
-                HideUpdateDeleteButton();
+                HideButton();
+
+                if (_clientAction == enClientAction.DepositShowInfo)
+                {
+                    HideDepositAmountText();
+                    HideDepositAmountLabel();
+                }
 
                 ShowMessage(message);
 
@@ -290,6 +317,26 @@ namespace BankSystem
             SetAccountNumberLabel(accountNumber);
         }
 
+        private void ShowDepositAmountText()
+        {
+            ControlHelper.VisibleControl(_txtDepositAmount);
+        }
+
+        private void HideDepositAmountText()
+        {
+            ControlHelper.HideControl(_txtDepositAmount);
+        }
+
+        private void ShowDepositAmountLabel()
+        {
+            ControlHelper.VisibleControl(_lblDepositAmount);
+        }
+
+        private void HideDepositAmountLabel()
+        {
+            ControlHelper.HideControl(_lblDepositAmount);
+        }
+
         private void ShowClientInfo()
         {
             string accountNumber = _txtAccountNumber.Text;
@@ -297,7 +344,13 @@ namespace BankSystem
             if (!AreObjectsInfoSuccessfullyLoaded(accountNumber))
                 return;
 
-            ShowUpdateDeleteButton();
+            ShowButton();
+
+            if(_clientAction == enClientAction.DepositShowInfo)
+            {
+                ShowDepositAmountText();
+                ShowDepositAmountLabel();
+            }
 
             FillClientCard(accountNumber);
 
@@ -520,7 +573,7 @@ namespace BankSystem
             }
         }
 
-        private void ShowUpdateDeleteButton()
+        private void ShowButton()
         {
             switch (_clientAction)
             {
@@ -558,6 +611,11 @@ namespace BankSystem
             {
                 case enClientAction.UpdateShowInfo:
                     ControlHelper.HideControl(_pnlClientInfo);
+                    break;
+
+                case enClientAction.Update:
+                    ControlHelper.HideControl(_pnlClientInfo);
+                    ControlHelper.HideControl(_gbClientCard);
                     break;
 
                 default:
@@ -642,20 +700,30 @@ namespace BankSystem
             }
         }
 
-        public void FillClientInfo()
+        private void FillPersonData()
+        {
+            _person.firstName = _txtFirstName.Text;
+
+            _person.lastName = _txtLastName.Text;
+
+            _person.email = string.IsNullOrWhiteSpace(_txtEmail.Text) ? "Unknown" : _txtEmail.Text;
+        }
+
+        private void FillClientData()
         {
             _client.pinCode = _txtPinCode.Text;
 
             _client.balance = Convert.ToDecimal(_txtBalance.Text);
 
-            _person.firstName = _txtFirstName.Text;
-
-            _person.lastName = _txtLastName.Text;
-
-            _person.email = _txtEmail.Text;
-
             if (!(_clientAction == enClientAction.Update))
                 _client.accountNumber = _txtAccountNumber.Text;
+        }
+
+        public void FillClientInfo()
+        {
+            FillPersonData();
+
+            FillClientData();
         }
 
         private void SetTypeWord()

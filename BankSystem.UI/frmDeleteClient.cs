@@ -78,11 +78,6 @@ namespace BankSystem
             return (Clients.DeleteClient(accountNumber) && Phones.DeletePhone(personID) && Persons.DeletePerson(personID));
         }
 
-        private void ClearAccountNumberText()
-        {
-            txtAccountNumber.Text = "";
-        }
-
         private void HandleClientDeletionUI()
         {
             _clientUI.ShowMessage("Client Deleted Successfully");
@@ -91,7 +86,7 @@ namespace BankSystem
 
             _clientUI.HidePanelOrGroup();
 
-            _clientUI.HideUpdateDeleteButton();
+            _clientUI.HideButton();
         }
 
         public void DeleteClient(string accountNumber, Clients client)

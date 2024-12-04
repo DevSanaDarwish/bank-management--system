@@ -28,10 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmWithdraw));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnWithdraw = new Guna.UI2.WinForms.Guna2Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblWithdrawAmount = new System.Windows.Forms.Label();
             this.txtWithdrawAmount = new System.Windows.Forms.TextBox();
             this.btnSearch = new Guna.UI2.WinForms.Guna2Button();
             this.txtAccountNumber = new System.Windows.Forms.TextBox();
@@ -51,8 +52,10 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.gbClientCard.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -82,15 +85,15 @@
             this.btnWithdraw.TabIndex = 36;
             this.btnWithdraw.Text = "Withdraw";
             // 
-            // label1
+            // lblWithdrawAmount
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(7, 719);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(221, 28);
-            this.label1.TabIndex = 35;
-            this.label1.Text = "Withdraw Amount: ";
+            this.lblWithdrawAmount.AutoSize = true;
+            this.lblWithdrawAmount.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWithdrawAmount.Location = new System.Drawing.Point(7, 719);
+            this.lblWithdrawAmount.Name = "lblWithdrawAmount";
+            this.lblWithdrawAmount.Size = new System.Drawing.Size(221, 28);
+            this.lblWithdrawAmount.TabIndex = 35;
+            this.lblWithdrawAmount.Text = "Withdraw Amount: ";
             // 
             // txtWithdrawAmount
             // 
@@ -117,8 +120,9 @@
             this.btnSearch.Size = new System.Drawing.Size(128, 35);
             this.btnSearch.TabIndex = 33;
             this.btnSearch.Text = "Search";
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // _txtAccountNumber
+            // txtAccountNumber
             // 
             this.txtAccountNumber.BackColor = System.Drawing.Color.White;
             this.txtAccountNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -138,7 +142,7 @@
             this.label6.TabIndex = 31;
             this.label6.Text = "Please Enter Client Account Number: ";
             // 
-            // _gbClientCard
+            // gbClientCard
             // 
             this.gbClientCard.BorderColor = System.Drawing.Color.DarkOrange;
             this.gbClientCard.Controls.Add(this.lblPhone);
@@ -165,7 +169,7 @@
             this.gbClientCard.Text = "Client Card";
             this.gbClientCard.Visible = false;
             // 
-            // _lblPhone
+            // lblPhone
             // 
             this.lblPhone.AutoSize = true;
             this.lblPhone.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -176,7 +180,7 @@
             this.lblPhone.TabIndex = 33;
             this.lblPhone.Text = "First Name: ";
             // 
-            // _lblAccountNumber
+            // lblAccountNumber
             // 
             this.lblAccountNumber.AutoSize = true;
             this.lblAccountNumber.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -187,7 +191,7 @@
             this.lblAccountNumber.TabIndex = 32;
             this.lblAccountNumber.Text = "First Name: ";
             // 
-            // _lblEmail
+            // lblEmail
             // 
             this.lblEmail.AutoSize = true;
             this.lblEmail.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -198,7 +202,7 @@
             this.lblEmail.TabIndex = 31;
             this.lblEmail.Text = "First Name: ";
             // 
-            // _lblPinCode
+            // lblPinCode
             // 
             this.lblPinCode.AutoSize = true;
             this.lblPinCode.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -209,7 +213,7 @@
             this.lblPinCode.TabIndex = 30;
             this.lblPinCode.Text = "First Name: ";
             // 
-            // _lblBalance
+            // lblBalance
             // 
             this.lblBalance.AutoSize = true;
             this.lblBalance.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -220,7 +224,7 @@
             this.lblBalance.TabIndex = 29;
             this.lblBalance.Text = "First Name: ";
             // 
-            // _lblLastName
+            // lblLastName
             // 
             this.lblLastName.AutoSize = true;
             this.lblLastName.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -231,7 +235,7 @@
             this.lblLastName.TabIndex = 28;
             this.lblLastName.Text = "First Name: ";
             // 
-            // _lblFirstName
+            // lblFirstName
             // 
             this.lblFirstName.AutoSize = true;
             this.lblFirstName.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -319,6 +323,10 @@
             this.label.TabIndex = 14;
             this.label.Text = "First Name: ";
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // frmWithdraw
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -327,7 +335,7 @@
             this.ClientSize = new System.Drawing.Size(1379, 830);
             this.Controls.Add(this.gbClientCard);
             this.Controls.Add(this.btnWithdraw);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblWithdrawAmount);
             this.Controls.Add(this.txtWithdrawAmount);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtAccountNumber);
@@ -339,6 +347,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.gbClientCard.ResumeLayout(false);
             this.gbClientCard.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -348,7 +357,7 @@
 
         private System.Windows.Forms.PictureBox pictureBox1;
         private Guna.UI2.WinForms.Guna2Button btnWithdraw;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblWithdrawAmount;
         private System.Windows.Forms.TextBox txtWithdrawAmount;
         private Guna.UI2.WinForms.Guna2Button btnSearch;
         private System.Windows.Forms.TextBox txtAccountNumber;
@@ -368,5 +377,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

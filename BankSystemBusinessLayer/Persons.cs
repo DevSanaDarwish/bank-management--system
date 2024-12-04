@@ -75,15 +75,9 @@ namespace BankSystemBusinessLayer
 
         public bool Save()
         {
-            if (IsEmptyValidation())
+            if (IsEmptyValidation() || IsNotNumericValidation() || IsNotStringValidation())
                 return false;
-
-            if (IsNotNumericValidation())
-                return false;
-
-            if (IsNotStringValidation())
-                return false;
-
+               
             switch (mode)
             {
                 case enMode.AddNew:

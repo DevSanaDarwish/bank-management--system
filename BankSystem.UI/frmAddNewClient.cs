@@ -34,8 +34,7 @@ namespace BankSystem
         private void InitializeClientUIObject(Clients client, Persons person, Phones phone)
         {
             _clientUI = new ClientUIHelper(errorProvider1, txtAccountNumber, txtEmail, txtPhone, txtBalance, txtPinCode, txtFirstName,
-                 txtLastName, pnlClientInfo, true, client, person,
-                 phone, cbPhones);
+                 txtLastName, pnlClientInfo, true, client, person, phone, cbPhones);
         }      
 
         private void btnAddNewClient_Click(object sender, EventArgs e)

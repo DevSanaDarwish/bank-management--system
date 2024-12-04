@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDeposit));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txtAccountNumber = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.btnSearch = new Guna.UI2.WinForms.Guna2Button();
             this.txtDepositAmount = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblDepositAmount = new System.Windows.Forms.Label();
             this.btnDeposit = new Guna.UI2.WinForms.Guna2Button();
             this.gbClientCard = new Guna.UI2.WinForms.Guna2GroupBox();
             this.lblPhone = new System.Windows.Forms.Label();
@@ -51,8 +52,10 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.gbClientCard.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -112,16 +115,18 @@
             this.txtDepositAmount.Name = "txtDepositAmount";
             this.txtDepositAmount.Size = new System.Drawing.Size(257, 35);
             this.txtDepositAmount.TabIndex = 28;
+            this.txtDepositAmount.Visible = false;
             // 
-            // label1
+            // lblDepositAmount
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 705);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(198, 28);
-            this.label1.TabIndex = 29;
-            this.label1.Text = "Deposit Amount: ";
+            this.lblDepositAmount.AutoSize = true;
+            this.lblDepositAmount.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDepositAmount.Location = new System.Drawing.Point(12, 705);
+            this.lblDepositAmount.Name = "lblDepositAmount";
+            this.lblDepositAmount.Size = new System.Drawing.Size(198, 28);
+            this.lblDepositAmount.TabIndex = 29;
+            this.lblDepositAmount.Text = "Deposit Amount: ";
+            this.lblDepositAmount.Visible = false;
             // 
             // btnDeposit
             // 
@@ -322,6 +327,10 @@
             this.label.TabIndex = 14;
             this.label.Text = "First Name: ";
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // frmDeposit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -330,7 +339,7 @@
             this.ClientSize = new System.Drawing.Size(1379, 830);
             this.Controls.Add(this.gbClientCard);
             this.Controls.Add(this.btnDeposit);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblDepositAmount);
             this.Controls.Add(this.txtDepositAmount);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtAccountNumber);
@@ -342,6 +351,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.gbClientCard.ResumeLayout(false);
             this.gbClientCard.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -354,7 +364,7 @@
         private System.Windows.Forms.Label label6;
         private Guna.UI2.WinForms.Guna2Button btnSearch;
         private System.Windows.Forms.TextBox txtDepositAmount;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblDepositAmount;
         private Guna.UI2.WinForms.Guna2Button btnDeposit;
         private Guna.UI2.WinForms.Guna2GroupBox gbClientCard;
         private System.Windows.Forms.Label lblPhone;
@@ -371,5 +381,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

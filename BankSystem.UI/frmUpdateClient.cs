@@ -19,7 +19,7 @@ namespace BankSystem
             InitializeComponent();
         }
 
-         private Form _form { get; set; }
+        
 
         //public frmUpdateClient(Clients client, Persons person, Phones phone, int personID, TextBox txtEmail, TextBox txtBalance, TextBox txtPinCode, TextBox txtFirstName, TextBox txtLastName, ClientUIHelper clientUI)
         //{
@@ -46,15 +46,7 @@ namespace BankSystem
 
         public ClientUIHelper _clientUI;
 
-        //Clients _client = new Clients();
-        //Persons _person = new Persons();
-        //Phones _phone = new Phones();
-
-        int _personID = -1;
-
-        TextBox _txtEmail, _txtBalance, _txtPinCode, _txtFirstName, _txtLastName;
-
-        bool _isValid = true;
+        //int _personID = -1;
 
 
         private void InitializeAllObjects()
@@ -66,17 +58,21 @@ namespace BankSystem
             InitializeClientUIObject(client, person, phone);
         }
 
+
+
         private void InitializeClientUIObject(Clients client, Persons person, Phones phone)
         {
             _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, txtEmail, txtPhone, txtBalance, txtPinCode, txtFirstName,
-              txtLastName, pnlClientInfo, _isValid, lblFirstName, lblLastName, lblBalance, lblPinCode, lblPhone, lblEmail, client, person,
-              phone, cbPhones, btnUpdateClient, _personID, _clientUI, this);
+              txtLastName, pnlClientInfo, true, lblFirstName, lblLastName, lblBalance, lblPinCode, lblPhone, lblEmail, client, person,
+              phone, cbPhones, btnUpdateClient, -1, _clientUI, this);
         }
 
         private void SetClientAction(enClientAction clientAction)
         {
             _clientUI._clientAction = clientAction;
         }
+
+        
 
         private void Update()
         {
@@ -94,7 +90,7 @@ namespace BankSystem
 
             _clientUI.ClearForm();
 
-            ControlHelper.HideControl(gbClientCard);
+            _clientUI.HidePanelOrGroup();
         }
 
         private void HandleClientAction(enClientAction clientAction)
@@ -116,14 +112,19 @@ namespace BankSystem
             HandleClientAction(enClientAction.Update);
         }
 
-        private void AddPhone()
+        private void UpdatePhone()
         {
             _clientUI.AddPhone();
         }
 
         private void btnAddPhone_Click(object sender, EventArgs e)
         {
-            AddPhone();
+            UpdatePhone();
+        }
+
+        private void cbPhones_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
