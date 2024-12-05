@@ -50,6 +50,13 @@ namespace BankSystem
             _clientUI.HandleClientInfo();
         }
 
+        private void Deposit()
+        {
+            decimal depositAmount = Convert.ToDecimal(txtDepositAmount.Text);
+
+            Clients.DepositAmount(depositAmount);
+        }
+
         private void btnDeposit_Click(object sender, EventArgs e)
         {
             HandleClientAction(enClientAction.Deposit);

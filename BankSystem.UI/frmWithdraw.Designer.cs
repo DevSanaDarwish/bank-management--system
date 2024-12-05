@@ -68,6 +68,7 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 25;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // btnWithdraw
             // 
@@ -84,6 +85,8 @@
             this.btnWithdraw.Size = new System.Drawing.Size(228, 59);
             this.btnWithdraw.TabIndex = 36;
             this.btnWithdraw.Text = "Withdraw";
+            this.btnWithdraw.Visible = false;
+            this.btnWithdraw.Click += new System.EventHandler(this.btnWithdraw_Click);
             // 
             // lblWithdrawAmount
             // 
@@ -94,6 +97,7 @@
             this.lblWithdrawAmount.Size = new System.Drawing.Size(221, 28);
             this.lblWithdrawAmount.TabIndex = 35;
             this.lblWithdrawAmount.Text = "Withdraw Amount: ";
+            this.lblWithdrawAmount.Visible = false;
             // 
             // txtWithdrawAmount
             // 
@@ -104,6 +108,7 @@
             this.txtWithdrawAmount.Name = "txtWithdrawAmount";
             this.txtWithdrawAmount.Size = new System.Drawing.Size(257, 35);
             this.txtWithdrawAmount.TabIndex = 34;
+            this.txtWithdrawAmount.Visible = false;
             // 
             // btnSearch
             // 

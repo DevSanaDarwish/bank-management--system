@@ -26,18 +26,17 @@ namespace BankSystem
         enOperationStatus _statusWord;
 
 
-        Guna2Button _btnUpdateClient, _btnDeleteClient, _btnDepositClient;
+        Guna2Button _btnUpdateClient, _btnDeleteClient, _btnTransaction;
 
         ErrorProvider _errorProvider1;
 
         Guna2GroupBox _gbClientCard;
 
-        TextBox _txtAccountNumber, _txtEmail, _txtPhone, _txtBalance, _txtPinCode, _txtFirstName, _txtLastName, _txtDepositAmount;
+        TextBox _txtAccountNumber, _txtEmail, _txtPhone, _txtBalance, _txtPinCode, _txtFirstName, _txtLastName, _txtTransactionAmount;
 
         Guna2Panel _pnlClientInfo;
 
-        Label _lblFirstName, _lblLastName, _lblBalance, _lblPinCode, _lblPhone, _lblAccountNumber, _lblEmail, _lblDepositAmount;
-
+        Label _lblFirstName, _lblLastName, _lblBalance, _lblPinCode, _lblPhone, _lblAccountNumber, _lblEmail, _lblTransactionAmount;
         ComboBox _cbPhones;
 
         bool _isValid = true;
@@ -59,16 +58,14 @@ namespace BankSystem
             this._phone = phone;
         }
 
-        
-
-        //Constructor for frmDeposit
-        public ClientUIHelper(Guna2Button btnDepositClient, TextBox txtAccountNumber, Guna2GroupBox gbClientCard, ErrorProvider errorProvider1, 
-            Clients client, Persons person, Phones phone, Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, 
-            Label lblAccountNumber, Label lblEmail, TextBox txtDepositAmount, Label lblDepositAmount)
+        //Constructor for frmWithdraw And frmDeposit
+        public ClientUIHelper(Guna2Button btnTransaction, TextBox txtAccountNumber, Guna2GroupBox gbClientCard, ErrorProvider errorProvider1,
+            Clients client, Persons person, Phones phone, Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone,
+            Label lblAccountNumber, Label lblEmail, TextBox txtTransactionAmount, Label lblTransactionAmount)
         {
             InitializeCommonFields(errorProvider1, txtAccountNumber, client, person, phone);
 
-            this._btnDepositClient = btnDepositClient; 
+            this._btnTransaction = btnTransaction;
             this._gbClientCard = gbClientCard;
             this._lblFirstName = lblFirstName;
             this._lblLastName = lblLastName;
@@ -77,8 +74,8 @@ namespace BankSystem
             this._lblPhone = lblPhone;
             this._lblAccountNumber = lblAccountNumber;
             this._lblEmail = lblEmail;
-            this._txtDepositAmount = txtDepositAmount;
-            this._lblDepositAmount = lblDepositAmount;
+            this._txtTransactionAmount = txtTransactionAmount;
+            this._lblTransactionAmount = lblTransactionAmount;
         }
 
         //Constructor For frmUpdateClient 
@@ -223,7 +220,8 @@ namespace BankSystem
                     break;
 
                 case enClientAction.DepositShowInfo:
-                    ControlHelper.HideControl(_btnDepositClient);
+                case enClientAction.WithdrawShowInfo:
+                    ControlHelper.HideControl(_btnTransaction);
                     break;
 
                 default:
@@ -241,10 +239,10 @@ namespace BankSystem
 
                 HideButton();
 
-                if (_clientAction == enClientAction.DepositShowInfo)
+                if (_clientAction == enClientAction.DepositShowInfo || _clientAction == enClientAction.WithdrawShowInfo)
                 {
-                    HideDepositAmountText();
-                    HideDepositAmountLabel();
+                    HideTransactionAmountText(_txtTransactionAmount);
+                    HideTransactionAmountLabel(_lblTransactionAmount);
                 }
 
                 ShowMessage(message);
@@ -294,7 +292,8 @@ namespace BankSystem
 
         private void SetAccountNumberLabel(string accountNumber)
         {
-            if (_clientAction == enClientAction.DeleteShowInfo || _clientAction == enClientAction.Find)
+            if (_clientAction == enClientAction.DeleteShowInfo || _clientAction == enClientAction.Find ||
+                _clientAction == enClientAction.WithdrawShowInfo || _clientAction == enClientAction.DepositShowInfo)
             {
                 _lblAccountNumber.Text = accountNumber;
             }       
@@ -317,24 +316,24 @@ namespace BankSystem
             SetAccountNumberLabel(accountNumber);
         }
 
-        private void ShowDepositAmountText()
+        private void ShowTransactionAmountText(TextBox txtTransactionAmount)
         {
-            ControlHelper.VisibleControl(_txtDepositAmount);
+            ControlHelper.VisibleControl(txtTransactionAmount);
         }
 
-        private void HideDepositAmountText()
+        private void HideTransactionAmountText(TextBox txtTransactionAmount)
         {
-            ControlHelper.HideControl(_txtDepositAmount);
+            ControlHelper.HideControl(txtTransactionAmount);
         }
 
-        private void ShowDepositAmountLabel()
+        private void ShowTransactionAmountLabel(Label lblTransactionAmount)
         {
-            ControlHelper.VisibleControl(_lblDepositAmount);
+            ControlHelper.VisibleControl(lblTransactionAmount);
         }
 
-        private void HideDepositAmountLabel()
+        private void HideTransactionAmountLabel(Label lblTransactionAmount)
         {
-            ControlHelper.HideControl(_lblDepositAmount);
+            ControlHelper.HideControl(lblTransactionAmount);
         }
 
         private void ShowClientInfo()
@@ -346,10 +345,10 @@ namespace BankSystem
 
             ShowButton();
 
-            if(_clientAction == enClientAction.DepositShowInfo)
+            if(_clientAction == enClientAction.DepositShowInfo || _clientAction == enClientAction.WithdrawShowInfo)
             {
-                ShowDepositAmountText();
-                ShowDepositAmountLabel();
+                ShowTransactionAmountText(_txtTransactionAmount);
+                ShowTransactionAmountLabel(_lblTransactionAmount);
             }
 
             FillClientCard(accountNumber);
@@ -586,7 +585,8 @@ namespace BankSystem
                     break;
 
                 case enClientAction.DepositShowInfo:
-                    ControlHelper.VisibleControl(_btnDepositClient);
+                case enClientAction.WithdrawShowInfo:
+                    ControlHelper.VisibleControl(_btnTransaction);
                     break;
             }
         }

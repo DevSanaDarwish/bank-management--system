@@ -52,7 +52,17 @@ namespace BankSystem
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            HandleClientAction(enClientAction.DepositShowInfo);
+            HandleClientAction(enClientAction.WithdrawShowInfo);
+        }
+
+        private void btnWithdraw_Click(object sender, EventArgs e)
+        {
+            HandleClientAction(enClientAction.Withdraw);
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -122,5 +122,10 @@ namespace BankSystemBusinessLayer
         {
             return ClientsData.UpdateClient(this.accountNumber, this.pinCode, this.balance);
         }
+
+        public static void DepositAmount(decimal depositAmount)
+        {
+            
+        }
     }
 }
