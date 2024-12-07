@@ -518,6 +518,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmUpdateClient";
             this.Text = "UpdateClient";
+            this.Load += new System.EventHandler(this.frmUpdateClient_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.gbClientCard.ResumeLayout(false);
             this.gbClientCard.PerformLayout();

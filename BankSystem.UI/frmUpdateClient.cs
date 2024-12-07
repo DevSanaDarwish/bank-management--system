@@ -126,5 +126,10 @@ namespace BankSystem
         {
 
         }
+
+        private void frmUpdateClient_Load(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

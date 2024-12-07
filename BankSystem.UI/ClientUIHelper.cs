@@ -307,6 +307,37 @@ namespace BankSystem
             ControlHelper.HideControl(lblTransactionAmount);
         }
 
+        private void FillDefaultValuesForUpdate()
+        {
+            _txtFirstName.Text = _person.firstName;
+
+            _txtLastName.Text = _person.lastName;
+
+            _txtBalance.Text = _client.balance.ToString();
+
+            _txtPinCode.Text = _client.pinCode.ToString();
+
+            _txtEmail.Text = _person.email;
+        }
+
+        private void ShowTransactionDetails()
+        {
+            if (_clientAction == enClientAction.DepositShowInfo || _clientAction == enClientAction.WithdrawShowInfo)
+            {
+                ShowTransactionAmountText(_txtTransactionAmount);
+                ShowTransactionAmountLabel(_lblTransactionAmount);
+            }
+        }
+
+        private void ShowDefaultValues()
+        {
+            if (_clientAction == enClientAction.UpdateShowInfo)
+            {
+                FillDefaultValuesForUpdate();
+            }
+        }
+
+
         private void ShowClientInfo()
         {
             string accountNumber = _txtAccountNumber.Text;
@@ -316,11 +347,9 @@ namespace BankSystem
 
             ShowButton();
 
-            if(_clientAction == enClientAction.DepositShowInfo || _clientAction == enClientAction.WithdrawShowInfo)
-            {
-                ShowTransactionAmountText(_txtTransactionAmount);
-                ShowTransactionAmountLabel(_lblTransactionAmount);
-            }
+            ShowTransactionDetails();
+
+            ShowDefaultValues();
 
             FillClientCard(accountNumber);
 
