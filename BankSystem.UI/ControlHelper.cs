@@ -49,17 +49,18 @@ namespace BankSystem
 
         static public bool NullValidation(TextBox textbox)
         {
-            return (InputValidator.IsControlTextNull(textbox.Text));
+            return (PresentationInputValidator.IsControlTextNull(textbox.Text));
         }
 
         static public bool NumericValidation(TextBox textbox)
         {
-            return (InputValidator.IsNumeric(textbox.Text));
+            return (PresentationInputValidator.IsNumeric(textbox.Text));
         }
 
         static public bool StringValidation(TextBox textbox)
         {
-            return (InputValidator.IsString(textbox.Text));
+            return (PresentationInputValidator.IsString(textbox.Text));
         }
+
     }
 }

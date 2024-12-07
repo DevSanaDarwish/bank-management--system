@@ -19,10 +19,10 @@ namespace BankSystem
         public enum enClientAction { DeleteShowInfo = 0, UpdateShowInfo = 1, DepositShowInfo = 2, WithdrawShowInfo = 3, Update = 4, Delete = 5, Find = 6, Deposit = 7, Withdraw = 8 };
         public enClientAction _clientAction;
 
-        enum enOperationType { Update = 0, Add = 1 };
+        enum enOperationType { Update = 0, Add = 1, Deposit = 2, Withdraw = 3 };
         enOperationType _typeWord;
 
-        enum enOperationStatus { Updated = 0, Added = 1 };
+        enum enOperationStatus { Updated = 0, Added = 1, Deposit = 2, Withdraw = 3 };
         enOperationStatus _statusWord;
 
 
@@ -61,7 +61,7 @@ namespace BankSystem
         //Constructor for frmWithdraw And frmDeposit
         public ClientUIHelper(Guna2Button btnTransaction, TextBox txtAccountNumber, Guna2GroupBox gbClientCard, ErrorProvider errorProvider1,
             Clients client, Persons person, Phones phone, Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone,
-            Label lblAccountNumber, Label lblEmail, TextBox txtTransactionAmount, Label lblTransactionAmount)
+            Label lblAccountNumber, Label lblEmail, TextBox txtTransactionAmount, Label lblTransactionAmount, Form form)
         {
             InitializeCommonFields(errorProvider1, txtAccountNumber, client, person, phone);
 
@@ -76,6 +76,7 @@ namespace BankSystem
             this._lblEmail = lblEmail;
             this._txtTransactionAmount = txtTransactionAmount;
             this._lblTransactionAmount = lblTransactionAmount;
+            this._form = form;
         }
 
         //Constructor For frmUpdateClient 
@@ -84,12 +85,6 @@ namespace BankSystem
            Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, Label lblEmail,
            Clients client, Persons person, Phones phone, ComboBox cbPhones, Guna2Button btnUpdateClient, int personID, ClientUIHelper clientUI, Form form)
         {
-            //this._errorProvider1 = errorProvider1;          
-            //this._txtAccountNumber = txtAccountNumber;
-            //this._client = client;
-            //this._person = person;
-            //this._phone = phone;
-
             InitializeCommonFields(errorProvider1, txtAccountNumber, client, person, phone);    
 
             this._gbClientCard = gbClientCard;
@@ -121,12 +116,6 @@ namespace BankSystem
             TextBox txtBalance, TextBox txtPinCode, TextBox txtFirstName, TextBox txtLastName, Guna2Panel pnlClientInfo, bool isValid,
             Clients client, Persons person, Phones phone, ComboBox cbPhones)
         {
-            //this._errorProvider1 = errorProvider1;
-            //this._txtAccountNumber = txtAccountNumber;
-            //this._client = client;
-            //this._person = person;
-            //this._phone = phone;
-
             InitializeCommonFields(errorProvider1, txtAccountNumber, client, person, phone);
 
             this._pnlClientInfo = pnlClientInfo;
@@ -147,13 +136,6 @@ namespace BankSystem
         {
             InitializeCommonFields(errorProvider1, txtAccountNumber, client, person, phone);
 
-            //this._errorProvider1 = errorProvider1;
-            //this._txtAccountNumber = txtAccountNumber;
-            //this._client = client;
-            //this._person = person;
-            //this._phone = phone;
-
-
             this._gbClientCard = gbClientCard;         
             this._lblFirstName = lblFirstName;
             this._lblLastName = lblLastName;
@@ -162,7 +144,6 @@ namespace BankSystem
             this._lblPhone = lblPhone;
             this._lblAccountNumber = lblAccountNumber;
             this._lblEmail = lblEmail;
-          
         }
 
         //Constructor For frmDeleteClient
@@ -171,12 +152,6 @@ namespace BankSystem
          Clients client, Persons person, Phones phone, ClientUIHelper clientUI, Guna2Button btnDeleteClient, Form form)
         {
             InitializeCommonFields(errorProvider1, txtAccountNumber, client, person, phone);
-
-            //this._errorProvider1 = errorProvider1;
-            //this._txtAccountNumber = txtAccountNumber;
-            //this._client = client;
-            //this._person = person;
-            //this._phone = phone;
 
             this._gbClientCard = gbClientCard;     
             this._lblFirstName = lblFirstName;
@@ -193,18 +168,13 @@ namespace BankSystem
 
         private void SetErrorOnAccountNumber(string message = "This field should not be empty")
         {
-            InputValidator.SetMessageError(_txtAccountNumber, message, _errorProvider1);
+            PresentationInputValidator.SetMessageError(_txtAccountNumber, message, _errorProvider1);
         }
 
         public void ShowMessage(string text)
         {
             MessageBox.Show(text, "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-
-        //private bool IsObjectNull(object obj)
-        //{
-        //    return (obj == null);
-        //}
 
         public void HideButton()
         {
@@ -220,6 +190,7 @@ namespace BankSystem
                     break;
 
                 case enClientAction.DepositShowInfo:
+                case enClientAction.Deposit:
                 case enClientAction.WithdrawShowInfo:
                     ControlHelper.HideControl(_btnTransaction);
                     break;
@@ -233,7 +204,7 @@ namespace BankSystem
         {
             string message = "Sorry, This Account Number Information Does Not Exist";
 
-            if (InputValidator.IsObjectNull(obj))
+            if (PresentationInputValidator.IsObjectNull(obj))
             {
                 HidePanelOrGroup();
 
@@ -321,7 +292,7 @@ namespace BankSystem
             ControlHelper.VisibleControl(txtTransactionAmount);
         }
 
-        private void HideTransactionAmountText(TextBox txtTransactionAmount)
+        public void HideTransactionAmountText(TextBox txtTransactionAmount)
         {
             ControlHelper.HideControl(txtTransactionAmount);
         }
@@ -331,7 +302,7 @@ namespace BankSystem
             ControlHelper.VisibleControl(lblTransactionAmount);
         }
 
-        private void HideTransactionAmountLabel(Label lblTransactionAmount)
+        public void HideTransactionAmountLabel(Label lblTransactionAmount)
         {
             ControlHelper.HideControl(lblTransactionAmount);
         }
@@ -358,7 +329,7 @@ namespace BankSystem
 
         public void Set_isValid(TextBox textbox, string messageValue, bool validValue)
         {
-            InputValidator.SetMessageError(textbox, messageValue, _errorProvider1);
+            PresentationInputValidator.SetMessageError(textbox, messageValue, _errorProvider1);
 
             _isValid = validValue;
         }
@@ -476,12 +447,23 @@ namespace BankSystem
             _txtAccountNumber.Clear();
         }
 
+        public void ClearDepositAmountText()
+        {
+            _txtTransactionAmount.Clear();
+        }
+
         public void ClearForm()
         {
             ClearTextBoxes();
 
             ClearComboBoxPhones();
         }
+
+        public bool IsAccountNumberDuplicated(string accountNumber)
+        {
+            return PresentationInputValidator.IsAccountNumberDuplicated(accountNumber);
+        }
+
 
         public bool ValidateInputFields()
         {
@@ -508,6 +490,7 @@ namespace BankSystem
             return (MessageBox.Show(confirmMessage, "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes);
         }
 
+
         private void ExecuteUpdateDeleteClient()
         {
             switch (_clientAction)
@@ -525,6 +508,11 @@ namespace BankSystem
                     //deleteClient.DeleteClient(accountNumber);
 
                     ((frmDeleteClient)_form).DeleteClient(GetAccountNumber(), _client);
+                    break;
+
+                case enClientAction.Deposit:
+
+                    HandleTransactionOperation();
 
                     break;
             }
@@ -564,6 +552,10 @@ namespace BankSystem
 
                 case enClientAction.Delete:
                     ConfirmOperation("Ary you sure to delete this client?");
+                    break;
+
+                case enClientAction.Deposit:
+                    ConfirmOperation("Are you sure to do that deposit?");
                     break;
 
                 default:
@@ -726,13 +718,21 @@ namespace BankSystem
             FillClientData();
         }
 
-        private void SetTypeWord()
+        public void SetTypeWord()
         {
             switch (_clientAction)
             {
                 case enClientAction.Update:
                     _person.personID = _personID;
                     _typeWord = enOperationType.Update;
+                    break;
+
+                case enClientAction.Deposit:
+                    _typeWord = enOperationType.Deposit;
+                    break;
+
+                case enClientAction.Withdraw:
+                    _typeWord = enOperationType.Withdraw;
                     break;
 
                 default:
@@ -749,7 +749,7 @@ namespace BankSystem
                 ValidationClientsAndPhonesSave();
 
             else
-                ShowMessage($"Failed to {_typeWord}");
+                ShowFailedMessage();
         }
 
         private void ValidationPhoneNumbersSave()
@@ -804,6 +804,14 @@ namespace BankSystem
                     _statusWord = enOperationStatus.Updated;
                     break;
 
+                case enClientAction.Deposit:
+                    _statusWord = enOperationStatus.Deposit;
+                    break;
+
+                case enClientAction.Withdraw:
+                    _statusWord = enOperationStatus.Withdraw;
+                    break;
+
                 default:
                     SetPersonIDToClientObject();
                     _statusWord = enOperationStatus.Added;
@@ -815,7 +823,7 @@ namespace BankSystem
         {
             if (_client.Save())
             {
-                ShowMessage($"Successfully {_statusWord}");
+                ShowSuccessfulMessage();
             }
         }
 
@@ -828,6 +836,92 @@ namespace BankSystem
             ShowSaveMessage();
         }
 
-        
+        public bool IsAmountNull(TextBox txtDepositAmount)
+        {
+            if (ControlHelper.NullValidation(txtDepositAmount))
+            {
+                AllValidation(txtDepositAmount, true, "This field should not be empty");
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool IsAmountNumeric(TextBox txtDepositAmount)
+        {
+            if (ControlHelper.NumericValidation(txtDepositAmount))
+            {
+                AllValidation(txtDepositAmount, true, "You must enter a valid value");
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool ValidateInputAmount()
+        {
+            if (!IsAmountNull(_txtTransactionAmount))
+            {
+                if (IsAmountNumeric(_txtTransactionAmount))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void ShowSuccessfulMessage()
+        {
+            ShowMessage($"Successfully {_statusWord}");
+        }
+
+        public void ShowFailedMessage()
+        {
+            ShowMessage($"Failed to {_typeWord}");
+        }
+
+        private void HandleTransactionUI()
+        {
+            SetStatusWord();
+
+            ShowSuccessfulMessage();
+
+            ClearAccountNumberText();
+
+            ClearDepositAmountText();
+
+            HidePanelOrGroup();
+
+            HideButton();
+
+            HideTransactionAmountLabel(_lblTransactionAmount);
+
+            HideTransactionAmountText(_txtTransactionAmount);
+        }
+
+        public void HandleTransactionOperation()
+        {
+            if (ValidateInputAmount())
+            {
+                HandleTransactionUI();
+            }
+
+            else
+            {
+                SetTypeWord();
+
+                ShowFailedMessage();
+            }
+        }
+
+
+        public bool IsDepositSuccessful()
+        {
+            decimal depositAmount = Convert.ToDecimal(_txtTransactionAmount.Text);
+
+            return Clients.DepositAmount(depositAmount, _txtAccountNumber.Text);
+        }
+
     }
 }

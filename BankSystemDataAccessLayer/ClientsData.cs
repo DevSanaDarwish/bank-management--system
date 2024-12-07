@@ -85,8 +85,6 @@ namespace BankSystemDataAccessLayer
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
 
-            //string query = "SELECT Clients.ClientID, \r\n       Persons.FirstName, \r\n       Persons.LastName, \r\n       Persons.Email, \r\n       Clients.PinCode, \r\n       Clients.Balance, \r\n       Clients.AccountNumber, \r\n       STRING_AGG(Phones.PhoneNumber, ', ') AS PhoneNumbers \r\nFROM Clients \r\nINNER JOIN Persons ON Clients.PersonID = Persons.PersonID\r\nLEFT JOIN Phones ON Persons.PersonID = Phones.PersonID\r\nGROUP BY Clients.ClientID, Persons.FirstName, Persons.LastName, Persons.Email, Clients.PinCode, \r\nClients.Balance, Clients.AccountNumber";
-
             string query = "Select * From vwClients";
 
             SqlCommand command = new SqlCommand(query, connection);
@@ -99,9 +97,7 @@ namespace BankSystemDataAccessLayer
 
                 if(reader.HasRows)
                 {
-                    dtClients.Load(reader);
-
-                    
+                    dtClients.Load(reader);        
                 }
 
                 reader.Close();
@@ -342,6 +338,69 @@ namespace BankSystemDataAccessLayer
 
 
             return (rowsAffected > 0);
+        }
+
+        public static bool DepositAmount(decimal amount, string accountNumber)
+        {
+            int rowsAffected = 0;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = @"Update Clients 
+                           set Balance = Balance + @amount
+                           Where AccountNumber = @accountNumber;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@amount", amount);
+            command.Parameters.AddWithValue("@accountNumber", accountNumber);
+
+            try
+            {
+                connection.Open();
+
+                rowsAffected = command.ExecuteNonQuery();
+            }
+
+            catch(Exception ex)
+            {
+                return false;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return (rowsAffected > 0);
+        }
+
+        public static bool IsAccountNumberExist(string accountNumber)
+        {
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = "Select 1 Where Exists (Select 1 From Clients Where AccountNumber = @accountNumber);";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@accountNumber", accountNumber);
+
+            try
+            {
+                connection.Open();
+
+                return (command.ExecuteScalar() != null);            
+            }
+
+            catch(Exception ex)
+            {
+                return false;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
         }
 
     }

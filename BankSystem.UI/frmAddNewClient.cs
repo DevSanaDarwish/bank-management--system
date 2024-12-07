@@ -41,26 +41,34 @@ namespace BankSystem
         {
             InitializeAllObjects();
 
-            if (_clientUI.ValidateInputFields())
-            {
-                AddNewClient();
-
-                _clientUI.ClearForm();
-            }
+            HandleNewClient();
         }
 
-        private void Add()
+        private void HandleNewClient()
         {
-            _clientUI.FillClientInfo();
+            if (_clientUI.ValidateInputFields())
+            {
+                if (!_clientUI.IsAccountNumberDuplicated(txtAccountNumber.Text))
+                {
+                    AddNewClient();
 
-            _clientUI.ValidationSave();
+                    _clientUI.ClearForm();
+                }
+
+                else
+                {
+                    _clientUI.ShowMessage("This account number already exists");
+                }
+            }
         }
 
         private void AddNewClient()
         {
             InitializeAllObjects();
 
-            Add();
+            _clientUI.FillClientInfo();
+
+            _clientUI.ValidationSave();
         }
 
         private void btnAddPhone_Click(object sender, EventArgs e)

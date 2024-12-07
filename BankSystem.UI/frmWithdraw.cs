@@ -33,7 +33,7 @@ namespace BankSystem
         private void InitializeClientUIObject(Clients client, Persons person, Phones phone)
         {
             _clientUI = new ClientUIHelper(btnWithdraw, txtAccountNumber, gbClientCard, errorProvider1, client, person, phone, lblFirstName, lblLastName,
-                lblBalance, lblPinCode, lblPhone, lblAccountNumber, lblEmail, txtWithdrawAmount, lblWithdrawAmount);
+                lblBalance, lblPinCode, lblPhone, lblAccountNumber, lblEmail, txtWithdrawAmount, lblWithdrawAmount, this);
         }
 
         private void SetClientAction(enClientAction clientAction)

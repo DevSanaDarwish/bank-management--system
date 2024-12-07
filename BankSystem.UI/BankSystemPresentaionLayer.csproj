@@ -162,7 +162,7 @@
     <Compile Include="frmWithdraw.Designer.cs">
       <DependentUpon>frmWithdraw.cs</DependentUpon>
     </Compile>
-    <Compile Include="InputValidator.cs" />
+    <Compile Include="PresentationInputValidator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="frmUpdateClient.cs">

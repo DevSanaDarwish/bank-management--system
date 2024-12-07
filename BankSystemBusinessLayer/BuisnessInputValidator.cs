@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BankSystemBusinessLayer
 {
-    public static class clsInputValidator
+    public static class BuisnessInputValidator
     {
         public static bool IsTextNumeric(string text)
         {
@@ -40,6 +40,11 @@ namespace BankSystemBusinessLayer
         public static bool IsObjectNull(object obj)
         {
             return (obj == null);
+        }
+
+        public static bool IsValueDuplicated(string value)
+        {
+            return Clients.IsAccountNumberExist(value);
         }
     }
 }

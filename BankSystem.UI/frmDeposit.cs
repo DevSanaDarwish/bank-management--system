@@ -33,7 +33,7 @@ namespace BankSystem
         private void InitializeClientUIObject(Clients client, Persons person, Phones phone)
         {
             _clientUI = new ClientUIHelper(btnDeposit, txtAccountNumber, gbClientCard, errorProvider1, client, person, phone, lblFirstName, lblLastName,
-                lblBalance, lblPinCode, lblPhone, lblAccountNumber, lblEmail, txtDepositAmount, lblDepositAmount);
+                lblBalance, lblPinCode, lblPhone, lblAccountNumber, lblEmail, txtDepositAmount, lblDepositAmount, this);
         }
 
         private void SetClientAction(enClientAction clientAction)
@@ -50,16 +50,56 @@ namespace BankSystem
             _clientUI.HandleClientInfo();
         }
 
-        private void Deposit()
-        {
-            decimal depositAmount = Convert.ToDecimal(txtDepositAmount.Text);
+        //private void HandleTransactionUI()
+        //{
+        //    _clientUI.ShowMessage("IsDepositSuccessful Successful");
 
-            Clients.DepositAmount(depositAmount);
-        }
+        //    _clientUI.ClearAccountNumberText();
+
+        //    _clientUI.ClearDepositAmountText();
+
+        //    _clientUI.HidePanelOrGroup();
+
+        //    _clientUI.HideButton();
+
+        //    _clientUI.HideTransactionAmountLabel(lblDepositAmount);
+
+        //    _clientUI.HideTransactionAmountText(txtDepositAmount);
+        //}
+
+        //public bool ValidateInputAmount()
+        //{
+        //    if(!_clientUI.IsAmountNull(txtDepositAmount))
+        //    {
+        //        if(_clientUI.IsAmountNumeric(txtDepositAmount))
+        //        {
+        //            decimal depositAmount = Convert.ToDecimal(txtDepositAmount.Text);
+
+        //            return Clients.DepositAmount(depositAmount, txtAccountNumber.Text);
+        //        }
+        //    }
+
+        //    return false;
+        //}
+
+        //public void IsDepositSuccessful()
+        //{
+        //    if (ValidateInputAmount())
+        //    {
+        //        HandleTransactionUI();
+        //    }
+
+        //    else
+        //    {
+        //        _clientUI.ShowMessage("IsDepositSuccessful Failed");
+        //    }
+        //}
 
         private void btnDeposit_Click(object sender, EventArgs e)
         {
-            HandleClientAction(enClientAction.Deposit);
+            //HandleClientAction(enClientAction.Deposit);
+
+            _clientUI.ValidateInputAmount();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)

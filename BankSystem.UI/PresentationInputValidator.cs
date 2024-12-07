@@ -8,22 +8,22 @@ using BankSystemBusinessLayer;
 
 namespace BankSystem
 {
-    public static class InputValidator
+    public static class PresentationInputValidator
     {
 
         public static bool IsNumeric(string text)
         {
-            return clsInputValidator.IsTextNumeric(text);
+            return BuisnessInputValidator.IsTextNumeric(text);
         }
 
         public static bool IsString(string text)
         {
-            return clsInputValidator.IsTextString(text);
+            return BuisnessInputValidator.IsTextString(text);
         }
 
         public static bool IsControlTextNull(string controlText)
         {
-            return clsInputValidator.IsEmpty(controlText);
+            return BuisnessInputValidator.IsEmpty(controlText);
         }
 
         public static void SetMessageError(TextBox control, string messageValue, ErrorProvider errorProvider)
@@ -33,7 +33,12 @@ namespace BankSystem
 
         public static bool IsObjectNull(object obj)
         {
-            return clsInputValidator.IsObjectNull(obj);
+            return BuisnessInputValidator.IsObjectNull(obj);
+        }
+
+        public static bool IsAccountNumberDuplicated(string accountNumber)
+        {
+            return BuisnessInputValidator.IsValueDuplicated(accountNumber);
         }
     }
 }

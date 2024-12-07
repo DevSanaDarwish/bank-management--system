@@ -52,8 +52,8 @@ namespace BankSystemBusinessLayer
 
         private bool IsEmptyValidation()
         {
-            if (clsInputValidator.IsEmpty(this.clientID.ToString()) || clsInputValidator.IsEmpty(this.pinCode) || clsInputValidator.IsEmpty(this.balance.ToString()) ||
-                clsInputValidator.IsEmpty(this.accountNumber) || clsInputValidator.IsEmpty(this.personID.ToString()))
+            if (BuisnessInputValidator.IsEmpty(this.clientID.ToString()) || BuisnessInputValidator.IsEmpty(this.pinCode) || BuisnessInputValidator.IsEmpty(this.balance.ToString()) ||
+                BuisnessInputValidator.IsEmpty(this.accountNumber) || BuisnessInputValidator.IsEmpty(this.personID.ToString()))
             {
                 return true;
             }
@@ -63,14 +63,20 @@ namespace BankSystemBusinessLayer
 
         private bool IsNotNumericValidation()
         {
-            if (!clsInputValidator.IsTextNumeric(this.clientID.ToString()) || !clsInputValidator.IsTextNumeric(this.pinCode) ||
-                !clsInputValidator.IsTextNumeric(this.personID.ToString()) || !clsInputValidator.IsTextNumeric(this.balance.ToString()))
+            if (!BuisnessInputValidator.IsTextNumeric(this.clientID.ToString()) || !BuisnessInputValidator.IsTextNumeric(this.pinCode) ||
+                !BuisnessInputValidator.IsTextNumeric(this.personID.ToString()) || !BuisnessInputValidator.IsTextNumeric(this.balance.ToString()))
             {
                 return true;
             }
 
             return false;
         }
+
+        //public static bool IsTransactionAmountValid(string amount)
+        //{
+        //    return BuisnessInputValidator.IsTextNumeric(amount);
+        //}
+
         public bool Save()
         {
             if (IsEmptyValidation() || IsNotNumericValidation())
@@ -123,9 +129,14 @@ namespace BankSystemBusinessLayer
             return ClientsData.UpdateClient(this.accountNumber, this.pinCode, this.balance);
         }
 
-        public static void DepositAmount(decimal depositAmount)
+        public static bool DepositAmount(decimal depositAmount, string accountNumber)
         {
-            
+            return ClientsData.DepositAmount(depositAmount, accountNumber);
+        }
+
+        public static bool IsAccountNumberExist(string accountNumber)
+        {
+            return ClientsData.IsAccountNumberExist(accountNumber);
         }
     }
 }
