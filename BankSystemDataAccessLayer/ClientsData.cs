@@ -375,6 +375,41 @@ namespace BankSystemDataAccessLayer
             return (rowsAffected > 0);
         }
 
+        public static bool WithdrawAmount(decimal amount, string accountNumber)
+        {
+            int rowsAffected = 0;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = @"Update Clients 
+                           set Balance = Balance - @amount
+                           Where AccountNumber = @accountNumber;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("amount", amount);
+            command.Parameters.AddWithValue("@accountNumber", accountNumber);
+
+            try
+            {
+                connection.Open();
+
+                rowsAffected = command.ExecuteNonQuery();
+            }
+
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return (rowsAffected > 0);
+        }
+
         public static bool IsAccountNumberExist(string accountNumber)
         {
             SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);

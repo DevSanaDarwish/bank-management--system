@@ -47,59 +47,19 @@ namespace BankSystem
 
             SetClientAction(clientAction);
 
+            if(clientAction == enClientAction.Deposit)
+            {
+                _clientUI.HandleTransactionOperation();
+
+                return;
+            }
+
             _clientUI.HandleClientInfo();
         }
 
-        //private void HandleTransactionUI()
-        //{
-        //    _clientUI.ShowMessage("IsDepositSuccessful Successful");
-
-        //    _clientUI.ClearAccountNumberText();
-
-        //    _clientUI.ClearDepositAmountText();
-
-        //    _clientUI.HidePanelOrGroup();
-
-        //    _clientUI.HideButton();
-
-        //    _clientUI.HideTransactionAmountLabel(lblDepositAmount);
-
-        //    _clientUI.HideTransactionAmountText(txtDepositAmount);
-        //}
-
-        //public bool ValidateInputAmount()
-        //{
-        //    if(!_clientUI.IsAmountNull(txtDepositAmount))
-        //    {
-        //        if(_clientUI.IsAmountNumeric(txtDepositAmount))
-        //        {
-        //            decimal depositAmount = Convert.ToDecimal(txtDepositAmount.Text);
-
-        //            return Clients.DepositAmount(depositAmount, txtAccountNumber.Text);
-        //        }
-        //    }
-
-        //    return false;
-        //}
-
-        //public void IsDepositSuccessful()
-        //{
-        //    if (ValidateInputAmount())
-        //    {
-        //        HandleTransactionUI();
-        //    }
-
-        //    else
-        //    {
-        //        _clientUI.ShowMessage("IsDepositSuccessful Failed");
-        //    }
-        //}
-
         private void btnDeposit_Click(object sender, EventArgs e)
         {
-            //HandleClientAction(enClientAction.Deposit);
-
-            _clientUI.ValidateInputAmount();
+            HandleClientAction(enClientAction.Deposit);
         }
 
         private void btnSearch_Click(object sender, EventArgs e)

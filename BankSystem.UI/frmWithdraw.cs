@@ -47,6 +47,13 @@ namespace BankSystem
 
             SetClientAction(clientAction);
 
+            if (clientAction == enClientAction.Withdraw)
+            {
+                _clientUI.HandleTransactionOperation();
+
+                return;
+            }
+
             _clientUI.HandleClientInfo();
         }
 
@@ -58,11 +65,6 @@ namespace BankSystem
         private void btnWithdraw_Click(object sender, EventArgs e)
         {
             HandleClientAction(enClientAction.Withdraw);
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

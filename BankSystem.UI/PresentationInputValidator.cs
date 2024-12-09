@@ -13,17 +13,17 @@ namespace BankSystem
 
         public static bool IsNumeric(string text)
         {
-            return BuisnessInputValidator.IsTextNumeric(text);
+            return BusinessInputValidator.IsTextNumeric(text);
         }
 
         public static bool IsString(string text)
         {
-            return BuisnessInputValidator.IsTextString(text);
+            return BusinessInputValidator.IsTextString(text);
         }
 
         public static bool IsControlTextNull(string controlText)
         {
-            return BuisnessInputValidator.IsEmpty(controlText);
+            return BusinessInputValidator.IsEmpty(controlText);
         }
 
         public static void SetMessageError(TextBox control, string messageValue, ErrorProvider errorProvider)
@@ -33,12 +33,12 @@ namespace BankSystem
 
         public static bool IsObjectNull(object obj)
         {
-            return BuisnessInputValidator.IsObjectNull(obj);
+            return BusinessInputValidator.IsObjectNull(obj);
         }
 
         public static bool IsAccountNumberDuplicated(string accountNumber)
         {
-            return BuisnessInputValidator.IsValueDuplicated(accountNumber);
+            return BusinessInputValidator.IsValueDuplicated(accountNumber);
         }
     }
 }

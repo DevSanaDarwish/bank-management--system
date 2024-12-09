@@ -58,7 +58,8 @@ namespace BankSystem
             this._phone = phone;
         }
 
-        //Constructor for frmWithdraw And frmDeposit
+        
+        //Constructor For frmDeposit And frmWithdraw
         public ClientUIHelper(Guna2Button btnTransaction, TextBox txtAccountNumber, Guna2GroupBox gbClientCard, ErrorProvider errorProvider1,
             Clients client, Persons person, Phones phone, Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone,
             Label lblAccountNumber, Label lblEmail, TextBox txtTransactionAmount, Label lblTransactionAmount, Form form)
@@ -192,11 +193,21 @@ namespace BankSystem
                 case enClientAction.DepositShowInfo:
                 case enClientAction.Deposit:
                 case enClientAction.WithdrawShowInfo:
+                case enClientAction.Withdraw:
                     ControlHelper.HideControl(_btnTransaction);
                     break;
 
                 default:
                     break;
+            }
+        }
+
+        private void HideTransactionDetails()
+        {
+            if (_clientAction == enClientAction.DepositShowInfo || _clientAction == enClientAction.WithdrawShowInfo)
+            {
+                HideTransactionAmountText(_txtTransactionAmount);
+                HideTransactionAmountLabel(_lblTransactionAmount);
             }
         }
 
@@ -210,11 +221,7 @@ namespace BankSystem
 
                 HideButton();
 
-                if (_clientAction == enClientAction.DepositShowInfo || _clientAction == enClientAction.WithdrawShowInfo)
-                {
-                    HideTransactionAmountText(_txtTransactionAmount);
-                    HideTransactionAmountLabel(_lblTransactionAmount);
-                }
+                HideTransactionDetails();
 
                 ShowMessage(message);
 
@@ -520,7 +527,7 @@ namespace BankSystem
         }
 
 
-        private void ExecuteUpdateDeleteClient()
+        private void ExecuteClientOperations()
         {
             switch (_clientAction)
             {
@@ -540,10 +547,45 @@ namespace BankSystem
                     break;
 
                 case enClientAction.Deposit:
+                    ConfirmDeposit();
+                    break;
 
-                    HandleTransactionOperation();
+                case enClientAction.Withdraw:
+                    ConfirmWithdraw();
 
                     break;
+            }
+        }
+
+
+
+        private void ConfirmWithdraw()
+        {
+            if (IsWithdrawSuccessful())
+            {
+                HandleTransactionUI();
+            }
+
+            else
+            {
+                SetTypeWord();
+
+                ShowFailedMessage();
+            }
+        }
+
+        private void ConfirmDeposit()
+        {
+            if (IsDepositSuccessful())
+            {
+                HandleTransactionUI();
+            }
+
+            else
+            {
+                SetTypeWord();
+
+                ShowFailedMessage();
             }
         }
 
@@ -554,7 +596,7 @@ namespace BankSystem
 
             if (ShowConfirmMessage(confirmMessage))
             {
-                ExecuteUpdateDeleteClient();
+                ExecuteClientOperations();
             }
         }
         
@@ -585,6 +627,10 @@ namespace BankSystem
 
                 case enClientAction.Deposit:
                     ConfirmOperation("Are you sure to do that deposit?");
+                    break;
+
+                case enClientAction.Withdraw:
+                    ConfirmOperation("Are you sure to do that withdraw?");
                     break;
 
                 default:
@@ -747,7 +793,7 @@ namespace BankSystem
             FillClientData();
         }
 
-        public void SetTypeWord()
+        private void SetTypeWord()
         {
             switch (_clientAction)
             {
@@ -869,7 +915,7 @@ namespace BankSystem
         {
             if (ControlHelper.NullValidation(txtDepositAmount))
             {
-                AllValidation(txtDepositAmount, true, "This field should not be empty");
+                AllValidation(txtDepositAmount, false, "This field should not be empty");
                 return true;
             }
 
@@ -878,16 +924,16 @@ namespace BankSystem
 
         public bool IsAmountNumeric(TextBox txtDepositAmount)
         {
-            if (ControlHelper.NumericValidation(txtDepositAmount))
+            if (!ControlHelper.NumericValidation(txtDepositAmount))
             {
-                AllValidation(txtDepositAmount, true, "You must enter a valid value");
-                return true;
+                AllValidation(txtDepositAmount, false, "You must enter a valid value");
+                return false;
             }
 
-            return false;
+            return true;
         }
 
-        public bool ValidateInputAmount()
+        private bool ValidateInputAmount()
         {
             if (!IsAmountNull(_txtTransactionAmount))
             {
@@ -931,26 +977,53 @@ namespace BankSystem
 
         public void HandleTransactionOperation()
         {
-            if (ValidateInputAmount())
-            {
-                HandleTransactionUI();
-            }
+            if (!ValidateInputAmount())
+                return;
 
-            else
-            {
-                SetTypeWord();
+            ExecuteClientAction();
 
-                ShowFailedMessage();
-            }
+                //if (IsDepositSuccessful())
+                //{
+                //    HandleTransactionUI();
+                //}
+
+                //else
+                //{
+                //    SetTypeWord();
+
+                //    ShowFailedMessage();
+                //}  
         }
 
 
-        public bool IsDepositSuccessful()
+        private bool IsDepositSuccessful()
         {
             decimal depositAmount = Convert.ToDecimal(_txtTransactionAmount.Text);
 
             return Clients.DepositAmount(depositAmount, _txtAccountNumber.Text);
         }
 
+        private bool IsAmountValidForWithdraw(decimal withdrawAmount)
+        {
+            decimal balance = Convert.ToDecimal(_lblBalance.Text);
+
+            return BusinessInputValidator.IsAmountValid(withdrawAmount, balance);
+        }
+
+        private bool IsWithdrawSuccessful()
+        {
+            decimal withdrawAmount = Convert.ToDecimal(_txtTransactionAmount.Text);
+
+            if(IsAmountValidForWithdraw(withdrawAmount))
+            {
+                return _client.WithdrawAmount(withdrawAmount, _txtAccountNumber.Text);
+            }
+
+            else
+            {
+                ShowMessage("The amount must not be greater than your balance");
+                return false;
+            }   
+        }
     }
 }

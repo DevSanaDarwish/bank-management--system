@@ -49,8 +49,8 @@ namespace BankSystemBusinessLayer
 
         private bool IsEmptyValidation()
         {
-            if (BuisnessInputValidator.IsEmpty(this.phoneID.ToString()) || BuisnessInputValidator.IsEmpty(this.personID.ToString()) ||
-                BuisnessInputValidator.IsEmpty(this.phoneNumber))
+            if (BusinessInputValidator.IsEmpty(this.phoneID.ToString()) || BusinessInputValidator.IsEmpty(this.personID.ToString()) ||
+                BusinessInputValidator.IsEmpty(this.phoneNumber))
             { 
                 return true;
             }
@@ -60,8 +60,8 @@ namespace BankSystemBusinessLayer
 
         private bool IsNotNumericValidation()
         {
-            if (!BuisnessInputValidator.IsTextNumeric(this.phoneID.ToString()) || !BuisnessInputValidator.IsTextNumeric(this.personID.ToString())
-                || !BuisnessInputValidator.IsTextNumeric(this.phoneNumber))
+            if (!BusinessInputValidator.IsTextNumeric(this.phoneID.ToString()) || !BusinessInputValidator.IsTextNumeric(this.personID.ToString())
+                || !BusinessInputValidator.IsTextNumeric(this.phoneNumber))
             {
                 return true;
             }

@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clients.cs" />
-    <Compile Include="BuisnessInputValidator.cs" />
+    <Compile Include="BusinessInputValidator.cs" />
     <Compile Include="Persons.cs" />
     <Compile Include="Phones.cs" />
     <Compile Include="Users.cs" />

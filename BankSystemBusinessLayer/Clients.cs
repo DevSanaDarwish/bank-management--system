@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Runtime.CompilerServices;
 using BankSystemDataAccessLayer;
 
 namespace BankSystemBusinessLayer
@@ -52,8 +53,8 @@ namespace BankSystemBusinessLayer
 
         private bool IsEmptyValidation()
         {
-            if (BuisnessInputValidator.IsEmpty(this.clientID.ToString()) || BuisnessInputValidator.IsEmpty(this.pinCode) || BuisnessInputValidator.IsEmpty(this.balance.ToString()) ||
-                BuisnessInputValidator.IsEmpty(this.accountNumber) || BuisnessInputValidator.IsEmpty(this.personID.ToString()))
+            if (BusinessInputValidator.IsEmpty(this.clientID.ToString()) || BusinessInputValidator.IsEmpty(this.pinCode) || BusinessInputValidator.IsEmpty(this.balance.ToString()) ||
+                BusinessInputValidator.IsEmpty(this.accountNumber) || BusinessInputValidator.IsEmpty(this.personID.ToString()))
             {
                 return true;
             }
@@ -63,8 +64,8 @@ namespace BankSystemBusinessLayer
 
         private bool IsNotNumericValidation()
         {
-            if (!BuisnessInputValidator.IsTextNumeric(this.clientID.ToString()) || !BuisnessInputValidator.IsTextNumeric(this.pinCode) ||
-                !BuisnessInputValidator.IsTextNumeric(this.personID.ToString()) || !BuisnessInputValidator.IsTextNumeric(this.balance.ToString()))
+            if (!BusinessInputValidator.IsTextNumeric(this.clientID.ToString()) || !BusinessInputValidator.IsTextNumeric(this.pinCode) ||
+                !BusinessInputValidator.IsTextNumeric(this.personID.ToString()) || !BusinessInputValidator.IsTextNumeric(this.balance.ToString()))
             {
                 return true;
             }
@@ -132,6 +133,21 @@ namespace BankSystemBusinessLayer
         public static bool DepositAmount(decimal depositAmount, string accountNumber)
         {
             return ClientsData.DepositAmount(depositAmount, accountNumber);
+        }
+
+        public bool IsAmountValidForWithdraw(decimal withdrawAmount)
+        {
+            return BusinessInputValidator.IsAmountValid(withdrawAmount, this.balance);      
+        }
+
+        public bool WithdrawAmount(decimal withdrawAmount, string accountNumber)
+        {
+            if(IsAmountValidForWithdraw(withdrawAmount))
+            {
+                return ClientsData.WithdrawAmount(withdrawAmount, accountNumber);
+            }
+
+            return false;
         }
 
         public static bool IsAccountNumberExist(string accountNumber)
