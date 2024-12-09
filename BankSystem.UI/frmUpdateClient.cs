@@ -64,7 +64,7 @@ namespace BankSystem
         {
             _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, txtEmail, txtPhone, txtBalance, txtPinCode, txtFirstName,
               txtLastName, pnlClientInfo, true, lblFirstName, lblLastName, lblBalance, lblPinCode, lblPhone, lblEmail, client, person,
-              phone, cbPhones, btnUpdateClient, -1, _clientUI, this);
+              phone, btnUpdateClient, -1, _clientUI, this);
         }
 
         private void SetClientAction(enClientAction clientAction)
@@ -120,16 +120,6 @@ namespace BankSystem
         private void btnAddPhone_Click(object sender, EventArgs e)
         {
             UpdatePhone();
-        }
-
-        private void cbPhones_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void frmUpdateClient_Load(object sender, EventArgs e)
-        {
-            
         }
     }
 }

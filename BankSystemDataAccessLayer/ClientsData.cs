@@ -79,6 +79,42 @@ namespace BankSystemDataAccessLayer
         //    //return (rowsAffected > 0);
         //}
 
+        
+
+        public static DataTable GetTotalBalances()
+        {
+            DataTable dtBalances = new DataTable();
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = "Select * From vwTotalBalances;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if(reader.HasRows)
+                {
+                    dtBalances.Load(reader);
+                }
+
+                reader.Close();
+            }
+
+            catch(Exception ex) { }
+            
+            finally
+            {
+                connection.Close();
+            }
+
+            return dtBalances;
+        }
+
         public static DataTable GetAllClients()
         {
             DataTable dtClients = new DataTable();
@@ -103,10 +139,7 @@ namespace BankSystemDataAccessLayer
                 reader.Close();
             }
 
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error: " + ex.Message);
-            }
+            catch (Exception ex) { }
 
             finally
             {
@@ -115,6 +148,38 @@ namespace BankSystemDataAccessLayer
 
             return dtClients;
 
+        }
+
+        public static decimal GetSumOfBalances()
+        {
+            decimal sumOfBalances = 0;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = "Select Sum(Balance) From Clients;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            try
+            {
+                connection.Open();
+
+                object result = command.ExecuteScalar();
+
+                if(result != null && decimal.TryParse(result.ToString(), out decimal sum))
+                {
+                    sumOfBalances = sum;
+                }
+            }
+
+            catch (Exception ex) { }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return sumOfBalances;
         }
 
         public static int AddNewClient(string pinCode, decimal balance, string accountNumber, int personID)
@@ -146,10 +211,7 @@ namespace BankSystemDataAccessLayer
                 }
             }
 
-            catch(Exception ex)
-            {
-                Console.WriteLine("Error: " + ex.Message);
-            }
+            catch (Exception ex) { }
 
             finally
             {

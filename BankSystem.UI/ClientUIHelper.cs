@@ -16,7 +16,8 @@ namespace BankSystem
     {
         private Form _form { get; set; }
 
-        public enum enClientAction { DeleteShowInfo = 0, UpdateShowInfo = 1, DepositShowInfo = 2, WithdrawShowInfo = 3, Update = 4, Delete = 5, Find = 6, Deposit = 7, Withdraw = 8 };
+        public enum enClientAction { DeleteShowInfo = 0, UpdateShowInfo = 1, DepositShowInfo = 2, WithdrawShowInfo = 3, Update = 4, Delete = 5, 
+            Find = 6, Deposit = 7, Withdraw = 8 };
         public enClientAction _clientAction;
 
         enum enOperationType { Update = 0, Add = 1, Deposit = 2, Withdraw = 3 };
@@ -84,7 +85,7 @@ namespace BankSystem
         public ClientUIHelper(ErrorProvider errorProvider1, Guna2GroupBox gbClientCard, TextBox txtAccountNumber, TextBox txtEmail, TextBox txtPhone,
            TextBox txtBalance, TextBox txtPinCode, TextBox txtFirstName, TextBox txtLastName, Guna2Panel pnlClientInfo, bool isValid,
            Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, Label lblEmail,
-           Clients client, Persons person, Phones phone, ComboBox cbPhones, Guna2Button btnUpdateClient, int personID, ClientUIHelper clientUI, Form form)
+           Clients client, Persons person, Phones phone, Guna2Button btnUpdateClient, int personID, ClientUIHelper clientUI, Form form)
         {
             InitializeCommonFields(errorProvider1, txtAccountNumber, client, person, phone);    
 
@@ -103,7 +104,6 @@ namespace BankSystem
             this._lblFirstName = lblFirstName;
             this._lblLastName = lblLastName;
             this._isValid = isValid;
-            this._cbPhones = cbPhones;
             this._btnUpdateClient = btnUpdateClient;
             this._txtFirstName = txtFirstName;
             this._txtLastName = txtLastName;
@@ -981,18 +981,6 @@ namespace BankSystem
                 return;
 
             ExecuteClientAction();
-
-                //if (IsDepositSuccessful())
-                //{
-                //    HandleTransactionUI();
-                //}
-
-                //else
-                //{
-                //    SetTypeWord();
-
-                //    ShowFailedMessage();
-                //}  
         }
 
 

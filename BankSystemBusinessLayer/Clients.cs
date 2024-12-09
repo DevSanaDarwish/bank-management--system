@@ -44,6 +44,11 @@ namespace BankSystemBusinessLayer
             return ClientsData.GetAllClients();
         }
 
+        public static DataTable GetTotalBalances()
+        {
+            return ClientsData.GetTotalBalances();
+        }
+
         private bool AddNewClient()
         {
             this.clientID = ClientsData.AddNewClient(this.pinCode, this.balance, this.accountNumber, this.personID);
@@ -153,6 +158,11 @@ namespace BankSystemBusinessLayer
         public static bool IsAccountNumberExist(string accountNumber)
         {
             return ClientsData.IsAccountNumberExist(accountNumber);
+        }
+
+        public static decimal GetSumOfBalances()
+        {
+            return ClientsData.GetSumOfBalances();
         }
     }
 }
