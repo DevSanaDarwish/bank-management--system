@@ -40,5 +40,15 @@ namespace BankSystem
         {
             return BusinessInputValidator.IsValueDuplicated(accountNumber);
         }
+
+        public static bool IsAmountPositive(decimal amount)
+        {
+            return BusinessInputValidator.IsValuePositive(amount);
+        }
+
+        public static bool IsAmountLessThanBalance(decimal amount, decimal balance)
+        {
+            return BusinessInputValidator.IsValueValid(amount, balance);
+        }
     }
 }

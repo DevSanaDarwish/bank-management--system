@@ -47,20 +47,5 @@ namespace BankSystem
             testBox.Text = string.Empty;
         }
 
-        static public bool NullValidation(TextBox textbox)
-        {
-            return (PresentationInputValidator.IsControlTextNull(textbox.Text));
-        }
-
-        static public bool NumericValidation(TextBox textbox)
-        {
-            return (PresentationInputValidator.IsNumeric(textbox.Text));
-        }
-
-        static public bool StringValidation(TextBox textbox)
-        {
-            return (PresentationInputValidator.IsString(textbox.Text));
-        }
-
     }
 }

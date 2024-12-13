@@ -449,7 +449,7 @@ namespace BankSystemDataAccessLayer
 
             SqlCommand command = new SqlCommand(query, connection);
 
-            command.Parameters.AddWithValue("amount", amount);
+            command.Parameters.AddWithValue("@amount", amount);
             command.Parameters.AddWithValue("@accountNumber", accountNumber);
 
             try
@@ -500,5 +500,44 @@ namespace BankSystemDataAccessLayer
             }
         }
 
+        public static bool TransferAmount(string accountNumberFrom, string accountNumberTo, decimal amount)
+        {
+            int rowsAffected = 0;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = @"Update Clients 
+                           set Balance = Balance - @amount
+                           Where AccountNumber = @accountNumberFrom; 
+
+                           Update Clients 
+                           set Balance = Balance + @amount
+                           Where AccountNumber = @accountNumberTo;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@accountNumberFrom", accountNumberFrom);
+            command.Parameters.AddWithValue("@accountNumberTo", accountNumberTo);
+            command.Parameters.AddWithValue("@amount", amount);
+
+            try
+            {
+                connection.Open();
+
+                rowsAffected = command.ExecuteNonQuery();
+            }
+
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return (rowsAffected > 0);
+        }
     }
 }

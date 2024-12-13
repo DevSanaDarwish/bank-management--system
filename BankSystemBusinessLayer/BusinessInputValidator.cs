@@ -47,12 +47,14 @@ namespace BankSystemBusinessLayer
             return Clients.IsAccountNumberExist(value);
         }
 
-        public static bool IsAmountValid(decimal amount, decimal balance)
+        public static bool IsValueValid(decimal amount, decimal balance)
         {
-            if (amount > balance)
-                return false;
+            return (amount <= balance);
+        }
 
-            return true;
+        public static bool IsValuePositive(decimal amount)
+        {
+            return amount > 0;
         }
     }
 }

@@ -140,16 +140,32 @@ namespace BankSystemBusinessLayer
             return ClientsData.DepositAmount(depositAmount, accountNumber);
         }
 
-        public bool IsAmountValidForWithdraw(decimal withdrawAmount)
+        public bool IsAmountValid(decimal amount)
         {
-            return BusinessInputValidator.IsAmountValid(withdrawAmount, this.balance);      
+            return BusinessInputValidator.IsValueValid(amount, this.balance);      
+        }
+
+
+        public bool IsAmountPositive(decimal amount)
+        {
+            return BusinessInputValidator.IsValuePositive(amount);
         }
 
         public bool WithdrawAmount(decimal withdrawAmount, string accountNumber)
         {
-            if(IsAmountValidForWithdraw(withdrawAmount))
+            if(IsAmountValid(withdrawAmount))
             {
                 return ClientsData.WithdrawAmount(withdrawAmount, accountNumber);
+            }
+
+            return false;
+        }
+
+        public bool TransferAmount(string accountNumberFrom, string accountNumberTo, decimal amount)
+        {
+            if (IsAmountValid(amount))
+            {
+                return ClientsData.TransferAmount(accountNumberFrom, accountNumberTo, amount);
             }
 
             return false;
