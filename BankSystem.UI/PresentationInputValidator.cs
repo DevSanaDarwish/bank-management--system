@@ -50,5 +50,20 @@ namespace BankSystem
         {
             return BusinessInputValidator.IsValueValid(amount, balance);
         }
+
+        public static bool IsDifferentAccountsNumber(string value1, string value2)
+        {
+            return BusinessInputValidator.IsDifferentStringValues(value1, value2);
+        }
+
+        public static bool IsAmountValid(decimal amount, decimal maxAmount, decimal minAmount)
+        {
+            return BusinessInputValidator.IsAmountValueValid(amount, maxAmount, minAmount);
+        }
+
+        public static bool IsBalanceZero(decimal balance)
+        {
+            return BusinessInputValidator.IsValueZero(balance);
+        }
     }
 }

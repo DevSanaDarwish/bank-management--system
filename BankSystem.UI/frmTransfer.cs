@@ -42,6 +42,16 @@ namespace BankSystem
             _clientUI._clientAction = clientAction;
         }
 
+        private bool IsClientActionEqualsTransfer(enClientAction clientAction)
+        {
+            if (clientAction == enClientAction.Transfer)
+            {
+                _clientUI.HandleTransactionOperation();
+                return true;
+            }
+
+            return false;
+        }
         
         private void HandleClientAction(enClientAction clientAction)
         {
@@ -49,12 +59,8 @@ namespace BankSystem
 
             SetClientAction(clientAction);
 
-            if (clientAction == enClientAction.Transfer)
-            {
-                _clientUI.HandleTransactionOperation();
-
+            if (IsClientActionEqualsTransfer(clientAction))
                 return;
-            }
 
             _clientUI.HandleClientInfo();
         }

@@ -47,6 +47,11 @@ namespace BankSystemBusinessLayer
             return Clients.IsAccountNumberExist(value);
         }
 
+        public static bool IsValueZero(decimal value)
+        {
+            return value == 0;
+        }
+
         public static bool IsValueValid(decimal amount, decimal balance)
         {
             return (amount <= balance);
@@ -55,6 +60,16 @@ namespace BankSystemBusinessLayer
         public static bool IsValuePositive(decimal amount)
         {
             return amount > 0;
+        }
+
+        public static bool IsDifferentStringValues(string value1, string value2)
+        {
+            return !string.Equals(value1, value2, StringComparison.OrdinalIgnoreCase);
+        }
+
+        public static bool IsAmountValueValid(decimal amount, decimal maxAmount, decimal minAmount)
+        {
+            return (amount <= maxAmount && amount >= minAmount);
         }
     }
 }

@@ -78,11 +78,6 @@ namespace BankSystemBusinessLayer
             return false;
         }
 
-        //public static bool IsTransactionAmountValid(string amount)
-        //{
-        //    return BuisnessInputValidator.IsTextNumeric(amount);
-        //}
-
         public bool Save()
         {
             if (IsEmptyValidation() || IsNotNumericValidation())
@@ -145,7 +140,6 @@ namespace BankSystemBusinessLayer
             return BusinessInputValidator.IsValueValid(amount, this.balance);      
         }
 
-
         public bool IsAmountPositive(decimal amount)
         {
             return BusinessInputValidator.IsValuePositive(amount);
@@ -180,5 +174,7 @@ namespace BankSystemBusinessLayer
         {
             return ClientsData.GetSumOfBalances();
         }
+
+       
     }
 }

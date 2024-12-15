@@ -30,7 +30,7 @@ namespace BankSystem
         enum enOperationStatus { Updated, Added, Deposit, Withdraw, Transfer };
         enOperationStatus _statusWord;
 
-
+        
         Guna2Button _btnUpdateClient, _btnDeleteClient, _btnTransaction;
 
         ErrorProvider _errorProvider1;
@@ -50,6 +50,8 @@ namespace BankSystem
         bool _isValid = true;
 
         int _personID = -1;
+
+        const decimal _maxAmount = 50000, _minAmount = 500;
 
         Clients _client = new Clients();
         Persons _person = new Persons();
@@ -412,7 +414,7 @@ namespace BankSystem
 
         private bool CanEnableTransactionButton()
         {
-            return (_clientAction == enClientAction.TransferShowInfoFrom || _clientAction == enClientAction.TransferShowInfoTo) && AreGroupBoxVisible();
+            return (_clientAction == enClientAction.TransferShowInfoFrom || _clientAction == enClientAction.TransferShowInfoTo) && AreGroupBoxesVisible();
         }
         private void ShowClientInfo()
         {
@@ -502,9 +504,16 @@ namespace BankSystem
             return isNotNull;
         }
 
-        private bool AreGroupBoxVisible()
+        private bool AreGroupBoxesVisible()
         {
             return _gbClientCard.Visible && _gbClientCard2.Visible;
+        }
+
+        private bool IsDifferentAccountsNumber()
+        {
+            string accFrom = _txtAccNumFrom.Text, accTo = _txtAccNumTo.Text;
+
+            return PresentationInputValidator.IsDifferentAccountsNumber(accFrom, accTo);
         }
 
         private bool IsInputFieldsValid()
@@ -784,6 +793,11 @@ namespace BankSystem
                     ControlHelper.HideControl(_gbClientCard2);
                     break;
 
+                case enClientAction.Transfer:
+                    ControlHelper.HideControl(_gbClientCard);
+                    ControlHelper.HideControl(_gbClientCard2);
+                    break;
+
                 default:
                     ControlHelper.HideControl(_gbClientCard);
                     break;
@@ -808,18 +822,40 @@ namespace BankSystem
             }
         }
 
+        private bool EnsureDifferentAccounts()
+        {
+            if (_clientAction == enClientAction.TransferShowInfoFrom || _clientAction == enClientAction.TransferShowInfoTo)
+            {
+                if (!IsDifferentAccountsNumber())
+                {
+                    ShowMessage("Account 'from' and 'to' Cannot Be The Same.");
+                    return false;
+                }
+
+                return true;
+            }
+
+            return true;
+        }
+
+        private void PerformClientActionWorkflow()
+        {
+            if (!EnsureDifferentAccounts())
+                return;
+
+            ShowPanelOrGroup();
+
+            SetErrorOnAccountNumber("");
+
+            ExecuteClientAction();
+        }
+
         public void HandleClientInfo()
         {
             SetTextAccountNumber();
 
             if (!PresentationInputValidator.IsControlTextNull(_txtAccountNumber.Text))
-            {
-                ShowPanelOrGroup();
-
-                SetErrorOnAccountNumber("");
-
-                ExecuteClientAction();
-            }
+                PerformClientActionWorkflow();
 
             else
                 SetErrorOnAccountNumber();
@@ -1074,13 +1110,25 @@ namespace BankSystem
         }
 
         private bool ValidateInputAmount()
-        { 
-            return  !IsAmountNull(_txtTransactionAmount)    &&
-                     IsAmountNumeric(_txtTransactionAmount) &&
-                     IsAmountPositive(_txtTransactionAmount);
+        {
+            return  !IsAmountNull(_txtTransactionAmount)     &&
+                     IsAmountNumeric(_txtTransactionAmount)  &&
+                     IsAmountPositive(_txtTransactionAmount) &&
+                     IsAmountValid(_txtTransactionAmount);
         }
 
+        private bool IsAmountValid(TextBox txtAmount)
+        {
+            decimal amount = Convert.ToDecimal(txtAmount.Text);
 
+            if (!PresentationInputValidator.IsAmountValid(amount, _maxAmount, _minAmount))
+            {
+                AllValidation(txtAmount, false, $"The amount is invalid, it should be between {_minAmount} and {_maxAmount}");
+                return false;
+            }
+
+            return true;
+        }
 
         private void ShowSuccessfulMessage()
         {
@@ -1099,6 +1147,8 @@ namespace BankSystem
             ClearAccountNumberText(_txtAccNumTo);
 
             ClearAccountNumberText(_txtAccNumFrom);
+
+            SetErrorOnAccountNumber("");
         }
         private void HandleTransactionUI()
         {
@@ -1128,11 +1178,8 @@ namespace BankSystem
         public void HandleTransactionOperation()
         {
             if (!ValidateInputAmount())
-            {
-                //ShowMessage("You should enter a valid value");
                 return;
-            }
-
+            
             ExecuteClientAction();
         }
 
@@ -1151,40 +1198,51 @@ namespace BankSystem
             return PresentationInputValidator.IsAmountLessThanBalance(amount, balance);
         }
 
-        
+        private bool IsAmountZero()
+        {
+            decimal balance = Convert.ToDecimal(_lblBalance.Text);
+
+            return PresentationInputValidator.IsBalanceZero(balance);
+        }
+
+        private bool ValidateTransaction(decimal amount)
+        {
+            if (IsAmountZero())
+            {
+                SetTypeWord();
+                ShowMessage($"{_typeWord} is not allowed because your account balance is zero");
+                return false;
+            }
+
+            else if (!IsAmountLessThanBalance(amount))
+            {
+                ShowMessage("The amount must not be greater than balance");
+                return false;
+            }
+
+            return true;
+        }
 
         private bool IsWithdrawSuccessful()
         {
             decimal withdrawAmount = Convert.ToDecimal(_txtTransactionAmount.Text);
 
-            if(IsAmountLessThanBalance(withdrawAmount))
-            {
-                return _client.WithdrawAmount(withdrawAmount, _txtAccountNumber.Text);
-            }
-
-            else
-            {
-                ShowMessage("The amount must not be greater than your balance");
+            if (!ValidateTransaction(withdrawAmount))
                 return false;
-            }   
+
+            return _client.WithdrawAmount(withdrawAmount, _txtAccountNumber.Text);
         }
 
         private bool IsTransferSuccessful()
         {
-            decimal amount = Convert.ToDecimal(_txtTransactionAmount.Text);
+            decimal transferAmount = Convert.ToDecimal(_txtTransactionAmount.Text);
             string accountNumberFrom = _txtAccNumFrom.Text;
             string accountNumberTo = _txtAccNumTo.Text;
 
-            if (IsAmountLessThanBalance(amount))
-            {
-                return _client.TransferAmount(accountNumberFrom, accountNumberTo, amount);
-            }
-            
-            else
-            {
-                ShowMessage("The amount must not be greater than balance");
+            if (!ValidateTransaction(transferAmount))
                 return false;
-            }
+
+            return _client.TransferAmount(accountNumberFrom, accountNumberTo, transferAmount);
         }
     }
 }
