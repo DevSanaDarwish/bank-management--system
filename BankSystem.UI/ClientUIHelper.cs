@@ -49,7 +49,7 @@ namespace BankSystem
 
         bool _isValid = true;
 
-        int _personID = -1;
+        public int _personID = -1;
 
         const decimal _maxAmount = 50000, _minAmount = 500;
 
@@ -432,7 +432,7 @@ namespace BankSystem
             SetLabelsInfo(accountNumber);
 
             if (CanEnableTransactionButton())
-                _btnTransaction.Enabled = true;
+                ControlHelper.EnableControl(_btnTransaction);
         }
 
         public void Set_isValid(TextBox textbox, string messageValue, bool validValue)
@@ -1009,6 +1009,8 @@ namespace BankSystem
             }
         }
 
+
+        
         private void ResetPhoneObject()
         {
             _phone = new Phones();

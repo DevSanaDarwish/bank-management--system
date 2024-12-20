@@ -118,5 +118,10 @@ namespace BankSystemBusinessLayer
         {
             return PhonesData.UpdatePhone(this.personID, this.phoneNumber);
         }
+
+        public static byte GetCountOfPhonesNumbers(int personID)
+        {
+            return PhonesData.GetCountOfPhonesNumbers(personID);
+        }
     }
 }

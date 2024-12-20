@@ -51,23 +51,26 @@
             this.btnShowInfo = new Guna.UI2.WinForms.Guna2Button();
             this.btnUpdateClient = new Guna.UI2.WinForms.Guna2Button();
             this.pnlClientInfo = new Guna.UI2.WinForms.Guna2Panel();
-            this.btnAddNewPhone = new Guna.UI2.WinForms.Guna2Button();
+            this.gbAllPhones = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.btnDeletePhone = new Guna.UI2.WinForms.Guna2Button();
+            this.btnDone = new Guna.UI2.WinForms.Guna2Button();
             this.txtPhone = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.btnAddNewPhone = new Guna.UI2.WinForms.Guna2Button();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.txtPinCode = new System.Windows.Forms.TextBox();
             this.txtBalance = new System.Windows.Forms.TextBox();
             this.txtLastName = new System.Windows.Forms.TextBox();
             this.txtFirstName = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.gbAllPhones = new Guna.UI2.WinForms.Guna2GroupBox();
-            this.btnDone = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.gbClientCard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -331,6 +334,108 @@
             this.pnlClientInfo.TabIndex = 39;
             this.pnlClientInfo.Visible = false;
             // 
+            // gbAllPhones
+            // 
+            this.gbAllPhones.AutoScroll = true;
+            this.gbAllPhones.Controls.Add(this.btnDone);
+            this.gbAllPhones.Controls.Add(this.btnAddNewPhone);
+            this.gbAllPhones.CustomBorderColor = System.Drawing.Color.DarkSeaGreen;
+            this.gbAllPhones.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbAllPhones.ForeColor = System.Drawing.Color.White;
+            this.gbAllPhones.Location = new System.Drawing.Point(10, 344);
+            this.gbAllPhones.Name = "gbAllPhones";
+            this.gbAllPhones.Size = new System.Drawing.Size(529, 273);
+            this.gbAllPhones.TabIndex = 51;
+            this.gbAllPhones.Text = "All Phones";
+            this.gbAllPhones.Visible = false;
+            // 
+            // guna2Button1
+            // 
+            this.guna2Button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2Button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2Button1.FillColor = System.Drawing.Color.DarkSeaGreen;
+            this.guna2Button1.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2Button1.ForeColor = System.Drawing.Color.White;
+            this.guna2Button1.Location = new System.Drawing.Point(1108, 319);
+            this.guna2Button1.Name = "guna2Button1";
+            this.guna2Button1.Size = new System.Drawing.Size(93, 32);
+            this.guna2Button1.TabIndex = 57;
+            this.guna2Button1.Text = "Delete ?";
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.White;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox1.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(787, 319);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(291, 32);
+            this.textBox1.TabIndex = 56;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.Black;
+            this.label8.Location = new System.Drawing.Point(692, 322);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(84, 26);
+            this.label8.TabIndex = 55;
+            this.label8.Text = "Phone: ";
+            // 
+            // btnDeletePhone
+            // 
+            this.btnDeletePhone.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnDeletePhone.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnDeletePhone.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnDeletePhone.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnDeletePhone.FillColor = System.Drawing.Color.DarkSeaGreen;
+            this.btnDeletePhone.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeletePhone.ForeColor = System.Drawing.Color.White;
+            this.btnDeletePhone.Location = new System.Drawing.Point(1108, 264);
+            this.btnDeletePhone.Name = "btnDeletePhone";
+            this.btnDeletePhone.Size = new System.Drawing.Size(93, 32);
+            this.btnDeletePhone.TabIndex = 54;
+            this.btnDeletePhone.Text = "Delete ?";
+            // 
+            // btnDone
+            // 
+            this.btnDone.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnDone.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnDone.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnDone.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnDone.FillColor = System.Drawing.Color.DarkSeaGreen;
+            this.btnDone.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDone.ForeColor = System.Drawing.Color.White;
+            this.btnDone.Location = new System.Drawing.Point(193, 49);
+            this.btnDone.Name = "btnDone";
+            this.btnDone.Size = new System.Drawing.Size(94, 36);
+            this.btnDone.TabIndex = 53;
+            this.btnDone.Text = "Done";
+            // 
+            // txtPhone
+            // 
+            this.txtPhone.BackColor = System.Drawing.Color.White;
+            this.txtPhone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtPhone.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPhone.Location = new System.Drawing.Point(787, 261);
+            this.txtPhone.Name = "txtPhone";
+            this.txtPhone.Size = new System.Drawing.Size(291, 32);
+            this.txtPhone.TabIndex = 50;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.Color.Black;
+            this.label15.Location = new System.Drawing.Point(689, 264);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(84, 26);
+            this.label15.TabIndex = 44;
+            this.label15.Text = "Phone: ";
+            // 
             // btnAddNewPhone
             // 
             this.btnAddNewPhone.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
@@ -340,22 +445,12 @@
             this.btnAddNewPhone.FillColor = System.Drawing.Color.DarkSeaGreen;
             this.btnAddNewPhone.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddNewPhone.ForeColor = System.Drawing.Color.White;
-            this.btnAddNewPhone.Location = new System.Drawing.Point(7, 46);
+            this.btnAddNewPhone.Location = new System.Drawing.Point(7, 49);
             this.btnAddNewPhone.Name = "btnAddNewPhone";
             this.btnAddNewPhone.Size = new System.Drawing.Size(171, 36);
             this.btnAddNewPhone.TabIndex = 51;
             this.btnAddNewPhone.Text = "Add New Phone";
             this.btnAddNewPhone.Click += new System.EventHandler(this.btnAddPhone_Click);
-            // 
-            // txtPhone
-            // 
-            this.txtPhone.BackColor = System.Drawing.Color.White;
-            this.txtPhone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtPhone.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPhone.Location = new System.Drawing.Point(102, 124);
-            this.txtPhone.Name = "txtPhone";
-            this.txtPhone.Size = new System.Drawing.Size(291, 35);
-            this.txtPhone.TabIndex = 50;
             // 
             // txtEmail
             // 
@@ -406,17 +501,6 @@
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(291, 35);
             this.txtFirstName.TabIndex = 45;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.Color.Black;
-            this.label15.Location = new System.Drawing.Point(7, 127);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(95, 28);
-            this.label15.TabIndex = 44;
-            this.label15.Text = "Phone: ";
             // 
             // label10
             // 
@@ -478,62 +562,21 @@
             this.label1.TabIndex = 38;
             this.label1.Text = "Update Client Info: ";
             // 
-            // gbAllPhones
-            // 
-            this.gbAllPhones.AutoScroll = true;
-            this.gbAllPhones.Controls.Add(this.guna2Button1);
-            this.gbAllPhones.Controls.Add(this.btnDone);
-            this.gbAllPhones.Controls.Add(this.txtPhone);
-            this.gbAllPhones.Controls.Add(this.label15);
-            this.gbAllPhones.Controls.Add(this.btnAddNewPhone);
-            this.gbAllPhones.CustomBorderColor = System.Drawing.Color.DarkSeaGreen;
-            this.gbAllPhones.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbAllPhones.ForeColor = System.Drawing.Color.White;
-            this.gbAllPhones.Location = new System.Drawing.Point(20, 339);
-            this.gbAllPhones.Name = "gbAllPhones";
-            this.gbAllPhones.Size = new System.Drawing.Size(529, 281);
-            this.gbAllPhones.TabIndex = 51;
-            this.gbAllPhones.Text = "All Phones";
-            // 
-            // btnDone
-            // 
-            this.btnDone.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnDone.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnDone.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnDone.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnDone.FillColor = System.Drawing.Color.DarkSeaGreen;
-            this.btnDone.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDone.ForeColor = System.Drawing.Color.White;
-            this.btnDone.Location = new System.Drawing.Point(193, 46);
-            this.btnDone.Name = "btnDone";
-            this.btnDone.Size = new System.Drawing.Size(94, 36);
-            this.btnDone.TabIndex = 53;
-            this.btnDone.Text = "Done";
-            // 
-            // guna2Button1
-            // 
-            this.guna2Button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button1.FillColor = System.Drawing.Color.DarkSeaGreen;
-            this.guna2Button1.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2Button1.ForeColor = System.Drawing.Color.White;
-            this.guna2Button1.Location = new System.Drawing.Point(410, 123);
-            this.guna2Button1.Name = "guna2Button1";
-            this.guna2Button1.Size = new System.Drawing.Size(106, 36);
-            this.guna2Button1.TabIndex = 54;
-            this.guna2Button1.Text = "Delete ?";
-            // 
             // frmUpdateClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1379, 830);
+            this.Controls.Add(this.guna2Button1);
             this.Controls.Add(this.btnUpdateClient);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.txtPhone);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.pnlClientInfo);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.btnShowInfo);
+            this.Controls.Add(this.btnDeletePhone);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.gbClientCard);
             this.Controls.Add(this.txtAccountNumber);
@@ -542,6 +585,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmUpdateClient";
             this.Text = "UpdateClient";
+            this.Load += new System.EventHandler(this.frmUpdateClient_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.gbClientCard.ResumeLayout(false);
             this.gbClientCard.PerformLayout();
@@ -549,7 +593,6 @@
             this.pnlClientInfo.ResumeLayout(false);
             this.pnlClientInfo.PerformLayout();
             this.gbAllPhones.ResumeLayout(false);
-            this.gbAllPhones.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -594,6 +637,9 @@
         private System.Windows.Forms.Label label1;
         private Guna.UI2.WinForms.Guna2GroupBox gbAllPhones;
         private Guna.UI2.WinForms.Guna2Button btnDone;
+        private Guna.UI2.WinForms.Guna2Button btnDeletePhone;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label8;
         private Guna.UI2.WinForms.Guna2Button guna2Button1;
     }
 }

@@ -87,6 +87,40 @@ namespace BankSystemDataAccessLayer
             return phoneID;
         }
 
+        public static byte GetCountOfPhonesNumbers(int personID)
+        {
+            byte countOfPhones = 0;
+
+            SqlConnection connection = new SqlConnection( DataAccessSettings.connectionString);
+
+            string query = "Select Count(PhoneNumber) From Phones Where PersonID = @personID;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@personID", personID);
+
+            try
+            {
+                connection.Open();
+
+                object result = command.ExecuteScalar();
+
+                if(result != null && byte.TryParse(result.ToString(), out byte count))
+                {
+                    countOfPhones = count;
+                }
+            }
+
+            catch(Exception ex) { }
+                       
+            finally
+            {
+                connection.Close();
+            }
+
+            return countOfPhones;
+        }
+
         public static bool GetPhoneNumberByClientID(int clientID, ref string phoneNumber)
         {
             bool isFound = false;
