@@ -990,17 +990,16 @@ namespace BankSystem
         private void ValidationPhoneNumbersSave()
         {
             byte itemsCount = Convert.ToByte(_cbPhones.Items.Count);
-            string item = "";
 
             for (byte itemIndex = 0; itemIndex < itemsCount; itemIndex++)
             {
-                item = _cbPhones.Items[itemIndex].ToString();
+                string item = _cbPhones.Items[itemIndex].ToString();
 
                 ProcessPhoneItem(item);
             }
         }
 
-        private void ProcessPhoneItem(string phoneItem)
+        public void ProcessPhoneItem(string phoneItem)
         {
             FillPhoneObject(phoneItem);
 
@@ -1071,6 +1070,13 @@ namespace BankSystem
         private void ValidationClientsAndPhonesSave()
         {
             SetStatusWord();
+
+            if(_clientAction == enClientAction.Update)
+            {
+                ((frmUpdateClient)_form).UpdatePhones();
+                ShowSaveMessage();
+                return;
+            }
 
             ValidationPhoneNumbersSave();
 

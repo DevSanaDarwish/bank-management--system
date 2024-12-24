@@ -181,9 +181,34 @@ namespace BankSystem
             this.Refresh();
         }
 
-        private void FillTextBoxesWithPhoneNumbers()
+        private byte GetCountOfTextBoxes()
         {
+            byte count = 0;
 
+            foreach(Control control in gbAllPhones.Controls)
+            {
+                if(control is TextBox textbox)
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
+        public void UpdatePhones()
+        {
+            byte itemsCount = GetCountOfTextBoxes();
+
+            foreach (Control control in gbAllPhones.Controls)
+            {
+                if (control is TextBox textbox)
+                {
+                    string item = textbox.Text;
+
+                    _clientUI.ProcessPhoneItem(item);
+                }
+            }
         }
 
         private void CreateTextBoxes()
