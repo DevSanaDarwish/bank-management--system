@@ -48,13 +48,8 @@ namespace BankSystem
 
         public ClientUIHelper _clientUI;
 
-        short _textboxX = 100;
+        short _textboxX = 10;
         short _textboxY = 120;
-
-        short _labelX = 3;
-        short _labelY = 120;
-
-        byte order = 0;
 
         //int _personID = -1;
 
@@ -68,11 +63,9 @@ namespace BankSystem
             InitializeClientUIObject(client, person, phone);
         }
 
-
-
         private void InitializeClientUIObject(Clients client, Persons person, Phones phone)
         {
-            _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, txtEmail, txtPhone, txtBalance, txtPinCode, txtFirstName,
+            _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, txtEmail/*, gbAllPhones*/, txtBalance, txtPinCode, txtFirstName,
               txtLastName, pnlClientInfo, true, lblFirstName, lblLastName, lblBalance, lblPinCode, lblPhone, lblEmail, client, person,
               phone, btnUpdateClient, -1, _clientUI, this);
         }
@@ -80,9 +73,7 @@ namespace BankSystem
         private void SetClientAction(enClientAction clientAction)
         {
             _clientUI._clientAction = clientAction;
-        }
-
-        
+        }    
 
         private void Update()
         {
@@ -110,9 +101,6 @@ namespace BankSystem
             SetClientAction(clientAction);
 
             _clientUI.HandleClientInfo();
-
-
-            
         }
 
         private byte GetCountOfPhonesNumbers()
@@ -120,7 +108,13 @@ namespace BankSystem
             return Convert.ToByte(lblPhone.Text.Split(',').Length);
         }
 
-        private byte GetCount()
+        private string[] GetPhonesNumbers()
+        {
+            return lblPhone.Text.Split(',');
+        }
+
+       
+        private byte GetCountOfPhonesNumbersByDatabase()
         {
             return Phones.GetCountOfPhonesNumbers(_clientUI._personID);
         }
@@ -134,88 +128,72 @@ namespace BankSystem
             text.ForeColor = Color.Black;
             text.BackColor = Color.White;
             text.BorderStyle = BorderStyle.FixedSingle;
-            text.Font = new Font("Cambria", 12, FontStyle.Regular);
+            text.Font = new Font("Cambria", 12, FontStyle.Bold);
 
             gbAllPhones.Controls.Add(text);
         }
+
         private void btnDeletePhone_Click(object sender, EventArgs e)
         {
             DeletePhone(sender);
         }
-
-
+        
         private void DeletePhone(object sender)
         {
             Guna2Button clickedButton = sender as Guna2Button;
             TextBox textBox = clickedButton.Tag as TextBox;
 
-            this.Controls.Remove(textBox);
-            this.Controls.Remove(clickedButton);
+            gbAllPhones.Controls.Remove(textBox);
+            gbAllPhones.Controls.Remove(clickedButton);
 
             _textboxX = 100;
             _textboxY = 120;
         }
 
-        private void ConfigureButton(TextBox text)
+        private void ConfigureButton(Guna2Button btnDeletePhone, TextBox text)
         {
-            Guna2Button btnDeletePhone = new Guna2Button();
-
             btnDeletePhone.Text = "Delete ?";
-            btnDeletePhone.Location = new Point(500, _textboxY);
-            btnDeletePhone.Size = new Size(97, 40);
-            btnDeletePhone.ForeColor = Color.FromArgb(192, 192, 255);
-            btnDeletePhone.FillColor = Color.FromArgb(0, 0, 64);
-            btnDeletePhone.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            btnDeletePhone.Location = new Point(404, _textboxY);
+            btnDeletePhone.Size = new Size(93, 32);
+            btnDeletePhone.ForeColor = Color.White;
+            btnDeletePhone.FillColor = Color.DarkSeaGreen;
+            btnDeletePhone.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             btnDeletePhone.Click += new EventHandler(btnDeletePhone_Click);
             btnDeletePhone.Tag = text;
 
-            gbAllPhones.Controls.Add(text);
+            gbAllPhones.Controls.Add(btnDeletePhone);
         }
 
-        private void CreatePhoneNumberTextBox()
+        
+
+        private void CreatePhoneNumberTextBoxAndDeleteButton(string phoneNumber)
         {
             TextBox textBox = new TextBox();
 
-            ConfigureTextBox(textBox, "");
+            Guna2Button btnDeletePhone = new Guna2Button();
+
+            ConfigureTextBox(textBox, phoneNumber);
+
+            ConfigureButton(btnDeletePhone, textBox);
 
             _textboxY += 50;
 
             this.Refresh();
         }
 
-        private void CreatePhoneLabel()
+        private void FillTextBoxesWithPhoneNumbers()
         {
-            Label label = new Label();
 
-            ConfigureLabel(label, ++order);
-
-            _labelY += 50;
-
-            this.Refresh();
         }
 
         private void CreateTextBoxes()
         {
-            byte count = GetCount();
+            byte count = GetCountOfPhonesNumbers();
 
             for(byte i = 0; i < count; i++)
             {
-                CreatePhoneNumberTextBox();
-
-                CreatePhoneLabel();
+                CreatePhoneNumberTextBoxAndDeleteButton(GetPhonesNumbers()[i]);
             }
-        }
-
-        private void ConfigureLabel(Label text, byte order)
-        {
-            text.Text = $"Phone {order}:";
-            text.Location = new Point(_labelX, _labelY);
-            text.Size = new Size(291, 32);
-            text.ForeColor = Color.Black;
-            text.BackColor = Color.White;
-            text.Font = new Font("Trebuchet MS", 12, FontStyle.Bold);
-
-            gbAllPhones.Controls.Add(text);
         }
 
         private void ShowPhonesNumbers()
@@ -228,7 +206,6 @@ namespace BankSystem
             HandleClientAction(enClientAction.UpdateShowInfo);
             ShowPhonesNumbers();
             CreateTextBoxes();
-
         }
 
         private void btnUpdateClient_Click(object sender, EventArgs e)
@@ -236,19 +213,41 @@ namespace BankSystem
             HandleClientAction(enClientAction.Update);
         }
 
-        private void UpdatePhone()
+        public bool ValidatePhoneNumbers()
         {
-            _clientUI.AddPhone();
+            string nullMessage = "This Field Should Not Be Empty";
+            string numMessage = "This Field Should Be Numeric";
+            bool isValid = true;
+
+            foreach (Control control in gbAllPhones.Controls)
+            {
+                if(control is TextBox textbox)
+                {
+                    if (PresentationInputValidator.IsControlTextNull(textbox.Text))
+                    {
+                        _clientUI.AllValidation(textbox, false, nullMessage);
+                        isValid = false;
+                    }
+
+                    if(!PresentationInputValidator.IsNumeric(textbox.Text))
+                    {
+                        _clientUI.AllValidation(textbox, false, numMessage);
+                        isValid = false;
+                    }
+                }
+            }
+
+            return isValid;
+        }
+
+        private void AddNewPhone()
+        {
+            CreatePhoneNumberTextBoxAndDeleteButton("");
         }
 
         private void btnAddPhone_Click(object sender, EventArgs e)
         {
-            UpdatePhone();
-        }
-
-        private void frmUpdateClient_Load(object sender, EventArgs e)
-        {
-
+            AddNewPhone();
         }
     }
 }

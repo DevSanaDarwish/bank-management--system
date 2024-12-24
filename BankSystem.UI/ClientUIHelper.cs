@@ -3,6 +3,7 @@ using Guna.UI2.WinForms;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices.ComTypes;
@@ -35,7 +36,7 @@ namespace BankSystem
 
         ErrorProvider _errorProvider1;
 
-        Guna2GroupBox _gbClientCard, _gbClientCard2;
+        Guna2GroupBox _gbClientCard, _gbClientCard2, _gbAllPhones;
 
         TextBox _txtAccountNumber, _txtEmail, _txtPhone, _txtBalance, _txtPinCode, _txtFirstName, _txtLastName, _txtTransactionAmount,
             _txtAccNumFrom, _txtAccNumTo;
@@ -121,7 +122,7 @@ namespace BankSystem
         }
 
         //Constructor For frmUpdateClient 
-        public ClientUIHelper(ErrorProvider errorProvider1, Guna2GroupBox gbClientCard, TextBox txtAccountNumber, TextBox txtEmail, TextBox txtPhone,
+        public ClientUIHelper(ErrorProvider errorProvider1, Guna2GroupBox gbClientCard, TextBox txtAccountNumber, TextBox txtEmail, /*Guna2GroupBox gbAllPhones,*/
            TextBox txtBalance, TextBox txtPinCode, TextBox txtFirstName, TextBox txtLastName, Guna2Panel pnlClientInfo, bool isValid,
            Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, Label lblEmail,
            Clients client, Persons person, Phones phone, Guna2Button btnUpdateClient, int personID, ClientUIHelper clientUI, Form form)
@@ -137,7 +138,7 @@ namespace BankSystem
             this._lblEmail = lblEmail;
             this._pnlClientInfo = pnlClientInfo;
             this._txtEmail = txtEmail;
-            this._txtPhone = txtPhone;
+            //this._gbAllPhones = gbAllPhones;
             this._txtBalance = txtBalance;
             this._txtPinCode = txtPinCode;
             this._lblFirstName = lblFirstName;
@@ -286,7 +287,7 @@ namespace BankSystem
             return !IsClientNotFound(_person);
         }
 
-        private bool LoadPhoneInfo()
+        public bool LoadPhoneInfo()
         {
             _phone = Phones.Find(_client.clientID);
 
@@ -442,7 +443,7 @@ namespace BankSystem
             _isValid = validValue;
         }
 
-        private void AllValidation(TextBox textbox, bool typeValidation, string message)
+        public void AllValidation(TextBox textbox, bool typeValidation, string message)
         {
             if (typeValidation)
             {
@@ -598,7 +599,7 @@ namespace BankSystem
         private bool IsUpdateAndValid()
         {
             if (_clientAction == enClientAction.Update)
-                return (ValidateInputFields());
+                return (ValidateInputFields() && ((frmUpdateClient)_form).ValidatePhoneNumbers());
 
             return true;
         }
