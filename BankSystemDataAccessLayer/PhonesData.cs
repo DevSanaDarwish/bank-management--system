@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -121,14 +122,16 @@ namespace BankSystemDataAccessLayer
             return countOfPhones;
         }
 
-        public static bool GetPhoneNumberByClientID(int clientID, ref string phoneNumber)
+        public static bool GetPhoneNumberByClientIDInList(int clientID, List<string> phoneNumbers, List<int> phoneIds)
         {
             bool isFound = false;
 
-            SqlConnection connection = new SqlConnection( DataAccessSettings.connectionString);
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
             
-            //string query = "Select * From Phones Where PersonID = @clientID";
-            string query = "Select PhoneNumbers From vwClients Where ClientID = @clientID";
+            string query = @"SELECT ph.PhoneId, ph.PhoneNumber FROM Phones ph
+                            INNER JOIN Persons p ON p.PersonId = ph.PersonId
+                            INNER JOIN Clients c ON c.PersonId = p.PersonId
+                            WHERE c.ClientId = @clientID;";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -140,7 +143,52 @@ namespace BankSystemDataAccessLayer
 
                 SqlDataReader reader = command.ExecuteReader();
 
-                if(reader.Read())
+                while(reader.Read())
+                {
+                    isFound = true;
+
+                    phoneNumbers.Add((string)reader["PhoneNumber"]);
+
+                    phoneIds.Add((int)reader["phoneId"]);
+                }
+
+                reader.Close();
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+
+                isFound = false;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return isFound;
+        }
+
+        public static bool GetPhoneNumberByClientID(int clientID, ref string phoneNumber)
+        {
+            bool isFound = false;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = @"Select PhoneNumbers From vwClients Where ClientID = @clientID;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@clientID", clientID);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.Read())
                 {
                     isFound = true;
 
@@ -168,8 +216,6 @@ namespace BankSystemDataAccessLayer
             }
 
             return isFound;
-
-
         }
 
         public static bool DeletePhone(int personID)
@@ -204,7 +250,7 @@ namespace BankSystemDataAccessLayer
             return (rowsAffected > 0);
         }
 
-        public static bool UpdatePhone(int personID, string phoneNumber)
+        public static bool UpdatePhone(int phoneID, string phoneNumber)
         {
             int rowsAffected = 0;
 
@@ -212,12 +258,12 @@ namespace BankSystemDataAccessLayer
 
             string query = @"Update Phones 
                            set PhoneNumber = @phoneNumber
-                           Where PersonID = @personID;";
+                           Where PhoneID = @phoneID;";
 
             SqlCommand command = new SqlCommand(query, connection);
 
             command.Parameters.AddWithValue("@phoneNumber", phoneNumber);
-            command.Parameters.AddWithValue("@personID", personID);
+            command.Parameters.AddWithValue("@phoneID", phoneID);
 
             try
             {

@@ -51,8 +51,6 @@ namespace BankSystem
         short _textboxX = 10;
         short _textboxY = 120;
 
-        //int _personID = -1;
-
 
         private void InitializeAllObjects()
         {
@@ -108,16 +106,41 @@ namespace BankSystem
             return Convert.ToByte(lblPhone.Text.Split(',').Length);
         }
 
+        private byte GetCountOfPhonesNumbersByDatabase()
+        {
+            return Phones.GetCountOfPhonesNumbers(_clientUI._personID);
+        }
+
         private string[] GetPhonesNumbers()
         {
             return lblPhone.Text.Split(',');
         }
 
-       
-        private byte GetCountOfPhonesNumbersByDatabase()
+        private List <string> GetPhonesNumbersByDatabase()
         {
-            return Phones.GetCountOfPhonesNumbers(_clientUI._personID);
+            List<string> lstPhones = new List<string>();
+
+            if(_clientUI.LoadPhoneInfo())
+            {
+                List<Phones> phonesList = Phones.FindInList(_clientUI._client.clientID);
+
+                foreach(Phones phone in phonesList)
+                {
+                    lstPhones.Add(phone.phoneNumber);
+                }
+            }
+
+            return lstPhones;
+
+            //for(byte i = 0; i < lstPhones.Count; i++)
+            //{
+            //    if (_clientUI.LoadPhoneInfo())
+            //    {
+            //        lstPhones = Phones.FindInList(_clientUI._client.clientID).ToString();
+            //    }
+            //}
         }
+
 
         private void ConfigureTextBox(TextBox text, string phoneNumber)
         {
@@ -210,6 +233,8 @@ namespace BankSystem
                 }
             }
         }
+        
+    
 
         private void CreateTextBoxes()
         {
@@ -217,8 +242,13 @@ namespace BankSystem
 
             for(byte i = 0; i < count; i++)
             {
-                CreatePhoneNumberTextBoxAndDeleteButton(GetPhonesNumbers()[i]);
+                CreatePhoneNumberTextBoxAndDeleteButton(GetPhonesNumbersByDatabase()[i]);
             }
+
+            //for(byte i = 0; i < count; i++)
+            //{
+            //    CreatePhoneNumberTextBoxAndDeleteButton(GetPhonesNumbers()[i]);
+            //}
         }
 
         private void ShowPhonesNumbers()

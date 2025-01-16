@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using BankSystemDataAccessLayer;
 
@@ -24,18 +25,17 @@ namespace BankSystemBusinessLayer
             mode = enMode.AddNew;
         }
 
-        public Phones(int phoneID, string phoneNumber, int personID)
+        public Phones(string phoneNumber)
         {
-            this.phoneID = phoneID;
             this.phoneNumber = phoneNumber;
-            this.personID = personID;
 
             mode = enMode.Update;
         }
 
-        public Phones(string phoneNumber)
+        public Phones(string phoneNumber, int phoneID)
         {
             this.phoneNumber = phoneNumber;
+            this.phoneID = phoneID;
 
             mode = enMode.Update;
         }
@@ -103,6 +103,29 @@ namespace BankSystemBusinessLayer
                 return null;
         }
 
+        public static List<Phones> FindInList(int clientID)
+        {
+            List<string> phoneNumbers = new List<string>();
+
+            List<int> phoneIds = new List<int>();
+
+            List<Phones> lstPhones = new List<Phones>();
+
+            if(PhonesData.GetPhoneNumberByClientIDInList(clientID, phoneNumbers, phoneIds))
+            {
+                for(byte i = 0; i < phoneNumbers.Count; i++)
+                {
+                    Phones phone = new Phones(phoneNumbers[i], phoneIds[i]);
+
+                    lstPhones.Add(phone);
+                }     
+            }
+
+            return lstPhones;
+        }
+
+
+
         //public static void ResetPhonesIdentity()
         //{
         //    if (!PhonesData.ResetPhonesIdentity())
@@ -116,7 +139,7 @@ namespace BankSystemBusinessLayer
 
         public bool UpdatePhone()
         {
-            return PhonesData.UpdatePhone(this.personID, this.phoneNumber);
+            return PhonesData.UpdatePhone(this.phoneID, this.phoneNumber);
         }
 
         public static byte GetCountOfPhonesNumbers(int personID)

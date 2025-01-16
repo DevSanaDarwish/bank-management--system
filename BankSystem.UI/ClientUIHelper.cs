@@ -50,13 +50,13 @@ namespace BankSystem
 
         bool _isValid = true;
 
-        public int _personID = -1;
+        public int _personID = -1, _phoneID = -1;
 
         const decimal _maxAmount = 50000, _minAmount = 500;
 
-        Clients _client = new Clients();
+        public Clients _client = new Clients();
         Persons _person = new Persons();
-        Phones _phone = new Phones();
+        public Phones _phone = new Phones();
 
         ClientUIHelper _clientUI;
 
@@ -125,7 +125,7 @@ namespace BankSystem
         public ClientUIHelper(ErrorProvider errorProvider1, Guna2GroupBox gbClientCard, TextBox txtAccountNumber, TextBox txtEmail, /*Guna2GroupBox gbAllPhones,*/
            TextBox txtBalance, TextBox txtPinCode, TextBox txtFirstName, TextBox txtLastName, Guna2Panel pnlClientInfo, bool isValid,
            Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, Label lblEmail,
-           Clients client, Persons person, Phones phone, Guna2Button btnUpdateClient, int personID, ClientUIHelper clientUI, Form form)
+           Clients client, Persons person, Phones phone, Guna2Button btnUpdateClient, int phoneID, ClientUIHelper clientUI, Form form)
         {
             InitializeCommonFields(errorProvider1, txtAccountNumber, client, person, phone);
 
@@ -147,7 +147,7 @@ namespace BankSystem
             this._btnUpdateClient = btnUpdateClient;
             this._txtFirstName = txtFirstName;
             this._txtLastName = txtLastName;
-            this._personID = personID;
+            this._phoneID = phoneID;
             this._clientUI = clientUI;
             this._form = form;
         }
@@ -293,6 +293,14 @@ namespace BankSystem
 
             return !IsClientNotFound(_phone);
         }
+
+        //public bool LoadPhoneInfoByFindByList()
+        //{
+        //    _phone = Phones.FindInList(_client.clientID);
+            
+        //    return !IsClientNotFound(_phone);
+        //}
+
 
         private bool AreObjectsInfoSuccessfullyLoaded(string accountNumber)
         {
@@ -497,8 +505,11 @@ namespace BankSystem
             }
 
             //_phone control null validation
-            IsComboBoxNull();
-
+            if(_clientAction != enClientAction.Update)
+            {
+                IsComboBoxNull();
+            }
+            
             if (!_isValid)
                 isNotNull = _isValid;
 
@@ -575,7 +586,10 @@ namespace BankSystem
         {
             ClearTextBoxes();
 
-            ClearComboBoxPhones();
+            if( _clientAction != enClientAction.Update)
+            {
+                ClearComboBoxPhones();
+            }    
         }
 
         public bool IsAccountNumberDuplicated(string accountNumber)
@@ -694,7 +708,6 @@ namespace BankSystem
             return (_clientAction == enClientAction.Transfer && ConfirmTransferOperation())
                    ||
                    AreObjectsInfoSuccessfullyLoaded(GetAccountNumber(_txtAccountNumber));
-
         }
        
         private void ConfirmOperation(string confirmMessage)
@@ -1020,7 +1033,9 @@ namespace BankSystem
         {
             _phone.phoneNumber = item;
 
-            _phone.personID = _personID;
+            _phone.phoneID = _phoneID;
+
+            //_phone.phoneID = _personID;
         }
 
         private void SetPersonIDToClientObject()
@@ -1231,6 +1246,8 @@ namespace BankSystem
 
             return true;
         }
+
+        
 
         private bool IsWithdrawSuccessful()
         {
