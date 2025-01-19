@@ -406,11 +406,8 @@ namespace BankSystem
 
         private void ShowTransactionDetails()
         {
-            if (_clientAction == enClientAction.DepositShowInfo || _clientAction == enClientAction.WithdrawShowInfo)
-            {
-                ShowTransactionAmountText(_txtTransactionAmount);
-                ShowTransactionAmountLabel(_lblTransactionAmount);
-            }
+            ShowTransactionAmountText(_txtTransactionAmount);
+            ShowTransactionAmountLabel(_lblTransactionAmount);
         }
 
         private void ShowDefaultValues()
@@ -432,16 +429,55 @@ namespace BankSystem
             if (!AreObjectsInfoSuccessfullyLoaded(accountNumber))
                 return;
 
-            ShowButton();
+            HandleShowClientInfo(accountNumber);
+        }
 
-            ShowTransactionDetails();
-
-            ShowDefaultValues();
-
+        private void HandleShowClientInfo(string accountNumber)
+        {
             SetLabelsInfo(accountNumber);
 
+            ShowButton();
+
+            HandleClientActionForShowInfo();
+
+            HandleTransactionButton();
+        }
+
+        private void HandleClientActionForShowInfo()
+        {
+            switch (_clientAction)
+            {
+                case enClientAction.DepositShowInfo:
+                case enClientAction.WithdrawShowInfo:
+                    ShowTransactionDetails();
+                    break;
+
+                case enClientAction.UpdateShowInfo:
+                    PrepareClientUpdateForm();
+                    break;
+            }
+        }
+
+        private void HandleTransactionButton()
+        {
             if (CanEnableTransactionButton())
-                ControlHelper.EnableControl(_btnTransaction);
+            {
+                EnableTransactionButton();
+            }
+        }
+
+        private void PrepareClientUpdateForm()
+        {
+            FillDefaultValuesForUpdate();
+
+            ((frmUpdateClient)_form).ShowPhonesNumbers();
+
+            ((frmUpdateClient)_form).CreateTextBoxes();
+        }
+
+        private void EnableTransactionButton()
+        {
+            ControlHelper.EnableControl(_btnTransaction);
         }
 
         public void Set_isValid(TextBox textbox, string messageValue, bool validValue)

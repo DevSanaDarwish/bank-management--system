@@ -21,7 +21,7 @@ namespace BankSystem
             InitializeComponent();
         }
 
-        
+
 
         //public frmUpdateClient(Clients client, Persons person, Phones phone, int personID, TextBox txtEmail, TextBox txtBalance, TextBox txtPinCode, TextBox txtFirstName, TextBox txtLastName, ClientUIHelper clientUI)
         //{
@@ -39,12 +39,12 @@ namespace BankSystem
         //    this._clientUI = clientUI;
         //}
 
-        //public frmUpdateClient(ClientUIHelper clientUI)
-        //{
-        //    InitializeComponent();
+        public frmUpdateClient(ClientUIHelper clientUI)
+        {
+            InitializeComponent();
 
-        //    this._clientUI = clientUI;
-        //}
+            this._clientUI = clientUI;
+        }
 
         public ClientUIHelper _clientUI;
 
@@ -236,7 +236,7 @@ namespace BankSystem
         
     
 
-        private void CreateTextBoxes()
+        public void CreateTextBoxes()
         {
             byte count = GetCountOfPhonesNumbers();
 
@@ -251,16 +251,17 @@ namespace BankSystem
             //}
         }
 
-        private void ShowPhonesNumbers()
+        public void ShowPhonesNumbers()
         {
             ControlHelper.VisibleControl(gbAllPhones);
         }
+
         
         private void btnShowInfo_Click(object sender, EventArgs e)
         {
             HandleClientAction(enClientAction.UpdateShowInfo);
-            ShowPhonesNumbers();
-            CreateTextBoxes();
+            //ShowPhonesNumbers();
+            //CreateTextBoxes();
         }
 
         private void btnUpdateClient_Click(object sender, EventArgs e)
