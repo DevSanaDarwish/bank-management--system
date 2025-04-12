@@ -221,7 +221,7 @@ namespace BankSystem
 
         public void UpdatePhones()
         {
-            byte itemsCount = GetCountOfTextBoxes();
+            //byte itemsCount = GetCountOfTextBoxes();
 
             foreach (Control control in gbAllPhones.Controls)
             {
@@ -232,9 +232,14 @@ namespace BankSystem
                     _clientUI.ProcessPhoneItem(item);
                 }
             }
-        }
+        }  
+
         
-    
+       public void ResetXAndY()
+        {
+            _textboxX = 10;
+            _textboxY = 120;
+        }
 
         public void CreateTextBoxes()
         {
@@ -245,10 +250,23 @@ namespace BankSystem
                 CreatePhoneNumberTextBoxAndDeleteButton(GetPhonesNumbersByDatabase()[i]);
             }
 
-            //for(byte i = 0; i < count; i++)
-            //{
-            //    CreatePhoneNumberTextBoxAndDeleteButton(GetPhonesNumbers()[i]);
-            //}
+            ResetXAndY();
+        }
+
+        private void ShowAddPhoneButton()
+        {
+            ControlHelper.VisibleControl(btnAddNewPhone);
+        }
+
+        public void ShowAllPhones()
+        {
+            ClearPhonesGroupBox();
+
+            ShowPhonesNumbers();
+
+            ShowAddPhoneButton();
+
+            CreateTextBoxes();
         }
 
         public void ShowPhonesNumbers()
@@ -256,12 +274,24 @@ namespace BankSystem
             ControlHelper.VisibleControl(gbAllPhones);
         }
 
-        
+        public void ClearPhonesGroupBox()
+        {
+            foreach(Control control in gbAllPhones.Controls)
+            {
+                if (control == btnAddNewPhone)
+                    continue;
+                
+                if(control is TextBox || control is Guna2Button)
+                {
+                    ControlHelper.RemoveControl(control);
+                }
+            }
+        }
+
+
         private void btnShowInfo_Click(object sender, EventArgs e)
         {
             HandleClientAction(enClientAction.UpdateShowInfo);
-            //ShowPhonesNumbers();
-            //CreateTextBoxes();
         }
 
         private void btnUpdateClient_Click(object sender, EventArgs e)

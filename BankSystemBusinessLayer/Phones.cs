@@ -16,11 +16,18 @@ namespace BankSystemBusinessLayer
 
         public int personID { get; set; }
 
+        List<string> phoneNumbers { get; set; }
+
+        List<int> phoneIds { get; set; }
+
+
         public Phones()
         {
             this.phoneID = -1;
             this.phoneNumber = "";
             this.personID = -1;
+            this.phoneNumbers = new List<string>();
+            this.phoneIds = new List<int>();
 
             mode = enMode.AddNew;
         }
@@ -79,7 +86,7 @@ namespace BankSystemBusinessLayer
                 case enMode.AddNew:
                     if(AddNewPhone())
                     {
-                        mode = enMode.Update;
+                        //mode = enMode.Update;
                         return true;
                     }
 
@@ -87,6 +94,29 @@ namespace BankSystemBusinessLayer
 
                 case enMode.Update:
                     return UpdatePhone();
+            }
+
+            return false;
+        }
+
+        public bool Save(string phoneItem)
+        {
+            if (IsEmptyValidation() || IsNotNumericValidation())
+                return false;
+
+            switch (mode)
+            {
+                case enMode.AddNew:
+                    if (AddNewPhone())
+                    {
+                        mode = enMode.Update;
+                        return true;
+                    }
+
+                    return false;
+
+                case enMode.Update:
+                    return UpdatePhone(phoneItem);
             }
 
             return false;
@@ -101,6 +131,20 @@ namespace BankSystemBusinessLayer
 
             else
                 return null;
+        }
+
+        public static List<int> GetPhoneIDs(int clientID)
+        {
+            List<string> phoneNumbers = new List<string>();
+
+            List<int> phoneIds = new List<int>();
+
+            if (PhonesData.GetPhoneNumberByClientIDInList(clientID, phoneNumbers, phoneIds))
+            {
+                return phoneIds;
+            }
+
+            return new List<int>();
         }
 
         public static List<Phones> FindInList(int clientID)
@@ -124,7 +168,7 @@ namespace BankSystemBusinessLayer
             return lstPhones;
         }
 
-
+        
 
         //public static void ResetPhonesIdentity()
         //{
@@ -140,6 +184,11 @@ namespace BankSystemBusinessLayer
         public bool UpdatePhone()
         {
             return PhonesData.UpdatePhone(this.phoneID, this.phoneNumber);
+        }
+
+        public bool UpdatePhone(string phoneItem)
+        {
+            return PhonesData.UpdatePhone(this.phoneID, phoneItem);
         }
 
         public static byte GetCountOfPhonesNumbers(int personID)

@@ -50,13 +50,15 @@ namespace BankSystem
 
         bool _isValid = true;
 
-        public int _personID = -1, _phoneID = -1;
+        public int _personID = -1, _phoneID = -1, _clientID = -1;
 
         const decimal _maxAmount = 50000, _minAmount = 500;
 
         public Clients _client = new Clients();
-        Persons _person = new Persons();
+        public Persons _person = new Persons();
         public Phones _phone = new Phones();
+
+        public List<Phones> _phoneList = new List<Phones>();
 
         ClientUIHelper _clientUI;
 
@@ -458,6 +460,7 @@ namespace BankSystem
             }
         }
 
+       
         private void HandleTransactionButton()
         {
             if (CanEnableTransactionButton())
@@ -466,13 +469,18 @@ namespace BankSystem
             }
         }
 
+        
         private void PrepareClientUpdateForm()
         {
             FillDefaultValuesForUpdate();
 
-            ((frmUpdateClient)_form).ShowPhonesNumbers();
+            ((frmUpdateClient)_form).ShowAllPhones();
 
-            ((frmUpdateClient)_form).CreateTextBoxes();
+            //((frmUpdateClient)_form).ClearPhonesGroupBox();
+
+            //((frmUpdateClient)_form).ShowPhonesNumbers();
+
+            //((frmUpdateClient)_form).CreateTextBoxes();
         }
 
         private void EnableTransactionButton()
@@ -602,7 +610,7 @@ namespace BankSystem
             {
                 if (control is TextBox textBox)
                 {
-                    textBox.Clear();
+                    ControlHelper.ClearTextBox(textBox);
                 }
             }
 
@@ -610,11 +618,11 @@ namespace BankSystem
                 ClearAccountNumberText(_txtAccountNumber);
         }
 
-        public void ClearAccountNumberText(TextBox textbox)
+        public void ClearAccountNumberText(TextBox textBox)
         {
             SetTextAccountNumber();
 
-            textbox.Clear();
+            ControlHelper.ClearTextBox(textBox);
         }
 
 
@@ -638,7 +646,7 @@ namespace BankSystem
         {
             return IsInputFieldsNotNull() && IsInputFieldsValid();
         }
-
+        
         private string GetAccountNumber(TextBox textbox)
         {
             string accountNumber = textbox.Text;
@@ -1044,32 +1052,61 @@ namespace BankSystem
             {
                 string item = _cbPhones.Items[itemIndex].ToString();
 
-                ProcessPhoneItem(item);
+                ProcessPhoneItemForAdd(item);
+            }
+        }
+
+        private void ProcessPhoneItemForAdd(string phoneItem)
+        {
+            FillPhoneListObjectForAdd(phoneItem);
+
+            if (_phone.Save())
+            {
+                ResetPhoneObject(_phone);
             }
         }
 
         public void ProcessPhoneItem(string phoneItem)
         {
-            FillPhoneObject(phoneItem);
+            FillPhoneListObject();
 
-            if (_phone.Save())
+            foreach(Phones phone in _phoneList)
             {
-                ResetPhoneObject();
+                if(phone.Save(phoneItem))
+                {
+                    ResetPhoneObject(phone);
+                }
             }
         }
 
-
         
-        private void ResetPhoneObject()
+        
+        private void ResetPhoneObject(Phones phone)
         {
-            _phone = new Phones();
+            phone = new Phones();
+
+            //_phone = new Phones();
         }
 
-        private void FillPhoneObject(string item)
+        private void FillPhoneListObjectForAdd(string item)
         {
             _phone.phoneNumber = item;
 
-            _phone.phoneID = _phoneID;
+            _phone.personID = _personID;
+        }
+
+        private void FillPhoneListObject()
+        {
+            _clientID = Clients.FindByAccountNumber(_txtAccountNumber.Text).clientID;
+
+            _phoneList = Phones.FindInList(_clientID);
+
+
+            //List<int> lstPhoneIDs = Phones.GetPhoneIDs(_clientID);
+
+            //_phone.phoneNumber = item;
+
+            //_phone.phoneID = _phoneID;
 
             //_phone.phoneID = _personID;
         }
@@ -1082,6 +1119,7 @@ namespace BankSystem
 
             _client.personID = _personID;
         }
+
 
         private void SetStatusWord()
         {

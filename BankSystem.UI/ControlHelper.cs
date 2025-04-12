@@ -42,9 +42,20 @@ namespace BankSystem
             panel.BackColor = color;
         }
 
-        static public void ClearTextBox(TextBox testBox)
+        static public void ClearTextBox(TextBox textBoxControl)
         {
-            testBox.Text = string.Empty;
+            //textBoxControl.Clear();
+
+            textBoxControl.Text = string.Empty;
+        }
+
+        static public void RemoveControl(Control control)
+        {
+            if(control != null && control.Parent != null)
+            {
+                control.Parent.Controls.Remove(control);
+                control.Dispose();
+            }
         }
 
     }

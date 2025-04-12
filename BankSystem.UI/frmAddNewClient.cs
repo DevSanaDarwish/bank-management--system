@@ -43,7 +43,7 @@ namespace BankSystem
 
             HandleNewClient();
         }
-
+        
         private void HandleNewClient()
         {
             if (_clientUI.ValidateInputFields())
