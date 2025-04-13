@@ -71,7 +71,7 @@ namespace BankSystem
         private void SetClientAction(enClientAction clientAction)
         {
             _clientUI._clientAction = clientAction;
-        }    
+        }
 
         private void Update()
         {
@@ -79,10 +79,10 @@ namespace BankSystem
             SetClientAction(clientAction);
 
             _clientUI.FillClientInfo();
-            
+
             _clientUI.ValidationSave();
         }
-        
+
         public void UpdateClient()
         {
             Update();
@@ -116,15 +116,15 @@ namespace BankSystem
             return lblPhone.Text.Split(',');
         }
 
-        private List <string> GetPhonesNumbersByDatabase()
+        private List<string> GetPhonesNumbersByDatabase()
         {
             List<string> lstPhones = new List<string>();
 
-            if(_clientUI.LoadPhoneInfo())
+            if (_clientUI.LoadPhoneInfo())
             {
                 List<Phones> phonesList = Phones.FindInList(_clientUI._client.clientID);
 
-                foreach(Phones phone in phonesList)
+                foreach (Phones phone in phonesList)
                 {
                     lstPhones.Add(phone.phoneNumber);
                 }
@@ -160,7 +160,7 @@ namespace BankSystem
         {
             DeletePhone(sender);
         }
-        
+
         private void DeletePhone(object sender)
         {
             Guna2Button clickedButton = sender as Guna2Button;
@@ -187,8 +187,6 @@ namespace BankSystem
             gbAllPhones.Controls.Add(btnDeletePhone);
         }
 
-        
-
         private void CreatePhoneNumberTextBoxAndDeleteButton(string phoneNumber)
         {
             TextBox textBox = new TextBox();
@@ -208,9 +206,9 @@ namespace BankSystem
         {
             byte count = 0;
 
-            foreach(Control control in gbAllPhones.Controls)
+            foreach (Control control in gbAllPhones.Controls)
             {
-                if(control is TextBox textbox)
+                if (control is TextBox textbox)
                 {
                     count++;
                 }
@@ -219,17 +217,50 @@ namespace BankSystem
             return count;
         }
 
+        private byte GetNumberOfOriginalPhones()
+        {
+            byte count = 0;
+
+            foreach (Control control in gbAllPhones.Controls)
+            {
+                if (control is TextBox textbox)
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
+        private byte GetNumberOfCurrentPhones()
+        {
+            byte count = 0;
+
+            foreach (Control control in gbAllPhones.Controls)
+            {
+                if (control is TextBox textbox)
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+       
         public void UpdatePhones()
         {
             //byte itemsCount = GetCountOfTextBoxes();
+            short count = 0;
 
             foreach (Control control in gbAllPhones.Controls)
             {
                 if (control is TextBox textbox)
                 {
                     string item = textbox.Text;
+                    
+                    _clientUI.ProcessPhoneItem(item, count);
 
-                    _clientUI.ProcessPhoneItem(item);
+                    count++;
                 }
             }
         }  

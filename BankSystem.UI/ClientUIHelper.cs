@@ -1066,20 +1066,24 @@ namespace BankSystem
             }
         }
 
-        public void ProcessPhoneItem(string phoneItem)
+        public void ProcessPhoneItem(string phoneItem, short count)
         {
             FillPhoneListObject();
 
-            foreach(Phones phone in _phoneList)
+            if(_phoneList[count].Save(phoneItem))
             {
-                if(phone.Save(phoneItem))
-                {
-                    ResetPhoneObject(phone);
-                }
+                ResetPhoneObject(_phoneList[count]);
             }
+
+            //foreach (Phones phone in _phoneList)
+            //{
+            //    if (phone.Save(phoneItem))
+            //    {
+            //        ResetPhoneObject(phone);
+            //    }
+            //}
         }
 
-        
         
         private void ResetPhoneObject(Phones phone)
         {
