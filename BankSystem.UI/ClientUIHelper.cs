@@ -1056,7 +1056,7 @@ namespace BankSystem
             }
         }
 
-        private void ProcessPhoneItemForAdd(string phoneItem)
+        public void ProcessPhoneItemForAdd(string phoneItem)
         {
             FillPhoneListObjectForAdd(phoneItem);
 
@@ -1066,13 +1066,13 @@ namespace BankSystem
             }
         }
 
-        public void ProcessPhoneItem(string phoneItem, short count)
+        public void ProcessPhoneItem(string phoneItem, short index)
         {
             FillPhoneListObject();
 
-            if(_phoneList[count].Save(phoneItem))
+            if(_phoneList[index].Save(phoneItem))
             {
-                ResetPhoneObject(_phoneList[count]);
+                ResetPhoneObject(_phoneList[index]);
             }
 
             //foreach (Phones phone in _phoneList)

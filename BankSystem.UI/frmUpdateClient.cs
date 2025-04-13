@@ -48,9 +48,9 @@ namespace BankSystem
 
         public ClientUIHelper _clientUI;
 
-        short _textboxX = 10;
-        short _textboxY = 120;
+        short _textboxX = 10, _textboxY = 120;
 
+        byte _numberOfOriginalPhones = 0, _numberOfUpdatedPhones = 0;
 
         private void InitializeAllObjects()
         {
@@ -100,7 +100,7 @@ namespace BankSystem
 
             _clientUI.HandleClientInfo();
         }
-
+        
         private byte GetCountOfPhonesNumbers()
         {
             return Convert.ToByte(lblPhone.Text.Split(',').Length);
@@ -217,7 +217,7 @@ namespace BankSystem
             return count;
         }
 
-        private byte GetNumberOfOriginalPhones()
+        private byte GetNumberOfPhones()
         {
             byte count = 0;
 
@@ -231,38 +231,66 @@ namespace BankSystem
 
             return count;
         }
-
-        private byte GetNumberOfCurrentPhones()
+        
+        private void UpdatePhonesEqualCount()
         {
-            byte count = 0;
-
-            foreach (Control control in gbAllPhones.Controls)
-            {
-                if (control is TextBox textbox)
-                {
-                    count++;
-                }
-            }
-
-            return count;
-        }
-       
-        public void UpdatePhones()
-        {
-            //byte itemsCount = GetCountOfTextBoxes();
-            short count = 0;
+            short index = 0;
 
             foreach (Control control in gbAllPhones.Controls)
             {
                 if (control is TextBox textbox)
                 {
                     string item = textbox.Text;
-                    
-                    _clientUI.ProcessPhoneItem(item, count);
 
-                    count++;
+                    _clientUI.ProcessPhoneItem(item, index);
+
+                    index++;
                 }
             }
+        }
+
+        private void RemoveExtraPhoneNumbers()
+        {
+
+        }
+
+        private void AddExtraPhoneNumbers()
+        {
+            short index = 0;
+
+            UpdatePhonesEqualCount();
+
+            foreach(Control control in gbAllPhones.Controls)
+            {
+                if(control is TextBox textbox)
+                {
+                    if(index >= _numberOfOriginalPhones)
+                    {
+                        string item = textbox.Text;
+
+                        _clientUI.ProcessPhoneItemForAdd(item);
+                    }
+
+                    index++;
+                }
+            }
+        }
+        public void UpdatePhones()
+        {
+            if(_numberOfUpdatedPhones > _numberOfOriginalPhones)
+            {
+                AddExtraPhoneNumbers();
+            }
+
+            else if (_numberOfUpdatedPhones < _numberOfOriginalPhones)
+            {
+                RemoveExtraPhoneNumbers();
+            }
+
+            else
+            {
+                UpdatePhonesEqualCount();
+            }       
         }  
 
         
@@ -322,11 +350,15 @@ namespace BankSystem
 
         private void btnShowInfo_Click(object sender, EventArgs e)
         {
+            _numberOfOriginalPhones = GetNumberOfPhones();
+
             HandleClientAction(enClientAction.UpdateShowInfo);
         }
 
         private void btnUpdateClient_Click(object sender, EventArgs e)
         {
+            _numberOfUpdatedPhones = GetNumberOfPhones();
+
             HandleClientAction(enClientAction.Update);
         }
 
