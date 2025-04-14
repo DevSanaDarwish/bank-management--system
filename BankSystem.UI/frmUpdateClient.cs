@@ -240,6 +240,11 @@ namespace BankSystem
             {
                 if (control is TextBox textbox)
                 {
+                    if(index >= _numberOfOriginalPhones)
+                    {
+                        break;
+                    }
+
                     string item = textbox.Text;
 
                     _clientUI.ProcessPhoneItem(item, index);
@@ -258,8 +263,6 @@ namespace BankSystem
         {
             short index = 0;
 
-            UpdatePhonesEqualCount();
-
             foreach(Control control in gbAllPhones.Controls)
             {
                 if(control is TextBox textbox)
@@ -267,13 +270,17 @@ namespace BankSystem
                     if(index >= _numberOfOriginalPhones)
                     {
                         string item = textbox.Text;
-
+            
                         _clientUI.ProcessPhoneItemForAdd(item);
                     }
 
                     index++;
                 }
             }
+
+
+
+            UpdatePhonesEqualCount();
         }
         public void UpdatePhones()
         {
@@ -309,7 +316,7 @@ namespace BankSystem
                 CreatePhoneNumberTextBoxAndDeleteButton(GetPhonesNumbersByDatabase()[i]);
             }
 
-            ResetXAndY();
+            //ResetXAndY();
         }
 
         private void ShowAddPhoneButton()
@@ -350,9 +357,9 @@ namespace BankSystem
 
         private void btnShowInfo_Click(object sender, EventArgs e)
         {
-            _numberOfOriginalPhones = GetNumberOfPhones();
-
             HandleClientAction(enClientAction.UpdateShowInfo);
+
+            _numberOfOriginalPhones = GetNumberOfPhones();
         }
 
         private void btnUpdateClient_Click(object sender, EventArgs e)

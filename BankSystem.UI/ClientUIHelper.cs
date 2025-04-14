@@ -1060,6 +1060,8 @@ namespace BankSystem
         {
             FillPhoneListObjectForAdd(phoneItem);
 
+            _phone.mode = Phones.enMode.AddNew;
+
             if (_phone.Save())
             {
                 ResetPhoneObject(_phone);
