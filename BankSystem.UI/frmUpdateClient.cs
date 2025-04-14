@@ -158,19 +158,54 @@ namespace BankSystem
 
         private void btnDeletePhone_Click(object sender, EventArgs e)
         {
-            DeletePhone(sender);
+            DeletePhoneTextBox(sender);
         }
 
-        private void DeletePhone(object sender)
+
+        private bool IsPhoneDeleted(string phoneNumber)
+        {
+            return Phones.DeletePhoneByPhoneNumber(phoneNumber);
+        }
+
+        private bool IsPhoneExist(string phoneNumber)
+        {
+            return Phones.IsPhoneExistByPhoneNumber(phoneNumber);
+        }
+
+        private void CheckAndNotifyIfPhoneDeleted(string phoneNumber)
+        {
+            if (!IsPhoneExist(phoneNumber))
+                return;
+
+            if (IsPhoneDeleted(phoneNumber))
+            {
+                _clientUI.ShowMessage("This number has been deleted");
+            }
+        }
+
+        private void ResetTextBoxPosition()
+        {
+            _textboxX = 100;
+            _textboxY = 120;
+        }
+
+        private void RemovePhoneControls(TextBox textBox, Guna2Button button)
+        {
+            gbAllPhones.Controls.Remove(textBox);
+            gbAllPhones.Controls.Remove(button);
+        }
+
+        private void DeletePhoneTextBox(object sender)
         {
             Guna2Button clickedButton = sender as Guna2Button;
             TextBox textBox = clickedButton.Tag as TextBox;
+            string phoneNumber = textBox.Text;
 
-            gbAllPhones.Controls.Remove(textBox);
-            gbAllPhones.Controls.Remove(clickedButton);
+            RemovePhoneControls(textBox, clickedButton);
 
-            _textboxX = 100;
-            _textboxY = 120;
+            ResetTextBoxPosition();
+
+            CheckAndNotifyIfPhoneDeleted(phoneNumber);
         }
 
         private void ConfigureButton(Guna2Button btnDeletePhone, TextBox text)
@@ -277,8 +312,6 @@ namespace BankSystem
                     index++;
                 }
             }
-
-
 
             UpdatePhonesEqualCount();
         }

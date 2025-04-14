@@ -250,6 +250,39 @@ namespace BankSystemDataAccessLayer
             return (rowsAffected > 0);
         }
 
+        public static bool DeletePhoneByPhoneNumber(string phoneNumber)
+        {
+            int rowsAffected = 0;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = "Delete From Phones Where PhoneNumber = @phoneNumber";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@phoneNumber", phoneNumber);
+
+            try
+            {
+                connection.Open();
+
+                rowsAffected = command.ExecuteNonQuery();
+            }
+
+            catch(Exception ex)
+            {
+                rowsAffected = 0;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return rowsAffected > 0;
+
+        }
+
         public static bool UpdatePhone(int phoneID, string phoneNumber)
         {
             int rowsAffected = 0;
@@ -284,6 +317,34 @@ namespace BankSystemDataAccessLayer
 
 
             return (rowsAffected > 0);
+        }
+
+        public static bool IsPhoneExistByPhoneNumber(string phoneNumber)
+        {
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = "Select 1 Where Exists(Select 1 From Phones Where PhoneNumber = @phoneNumber);";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@phoneNumber", phoneNumber);
+
+            try
+            {
+                connection.Open();
+
+                return (command.ExecuteScalar() != null);
+            }
+
+            catch(Exception ex)
+            {
+                return false;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
         }
 
     }

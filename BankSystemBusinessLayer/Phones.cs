@@ -181,6 +181,11 @@ namespace BankSystemBusinessLayer
             return PhonesData.DeletePhone(personID);
         }
 
+        public static bool DeletePhoneByPhoneNumber(string phoneNumber)
+        {
+            return PhonesData.DeletePhoneByPhoneNumber(phoneNumber);
+        }
+
         public bool UpdatePhone()
         {
             return PhonesData.UpdatePhone(this.phoneID, this.phoneNumber);
@@ -194,6 +199,11 @@ namespace BankSystemBusinessLayer
         public static byte GetCountOfPhonesNumbers(int personID)
         {
             return PhonesData.GetCountOfPhonesNumbers(personID);
+        }
+
+        public static bool IsPhoneExistByPhoneNumber(string phoneNumber)
+        {
+            return PhonesData.IsPhoneExistByPhoneNumber(phoneNumber);
         }
     }
 }
