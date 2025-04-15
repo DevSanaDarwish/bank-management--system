@@ -52,6 +52,8 @@ namespace BankSystem
 
         byte _numberOfOriginalPhones = 0, _numberOfUpdatedPhones = 0;
 
+        List<string> _originalPhoneNumbers = new List<string>();
+
         private void InitializeAllObjects()
         {
             Clients client = new Clients();
@@ -131,14 +133,6 @@ namespace BankSystem
             }
 
             return lstPhones;
-
-            //for(byte i = 0; i < lstPhones.Count; i++)
-            //{
-            //    if (_clientUI.LoadPhoneInfo())
-            //    {
-            //        lstPhones = Phones.FindInList(_clientUI._client.clientID).ToString();
-            //    }
-            //}
         }
 
 
@@ -348,8 +342,6 @@ namespace BankSystem
             {
                 CreatePhoneNumberTextBoxAndDeleteButton(GetPhonesNumbersByDatabase()[i]);
             }
-
-            //ResetXAndY();
         }
 
         private void ShowAddPhoneButton()
@@ -393,6 +385,25 @@ namespace BankSystem
             HandleClientAction(enClientAction.UpdateShowInfo);
 
             _numberOfOriginalPhones = GetNumberOfPhones();
+
+            _originalPhoneNumbers = GetPhonesNumbersByDatabase();
+        }
+
+        private bool IsUpdatedOrNewPhone()
+        {
+            foreach(Control control in gbAllPhones.Controls)
+            {
+                if(control is TextBox textbox)
+                {
+                    for(byte i = 0; i <_originalPhoneNumbers.Count; i++)
+                    {
+                        if (textbox.Text == _originalPhoneNumbers[i])
+                            return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
         private void btnUpdateClient_Click(object sender, EventArgs e)
@@ -402,27 +413,39 @@ namespace BankSystem
             HandleClientAction(enClientAction.Update);
         }
 
+        private void MarkControlAsInvalid(TextBox textBox, string message, bool isValid)
+        {
+            _clientUI.AllValidation(textBox, false, message);
+            isValid = false;
+        }
+
         public bool ValidatePhoneNumbers()
         {
             string nullMessage = "This Field Should Not Be Empty";
             string numMessage = "This Field Should Be Numeric";
+            string duplicatedValueMessage = "This Field Should Not Be Repeated";
             bool isValid = true;
 
             foreach (Control control in gbAllPhones.Controls)
             {
-                if(control is TextBox textbox)
+                if(control is TextBox textBox)
                 {
-                    if (PresentationInputValidator.IsControlTextNull(textbox.Text))
+                    string phoneNumber = textBox.Text;
+
+                    if (PresentationInputValidator.IsControlTextNull(phoneNumber))
                     {
-                        _clientUI.AllValidation(textbox, false, nullMessage);
-                        isValid = false;
+                        MarkControlAsInvalid(textBox, nullMessage, false);
                     }
 
-                    if(!PresentationInputValidator.IsNumeric(textbox.Text))
+                    if(!PresentationInputValidator.IsNumeric(phoneNumber))
                     {
-                        _clientUI.AllValidation(textbox, false, numMessage);
-                        isValid = false;
+                        MarkControlAsInvalid(textBox, numMessage, false);
                     }
+
+                    //if (PresentationInputValidator.IsPhoneNumberValueDuplicated(phoneNumber))
+                    //{
+                    //    MarkControlAsInvalid(textBox, duplicatedValueMessage, false);
+                    //}
                 }
             }
 

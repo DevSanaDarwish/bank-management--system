@@ -641,6 +641,10 @@ namespace BankSystem
             return PresentationInputValidator.IsAccountNumberDuplicated(accountNumber);
         }
 
+        public bool IsPhoneNumberValueDuplicated(string phoneNumber)
+        {
+            return PresentationInputValidator.IsPhoneNumberValueDuplicated(phoneNumber); 
+        }
 
         public bool ValidateInputFields()
         {

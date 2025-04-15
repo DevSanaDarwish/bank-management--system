@@ -42,9 +42,14 @@ namespace BankSystemBusinessLayer
             return (obj == null);
         }
 
-        public static bool IsValueDuplicated(string value)
+        public static bool IsAccNumValueDuplicated(string value)
         {
             return Clients.IsAccountNumberExist(value);
+        }
+
+        public static bool IsPhoneNumberValueDuplicated(string value)
+        {
+            return Phones.IsPhoneExistByPhoneNumber(value);
         }
 
         public static bool IsValueZero(decimal value)
