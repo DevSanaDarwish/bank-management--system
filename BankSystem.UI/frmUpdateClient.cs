@@ -179,7 +179,7 @@ namespace BankSystem
 
         private void ResetTextBoxPosition()
         {
-            _textboxX = 100;
+            _textboxX = 10;
             _textboxY = 120;
         }
 
@@ -351,9 +351,11 @@ namespace BankSystem
 
         public void ShowAllPhones()
         {
+            ShowPhonesNumbers();
+
             ClearPhonesGroupBox();
 
-            ShowPhonesNumbers();
+            //ShowPhonesNumbers();
 
             ShowAddPhoneButton();
 
@@ -367,16 +369,23 @@ namespace BankSystem
 
         public void ClearPhonesGroupBox()
         {
-            foreach(Control control in gbAllPhones.Controls)
+            for (int i = gbAllPhones.Controls.Count - 1; i >= 0; i--)
             {
+                Control control = gbAllPhones.Controls[i];
+
                 if (control == btnAddNewPhone)
                     continue;
-                
-                if(control is TextBox || control is Guna2Button)
+
+                if (control is TextBox || control is Guna2Button)
                 {
+                    //gbAllPhones.Controls.Remove(control);
+
                     ControlHelper.RemoveControl(control);
+
+                    ResetTextBoxPosition();
                 }
             }
+
         }
 
 
@@ -389,21 +398,50 @@ namespace BankSystem
             _originalPhoneNumbers = GetPhonesNumbersByDatabase();
         }
 
-        private bool IsUpdatedOrNewPhone()
+        private bool IsUpdatedOrNewPhone(TextBox textBox)
         {
-            foreach(Control control in gbAllPhones.Controls)
+            for(byte i = 0; i <_originalPhoneNumbers.Count; i++)
             {
-                if(control is TextBox textbox)
+                if (textBox.Text == _originalPhoneNumbers[i])
+                    return false;
+            }               
+
+            return true;
+        }
+        
+        private bool CheckPhoneNumbersIfDuplicated()
+        {
+            string duplicatedValueMessage = "This number already exists";
+            bool isDuplicated = false;
+            HashSet<string> seenNumbers = new HashSet<string>();
+
+            foreach (Control control in gbAllPhones.Controls)
+            {
+                if (control is TextBox textBox)
                 {
-                    for(byte i = 0; i <_originalPhoneNumbers.Count; i++)
+                    string phoneNumber = textBox.Text;
+
+                    if(seenNumbers.Contains(phoneNumber))
                     {
-                        if (textbox.Text == _originalPhoneNumbers[i])
-                            return false;
+                        MarkControlAsInvalid(textBox, duplicatedValueMessage);
+
+                        isDuplicated = true;
+
+                        continue;
+                    }
+
+                    seenNumbers.Add(phoneNumber);
+
+                    if (IsUpdatedOrNewPhone(textBox) && PresentationInputValidator.IsPhoneNumberValueDuplicated(phoneNumber))
+                    {
+                        MarkControlAsInvalid(textBox, duplicatedValueMessage);
+
+                        isDuplicated = true;
                     }
                 }
             }
-
-            return true;
+            
+            return isDuplicated;
         }
 
         private void btnUpdateClient_Click(object sender, EventArgs e)
@@ -413,17 +451,15 @@ namespace BankSystem
             HandleClientAction(enClientAction.Update);
         }
 
-        private void MarkControlAsInvalid(TextBox textBox, string message, bool isValid)
+        private void MarkControlAsInvalid(TextBox textBox, string message)
         {
             _clientUI.AllValidation(textBox, false, message);
-            isValid = false;
         }
 
         public bool ValidatePhoneNumbers()
         {
             string nullMessage = "This Field Should Not Be Empty";
             string numMessage = "This Field Should Be Numeric";
-            string duplicatedValueMessage = "This Field Should Not Be Repeated";
             bool isValid = true;
 
             foreach (Control control in gbAllPhones.Controls)
@@ -434,20 +470,20 @@ namespace BankSystem
 
                     if (PresentationInputValidator.IsControlTextNull(phoneNumber))
                     {
-                        MarkControlAsInvalid(textBox, nullMessage, false);
+                        MarkControlAsInvalid(textBox, nullMessage);
+                        isValid = false;
                     }
 
                     if(!PresentationInputValidator.IsNumeric(phoneNumber))
                     {
-                        MarkControlAsInvalid(textBox, numMessage, false);
+                        MarkControlAsInvalid(textBox, numMessage);
+                        isValid = false;
                     }
-
-                    //if (PresentationInputValidator.IsPhoneNumberValueDuplicated(phoneNumber))
-                    //{
-                    //    MarkControlAsInvalid(textBox, duplicatedValueMessage, false);
-                    //}
                 }
             }
+
+            if (CheckPhoneNumbersIfDuplicated())
+                isValid = false;
 
             return isValid;
         }
