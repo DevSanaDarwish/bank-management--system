@@ -21,47 +21,14 @@ namespace BankSystem
 
         private void RefreshClientsList()
         {
-            dgvAllClients.DataSource = Clients.GetAllClients();
-        }
-
-        private void EditColumnsNames()
-        {
-            dgvAllClients.Columns["FirstName"].HeaderText = "First Name";
-            dgvAllClients.Columns["LastName"].HeaderText = "Last Name";
-            dgvAllClients.Columns["Email"].HeaderText = "Email";
-            dgvAllClients.Columns["PinCode"].HeaderText = "PIN Code";
-            dgvAllClients.Columns["Balance"].HeaderText = "Balance";
-            dgvAllClients.Columns["AccountNumber"].HeaderText = "Account Number";
-            dgvAllClients.Columns["PhoneNumbers"].HeaderText = "Phone Number";
-        }
-
-        private void EditColumnsWidth()
-        {
-            dgvAllClients.Columns[0].Width = 110;
-            dgvAllClients.Columns[1].Width = 140;
-            dgvAllClients.Columns[2].Width = 140;
-            dgvAllClients.Columns[3].Width = 160;
-            dgvAllClients.Columns[4].Width = 130;
-            dgvAllClients.Columns[5].Width = 140;
-            dgvAllClients.Columns[6].Width = 191;
-            dgvAllClients.Columns[7].Width = 310;
+            DataGridViewHelper.RefreshDataSource(dgvAllClients, Clients.GetAllClients());
         }
 
         private void ConfigureDataGridView()
         {
-            dgvAllClients.AllowUserToAddRows = false;
-            dgvAllClients.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvAllClients.MultiSelect = false;
-            dgvAllClients.Font = new Font("Arial", 12, FontStyle.Bold);
-            dgvAllClients.RowTemplate.Height = 30;
-            dgvAllClients.ColumnHeadersHeight = 300;
-            dgvAllClients.DefaultCellStyle.Font = new Font("Arial", 11);
-
-            EditColumnsNames();
-
-            EditColumnsWidth();
-
-            dgvAllClients.ClearSelection();
+            DataGridViewHelper.ConfigureDataGridView(dgvAllClients, "FirstName", "LastName", "PinCode", "AccountNumber",
+               "PhoneNumbers", "First Name", "Last Name", "PIN Code", "Account Number", "Phone Number",
+               110, 140, 140, 160, 130, 140, 191, 310);
         }
 
         private void frmShowClientsList_Load(object sender, EventArgs e)
