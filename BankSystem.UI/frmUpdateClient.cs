@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+//using System.Web.UI;
 using System.Windows.Forms;
 using static BankSystem.ClientUIHelper;
 using static System.Net.Mime.MediaTypeNames;
@@ -48,7 +49,9 @@ namespace BankSystem
 
         public ClientUIHelper _clientUI;
 
-        short _textboxX = 10, _textboxY = 120;
+        const short _initialTextboxX = 10, _initialTextboxY = 120;
+
+        short _textboxX = _initialTextboxX, _textboxY = _initialTextboxY;
 
         byte _numberOfOriginalPhones = 0, _numberOfUpdatedPhones = 0;
 
@@ -135,7 +138,6 @@ namespace BankSystem
             return lstPhones;
         }
 
-
         private void ConfigureTextBox(TextBox text, string phoneNumber)
         {
             text.Text = phoneNumber;
@@ -154,7 +156,6 @@ namespace BankSystem
         {
             DeletePhoneTextBox(sender);
         }
-
 
         private bool IsPhoneDeleted(string phoneNumber)
         {
@@ -179,14 +180,14 @@ namespace BankSystem
 
         private void ResetTextBoxPosition()
         {
-            _textboxX = 10;
-            _textboxY = 120;
+            _textboxX = _initialTextboxX;
+            _textboxY = _initialTextboxY;
         }
 
         private void RemovePhoneControls(TextBox textBox, Guna2Button button)
         {
-            gbAllPhones.Controls.Remove(textBox);
-            gbAllPhones.Controls.Remove(button);
+            ControlHelper.RemoveControl(textBox);
+            ControlHelper.RemoveControl(button);
         }
 
         private void DeletePhoneTextBox(object sender)
@@ -229,22 +230,7 @@ namespace BankSystem
             _textboxY += 50;
 
             this.Refresh();
-        }
-
-        private byte GetCountOfTextBoxes()
-        {
-            byte count = 0;
-
-            foreach (Control control in gbAllPhones.Controls)
-            {
-                if (control is TextBox textbox)
-                {
-                    count++;
-                }
-            }
-
-            return count;
-        }
+        } 
 
         private byte GetNumberOfPhones()
         {
@@ -261,7 +247,8 @@ namespace BankSystem
             return count;
         }
         
-        private void UpdatePhonesEqualCount()
+       
+        private void HandleAllPhones()
         {
             short index = 0;
 
@@ -269,78 +256,34 @@ namespace BankSystem
             {
                 if (control is TextBox textbox)
                 {
-                    if(index >= _numberOfOriginalPhones)
-                    {
-                        break;
-                    }
-
                     string item = textbox.Text;
 
-                    _clientUI.ProcessPhoneItem(item, index);
+                    if(index < _numberOfOriginalPhones)
+                        _clientUI.ProcessPhoneItem(item, index);
 
-                    index++;
-                }
-            }
-        }
-
-        private void RemoveExtraPhoneNumbers()
-        {
-
-        }
-
-        private void AddExtraPhoneNumbers()
-        {
-            short index = 0;
-
-            foreach(Control control in gbAllPhones.Controls)
-            {
-                if(control is TextBox textbox)
-                {
-                    if(index >= _numberOfOriginalPhones)
-                    {
-                        string item = textbox.Text;
-            
+                    else
                         _clientUI.ProcessPhoneItemForAdd(item);
-                    }
 
                     index++;
                 }
-            }
 
-            UpdatePhonesEqualCount();
+            }
         }
+
         public void UpdatePhones()
         {
-            if(_numberOfUpdatedPhones > _numberOfOriginalPhones)
-            {
-                AddExtraPhoneNumbers();
-            }
-
-            else if (_numberOfUpdatedPhones < _numberOfOriginalPhones)
-            {
-                RemoveExtraPhoneNumbers();
-            }
-
-            else
-            {
-                UpdatePhonesEqualCount();
-            }       
+            HandleAllPhones();       
         }  
-
-        
-       public void ResetXAndY()
-        {
-            _textboxX = 10;
-            _textboxY = 120;
-        }
 
         public void CreateTextBoxes()
         {
+            List<string> phones = GetPhonesNumbersByDatabase();
+
             byte count = GetCountOfPhonesNumbers();
 
             for(byte i = 0; i < count; i++)
             {
-                CreatePhoneNumberTextBoxAndDeleteButton(GetPhonesNumbersByDatabase()[i]);
+                CreatePhoneNumberTextBoxAndDeleteButton(phones[i]);
             }
         }
 
@@ -354,8 +297,6 @@ namespace BankSystem
             ShowPhonesNumbers();
 
             ClearPhonesGroupBox();
-
-            //ShowPhonesNumbers();
 
             ShowAddPhoneButton();
 
@@ -378,16 +319,12 @@ namespace BankSystem
 
                 if (control is TextBox || control is Guna2Button)
                 {
-                    //gbAllPhones.Controls.Remove(control);
-
                     ControlHelper.RemoveControl(control);
-
-                    ResetTextBoxPosition();
                 }
             }
 
+            ResetTextBoxPosition();
         }
-
 
         private void btnShowInfo_Click(object sender, EventArgs e)
         {
@@ -408,10 +345,33 @@ namespace BankSystem
 
             return true;
         }
-        
-        private bool CheckPhoneNumbersIfDuplicated()
+
+        private bool IsNumberDuplicatedInHashSet(string phoneNumber, HashSet<string> seenNumbers)
+        {
+            return seenNumbers.Contains(phoneNumber);
+        }
+
+        private void AddNumberToHashSet(string phoneNumber, HashSet<string> seenNumbers)
+        {
+            seenNumbers.Add(phoneNumber);
+        }
+
+        private bool IsNumberDuplicatedInDatabase(string phoneNumber, TextBox textBox)
+        {
+            return IsUpdatedOrNewPhone(textBox) && PresentationInputValidator.IsPhoneNumberValueDuplicated(phoneNumber);
+        }
+
+        private void MarkDuplicated(TextBox textBox, ref bool isDuplicated)
         {
             string duplicatedValueMessage = "This number already exists";
+
+            MarkControlAsInvalid(textBox, duplicatedValueMessage);
+
+            isDuplicated = true;
+        }
+
+        private bool CheckPhoneNumbersIfDuplicated()
+        {
             bool isDuplicated = false;
             HashSet<string> seenNumbers = new HashSet<string>();
 
@@ -421,22 +381,18 @@ namespace BankSystem
                 {
                     string phoneNumber = textBox.Text;
 
-                    if(seenNumbers.Contains(phoneNumber))
+                    if(IsNumberDuplicatedInHashSet(phoneNumber, seenNumbers))
                     {
-                        MarkControlAsInvalid(textBox, duplicatedValueMessage);
-
-                        isDuplicated = true;
+                        MarkDuplicated(textBox, ref isDuplicated);
 
                         continue;
                     }
 
-                    seenNumbers.Add(phoneNumber);
+                    AddNumberToHashSet(phoneNumber, seenNumbers);
 
-                    if (IsUpdatedOrNewPhone(textBox) && PresentationInputValidator.IsPhoneNumberValueDuplicated(phoneNumber))
+                    if (IsNumberDuplicatedInDatabase(phoneNumber, textBox))
                     {
-                        MarkControlAsInvalid(textBox, duplicatedValueMessage);
-
-                        isDuplicated = true;
+                        MarkDuplicated(textBox, ref isDuplicated);
                     }
                 }
             }
@@ -456,10 +412,33 @@ namespace BankSystem
             _clientUI.AllValidation(textBox, false, message);
         }
 
-        public bool ValidatePhoneNumbers()
+        private bool IsPhoneNumberNull(string phoneNumber, TextBox textBox)
         {
             string nullMessage = "This Field Should Not Be Empty";
+
+            if (PresentationInputValidator.IsControlTextNull(phoneNumber))
+            {
+                MarkControlAsInvalid(textBox, nullMessage);
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool IsPhoneNumberValidFormat(string phoneNumber, TextBox textBox)
+        {
             string numMessage = "This Field Should Be Numeric";
+
+            if (!PresentationInputValidator.IsNumeric(phoneNumber))
+            {
+                MarkControlAsInvalid(textBox, numMessage);
+                return false;
+            }
+
+            return true;
+        }
+        public bool ValidatePhoneNumbers()
+        {
             bool isValid = true;
 
             foreach (Control control in gbAllPhones.Controls)
@@ -468,17 +447,11 @@ namespace BankSystem
                 {
                     string phoneNumber = textBox.Text;
 
-                    if (PresentationInputValidator.IsControlTextNull(phoneNumber))
-                    {
-                        MarkControlAsInvalid(textBox, nullMessage);
+                    if (IsPhoneNumberNull(phoneNumber, textBox))
                         isValid = false;
-                    }
 
-                    if(!PresentationInputValidator.IsNumeric(phoneNumber))
-                    {
-                        MarkControlAsInvalid(textBox, numMessage);
+                    if(!IsPhoneNumberValidFormat(phoneNumber, textBox))
                         isValid = false;
-                    }
                 }
             }
 
