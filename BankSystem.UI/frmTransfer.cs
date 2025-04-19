@@ -20,6 +20,7 @@ namespace BankSystem
         }
 
         ClientUIHelper _clientUI;
+        int _sourceClientID  = -1, _destinationClientID = -1;
        
         private void InitializeClientUIObject(Clients client, Persons person, Phones phone)
         {

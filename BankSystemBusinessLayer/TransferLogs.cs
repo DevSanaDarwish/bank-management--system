@@ -45,5 +45,15 @@ namespace BankSystemBusinessLayer
         {
             return TransferLogsData.GetTransferLogsList();
         }
+
+        public bool AddTransferLog()
+        {
+            this.transferLogID = TransferLogsData.AddTransferLog(this.date, this.sourceClientID, this.destinationClientID,
+                this.amount, this.sourceBalance, this.destinationBalance, this.userID);
+
+            return (transferLogID != -1);
+        }
+
+   
     }
 }

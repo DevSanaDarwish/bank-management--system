@@ -57,6 +57,7 @@ namespace BankSystem
         public Clients _client = new Clients();
         public Persons _person = new Persons();
         public Phones _phone = new Phones();
+        public TransferLogs _transferLog = new TransferLogs();
 
         public List<Phones> _phoneList = new List<Phones>();
 
@@ -699,11 +700,25 @@ namespace BankSystem
             }
         }
 
+        private void FillTransferLogObject()
+        {
+            _transferLog.date = DateTime.Now;
+            _transferLog.sourceClientID = 
+        }
+        private bool AddTransferLog()
+        {
+            
+            
+            return _transferLog.AddTransferLog();
+        }
+
         private void ProcessTransaction(bool expression)
         {
             if (expression)
             {
                 HandleTransactionUI();
+
+
             }
 
             else
@@ -716,7 +731,7 @@ namespace BankSystem
 
         private void ConfirmTransfer()
         {
-            ProcessTransaction(IsTransferSuccessful());
+            ProcessTransaction(IsTransferSuccessful() && AddTransferLog());
         }
         private void ConfirmWithdraw()
         {
