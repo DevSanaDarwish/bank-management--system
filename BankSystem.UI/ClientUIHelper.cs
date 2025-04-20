@@ -50,7 +50,7 @@ namespace BankSystem
 
         bool _isValid = true;
 
-        public int _personID = -1, _phoneID = -1, _clientID = -1,  _sourceClientID = -1, _destinationClientID = -1, userID = -1;
+        public int _personID = -1, _phoneID = -1, _clientID = -1,  _sourceClientID = -1, _destinationClientID = -1, _userID = -1;
 
         const decimal _maxAmount = 50000, _minAmount = 500;
 
@@ -77,7 +77,7 @@ namespace BankSystem
              Guna2GroupBox gbClientCardFrom, Guna2GroupBox gbClientCardTo, Label lblFirstNameFrom, Label lblLastNameFrom, Label lblBalanceFrom,
              Label lblPinCodeFrom, Label lblPhoneFrom, Label lblEmailFrom, Label lblFirstNameTo, Label lblLastNameTo, Label lblBalanceTo,
              Label lblPinCodeTo, Label lblPhoneTo, Label lblEmailTo,
-             Form form, ClientUIHelper clientUI, Guna2Button btnTransfer, TextBox txtAccNumFrom, TextBox txtAccNumTo)
+             Form form, ClientUIHelper clientUI, Guna2Button btnTransfer, TextBox txtAccNumFrom, TextBox txtAccNumTo, int userID)
         {
             InitializeCommonFields(errorProvider1, txtTransactionAmount, client, person, phone);
 
@@ -101,6 +101,7 @@ namespace BankSystem
             this._btnTransaction = btnTransfer;
             this._txtAccNumFrom = txtAccNumFrom;
             this._txtAccNumTo = txtAccNumTo;
+            this._userID = userID;
         }
 
         //Constructor For frmDeposit And frmWithdraw
@@ -708,7 +709,7 @@ namespace BankSystem
             _transferLog.amount = Convert.ToDecimal(_txtTransactionAmount.Text);
             _transferLog.sourceBalance = Convert.ToDecimal(_lblBalance.Text);
             _transferLog.destinationBalance = Convert.ToDecimal(_lblBalanceTo.Text);
-            _transferLog.userID =             
+            _transferLog.userID = _userID;
         }
         private bool AddTransferLog()
         {

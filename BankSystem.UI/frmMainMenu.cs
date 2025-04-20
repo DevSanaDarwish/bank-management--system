@@ -16,16 +16,19 @@ namespace BankSystem
     {
         private string _username { get; set; }
 
+        private int _userID { get; set; }
+
         public frmMainMenu()
         {
             InitializeComponent();
         }
 
-        public frmMainMenu(string username)
+        public frmMainMenu(string username, int userID)
         {
             InitializeComponent();
 
             this._username = username;
+            this._userID = userID;
 
             SetUsernameInLabel();
         }
@@ -148,7 +151,7 @@ namespace BankSystem
 
         private void btnTransfer_Click(object sender, EventArgs e)
         {
-            HandleButtonClick(btnTransfer, Color.Black, new frmTransfer());
+            HandleButtonClick(btnTransfer, Color.Black, new frmTransfer(_userID));
         }
 
         private void btnTransferLogsList_Click(object sender, EventArgs e)

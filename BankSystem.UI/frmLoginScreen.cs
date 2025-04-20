@@ -31,6 +31,7 @@ namespace BankSystem
 
         StringBuilder _formattedSelectedTime = new StringBuilder();
         string _username { get; set; }
+        int _userID { get; set; }
 
 
         private void GetFormattedTime(TimeSpan time)
@@ -213,6 +214,7 @@ namespace BankSystem
             if(user != null)
             {
                 _username = txtUsername.Text;
+                _userID = Users.GetUserIDByUsername(_username);
 
                 return true;
             }
@@ -222,7 +224,7 @@ namespace BankSystem
 
         private void OpenMainForm()
         {
-            frmMainMenu mainMenu = new frmMainMenu(_username);
+            frmMainMenu mainMenu = new frmMainMenu(_username, _userID);
             mainMenu.Show();
 
             this.Hide();

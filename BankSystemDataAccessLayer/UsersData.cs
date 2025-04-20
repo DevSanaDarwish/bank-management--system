@@ -49,6 +49,38 @@ namespace BankSystemDataAccessLayer
             return isFound;
         }
 
-      
+        public static int GetUserIDByUsername(string username)
+        {
+            int userID = -1;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = "Select UserID From Users Where Username = @username;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@username", username);
+
+            try
+            {
+                connection.Open();
+
+                object result = command.ExecuteScalar();
+
+                if(result != null && int.TryParse(result.ToString(), out int userIDFromDB))
+                {
+                    userID = userIDFromDB;
+                }
+            }
+
+            catch (Exception ex) { }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return userID;
+        }
     }
 }

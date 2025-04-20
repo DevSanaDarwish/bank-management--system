@@ -19,14 +19,22 @@ namespace BankSystem
             InitializeComponent();
         }
 
+        public frmTransfer(int userID)
+        {
+            InitializeComponent();
+
+            this._userID = userID;
+        }
+
         ClientUIHelper _clientUI;
-      
+        
+        public int _userID {  get; set; }
        
         private void InitializeClientUIObject(Clients client, Persons person, Phones phone)
         {
             _clientUI = new ClientUIHelper(errorProvider1, txtTransferAmount, client, person, phone, gbClientCardFrom, gbClientCardTo, lblFirstNameFrom,
                 lblLastNameFrom, lblBalanceFrom, lblPinCodeFrom, lblPhoneFrom, lblEmailFrom, lblFirstNameTo, lblLastNameTo, lblBalanceTo,
-                lblPinCodeTo, lblPhoneTo, lblEmailTo, this, _clientUI, btnTransfer, txtAccountNumberFrom, txtAccountNumberTo);
+                lblPinCodeTo, lblPhoneTo, lblEmailTo, this, _clientUI, btnTransfer, txtAccountNumberFrom, txtAccountNumberTo, _userID);
         }
         
         private void InitializeAllObjects()

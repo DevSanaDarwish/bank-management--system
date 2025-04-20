@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Runtime.CompilerServices;
 using BankSystemDataAccessLayer;
 
 namespace BankSystemBusinessLayer
@@ -51,6 +52,11 @@ namespace BankSystemBusinessLayer
 
             else
                 return null;
+        }
+
+        public static int GetUserIDByUsername(string username)
+        {
+            return UsersData.GetUserIDByUsername(username);
         }
 
         public static byte GetRemainingTrials()
