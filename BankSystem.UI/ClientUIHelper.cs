@@ -50,7 +50,7 @@ namespace BankSystem
 
         bool _isValid = true;
 
-        public int _personID = -1, _phoneID = -1, _clientID = -1;
+        public int _personID = -1, _phoneID = -1, _clientID = -1,  _sourceClientID = -1, _destinationClientID = -1, userID = -1;
 
         const decimal _maxAmount = 50000, _minAmount = 500;
 
@@ -703,12 +703,17 @@ namespace BankSystem
         private void FillTransferLogObject()
         {
             _transferLog.date = DateTime.Now;
-            _transferLog.sourceClientID = 
+            _transferLog.sourceClientID = _sourceClientID;
+            _transferLog.destinationClientID = _destinationClientID;
+            _transferLog.amount = Convert.ToDecimal(_txtTransactionAmount.Text);
+            _transferLog.sourceBalance = Convert.ToDecimal(_lblBalance.Text);
+            _transferLog.destinationBalance = Convert.ToDecimal(_lblBalanceTo.Text);
+            _transferLog.userID =             
         }
         private bool AddTransferLog()
         {
-            
-            
+            FillTransferLogObject();
+
             return _transferLog.AddTransferLog();
         }
 
@@ -717,8 +722,6 @@ namespace BankSystem
             if (expression)
             {
                 HandleTransactionUI();
-
-
             }
 
             else
@@ -758,10 +761,17 @@ namespace BankSystem
         {
             string accTo = GetAccountNumber(_txtAccNumTo), accFrom = GetAccountNumber(_txtAccNumFrom);
 
-                if (AreObjectsInfoSuccessfullyLoaded(accFrom) && AreObjectsInfoSuccessfullyLoaded(accTo))
+            if (AreObjectsInfoSuccessfullyLoaded(accFrom))
+            {
+                _sourceClientID = _client.clientID;
+
+                if(AreObjectsInfoSuccessfullyLoaded(accTo))
                 {
-                    return true;
+                    _destinationClientID = _client.clientID;
                 }
+                
+                return true;
+            }
 
             return false;
         }
@@ -1297,6 +1307,7 @@ namespace BankSystem
 
             HideTransactionAmountText(_txtTransactionAmount);
         }
+
 
         public void HandleTransactionOperation()
         {

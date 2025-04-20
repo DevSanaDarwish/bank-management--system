@@ -186,7 +186,6 @@ namespace BankSystem
             txtPassword.PasswordChar = '*';
 
             _isShowPassword = false;
-
         }
 
         private void TogglePasswordVisibility()

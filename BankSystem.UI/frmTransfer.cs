@@ -20,7 +20,7 @@ namespace BankSystem
         }
 
         ClientUIHelper _clientUI;
-        int _sourceClientID  = -1, _destinationClientID = -1;
+      
        
         private void InitializeClientUIObject(Clients client, Persons person, Phones phone)
         {
@@ -61,7 +61,7 @@ namespace BankSystem
             SetClientAction(clientAction);
 
             if (IsClientActionEqualsTransfer(clientAction))
-                return;
+                return;                
 
             _clientUI.HandleClientInfo();
         }
