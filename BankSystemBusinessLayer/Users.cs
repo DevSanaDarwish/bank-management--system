@@ -45,6 +45,11 @@ namespace BankSystemBusinessLayer
             mode = enMode.Update;
         }
 
+        public static DataTable GetAllUsers()
+        {
+            return UsersData.GetAllUsers();
+        }
+
         public static Users Find(string username, string password)
         {
             if (UsersData.GetUsernameAndPassword(username, password))

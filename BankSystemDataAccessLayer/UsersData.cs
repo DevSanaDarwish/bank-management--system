@@ -82,5 +82,39 @@ namespace BankSystemDataAccessLayer
 
             return userID;
         }
+
+        public static DataTable GetAllUsers()
+        {
+            DataTable dtUsers = new DataTable();
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = "Select * From vwUsers";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if(reader.HasRows)
+                {
+                    dtUsers.Load(reader);
+                }
+
+                reader.Close();
+            }
+
+            catch (Exception ex) { }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return dtUsers;
+        }
     }
 }

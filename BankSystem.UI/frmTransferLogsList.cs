@@ -23,11 +23,31 @@ namespace BankSystem
             DataGridViewHelper.RefreshDataSource(dgvTransferLogs, TransferLogs.GetTransferLogsList());
         }
 
+        private DataGridViewConfig GetClientsGridConfig()
+        {
+            return new DataGridViewConfig
+            {
+                lstColumns = new List<ColumnConfig>
+                {
+                    new ColumnConfig { ColumnName = "TransferLogID", DisplayName = "ID", Width = 90 },
+                    new ColumnConfig { ColumnName = "Date", Width = 200 },
+                    new ColumnConfig { ColumnName = "SourceAcc", DisplayName = "Source Acc", Width = 130 },
+                    new ColumnConfig { ColumnName = "DestinationAcc", DisplayName = "Destination Acc", Width = 170 },
+                    new ColumnConfig { ColumnName = "Amount",  Width = 140 },
+                    new ColumnConfig { ColumnName = "SourceBalance", DisplayName = "Source Balance", Width = 190 },
+                    new ColumnConfig { ColumnName = "DestinationBalance", DisplayName = "Destination Balance", Width = 230 },
+                    new ColumnConfig { ColumnName = "Username", Width = 220 }
+                }
+            };
+        }
+
         private void ConfigureDataGridView()
         {
-            DataGridViewHelper.ConfigureDataGridView(dgvTransferLogs, "TransferLogID", "SourceAcc", "DestinationAcc", 
-                "SourceBalance", "DestinationBalance", "ID", "Source Acc", "Destination Acc", "Source Balance", 
-                "Destination Balance", 90, 200, 130, 170, 140, 190, 230, 220);
+            //    DataGridViewHelper.ConfigureDataGridView(dgvTransferLogs, "TransferLogID", "SourceAcc", "DestinationAcc", 
+            //        "SourceBalance", "DestinationBalance", "ID", "Source Acc", "Destination Acc", "Source Balance", 
+            //        "Destination Balance", 90, 200, 130, 170, 140, 190, 230, 220);
+
+            DataGridViewHelper.ConfigureDataGridView(dgvTransferLogs, GetClientsGridConfig());
         }
 
         private void frmTransferLogsList_Load(object sender, EventArgs e)
