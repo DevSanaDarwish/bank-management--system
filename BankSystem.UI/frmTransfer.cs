@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static BankSystem.ClientUIHelper;
+using static BankSystem.UIHelper;
 
 namespace BankSystem
 {
@@ -26,13 +26,13 @@ namespace BankSystem
             this._userID = userID;
         }
 
-        ClientUIHelper _clientUI;
+        UIHelper _clientUI;
         
         public int _userID {  get; set; }
        
         private void InitializeClientUIObject(Clients client, Persons person, Phones phone)
         {
-            _clientUI = new ClientUIHelper(errorProvider1, txtTransferAmount, client, person, phone, gbClientCardFrom, gbClientCardTo, lblFirstNameFrom,
+            _clientUI = new UIHelper(errorProvider1, txtTransferAmount, client, person, phone, gbClientCardFrom, gbClientCardTo, lblFirstNameFrom,
                 lblLastNameFrom, lblBalanceFrom, lblPinCodeFrom, lblPhoneFrom, lblEmailFrom, lblFirstNameTo, lblLastNameTo, lblBalanceTo,
                 lblPinCodeTo, lblPhoneTo, lblEmailTo, this, _clientUI, btnTransfer, txtAccountNumberFrom, txtAccountNumberTo, _userID);
         }
@@ -46,14 +46,14 @@ namespace BankSystem
             InitializeClientUIObject(client, person, phone);
         }
 
-        private void SetClientAction(enClientAction clientAction)
+        private void SetClientAction(enAction clientAction)
         {
-            _clientUI._clientAction = clientAction;
+            _clientUI.Action = clientAction;
         }
 
-        private bool IsClientActionEqualsTransfer(enClientAction clientAction)
+        private bool IsClientActionEqualsTransfer(enAction clientAction)
         {
-            if (clientAction == enClientAction.Transfer)
+            if (clientAction == enAction.Transfer)
             {
                 _clientUI.HandleTransactionOperation();
                 return true;
@@ -62,7 +62,7 @@ namespace BankSystem
             return false;
         }
         
-        private void HandleClientAction(enClientAction clientAction)
+        private void HandleClientAction(enAction clientAction)
         {
             InitializeAllObjects();       
 
@@ -76,17 +76,17 @@ namespace BankSystem
 
         private void btnShowInfoFrom_Click(object sender, EventArgs e)
         {
-            HandleClientAction(enClientAction.TransferShowInfoFrom);
+            HandleClientAction(enAction.TransferShowInfoFrom);
         }
 
         private void btnShowInfoTo_Click(object sender, EventArgs e)
         {
-            HandleClientAction(enClientAction.TransferShowInfoTo);
+            HandleClientAction(enAction.TransferShowInfoTo);
         }
 
         private void btnTransfer_Click(object sender, EventArgs e)
         {
-            HandleClientAction(enClientAction.Transfer);
+            HandleClientAction(enAction.Transfer);
         }
     }
 }

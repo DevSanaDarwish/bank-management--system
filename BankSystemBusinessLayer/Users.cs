@@ -7,8 +7,8 @@ namespace BankSystemBusinessLayer
 {
     public class Users
     {
-        public enum enMode { AddNew = 0, Update = 1};
-        public enMode mode = enMode.AddNew;
+        public enum enMode { AddNew = 1, Update = 2};
+        public enMode Mode = enMode.AddNew;
 
         public int userID { get; set; }
         public string username { get; set; }
@@ -26,7 +26,7 @@ namespace BankSystemBusinessLayer
             this.password = "";
             this.personID = -1;
 
-            mode = enMode.AddNew;
+            Mode = enMode.AddNew;
         }
 
         private Users(string username, string password)
@@ -42,7 +42,7 @@ namespace BankSystemBusinessLayer
             this.password = password;
             this.personID = personID;
 
-            mode = enMode.Update;
+            Mode = enMode.Update;
         }
 
         public static DataTable GetAllUsers()
@@ -62,6 +62,47 @@ namespace BankSystemBusinessLayer
         public static int GetUserIDByUsername(string username)
         {
             return UsersData.GetUserIDByUsername(username);
+        }
+
+        private bool IsEmptyValidation()
+        {
+            if (BusinessInputValidator.IsEmpty(this.userID.ToString()) || BusinessInputValidator.IsEmpty(this.username) ||
+                BusinessInputValidator.IsEmpty(this.permissions.ToString()) || BusinessInputValidator.IsEmpty(this.password)
+                || BusinessInputValidator.IsEmpty(this.personID.ToString()))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool IsNotNumericValidation()
+        {
+            if (!BusinessInputValidator.IsTextNumeric(this.userID.ToString()) || !BusinessInputValidator.IsTextNumeric(this.permissions.ToString()) ||
+                !BusinessInputValidator.IsTextNumeric(this.personID.ToString()))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool IsNotStringValidation()
+        {
+            return (!BusinessInputValidator.IsTextString(this.username));
+        }
+
+        public bool Save()
+        {
+            if (IsEmptyValidation() || IsNotNumericValidation() || IsNotStringValidation())
+                return false;
+
+
+        }
+
+        public static bool IsUsernameExist(string username)
+        {
+            return UsersData.IsUsernameExist(username);
         }
 
         public static byte GetRemainingTrials()

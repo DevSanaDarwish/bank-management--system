@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static BankSystem.ClientUIHelper;
+using static BankSystem.UIHelper;
 
 namespace BankSystem
 {
@@ -23,25 +23,25 @@ namespace BankSystem
         Persons _person = new Persons();
         Phones _phone = new Phones();
 
-        ClientUIHelper _clientUI;
+        UIHelper _clientUI;
 
 
         private void InitializeClientUIObject()
         {
-            _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode,
+            _clientUI = new UIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode,
                 lblPhone, lblAccountNumber, lblEmail, _client, _person, _phone);
         }
-        private void HandleClientAction(enClientAction clientAction)
+        private void HandleClientAction(enAction clientAction)
         {
             InitializeClientUIObject();
 
-            _clientUI._clientAction = clientAction;
+            _clientUI.Action = clientAction;
 
             _clientUI.HandleClientInfo();
         }
         private void btnFindClient_Click(object sender, EventArgs e)
         {
-            HandleClientAction(enClientAction.Find);
+            HandleClientAction(enAction.Find);
         }
     }
 }

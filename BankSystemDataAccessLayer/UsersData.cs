@@ -116,5 +116,33 @@ namespace BankSystemDataAccessLayer
 
             return dtUsers;
         }
+
+        public static bool IsUsernameExist(string username)
+        {
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = "Select 1 Where Exists (Select 1 From Users Where Username = @username);";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@username", username);
+
+            try
+            {
+                connection.Open();
+
+                return (command.ExecuteScalar() != null);
+            }
+
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }

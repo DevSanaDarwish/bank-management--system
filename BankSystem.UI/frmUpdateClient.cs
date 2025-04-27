@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 //using System.Web.UI;
 using System.Windows.Forms;
-using static BankSystem.ClientUIHelper;
+using static BankSystem.UIHelper;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace BankSystem
@@ -28,9 +28,9 @@ namespace BankSystem
         //{
         //    InitializeComponent();
 
-        //    this._client = client;
-        //    this._person = person;
-        //    this._phone = phone;
+        //    this.Client = client;
+        //    this.Person = person;
+        //    this.Phone = phone;
         //    this._personID = personID;
         //    this._txtEmail = txtEmail;
         //    this._txtBalance = txtBalance;
@@ -40,14 +40,14 @@ namespace BankSystem
         //    this._clientUI = clientUI;
         //}
 
-        public frmUpdateClient(ClientUIHelper clientUI)
+        public frmUpdateClient(UIHelper clientUI)
         {
             InitializeComponent();
 
             this._clientUI = clientUI;
         }
 
-        public ClientUIHelper _clientUI;
+        public UIHelper _clientUI;
 
         const short _initialTextboxX = 10, _initialTextboxY = 120;
 
@@ -68,19 +68,19 @@ namespace BankSystem
 
         private void InitializeClientUIObject(Clients client, Persons person, Phones phone)
         {
-            _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, txtEmail/*, gbAllPhones*/, txtBalance, txtPinCode, txtFirstName,
+            _clientUI = new UIHelper(errorProvider1, gbClientCard, txtAccountNumber, txtEmail/*, gbAllPhones*/, txtBalance, txtPinCode, txtFirstName,
               txtLastName, pnlClientInfo, true, lblFirstName, lblLastName, lblBalance, lblPinCode, lblPhone, lblEmail, client, person,
               phone, btnUpdateClient, -1, _clientUI, this);
         }
 
-        private void SetClientAction(enClientAction clientAction)
+        private void SetClientAction(enAction clientAction)
         {
-            _clientUI._clientAction = clientAction;
+            _clientUI.Action = clientAction;
         }
 
         private void Update()
         {
-            enClientAction clientAction = enClientAction.Update;
+            enAction clientAction = enAction.Update;
             SetClientAction(clientAction);
 
             _clientUI.FillClientInfo();
@@ -92,12 +92,12 @@ namespace BankSystem
         {
             Update();
 
-            _clientUI.ClearForm();
+            _clientUI.ClearForm(pnlClientInfo);
 
             _clientUI.HidePanelOrGroup();
         }
 
-        private void HandleClientAction(enClientAction clientAction)
+        private void HandleClientAction(enAction clientAction)
         {
             InitializeAllObjects();
 
@@ -127,7 +127,7 @@ namespace BankSystem
 
             if (_clientUI.LoadPhoneInfo())
             {
-                List<Phones> phonesList = Phones.FindInList(_clientUI._client.clientID);
+                List<Phones> phonesList = Phones.FindInList(_clientUI.Client.clientID);
 
                 foreach (Phones phone in phonesList)
                 {
@@ -328,7 +328,7 @@ namespace BankSystem
 
         private void btnShowInfo_Click(object sender, EventArgs e)
         {
-            HandleClientAction(enClientAction.UpdateShowInfo);
+            HandleClientAction(enAction.UpdateShowInfo);
 
             _numberOfOriginalPhones = GetNumberOfPhones();
 
@@ -404,7 +404,7 @@ namespace BankSystem
         {
             _numberOfUpdatedPhones = GetNumberOfPhones();
 
-            HandleClientAction(enClientAction.Update);
+            HandleClientAction(enAction.Update);
         }
 
         private void MarkControlAsInvalid(TextBox textBox, string message)

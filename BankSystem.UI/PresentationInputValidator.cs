@@ -41,6 +41,11 @@ namespace BankSystem
             return BusinessInputValidator.IsAccNumValueDuplicated(accountNumber);
         }
 
+        public static bool IsUsernameDuplicated(string username)
+        {
+            return BusinessInputValidator.IsUsernameDuplicated(username);
+        }
+
         public static bool IsPhoneNumberValueDuplicated(string phoneNumber)
         {
             return BusinessInputValidator.IsPhoneNumberValueDuplicated(phoneNumber);

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static BankSystem.ClientUIHelper;
+using static BankSystem.UIHelper;
 
 namespace BankSystem
 {
@@ -23,14 +23,14 @@ namespace BankSystem
         //{
         //    InitializeComponent();
 
-        //    this._client = client;
-        //    this._person = person;
-        //    this._phone = phone;
+        //    this.Client = client;
+        //    this.Person = person;
+        //    this.Phone = phone;
         //    this._clientUI = clientUI;
         //    this._txtAccountNumber = txtAccountNumber;
         //}
 
-        ClientUIHelper _clientUI;
+        UIHelper _clientUI;
 
         private void InitializeAllObjects()
         {
@@ -43,16 +43,16 @@ namespace BankSystem
 
         private void InitializeClientUIObject(Clients client, Persons person, Phones phone)
         {
-            _clientUI = new ClientUIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode,
+            _clientUI = new UIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode,
                  lblPhone, lblAccountNumber, lblEmail, client, person, phone, _clientUI, btnDeleteClient, this);
         }
 
-        private void SetClientAction(enClientAction clientAction)
+        private void SetClientAction(enAction clientAction)
         {
-            _clientUI._clientAction = clientAction;
+            _clientUI.Action = clientAction;
         }
 
-        private void HandleClientAction(enClientAction clientAction)
+        private void HandleClientAction(enAction clientAction)
         {
             InitializeAllObjects();
 
@@ -63,12 +63,12 @@ namespace BankSystem
 
         private void btnDeleteClient_Click(object sender, EventArgs e)
         {
-            HandleClientAction(enClientAction.Delete);
+            HandleClientAction(enAction.Delete);
         }
 
         private void btnShowInfo_Click(object sender, EventArgs e)
         {
-            HandleClientAction(enClientAction.DeleteShowInfo);
+            HandleClientAction(enAction.DeleteShowInfo);
         }
 
         private bool IsDeletionSuccessful(string accountNumber, Clients client)

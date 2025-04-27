@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvAllUsers = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAllUsers)).BeginInit();
             this.SuspendLayout();
@@ -37,12 +39,28 @@
             this.dgvAllUsers.AllowUserToAddRows = false;
             this.dgvAllUsers.AllowUserToDeleteRows = false;
             this.dgvAllUsers.BackgroundColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 8F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAllUsers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvAllUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAllUsers.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvAllUsers.GridColor = System.Drawing.Color.CadetBlue;
             this.dgvAllUsers.Location = new System.Drawing.Point(0, 0);
             this.dgvAllUsers.Name = "dgvAllUsers";
             this.dgvAllUsers.ReadOnly = true;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 8F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAllUsers.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvAllUsers.RowHeadersWidth = 51;
             this.dgvAllUsers.RowTemplate.Height = 26;
             this.dgvAllUsers.Size = new System.Drawing.Size(1379, 830);

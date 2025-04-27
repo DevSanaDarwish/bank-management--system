@@ -20,7 +20,7 @@ namespace BankSystem
         }
 
 
-        ClientUIHelper _clientUI;
+        UIHelper _clientUI;
 
         private void InitializeAllObjects()
         {
@@ -33,7 +33,7 @@ namespace BankSystem
 
         private void InitializeClientUIObject(Clients client, Persons person, Phones phone)
         {
-            _clientUI = new ClientUIHelper(errorProvider1, txtAccountNumber, txtEmail, txtPhone, txtBalance, txtPinCode, txtFirstName,
+            _clientUI = new UIHelper(errorProvider1, txtAccountNumber, txtEmail, txtPhone, txtBalance, txtPinCode, txtFirstName,
                  txtLastName, pnlClientInfo, true, client, person, phone, cbPhones);
         }      
 
@@ -46,13 +46,13 @@ namespace BankSystem
         
         private void HandleNewClient()
         {
-            if (_clientUI.ValidateInputFields())
+            if (_clientUI.ValidateInputFields(pnlClientInfo))
             {
                 if (!_clientUI.IsAccountNumberDuplicated(txtAccountNumber.Text))
                 {
                     AddNewClient();
 
-                    _clientUI.ClearForm();
+                    _clientUI.ClearForm(pnlClientInfo);
                 }
 
                 else

@@ -8,7 +8,7 @@ namespace BankSystemBusinessLayer
     public class Clients
     {
         public enum enMode { AddNew = 1, Update = 2};
-        public enMode mode = enMode.AddNew;
+        public enMode Mode = enMode.AddNew;
 
         public int clientID { get; set; }
         public string pinCode { get; set; }
@@ -24,7 +24,7 @@ namespace BankSystemBusinessLayer
             this.accountNumber = "";
             this.personID = -1;
 
-            mode = enMode.AddNew;
+            Mode = enMode.AddNew;
         }
 
         public Clients(int clientID, string pinCode, decimal balance, string accountNumber, int personID)
@@ -35,7 +35,7 @@ namespace BankSystemBusinessLayer
             this.accountNumber = accountNumber;
             this.personID = personID;
 
-            mode = enMode.Update;
+            Mode = enMode.Update;
         }
 
 
@@ -58,8 +58,9 @@ namespace BankSystemBusinessLayer
 
         private bool IsEmptyValidation()
         {
-            if (BusinessInputValidator.IsEmpty(this.clientID.ToString()) || BusinessInputValidator.IsEmpty(this.pinCode) || BusinessInputValidator.IsEmpty(this.balance.ToString()) ||
-                BusinessInputValidator.IsEmpty(this.accountNumber) || BusinessInputValidator.IsEmpty(this.personID.ToString()))
+            if (BusinessInputValidator.IsEmpty(this.clientID.ToString()) || BusinessInputValidator.IsEmpty(this.pinCode) || 
+                BusinessInputValidator.IsEmpty(this.balance.ToString()) || BusinessInputValidator.IsEmpty(this.accountNumber) 
+                || BusinessInputValidator.IsEmpty(this.personID.ToString()))
             {
                 return true;
             }
@@ -83,12 +84,12 @@ namespace BankSystemBusinessLayer
             if (IsEmptyValidation() || IsNotNumericValidation())
                 return false;
 
-            switch (mode)
+            switch (Mode)
             {
                 case enMode.AddNew:
                     if (AddNewClient())
                     {
-                        mode = enMode.Update;
+                        Mode = enMode.Update;
                         return true;
                     }
 

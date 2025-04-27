@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static BankSystem.ClientUIHelper;
+using static BankSystem.UIHelper;
 
 namespace BankSystem
 {
@@ -19,7 +19,7 @@ namespace BankSystem
             InitializeComponent();
         }
 
-        ClientUIHelper _clientUI;
+        UIHelper _clientUI;
 
         private void InitializeAllObjects()
         {
@@ -32,22 +32,22 @@ namespace BankSystem
 
         private void InitializeClientUIObject(Clients client, Persons person, Phones phone)
         {
-            _clientUI = new ClientUIHelper(btnWithdraw, txtAccountNumber, gbClientCard, errorProvider1, client, person, phone, lblFirstName, lblLastName,
+            _clientUI = new UIHelper(btnWithdraw, txtAccountNumber, gbClientCard, errorProvider1, client, person, phone, lblFirstName, lblLastName,
                 lblBalance, lblPinCode, lblPhone, lblAccountNumber, lblEmail, txtWithdrawAmount, lblWithdrawAmount, this);
         }
 
-        private void SetClientAction(enClientAction clientAction)
+        private void SetClientAction(enAction clientAction)
         {
-            _clientUI._clientAction = clientAction;
+            _clientUI.Action = clientAction;
         }
 
-        private void HandleClientAction(enClientAction clientAction)
+        private void HandleClientAction(enAction clientAction)
         {
             InitializeAllObjects();
 
             SetClientAction(clientAction);
 
-            if (clientAction == enClientAction.Withdraw)
+            if (clientAction == enAction.Withdraw)
             {
                 _clientUI.HandleTransactionOperation();
 
@@ -59,12 +59,12 @@ namespace BankSystem
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            HandleClientAction(enClientAction.WithdrawShowInfo);
+            HandleClientAction(enAction.WithdrawShowInfo);
         }
 
         private void btnWithdraw_Click(object sender, EventArgs e)
         {
-            HandleClientAction(enClientAction.Withdraw);
+            HandleClientAction(enAction.Withdraw);
         }
     }
 }
