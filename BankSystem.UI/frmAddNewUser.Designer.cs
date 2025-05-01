@@ -33,17 +33,6 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnAddNewUser = new Guna.UI2.WinForms.Guna2Button();
             this.pnlUserInfo = new Guna.UI2.WinForms.Guna2Panel();
-            this.pnlPermissions = new Guna.UI2.WinForms.Guna2GradientPanel();
-            this.chkLoginRegisters = new Guna.UI2.WinForms.Guna2CheckBox();
-            this.chkTransaction = new Guna.UI2.WinForms.Guna2CheckBox();
-            this.chkManageUsers = new Guna.UI2.WinForms.Guna2CheckBox();
-            this.chkFindClient = new Guna.UI2.WinForms.Guna2CheckBox();
-            this.chkAll = new Guna.UI2.WinForms.Guna2CheckBox();
-            this.chkShowClientsList = new Guna.UI2.WinForms.Guna2CheckBox();
-            this.chkUpdateClient = new Guna.UI2.WinForms.Guna2CheckBox();
-            this.chkDeleteClient = new Guna.UI2.WinForms.Guna2CheckBox();
-            this.chkAddNewClient = new Guna.UI2.WinForms.Guna2CheckBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.lblUsername = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -56,6 +45,17 @@
             this.txtFirstName = new System.Windows.Forms.TextBox();
             this.txtLastName = new System.Windows.Forms.TextBox();
             this.txtPhone = new System.Windows.Forms.TextBox();
+            this.pnlPermissions = new Guna.UI2.WinForms.Guna2GradientPanel();
+            this.chkLoginRegisters = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.chkTransaction = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.chkManageUsers = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.chkFindClient = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.chkAll = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.chkShowClientsList = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.chkUpdateClient = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.chkDeleteClient = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.chkAddNewClient = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.btnAddPhone = new Guna.UI2.WinForms.Guna2Button();
             this.label7 = new System.Windows.Forms.Label();
             this.cbPhones = new System.Windows.Forms.ComboBox();
@@ -85,7 +85,7 @@
             this.btnAddNewUser.FillColor = System.Drawing.Color.Chartreuse;
             this.btnAddNewUser.Font = new System.Drawing.Font("Segoe UI Semibold", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddNewUser.ForeColor = System.Drawing.Color.White;
-            this.btnAddNewUser.Location = new System.Drawing.Point(563, 731);
+            this.btnAddNewUser.Location = new System.Drawing.Point(579, 737);
             this.btnAddNewUser.Name = "btnAddNewUser";
             this.btnAddNewUser.Size = new System.Drawing.Size(296, 71);
             this.btnAddNewUser.TabIndex = 17;
@@ -111,6 +111,126 @@
             this.pnlUserInfo.Size = new System.Drawing.Size(738, 341);
             this.pnlUserInfo.TabIndex = 24;
             // 
+            // txtPassword
+            // 
+            this.txtPassword.BackColor = System.Drawing.Color.White;
+            this.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtPassword.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPassword.Location = new System.Drawing.Point(253, 240);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.Size = new System.Drawing.Size(407, 35);
+            this.txtPassword.TabIndex = 13;
+            // 
+            // lblUsername
+            // 
+            this.lblUsername.AutoSize = true;
+            this.lblUsername.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsername.Location = new System.Drawing.Point(27, 12);
+            this.lblUsername.Name = "lblUsername";
+            this.lblUsername.Size = new System.Drawing.Size(135, 28);
+            this.lblUsername.TabIndex = 0;
+            this.lblUsername.Text = "Username: ";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(27, 69);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(143, 28);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "First Name: ";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(27, 183);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(79, 28);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Email:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(27, 126);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(138, 28);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Last Name: ";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(27, 297);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(95, 28);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "Phone: ";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(27, 240);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(127, 28);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Password: ";
+            // 
+            // txtUsername
+            // 
+            this.txtUsername.BackColor = System.Drawing.Color.White;
+            this.txtUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtUsername.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUsername.Location = new System.Drawing.Point(253, 4);
+            this.txtUsername.Name = "txtUsername";
+            this.txtUsername.Size = new System.Drawing.Size(407, 35);
+            this.txtUsername.TabIndex = 6;
+            // 
+            // txtEmail
+            // 
+            this.txtEmail.BackColor = System.Drawing.Color.White;
+            this.txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtEmail.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmail.Location = new System.Drawing.Point(253, 181);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(407, 35);
+            this.txtEmail.TabIndex = 11;
+            // 
+            // txtFirstName
+            // 
+            this.txtFirstName.BackColor = System.Drawing.Color.White;
+            this.txtFirstName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtFirstName.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFirstName.Location = new System.Drawing.Point(253, 63);
+            this.txtFirstName.Name = "txtFirstName";
+            this.txtFirstName.Size = new System.Drawing.Size(407, 35);
+            this.txtFirstName.TabIndex = 7;
+            // 
+            // txtLastName
+            // 
+            this.txtLastName.BackColor = System.Drawing.Color.White;
+            this.txtLastName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtLastName.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLastName.Location = new System.Drawing.Point(253, 122);
+            this.txtLastName.Name = "txtLastName";
+            this.txtLastName.Size = new System.Drawing.Size(407, 35);
+            this.txtLastName.TabIndex = 10;
+            // 
+            // txtPhone
+            // 
+            this.txtPhone.BackColor = System.Drawing.Color.White;
+            this.txtPhone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtPhone.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPhone.Location = new System.Drawing.Point(253, 299);
+            this.txtPhone.Name = "txtPhone";
+            this.txtPhone.Size = new System.Drawing.Size(407, 35);
+            this.txtPhone.TabIndex = 8;
+            // 
             // pnlPermissions
             // 
             this.pnlPermissions.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -125,7 +245,7 @@
             this.pnlPermissions.Controls.Add(this.chkUpdateClient);
             this.pnlPermissions.Controls.Add(this.chkDeleteClient);
             this.pnlPermissions.Controls.Add(this.chkAddNewClient);
-            this.pnlPermissions.Location = new System.Drawing.Point(22, 596);
+            this.pnlPermissions.Location = new System.Drawing.Point(17, 594);
             this.pnlPermissions.Name = "pnlPermissions";
             this.pnlPermissions.Size = new System.Drawing.Size(415, 214);
             this.pnlPermissions.TabIndex = 15;
@@ -305,131 +425,11 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(17, 549);
+            this.label4.Location = new System.Drawing.Point(12, 547);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(147, 28);
             this.label4.TabIndex = 14;
             this.label4.Text = "Permissions:";
-            // 
-            // txtPassword
-            // 
-            this.txtPassword.BackColor = System.Drawing.Color.White;
-            this.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtPassword.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPassword.Location = new System.Drawing.Point(253, 240);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(407, 35);
-            this.txtPassword.TabIndex = 13;
-            // 
-            // lblUsername
-            // 
-            this.lblUsername.AutoSize = true;
-            this.lblUsername.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUsername.Location = new System.Drawing.Point(27, 12);
-            this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(135, 28);
-            this.lblUsername.TabIndex = 0;
-            this.lblUsername.Text = "Username: ";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(27, 69);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(143, 28);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "First Name: ";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(27, 183);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(79, 28);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Email:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(27, 126);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(138, 28);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Last Name: ";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(27, 297);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(95, 28);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "Phone: ";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(27, 240);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(127, 28);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "Password: ";
-            // 
-            // txtUsername
-            // 
-            this.txtUsername.BackColor = System.Drawing.Color.White;
-            this.txtUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtUsername.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUsername.Location = new System.Drawing.Point(253, 4);
-            this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(407, 35);
-            this.txtUsername.TabIndex = 6;
-            // 
-            // txtEmail
-            // 
-            this.txtEmail.BackColor = System.Drawing.Color.White;
-            this.txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtEmail.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmail.Location = new System.Drawing.Point(253, 181);
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(407, 35);
-            this.txtEmail.TabIndex = 11;
-            // 
-            // txtFirstName
-            // 
-            this.txtFirstName.BackColor = System.Drawing.Color.White;
-            this.txtFirstName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtFirstName.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFirstName.Location = new System.Drawing.Point(253, 63);
-            this.txtFirstName.Name = "txtFirstName";
-            this.txtFirstName.Size = new System.Drawing.Size(407, 35);
-            this.txtFirstName.TabIndex = 7;
-            // 
-            // txtLastName
-            // 
-            this.txtLastName.BackColor = System.Drawing.Color.White;
-            this.txtLastName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtLastName.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLastName.Location = new System.Drawing.Point(253, 122);
-            this.txtLastName.Name = "txtLastName";
-            this.txtLastName.Size = new System.Drawing.Size(407, 35);
-            this.txtLastName.TabIndex = 10;
-            // 
-            // txtPhone
-            // 
-            this.txtPhone.BackColor = System.Drawing.Color.White;
-            this.txtPhone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtPhone.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPhone.Location = new System.Drawing.Point(253, 299);
-            this.txtPhone.Name = "txtPhone";
-            this.txtPhone.Size = new System.Drawing.Size(407, 35);
-            this.txtPhone.TabIndex = 8;
             // 
             // btnAddPhone
             // 
@@ -451,7 +451,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(383, 411);
+            this.label7.Location = new System.Drawing.Point(427, 372);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(223, 28);
             this.label7.TabIndex = 22;
@@ -463,7 +463,7 @@
             this.cbPhones.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbPhones.ForeColor = System.Drawing.Color.Chartreuse;
             this.cbPhones.FormattingEnabled = true;
-            this.cbPhones.Location = new System.Drawing.Point(388, 452);
+            this.cbPhones.Location = new System.Drawing.Point(432, 413);
             this.cbPhones.Name = "cbPhones";
             this.cbPhones.Size = new System.Drawing.Size(291, 36);
             this.cbPhones.TabIndex = 21;

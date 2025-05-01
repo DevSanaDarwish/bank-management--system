@@ -53,7 +53,7 @@ namespace BankSystem
 
         bool _isValid = true;
 
-        public int PersonID = -1, PhoneID = -1, ClientID = -1,  SourceClientID = -1, DestinationClientID = -1, UserID = -1;
+        public int PersonID = -1, PhoneID = -1, ClientID = -1, SourceClientID = -1, DestinationClientID = -1, UserID = -1, Permission = -1;
 
         const decimal _maxAmount = 50000, _minAmount = 500;
 
@@ -1067,7 +1067,7 @@ namespace BankSystem
         {
             User.Username = _txtUsername.Text;
             User.Password = _txtPassword.Text;
-            User.Permissions = -1;
+            User.Permissions = Permission;
         }
 
         public void FillClientInfo()

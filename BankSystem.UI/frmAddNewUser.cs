@@ -10,6 +10,7 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static BankSystemBusinessLayer.Users;
 
 namespace BankSystem
 {
@@ -19,6 +20,20 @@ namespace BankSystem
         {
             InitializeComponent();
         }
+
+        public enum enPermissions
+        {
+            All = -1,
+            ShowClientsList = 1,
+            FindClient = 2,
+            AddNewClient = 4,
+            Transaction = 8,
+            DeleteClient = 16,
+            ManageUsers = 32,
+            UpdateClient = 64,
+            LoginRegisters = 128
+        };
+
 
         UIHelper _userUI;
 
@@ -55,22 +70,41 @@ namespace BankSystem
             _userUI.ValidationSave();
         }
 
-        private void HandleNewUser()
+        private bool IsAnyPermissionChecked()
         {
-            if (_userUI.ValidateInputFields(pnlUserInfo))
+            foreach (Control control in pnlPermissions.Controls)
             {
-                if (!_userUI.IsUsernameDuplicated(txtUsername.Text))
+                if (control is Guna2CheckBox checkBox && checkBox.Checked)
                 {
-                    AddNewUser();
-
-                    _userUI.ClearForm(pnlUserInfo);
-                }
-
-                else
-                {
-                    _userUI.ShowMessage("This username already exists");
+                    return true;
                 }
             }
+
+            return false;
+        }
+
+        private void HandleNewUser()
+        {
+            if (!IsAnyPermissionChecked())
+            {
+                _userUI.ShowMessage("You must choose one permission at least");
+                return;
+            }
+
+            if (!_userUI.ValidateInputFields(pnlUserInfo))
+                return;
+
+            if(_userUI.IsUsernameDuplicated(txtUsername.Text))
+            {
+                _userUI.ShowMessage("This username already exists");
+                return;
+            }
+
+            _userUI.Permission = GetPermissions();
+
+            AddNewUser();
+
+            _userUI.ClearForm(pnlUserInfo);   
         }
         
         private void btnAddNewUser_Click(object sender, EventArgs e)
@@ -112,29 +146,90 @@ namespace BankSystem
 
             _isChangingPermissions = true;
 
+            // If any individual checkbox is unchecked by the user
             if (sender is Guna2CheckBox checkbox && !checkbox.Checked)
             {
+                // Uncheck the "All" checkbox
                 chkAll.Checked = false;
             }
 
             else
             {
+                // Check if all individual checkboxes are selected manually
                 bool allChecked = true;
 
                 foreach(Control control in pnlPermissions.Controls)
                 {
-                    if(control is Guna2CheckBox checkBox && checkBox != chkAll && !checkBox.Checked)
+                    // If any checkbox (other than "All") is not checked, set the flag to false
+                    if (control is Guna2CheckBox checkBox && checkBox != chkAll && !checkBox.Checked)
                     {
                         allChecked = false;
                         break;
                     }
                 }
 
+                // If all individual checkboxes are checked manually, also check the "All" checkbox
                 chkAll.Checked = allChecked;
             }
 
             //Now that we're done the update, let's get back to doing the events 
             _isChangingPermissions = false;
+        }
+
+        public int GetPermissions()
+        {
+            int permission = 0;
+
+            foreach(Control control in pnlPermissions.Controls)
+            {
+                if (control is Guna2CheckBox checkBox && checkBox.Checked)
+                {
+                    if (checkBox == chkAll)
+                        return -1;
+
+                    else if(checkBox == chkShowClientsList)
+                    {
+                        permission += (int)enPermissions.ShowClientsList;
+                    }
+
+                    else if (checkBox == chkFindClient)
+                    {
+                        permission += (int)enPermissions.FindClient;
+                    }
+
+                    else if (checkBox == chkAddNewClient)
+                    {
+                        permission += (int)enPermissions.AddNewClient;
+                    }
+
+                    else if (checkBox == chkTransaction)
+                    {
+                        permission += (int)enPermissions.Transaction;
+                    }
+
+                    else if (checkBox == chkDeleteClient)
+                    {
+                        permission += (int)enPermissions.DeleteClient;
+                    }
+
+                    else if (checkBox == chkManageUsers)
+                    {
+                        permission += (int)enPermissions.ManageUsers;
+                    }
+
+                    else if (checkBox == chkUpdateClient)
+                    {
+                        permission += (int)enPermissions.UpdateClient;
+                    }
+
+                    else if (checkBox == chkLoginRegisters)
+                    {
+                        permission += (int)enPermissions.LoginRegisters;
+                    }
+                }
+            }
+
+            return permission;
         }
     }
 }

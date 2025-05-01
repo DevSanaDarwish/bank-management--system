@@ -10,6 +10,20 @@ namespace BankSystemBusinessLayer
         public enum enMode { AddNew = 1, Update = 2};
         public enMode Mode = enMode.AddNew;
 
+        public enum enPermissions
+        { 
+          All = -1, 
+          ShowClientsList = 1,
+          FindClient = 2,
+          AddNewClient = 4,
+          Transaction = 8, 
+          DeleteClient = 16,
+          ManageUsers = 32, 
+          UpdateClient = 64,
+          LoginRegisters = 128
+        };
+        public enPermissions SelectedPermissions;
+
         public int UserID { get; set; }
         public string Username { get; set; }
         public int Permissions { get; set; }
@@ -44,6 +58,13 @@ namespace BankSystemBusinessLayer
 
             Mode = enMode.Update;
         }
+
+        private bool CheckAccessPermission(enPermissions permission)
+        {
+
+        }
+
+
 
         public static DataTable GetAllUsers()
         {
