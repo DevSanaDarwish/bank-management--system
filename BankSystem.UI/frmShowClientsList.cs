@@ -44,10 +44,6 @@ namespace BankSystem
 
         private void ConfigureDataGridView()
         {
-            //DataGridViewHelper.ConfigureDataGridView(dgvAllClients, "FirstName", "LastName", "PinCode", "AccountNumber",
-            //   "PhoneNumbers", "First Name", "Last Name", "PIN Code", "Account Number", "Phone Number",
-            //   110, 140, 140, 160, 130, 140, 191, 310);
-
             DataGridViewHelper.ConfigureDataGridView(dgvAllClients, GetClientsGridConfig());
         }
 

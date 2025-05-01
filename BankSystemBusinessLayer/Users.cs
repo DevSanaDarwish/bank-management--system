@@ -10,37 +10,37 @@ namespace BankSystemBusinessLayer
         public enum enMode { AddNew = 1, Update = 2};
         public enMode Mode = enMode.AddNew;
 
-        public int userID { get; set; }
-        public string username { get; set; }
-        public int permissions { get; set; }
-        public string password { get; set; }
-        public int personID { get; set; }
+        public int UserID { get; set; }
+        public string Username { get; set; }
+        public int Permissions { get; set; }
+        public string Password { get; set; }
+        public int PersonID { get; set; }
 
         private static byte _trialCounter = 3, _minimumPasswordLength = 4, _maximumPasswordLength = 15;
 
         public Users()
         {
-            this.userID = -1;
-            this.username = "";
-            this.permissions = -1;
-            this.password = "";
-            this.personID = -1;
+            this.UserID = -1;
+            this.Username = "";
+            this.Permissions = -1;
+            this.Password = "";
+            this.PersonID = -1;
 
             Mode = enMode.AddNew;
         }
 
         private Users(string username, string password)
         {
-            this.username = username;
-            this.password = password;
+            this.Username = username;
+            this.Password = password;
         }
         private Users(int userID, string username, int permissions, string password, int personID)
         {
-            this.userID = userID;
-            this.username = username;
-            this.permissions = permissions;
-            this.password = password;
-            this.personID = personID;
+            this.UserID = userID;
+            this.Username = username;
+            this.Permissions = permissions;
+            this.Password = password;
+            this.PersonID = personID;
 
             Mode = enMode.Update;
         }
@@ -66,9 +66,9 @@ namespace BankSystemBusinessLayer
 
         private bool IsEmptyValidation()
         {
-            if (BusinessInputValidator.IsEmpty(this.userID.ToString()) || BusinessInputValidator.IsEmpty(this.username) ||
-                BusinessInputValidator.IsEmpty(this.permissions.ToString()) || BusinessInputValidator.IsEmpty(this.password)
-                || BusinessInputValidator.IsEmpty(this.personID.ToString()))
+            if (BusinessInputValidator.IsEmpty(this.UserID.ToString()) || BusinessInputValidator.IsEmpty(this.Username) ||
+                BusinessInputValidator.IsEmpty(this.Permissions.ToString()) || BusinessInputValidator.IsEmpty(this.Password)
+                || BusinessInputValidator.IsEmpty(this.PersonID.ToString()))
             {
                 return true;
             }
@@ -78,8 +78,8 @@ namespace BankSystemBusinessLayer
 
         private bool IsNotNumericValidation()
         {
-            if (!BusinessInputValidator.IsTextNumeric(this.userID.ToString()) || !BusinessInputValidator.IsTextNumeric(this.permissions.ToString()) ||
-                !BusinessInputValidator.IsTextNumeric(this.personID.ToString()))
+            if (!BusinessInputValidator.IsTextNumeric(this.UserID.ToString()) || !BusinessInputValidator.IsTextNumeric(this.Permissions.ToString()) ||
+                !BusinessInputValidator.IsTextNumeric(this.PersonID.ToString()))
             {
                 return true;
             }
@@ -89,15 +89,51 @@ namespace BankSystemBusinessLayer
 
         private bool IsNotStringValidation()
         {
-            return (!BusinessInputValidator.IsTextString(this.username));
+            return (!BusinessInputValidator.IsTextString(this.Username));
         }
+
+        private bool AddNewUser()
+        {
+            this.UserID = UsersData.AddNewUser(this.Username, this.Permissions, this.Password, this.PersonID);
+
+            return (UserID != -1);
+        }
+
+        public static bool DeleteUser(string username)
+        {
+            return UsersData.DeleteUser(username);
+        }
+        public bool UpdateUser()
+        {
+            return UsersData.UpdateUser(this.Username, this.Permissions, this.Password);
+        }
+
+        //public bool UpdateUser()
+        //{
+
+        //}
 
         public bool Save()
         {
             if (IsEmptyValidation() || IsNotNumericValidation() || IsNotStringValidation())
                 return false;
 
+            switch (Mode)
+            {
+                case enMode.AddNew:
+                    if(AddNewUser())
+                    {
+                        Mode = enMode.Update;
+                        return true;                        
+                    }
 
+                    return false;
+
+               // case enMode.Update:
+                    //return UpdateUser();
+            }
+
+            return false;
         }
 
         public static bool IsUsernameExist(string username)

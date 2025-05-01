@@ -10,30 +10,30 @@ namespace BankSystemBusinessLayer
         public enum enMode { AddNew = 1, Update = 2};
         public enMode Mode = enMode.AddNew;
 
-        public int clientID { get; set; }
-        public string pinCode { get; set; }
-        public decimal balance { get; set; }
-        public string accountNumber { get; set; }
-        public int personID { get; set; }
+        public int ClientID { get; set; }
+        public string PinCode { get; set; }
+        public decimal Balance { get; set; }
+        public string AccountNumber { get; set; }
+        public int PersonID { get; set; }
 
         public Clients()
         {
-            this.clientID = -1;
-            this.pinCode = "";
-            this.balance = 0;
-            this.accountNumber = "";
-            this.personID = -1;
+            this.ClientID = -1;
+            this.PinCode = "";
+            this.Balance = 0;
+            this.AccountNumber = "";
+            this.PersonID = -1;
 
             Mode = enMode.AddNew;
         }
 
         public Clients(int clientID, string pinCode, decimal balance, string accountNumber, int personID)
         {
-            this.clientID = clientID;
-            this.pinCode = pinCode;
-            this.balance = balance;
-            this.accountNumber = accountNumber;
-            this.personID = personID;
+            this.ClientID = clientID;
+            this.PinCode = pinCode;
+            this.Balance = balance;
+            this.AccountNumber = accountNumber;
+            this.PersonID = personID;
 
             Mode = enMode.Update;
         }
@@ -51,16 +51,16 @@ namespace BankSystemBusinessLayer
 
         private bool AddNewClient()
         {
-            this.clientID = ClientsData.AddNewClient(this.pinCode, this.balance, this.accountNumber, this.personID);
+            this.ClientID = ClientsData.AddNewClient(this.PinCode, this.Balance, this.AccountNumber, this.PersonID);
 
-            return (clientID != -1);
+            return (ClientID != -1);
         }
 
         private bool IsEmptyValidation()
         {
-            if (BusinessInputValidator.IsEmpty(this.clientID.ToString()) || BusinessInputValidator.IsEmpty(this.pinCode) || 
-                BusinessInputValidator.IsEmpty(this.balance.ToString()) || BusinessInputValidator.IsEmpty(this.accountNumber) 
-                || BusinessInputValidator.IsEmpty(this.personID.ToString()))
+            if (BusinessInputValidator.IsEmpty(this.ClientID.ToString()) || BusinessInputValidator.IsEmpty(this.PinCode) || 
+                BusinessInputValidator.IsEmpty(this.Balance.ToString()) || BusinessInputValidator.IsEmpty(this.AccountNumber) 
+                || BusinessInputValidator.IsEmpty(this.PersonID.ToString()))
             {
                 return true;
             }
@@ -70,8 +70,8 @@ namespace BankSystemBusinessLayer
 
         private bool IsNotNumericValidation()
         {
-            if (!BusinessInputValidator.IsTextNumeric(this.clientID.ToString()) || !BusinessInputValidator.IsTextNumeric(this.pinCode) ||
-                !BusinessInputValidator.IsTextNumeric(this.personID.ToString()) || !BusinessInputValidator.IsTextNumeric(this.balance.ToString()))
+            if (!BusinessInputValidator.IsTextNumeric(this.ClientID.ToString()) || !BusinessInputValidator.IsTextNumeric(this.PinCode) ||
+                !BusinessInputValidator.IsTextNumeric(this.PersonID.ToString()) || !BusinessInputValidator.IsTextNumeric(this.Balance.ToString()))
             {
                 return true;
             }
@@ -128,7 +128,7 @@ namespace BankSystemBusinessLayer
 
         public bool UpdateClient()
         {
-            return ClientsData.UpdateClient(this.accountNumber, this.pinCode, this.balance);
+            return ClientsData.UpdateClient(this.AccountNumber, this.PinCode, this.Balance);
         }
 
         public static bool DepositAmount(decimal depositAmount, string accountNumber)
@@ -138,7 +138,7 @@ namespace BankSystemBusinessLayer
 
         public bool IsAmountValid(decimal amount)
         {
-            return BusinessInputValidator.IsValueValid(amount, this.balance);      
+            return BusinessInputValidator.IsValueValid(amount, this.Balance);      
         }
 
         public bool IsAmountPositive(decimal amount)

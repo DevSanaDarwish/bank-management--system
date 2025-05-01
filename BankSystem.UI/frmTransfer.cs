@@ -23,18 +23,18 @@ namespace BankSystem
         {
             InitializeComponent();
 
-            this._userID = userID;
+            this.UserID = userID;
         }
 
         UIHelper _clientUI;
         
-        public int _userID {  get; set; }
+        public int UserID {  get; set; }
        
         private void InitializeClientUIObject(Clients client, Persons person, Phones phone)
         {
             _clientUI = new UIHelper(errorProvider1, txtTransferAmount, client, person, phone, gbClientCardFrom, gbClientCardTo, lblFirstNameFrom,
                 lblLastNameFrom, lblBalanceFrom, lblPinCodeFrom, lblPhoneFrom, lblEmailFrom, lblFirstNameTo, lblLastNameTo, lblBalanceTo,
-                lblPinCodeTo, lblPhoneTo, lblEmailTo, this, _clientUI, btnTransfer, txtAccountNumberFrom, txtAccountNumberTo, _userID);
+                lblPinCodeTo, lblPhoneTo, lblEmailTo, this, _clientUI, btnTransfer, txtAccountNumberFrom, txtAccountNumberTo, UserID);
         }
         
         private void InitializeAllObjects()

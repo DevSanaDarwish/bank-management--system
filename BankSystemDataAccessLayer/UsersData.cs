@@ -144,5 +144,115 @@ namespace BankSystemDataAccessLayer
                 connection.Close();
             }
         }
+
+        public static int AddNewUser(string username, int permissions, string password, int personID)
+        {
+            int userID = -1;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = @"INSERT INTO Users (Username, Permissions, Password, PersonID)
+                             VALUES (@username, @permissions, @password, @personID)
+                             SELECT SCOPE_IDENTITY();";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@username", username);
+            command.Parameters.AddWithValue("@permissions", permissions);
+            command.Parameters.AddWithValue("@password", password);
+            command.Parameters.AddWithValue("@personID", personID);
+
+            try
+            {
+                connection.Open();
+
+                object result = command.ExecuteScalar();
+
+                if (result != null && int.TryParse(result.ToString(), out int insertedID))
+                {
+                    userID = insertedID;
+                }
+            }
+
+            catch (Exception ex) { }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return userID;
+        }
+
+        public static bool DeleteUser(string username)
+        {
+            int rowsAffected = 0;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = "Delete Users Where Username = @username";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@username", username);
+
+            try
+            {
+                connection.Open();
+
+                rowsAffected = command.ExecuteNonQuery();
+            }
+
+            catch (Exception ex)
+            {
+                rowsAffected = 0;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return (rowsAffected > 0);
+        }
+
+        public static bool UpdateUser(string username, int permissions, string password)
+        {
+            int rowsAffected = 0;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = @"Update Users 
+                           set Password = @password,   Permissions = @permissions
+                           Where Username = @username;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@password", password);
+            command.Parameters.AddWithValue("@permissions", permissions);
+            command.Parameters.AddWithValue("@Username", username);
+
+            try
+            {
+                connection.Open();
+
+                rowsAffected = command.ExecuteNonQuery();
+            }
+
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+
+            return (rowsAffected > 0);
+        }
+
+
     }
 }

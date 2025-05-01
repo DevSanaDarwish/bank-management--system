@@ -85,7 +85,7 @@
             this.btnAddNewUser.FillColor = System.Drawing.Color.Chartreuse;
             this.btnAddNewUser.Font = new System.Drawing.Font("Segoe UI Semibold", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddNewUser.ForeColor = System.Drawing.Color.White;
-            this.btnAddNewUser.Location = new System.Drawing.Point(562, 730);
+            this.btnAddNewUser.Location = new System.Drawing.Point(563, 731);
             this.btnAddNewUser.Name = "btnAddNewUser";
             this.btnAddNewUser.Size = new System.Drawing.Size(296, 71);
             this.btnAddNewUser.TabIndex = 17;
@@ -94,8 +94,6 @@
             // 
             // pnlUserInfo
             // 
-            this.pnlUserInfo.Controls.Add(this.pnlPermissions);
-            this.pnlUserInfo.Controls.Add(this.label4);
             this.pnlUserInfo.Controls.Add(this.txtPassword);
             this.pnlUserInfo.Controls.Add(this.lblUsername);
             this.pnlUserInfo.Controls.Add(this.label1);
@@ -110,7 +108,7 @@
             this.pnlUserInfo.Controls.Add(this.txtPhone);
             this.pnlUserInfo.Location = new System.Drawing.Point(12, 12);
             this.pnlUserInfo.Name = "pnlUserInfo";
-            this.pnlUserInfo.Size = new System.Drawing.Size(738, 572);
+            this.pnlUserInfo.Size = new System.Drawing.Size(738, 341);
             this.pnlUserInfo.TabIndex = 24;
             // 
             // pnlPermissions
@@ -127,7 +125,7 @@
             this.pnlPermissions.Controls.Add(this.chkUpdateClient);
             this.pnlPermissions.Controls.Add(this.chkDeleteClient);
             this.pnlPermissions.Controls.Add(this.chkAddNewClient);
-            this.pnlPermissions.Location = new System.Drawing.Point(253, 358);
+            this.pnlPermissions.Location = new System.Drawing.Point(22, 596);
             this.pnlPermissions.Name = "pnlPermissions";
             this.pnlPermissions.Size = new System.Drawing.Size(415, 214);
             this.pnlPermissions.TabIndex = 15;
@@ -149,6 +147,7 @@
             this.chkLoginRegisters.UncheckedState.BorderRadius = 0;
             this.chkLoginRegisters.UncheckedState.BorderThickness = 0;
             this.chkLoginRegisters.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkLoginRegisters.CheckedChanged += new System.EventHandler(this.PermissionCheckBox_CheckedChanged);
             // 
             // chkTransaction
             // 
@@ -167,6 +166,7 @@
             this.chkTransaction.UncheckedState.BorderRadius = 0;
             this.chkTransaction.UncheckedState.BorderThickness = 0;
             this.chkTransaction.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkTransaction.CheckedChanged += new System.EventHandler(this.PermissionCheckBox_CheckedChanged);
             // 
             // chkManageUsers
             // 
@@ -185,6 +185,7 @@
             this.chkManageUsers.UncheckedState.BorderRadius = 0;
             this.chkManageUsers.UncheckedState.BorderThickness = 0;
             this.chkManageUsers.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkManageUsers.CheckedChanged += new System.EventHandler(this.PermissionCheckBox_CheckedChanged);
             // 
             // chkFindClient
             // 
@@ -203,6 +204,7 @@
             this.chkFindClient.UncheckedState.BorderRadius = 0;
             this.chkFindClient.UncheckedState.BorderThickness = 0;
             this.chkFindClient.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkFindClient.CheckedChanged += new System.EventHandler(this.PermissionCheckBox_CheckedChanged);
             // 
             // chkAll
             // 
@@ -221,6 +223,7 @@
             this.chkAll.UncheckedState.BorderRadius = 0;
             this.chkAll.UncheckedState.BorderThickness = 0;
             this.chkAll.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkAll.CheckedChanged += new System.EventHandler(this.chkAll_CheckedChanged);
             // 
             // chkShowClientsList
             // 
@@ -239,6 +242,7 @@
             this.chkShowClientsList.UncheckedState.BorderRadius = 0;
             this.chkShowClientsList.UncheckedState.BorderThickness = 0;
             this.chkShowClientsList.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkShowClientsList.CheckedChanged += new System.EventHandler(this.PermissionCheckBox_CheckedChanged);
             // 
             // chkUpdateClient
             // 
@@ -257,6 +261,7 @@
             this.chkUpdateClient.UncheckedState.BorderRadius = 0;
             this.chkUpdateClient.UncheckedState.BorderThickness = 0;
             this.chkUpdateClient.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkUpdateClient.CheckedChanged += new System.EventHandler(this.PermissionCheckBox_CheckedChanged);
             // 
             // chkDeleteClient
             // 
@@ -275,6 +280,7 @@
             this.chkDeleteClient.UncheckedState.BorderRadius = 0;
             this.chkDeleteClient.UncheckedState.BorderThickness = 0;
             this.chkDeleteClient.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkDeleteClient.CheckedChanged += new System.EventHandler(this.PermissionCheckBox_CheckedChanged);
             // 
             // chkAddNewClient
             // 
@@ -293,12 +299,13 @@
             this.chkAddNewClient.UncheckedState.BorderRadius = 0;
             this.chkAddNewClient.UncheckedState.BorderThickness = 0;
             this.chkAddNewClient.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkAddNewClient.CheckedChanged += new System.EventHandler(this.PermissionCheckBox_CheckedChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(27, 354);
+            this.label4.Location = new System.Drawing.Point(17, 549);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(147, 28);
             this.label4.TabIndex = 14;
@@ -433,7 +440,7 @@
             this.btnAddPhone.FillColor = System.Drawing.Color.Chartreuse;
             this.btnAddPhone.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddPhone.ForeColor = System.Drawing.Color.White;
-            this.btnAddPhone.Location = new System.Drawing.Point(99, 590);
+            this.btnAddPhone.Location = new System.Drawing.Point(12, 366);
             this.btnAddPhone.Name = "btnAddPhone";
             this.btnAddPhone.Size = new System.Drawing.Size(376, 41);
             this.btnAddPhone.TabIndex = 23;
@@ -444,7 +451,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(34, 663);
+            this.label7.Location = new System.Drawing.Point(383, 411);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(223, 28);
             this.label7.TabIndex = 22;
@@ -456,7 +463,7 @@
             this.cbPhones.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbPhones.ForeColor = System.Drawing.Color.Chartreuse;
             this.cbPhones.FormattingEnabled = true;
-            this.cbPhones.Location = new System.Drawing.Point(39, 704);
+            this.cbPhones.Location = new System.Drawing.Point(388, 452);
             this.cbPhones.Name = "cbPhones";
             this.cbPhones.Size = new System.Drawing.Size(291, 36);
             this.cbPhones.TabIndex = 21;
@@ -471,7 +478,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1379, 830);
+            this.Controls.Add(this.pnlPermissions);
             this.Controls.Add(this.pnlUserInfo);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.btnAddPhone);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.cbPhones);

@@ -23,7 +23,7 @@ namespace BankSystem
             DataGridViewHelper.RefreshDataSource(dgvTransferLogs, TransferLogs.GetTransferLogsList());
         }
 
-        private DataGridViewConfig GetClientsGridConfig()
+        private DataGridViewConfig GetTransferLogsGridConfig()
         {
             return new DataGridViewConfig
             {
@@ -43,11 +43,7 @@ namespace BankSystem
 
         private void ConfigureDataGridView()
         {
-            //    DataGridViewHelper.ConfigureDataGridView(dgvTransferLogs, "TransferLogID", "SourceAcc", "DestinationAcc", 
-            //        "SourceBalance", "DestinationBalance", "ID", "Source Acc", "Destination Acc", "Source Balance", 
-            //        "Destination Balance", 90, 200, 130, 170, 140, 190, 230, 220);
-
-            DataGridViewHelper.ConfigureDataGridView(dgvTransferLogs, GetClientsGridConfig());
+            DataGridViewHelper.ConfigureDataGridView(dgvTransferLogs, GetTransferLogsGridConfig());
         }
 
         private void frmTransferLogsList_Load(object sender, EventArgs e)

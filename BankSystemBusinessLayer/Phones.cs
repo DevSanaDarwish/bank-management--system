@@ -8,13 +8,13 @@ namespace BankSystemBusinessLayer
     public class Phones
     {
         public enum enMode { AddNew = 0, Update = 1 };
-        public enMode mode = enMode.AddNew;
+        public enMode Mode = enMode.AddNew;
 
-        public int phoneID { get; set; }
+        public int PhoneID { get; set; }
 
-        public string phoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
-        public int personID { get; set; }
+        public int PersonID { get; set; }
 
         List<string> phoneNumbers { get; set; }
 
@@ -23,41 +23,41 @@ namespace BankSystemBusinessLayer
 
         public Phones()
         {
-            this.phoneID = -1;
-            this.phoneNumber = "";
-            this.personID = -1;
+            this.PhoneID = -1;
+            this.PhoneNumber = "";
+            this.PersonID = -1;
             this.phoneNumbers = new List<string>();
             this.phoneIds = new List<int>();
 
-            mode = enMode.AddNew;
+            Mode = enMode.AddNew;
         }
 
         public Phones(string phoneNumber)
         {
-            this.phoneNumber = phoneNumber;
+            this.PhoneNumber = phoneNumber;
 
-            mode = enMode.Update;
+            Mode = enMode.Update;
         }
 
         public Phones(string phoneNumber, int phoneID)
         {
-            this.phoneNumber = phoneNumber;
-            this.phoneID = phoneID;
+            this.PhoneNumber = phoneNumber;
+            this.PhoneID = phoneID;
 
-            mode = enMode.Update;
+            Mode = enMode.Update;
         }
 
         private bool AddNewPhone()
         {
-            this.phoneID = PhonesData.AddNewPhone(this.phoneNumber, this.personID);
+            this.PhoneID = PhonesData.AddNewPhone(this.PhoneNumber, this.PersonID);
 
-            return (this.phoneID != -1);
+            return (this.PhoneID != -1);
         }
 
         private bool IsEmptyValidation()
         {
-            if (BusinessInputValidator.IsEmpty(this.phoneID.ToString()) || BusinessInputValidator.IsEmpty(this.personID.ToString()) ||
-                BusinessInputValidator.IsEmpty(this.phoneNumber))
+            if (BusinessInputValidator.IsEmpty(this.PhoneID.ToString()) || BusinessInputValidator.IsEmpty(this.PersonID.ToString()) ||
+                BusinessInputValidator.IsEmpty(this.PhoneNumber))
             { 
                 return true;
             }
@@ -67,8 +67,8 @@ namespace BankSystemBusinessLayer
 
         private bool IsNotNumericValidation()
         {
-            if (!BusinessInputValidator.IsTextNumeric(this.phoneID.ToString()) || !BusinessInputValidator.IsTextNumeric(this.personID.ToString())
-                || !BusinessInputValidator.IsTextNumeric(this.phoneNumber))
+            if (!BusinessInputValidator.IsTextNumeric(this.PhoneID.ToString()) || !BusinessInputValidator.IsTextNumeric(this.PersonID.ToString())
+                || !BusinessInputValidator.IsTextNumeric(this.PhoneNumber))
             {
                 return true;
             }
@@ -81,7 +81,7 @@ namespace BankSystemBusinessLayer
             if (IsEmptyValidation() || IsNotNumericValidation())
                 return false;
 
-            switch (mode)
+            switch (Mode)
             {
                 case enMode.AddNew:
                     if(AddNewPhone())
@@ -104,12 +104,12 @@ namespace BankSystemBusinessLayer
             if (IsEmptyValidation() || IsNotNumericValidation())
                 return false;
 
-            switch (mode)
+            switch (Mode)
             {
                 case enMode.AddNew:
                     if (AddNewPhone())
                     {
-                        mode = enMode.Update;
+                        Mode = enMode.Update;
                         return true;
                     }
 
@@ -188,12 +188,12 @@ namespace BankSystemBusinessLayer
 
         public bool UpdatePhone()
         {
-            return PhonesData.UpdatePhone(this.phoneID, this.phoneNumber);
+            return PhonesData.UpdatePhone(this.PhoneID, this.PhoneNumber);
         }
 
         public bool UpdatePhone(string phoneItem)
         {
-            return PhonesData.UpdatePhone(this.phoneID, phoneItem);
+            return PhonesData.UpdatePhone(this.PhoneID, phoneItem);
         }
 
         public static byte GetCountOfPhonesNumbers(int personID)

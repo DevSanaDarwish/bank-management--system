@@ -7,38 +7,38 @@ namespace BankSystemBusinessLayer
 {
     public class TransferLogs
     {
-        public int transferLogID { get; set; }
-        public DateTime date { get; set; }
-        public decimal amount { get; set; }
-        public decimal sourceBalance { get; set; }
-        public decimal destinationBalance { get; set; }
-        public int userID { get; set; }
-        public int sourceClientID { get; set; }
-        public int destinationClientID { get; set; }
+        public int TransferLogID { get; set; }
+        public DateTime Date { get; set; }
+        public decimal Amount { get; set; }
+        public decimal SourceBalance { get; set; }
+        public decimal DestinationBalance { get; set; }
+        public int UserID { get; set; }
+        public int SourceClientID { get; set; }
+        public int DestinationClientID { get; set; }
 
         public TransferLogs()
         {
-            this.transferLogID = -1;
-            this.date = DateTime.Now;
-            this.amount = 0;
-            this.sourceBalance = 0;
-            this.destinationBalance = 0;
-            this.userID = -1;
-            this.sourceClientID = -1;
-            this.destinationClientID = -1;
+            this.TransferLogID = -1;
+            this.Date = DateTime.Now;
+            this.Amount = 0;
+            this.SourceBalance = 0;
+            this.DestinationBalance = 0;
+            this.UserID = -1;
+            this.SourceClientID = -1;
+            this.DestinationClientID = -1;
         }
 
         public TransferLogs(int transferLogID, DateTime date, decimal amount, decimal sourceBalance, decimal destinationBalance,
             int userID, int sourceClientID, int destinationClientID)
         {
-            this.transferLogID = transferLogID;
-            this.date = date;
-            this.amount = amount;
-            this.sourceBalance = sourceBalance;
-            this.destinationBalance = destinationBalance;
-            this.userID = userID;
-            this.sourceClientID = sourceClientID;
-            this.destinationClientID = destinationClientID;
+            this.TransferLogID = transferLogID;
+            this.Date = date;
+            this.Amount = amount;
+            this.SourceBalance = sourceBalance;
+            this.DestinationBalance = destinationBalance;
+            this.UserID = userID;
+            this.SourceClientID = sourceClientID;
+            this.DestinationClientID = destinationClientID;
         }
 
         public static DataTable GetTransferLogsList()
@@ -48,10 +48,10 @@ namespace BankSystemBusinessLayer
 
         public bool AddTransferLog()
         {
-            this.transferLogID = TransferLogsData.AddTransferLog(this.date, this.sourceClientID, this.destinationClientID,
-                this.amount, this.sourceBalance, this.destinationBalance, this.userID);
+            this.TransferLogID = TransferLogsData.AddTransferLog(this.Date, this.SourceClientID, this.DestinationClientID,
+                this.Amount, this.SourceBalance, this.DestinationBalance, this.UserID);
 
-            return (transferLogID != -1);
+            return (TransferLogID != -1);
         }
 
    

@@ -53,7 +53,7 @@ namespace BankSystem
 
         bool _isValid = true;
 
-        public int _personID = -1, _phoneID = -1, _clientID = -1,  _sourceClientID = -1, _destinationClientID = -1, _userID = -1;
+        public int PersonID = -1, PhoneID = -1, ClientID = -1,  SourceClientID = -1, DestinationClientID = -1, UserID = -1;
 
         const decimal _maxAmount = 50000, _minAmount = 500;
 
@@ -106,7 +106,7 @@ namespace BankSystem
             this._btnTransaction = btnTransfer;
             this._txtAccNumFrom = txtAccNumFrom;
             this._txtAccNumTo = txtAccNumTo;
-            this._userID = userID;
+            this.UserID = userID;
         }
 
         //Constructor For frmDeposit And frmWithdraw
@@ -156,7 +156,7 @@ namespace BankSystem
             this._btnUpdateClient = btnUpdateClient;
             this._txtFirstName = txtFirstName;
             this._txtLastName = txtLastName;
-            this._phoneID = phoneID;
+            this.PhoneID = phoneID;
             this._clientUI = clientUI;
             this._form = form;
         }
@@ -313,23 +313,23 @@ namespace BankSystem
 
         private bool LoadPersonInfo()
         {
-            Person = Persons.Find(Client.personID);
+            Person = Persons.Find(Client.PersonID);
 
-            _personID = Client.personID;
+            PersonID = Client.PersonID;
 
             return !IsClientNotFound(Person);
         }
 
         public bool LoadPhoneInfo()
         {
-            Phone = Phones.Find(Client.clientID);
+            Phone = Phones.Find(Client.ClientID);
 
             return !IsClientNotFound(Phone);
         }
 
         //public bool LoadPhoneInfoByFindByList()
         //{
-        //    Phone = Phones.FindInList(Client.clientID);
+        //    Phone = Phones.FindInList(Client.ClientID);
             
         //    return !IsClientNotFound(Phone);
         //}
@@ -342,8 +342,8 @@ namespace BankSystem
 
         private void SetEmailLabel(Label label)
         {
-            if (Person.email != "")
-                label.Text = Person.email;
+            if (Person.Email != "")
+                label.Text = Person.Email;
 
             else
                 label.Text = "Unknown";
@@ -374,15 +374,15 @@ namespace BankSystem
 
         private void FillClientCard(string accountNumber)
         {
-            _lblFirstName.Text = Person.firstName;
+            _lblFirstName.Text = Person.FirstName;
 
-            _lblLastName.Text = Person.lastName;
+            _lblLastName.Text = Person.LastName;
 
-            _lblBalance.Text = Client.balance.ToString();
+            _lblBalance.Text = Client.Balance.ToString();
 
-            _lblPinCode.Text = Client.pinCode.ToString();
+            _lblPinCode.Text = Client.PinCode.ToString();
 
-            _lblPhone.Text = Phone.phoneNumber;
+            _lblPhone.Text = Phone.PhoneNumber;
 
             SetEmailLabel(_lblEmail);
 
@@ -391,15 +391,15 @@ namespace BankSystem
 
         private void FillClientCardInLabelsTo()
         {
-            _lblFirstNameTo.Text = Person.firstName;
+            _lblFirstNameTo.Text = Person.FirstName;
 
-            _lblLastNameTo.Text = Person.lastName;
+            _lblLastNameTo.Text = Person.LastName;
 
-            _lblBalanceTo.Text = Client.balance.ToString();
+            _lblBalanceTo.Text = Client.Balance.ToString();
 
-            _lblPinCodeTo.Text = Client.pinCode.ToString();
+            _lblPinCodeTo.Text = Client.PinCode.ToString();
 
-            _lblPhoneTo.Text = Phone.phoneNumber;
+            _lblPhoneTo.Text = Phone.PhoneNumber;
 
             SetEmailLabel(_lblEmailTo);
         }
@@ -426,15 +426,15 @@ namespace BankSystem
 
         private void FillDefaultValuesForUpdate()
         {
-            _txtFirstName.Text = Person.firstName;
+            _txtFirstName.Text = Person.FirstName;
 
-            _txtLastName.Text = Person.lastName;
+            _txtLastName.Text = Person.LastName;
 
-            _txtBalance.Text = Client.balance.ToString();
+            _txtBalance.Text = Client.Balance.ToString();
 
-            _txtPinCode.Text = Client.pinCode.ToString();
+            _txtPinCode.Text = Client.PinCode.ToString();
 
-            _txtEmail.Text = Person.email;
+            _txtEmail.Text = Person.Email;
         }
 
         private void ShowTransactionDetails()
@@ -737,13 +737,13 @@ namespace BankSystem
 
         private void FillTransferLogObject()
         {
-            TransferLog.date = DateTime.Now;
-            TransferLog.sourceClientID = _sourceClientID;
-            TransferLog.destinationClientID = _destinationClientID;
-            TransferLog.amount = Convert.ToDecimal(_txtTransactionAmount.Text);
-            TransferLog.sourceBalance = Convert.ToDecimal(_lblBalance.Text);
-            TransferLog.destinationBalance = Convert.ToDecimal(_lblBalanceTo.Text);
-            TransferLog.userID = _userID;
+            TransferLog.Date = DateTime.Now;
+            TransferLog.SourceClientID = SourceClientID;
+            TransferLog.DestinationClientID = DestinationClientID;
+            TransferLog.Amount = Convert.ToDecimal(_txtTransactionAmount.Text);
+            TransferLog.SourceBalance = Convert.ToDecimal(_lblBalance.Text);
+            TransferLog.DestinationBalance = Convert.ToDecimal(_lblBalanceTo.Text);
+            TransferLog.UserID = UserID;
         }
         private bool AddTransferLog()
         {
@@ -798,11 +798,11 @@ namespace BankSystem
 
             if (AreObjectsInfoSuccessfullyLoaded(accFrom))
             {
-                _sourceClientID = Client.clientID;
+                SourceClientID = Client.ClientID;
 
                 if(AreObjectsInfoSuccessfullyLoaded(accTo))
                 {
-                    _destinationClientID = Client.clientID;
+                    DestinationClientID = Client.ClientID;
                 }
                 
                 return true;
@@ -1046,28 +1046,28 @@ namespace BankSystem
 
         private void FillPersonData()
         {
-            Person.firstName = _txtFirstName.Text;
+            Person.FirstName = _txtFirstName.Text;
 
-            Person.lastName = _txtLastName.Text;
+            Person.LastName = _txtLastName.Text;
 
-            Person.email = string.IsNullOrWhiteSpace(_txtEmail.Text) ? "Unknown" : _txtEmail.Text;
+            Person.Email = string.IsNullOrWhiteSpace(_txtEmail.Text) ? "Unknown" : _txtEmail.Text;
         }
 
         private void FillClientData()
         {
-            Client.pinCode = _txtPinCode.Text;
+            Client.PinCode = _txtPinCode.Text;
 
-            Client.balance = Convert.ToDecimal(_txtBalance.Text);
+            Client.Balance = Convert.ToDecimal(_txtBalance.Text);
 
             if (!(Action == enAction.Update))
-                Client.accountNumber = _txtAccountNumber.Text;
+                Client.AccountNumber = _txtAccountNumber.Text;
         }
 
         private void FillUserData()
         {
-            User.username = _txtUsername.Text;
-            User.password = _txtPassword.Text;
-            User.permissions = -1;
+            User.Username = _txtUsername.Text;
+            User.Password = _txtPassword.Text;
+            User.Permissions = -1;
         }
 
         public void FillClientInfo()
@@ -1089,7 +1089,7 @@ namespace BankSystem
             switch (Action)
             {
                 case enAction.Update:
-                    Person.personID = _personID;
+                    Person.PersonID = PersonID;
                     _typeWord = enOperationType.Update;
                     break;
 
@@ -1138,7 +1138,7 @@ namespace BankSystem
         {
             FillPhoneListObjectForAdd(phoneItem);
 
-            Phone.mode = Phones.enMode.AddNew;
+            Phone.Mode = Phones.enMode.AddNew;
 
             if (Phone.Save())
             {
@@ -1174,34 +1174,34 @@ namespace BankSystem
 
         private void FillPhoneListObjectForAdd(string item)
         {
-            Phone.phoneNumber = item;
+            Phone.PhoneNumber = item;
 
-            Phone.personID = _personID;
+            Phone.PersonID = PersonID;
         }
 
         private void FillPhoneListObject()
         {
-            _clientID = Clients.FindByAccountNumber(_txtAccountNumber.Text).clientID;
+            ClientID = Clients.FindByAccountNumber(_txtAccountNumber.Text).ClientID;
 
-            PhoneList = Phones.FindInList(_clientID);
+            PhoneList = Phones.FindInList(ClientID);
 
 
-            //List<int> lstPhoneIDs = Phones.GetPhoneIDs(_clientID);
+            //List<int> lstPhoneIDs = Phones.GetPhoneIDs(ClientID);
 
-            //Phone.phoneNumber = item;
+            //Phone.PhoneNumber = item;
 
-            //Phone.phoneID = _phoneID;
+            //Phone.PhoneID = PhoneID;
 
-            //Phone.phoneID = _personID;
+            //Phone.PhoneID = PersonID;
         }
 
         private void SetPersonIDToClientObject()
         {
             string firstName = _txtFirstName.Text, lastName = _txtLastName.Text;
 
-            _personID = Persons.Find(firstName, lastName).personID;
+            PersonID = Persons.Find(firstName, lastName).PersonID;
 
-            Client.personID = _personID;
+            Client.PersonID = PersonID;
         }
 
 

@@ -9,53 +9,53 @@ namespace BankSystemBusinessLayer
     public class Persons
     {
         public enum enMode { AddNew = 0, Update = 1 };
-        public enMode mode = enMode.AddNew;
+        public enMode Mode = enMode.AddNew;
 
-        public int personID { get; set; }
-        public string firstName { get; set; }
-        public string lastName { get; set; }
-        public string email { get; set; }
+        public int PersonID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
 
         public Persons()
         {
-            this.personID = -1;
-            this.firstName = "";
-            this.lastName = "";
-            this.email = "";
+            this.PersonID = -1;
+            this.FirstName = "";
+            this.LastName = "";
+            this.Email = "";
 
-            mode = enMode.AddNew;
+            Mode = enMode.AddNew;
         }
 
         private Persons(int personID, string firstName, string lastName, string email)
         {
-            this.personID = personID;
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.email = email;
+            this.PersonID = personID;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.Email = email;
 
-            mode = enMode.Update;
+            Mode = enMode.Update;
         }
 
         private Persons(string firstName, string lastName, string email)
         {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.email = email;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.Email = email;
 
-            mode = enMode.Update;
+            Mode = enMode.Update;
         }
 
         private bool AddNewPerson()
         {
-            this.personID = PersonsData.AddNewPerson(this.firstName, this.lastName, this.email);
+            this.PersonID = PersonsData.AddNewPerson(this.FirstName, this.LastName, this.Email);
 
-            return (personID != -1);
+            return (PersonID != -1);
         }
 
         private bool IsEmptyValidation()
         {
-            if (BusinessInputValidator.IsEmpty(this.personID.ToString()) || BusinessInputValidator.IsEmpty(this.firstName) ||
-                BusinessInputValidator.IsEmpty(this.lastName))
+            if (BusinessInputValidator.IsEmpty(this.PersonID.ToString()) || BusinessInputValidator.IsEmpty(this.FirstName) ||
+                BusinessInputValidator.IsEmpty(this.LastName))
             {
                 return true;
             }
@@ -65,12 +65,12 @@ namespace BankSystemBusinessLayer
 
         private bool IsNotNumericValidation()
         {
-            return (!BusinessInputValidator.IsTextNumeric(this.personID.ToString()));        
+            return (!BusinessInputValidator.IsTextNumeric(this.PersonID.ToString()));        
         }
 
         private bool IsNotStringValidation()
         {
-            return (!BusinessInputValidator.IsTextString(this.firstName) || !BusinessInputValidator.IsTextString(this.lastName));          
+            return (!BusinessInputValidator.IsTextString(this.FirstName) || !BusinessInputValidator.IsTextString(this.LastName));          
         }
 
         public bool Save()
@@ -78,12 +78,12 @@ namespace BankSystemBusinessLayer
             if (IsEmptyValidation() || IsNotNumericValidation() || IsNotStringValidation())
                 return false;
                
-            switch (mode)
+            switch (Mode)
             {
                 case enMode.AddNew:
                     if(AddNewPerson())
                     {
-                        mode = enMode.Update;
+                        Mode = enMode.Update;
                         return true;
                     }
 
@@ -131,7 +131,7 @@ namespace BankSystemBusinessLayer
 
         public bool UpdatePerson()
         {
-            return PersonsData.UpdatePerson(this.personID, this.firstName, this.lastName, this.email);
+            return PersonsData.UpdatePerson(this.PersonID, this.FirstName, this.LastName, this.Email);
         }
     }
 }

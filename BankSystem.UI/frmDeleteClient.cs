@@ -26,7 +26,7 @@ namespace BankSystem
         //    this.Client = client;
         //    this.Person = person;
         //    this.Phone = phone;
-        //    this._clientUI = clientUI;
+        //    this.ClientUI = clientUI;
         //    this._txtAccountNumber = txtAccountNumber;
         //}
 
@@ -73,7 +73,7 @@ namespace BankSystem
 
         private bool IsDeletionSuccessful(string accountNumber, Clients client)
         {
-            int personID = client.personID;
+            int personID = client.PersonID;
 
             return (Clients.DeleteClient(accountNumber) && Phones.DeletePhone(personID) && Persons.DeletePerson(personID));
         }

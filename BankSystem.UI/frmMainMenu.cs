@@ -45,23 +45,29 @@ namespace BankSystem
 
         public void ResetButtonsColor()
         {
-            ResetOneButtonColor(btnShowClientsList);
-            ResetOneButtonColor(btnAddNewClient);
-            ResetOneButtonColor(btnDeleteClient);
-            ResetOneButtonColor(btnUpdateClient);
-            ResetOneButtonColor(btnFindClient);       
-            ResetOneButtonColor(btnDeposit);     
-            ResetOneButtonColor(btnWithdraw);     
-            ResetOneButtonColor(btnTotalBalances);     
-            ResetOneButtonColor(btnTransfer);     
-            ResetOneButtonColor(btnTransferLogsList);     
-            ResetOneButtonColor(btnShowUsersList);     
-            ResetOneButtonColor(btnAddNewUser);     
-            ResetOneButtonColor(btnDeleteUser);     
-            ResetOneButtonColor(btnUpdateUser);     
-            ResetOneButtonColor(btnFindUser);     
-            ResetOneButtonColor(btnLoginRegisters);     
-            ResetOneButtonColor(btnLogout);     
+            foreach(Control control in pnlMenu.Controls)
+            {
+                if(control is Guna2Button button)
+                {
+                    ResetOneButtonColor(button);
+                }
+            }
+
+            foreach (Control control in pnlTransactions.Controls)
+            {
+                if (control is Guna2Button button)
+                {
+                    ResetOneButtonColor(button);
+                }
+            }
+
+            foreach (Control control in pnlUsers.Controls)
+            {
+                if (control is Guna2Button button)
+                {
+                    ResetOneButtonColor(button);
+                }
+            }
         }
 
         private void ColoringButton(Guna2Button button, Color color)
@@ -171,7 +177,7 @@ namespace BankSystem
 
         private void btnDeleteUser_Click(object sender, EventArgs e)
         {
-            HandleButtonClick(btnDeleteUser, Color.DarkOliveGreen, new frmDeleteUser());
+            HandleButtonClick(btnDeleteUser, Color.Orchid, new frmDeleteUser());
         }
 
         private void btnUpdateUser_Click(object sender, EventArgs e)

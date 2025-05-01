@@ -1,4 +1,5 @@
 ﻿using BankSystemBusinessLayer;
+using Guna.UI2.WinForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -73,6 +74,26 @@ namespace BankSystem
             InitializeAllObjects();
 
             HandleNewUser();
+        }
+
+        private void chkAll_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach(Control control in pnlPermissions.Controls)
+            {
+                if(control is Guna2CheckBox checkbox)
+                {
+                    checkbox.Checked = chkAll.Checked;
+                }
+            }
+        }
+
+        private void PermissionCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (sender is Guna2CheckBox checkbox && !checkbox.Checked)
+            {
+                chkAll.Checked = false;
+            }
+
         }
     }
 }

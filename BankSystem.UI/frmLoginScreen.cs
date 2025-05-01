@@ -323,6 +323,18 @@ namespace BankSystem
             ShowLoginMessage();
         }
 
+        private void FillLoginRegisterObject()
+        {
+
+        }
+
+        private bool AddLoginRegisters()
+        {
+            LoginRegisters loginRegister = new LoginRegisters(DateTime.Now, _userID);
+
+            return loginRegister.AddLoginRegisters();
+        }
+
         private void HandleLogin()
         {
             try
@@ -330,6 +342,8 @@ namespace BankSystem
                 if (IsValidUsernameAndPassword())
                 {
                     OpenMainForm();
+
+                    AddLoginRegisters();
                 }
 
                 else

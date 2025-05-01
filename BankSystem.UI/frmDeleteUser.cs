@@ -16,5 +16,10 @@ namespace BankSystem
         {
             InitializeComponent();
         }
+
+        private void btnShowInfo_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

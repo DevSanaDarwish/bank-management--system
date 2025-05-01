@@ -24,30 +24,30 @@ namespace BankSystem
 
 
 
-        //public frmUpdateClient(Clients client, Persons person, Phones phone, int personID, TextBox txtEmail, TextBox txtBalance, TextBox txtPinCode, TextBox txtFirstName, TextBox txtLastName, ClientUIHelper clientUI)
+        //public frmUpdateClient(Clients client, Persons person, Phones phone, int PersonID, TextBox txtEmail, TextBox txtBalance, TextBox txtPinCode, TextBox txtFirstName, TextBox txtLastName, ClientUIHelper clientUI)
         //{
         //    InitializeComponent();
 
         //    this.Client = client;
         //    this.Person = person;
         //    this.Phone = phone;
-        //    this._personID = personID;
+        //    this.PersonID = PersonID;
         //    this._txtEmail = txtEmail;
         //    this._txtBalance = txtBalance;
         //    this._txtPinCode = txtPinCode;
         //    this._txtFirstName = txtFirstName;
         //    this._txtLastName = txtLastName;
-        //    this._clientUI = clientUI;
+        //    this.ClientUI = clientUI;
         //}
 
         public frmUpdateClient(UIHelper clientUI)
         {
             InitializeComponent();
 
-            this._clientUI = clientUI;
+            this.ClientUI = clientUI;
         }
 
-        public UIHelper _clientUI;
+        public UIHelper ClientUI;
 
         const short _initialTextboxX = 10, _initialTextboxY = 120;
 
@@ -68,14 +68,14 @@ namespace BankSystem
 
         private void InitializeClientUIObject(Clients client, Persons person, Phones phone)
         {
-            _clientUI = new UIHelper(errorProvider1, gbClientCard, txtAccountNumber, txtEmail/*, gbAllPhones*/, txtBalance, txtPinCode, txtFirstName,
+            ClientUI = new UIHelper(errorProvider1, gbClientCard, txtAccountNumber, txtEmail/*, gbAllPhones*/, txtBalance, txtPinCode, txtFirstName,
               txtLastName, pnlClientInfo, true, lblFirstName, lblLastName, lblBalance, lblPinCode, lblPhone, lblEmail, client, person,
-              phone, btnUpdateClient, -1, _clientUI, this);
+              phone, btnUpdateClient, -1, ClientUI, this);
         }
 
         private void SetClientAction(enAction clientAction)
         {
-            _clientUI.Action = clientAction;
+            ClientUI.Action = clientAction;
         }
 
         private void Update()
@@ -83,18 +83,18 @@ namespace BankSystem
             enAction clientAction = enAction.Update;
             SetClientAction(clientAction);
 
-            _clientUI.FillClientInfo();
+            ClientUI.FillClientInfo();
 
-            _clientUI.ValidationSave();
+            ClientUI.ValidationSave();
         }
 
         public void UpdateClient()
         {
             Update();
 
-            _clientUI.ClearForm(pnlClientInfo);
+            ClientUI.ClearForm(pnlClientInfo);
 
-            _clientUI.HidePanelOrGroup();
+            ClientUI.HidePanelOrGroup();
         }
 
         private void HandleClientAction(enAction clientAction)
@@ -103,7 +103,7 @@ namespace BankSystem
 
             SetClientAction(clientAction);
 
-            _clientUI.HandleClientInfo();
+            ClientUI.HandleClientInfo();
         }
         
         private byte GetCountOfPhonesNumbers()
@@ -113,7 +113,7 @@ namespace BankSystem
 
         private byte GetCountOfPhonesNumbersByDatabase()
         {
-            return Phones.GetCountOfPhonesNumbers(_clientUI._personID);
+            return Phones.GetCountOfPhonesNumbers(ClientUI.PersonID);
         }
 
         private string[] GetPhonesNumbers()
@@ -125,13 +125,13 @@ namespace BankSystem
         {
             List<string> lstPhones = new List<string>();
 
-            if (_clientUI.LoadPhoneInfo())
+            if (ClientUI.LoadPhoneInfo())
             {
-                List<Phones> phonesList = Phones.FindInList(_clientUI.Client.clientID);
+                List<Phones> phonesList = Phones.FindInList(ClientUI.Client.ClientID);
 
                 foreach (Phones phone in phonesList)
                 {
-                    lstPhones.Add(phone.phoneNumber);
+                    lstPhones.Add(phone.PhoneNumber);
                 }
             }
 
@@ -174,7 +174,7 @@ namespace BankSystem
 
             if (IsPhoneDeleted(phoneNumber))
             {
-                _clientUI.ShowMessage("This number has been deleted");
+                ClientUI.ShowMessage("This number has been deleted");
             }
         }
 
@@ -259,10 +259,10 @@ namespace BankSystem
                     string item = textbox.Text;
 
                     if(index < _numberOfOriginalPhones)
-                        _clientUI.ProcessPhoneItem(item, index);
+                        ClientUI.ProcessPhoneItem(item, index);
 
                     else
-                        _clientUI.ProcessPhoneItemForAdd(item);
+                        ClientUI.ProcessPhoneItemForAdd(item);
 
                     index++;
                 }
@@ -409,7 +409,7 @@ namespace BankSystem
 
         private void MarkControlAsInvalid(TextBox textBox, string message)
         {
-            _clientUI.AllValidation(textBox, false, message);
+            ClientUI.AllValidation(textBox, false, message);
         }
 
         private bool IsPhoneNumberNull(string phoneNumber, TextBox textBox)

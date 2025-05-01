@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientsData.cs" />
+    <Compile Include="LoginRegistersData.cs" />
     <Compile Include="PersonsData.cs" />
     <Compile Include="PhonesData.cs" />
     <Compile Include="TransferLogsData.cs" />
