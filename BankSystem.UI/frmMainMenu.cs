@@ -102,54 +102,53 @@ namespace BankSystem
 
             ChildFormManager.OpenChildForm(form, pnlContent);
         }
+
+        private void SecureButtonClick(Guna2Button button, Color color, Form form, Users.enPermissions permission)
+        {
+            if (!_UI.CheckAccessRights(permission))
+                return;
+
+            HandleButtonClick(button, color, form);
+        }
         
         private void btnShowClientsList_Click(object sender, EventArgs e)
         {
-            if (!_UI.CheckAccessRights(Users.enPermissions.ShowClientsList))
-                return;
-            
-            HandleButtonClick(btnShowClientsList, Color.DeepPink, new frmShowClientsList());
+            SecureButtonClick(btnShowClientsList, Color.DeepPink, new frmShowClientsList(), Users.enPermissions.ShowClientsList);
         }
 
         private void btnAddNewClient_Click(object sender, EventArgs e)
         {
-            if (!_UI.CheckAccessRights(Users.enPermissions.AddNewClient))
-                return;
-
-            HandleButtonClick(btnAddNewClient, Color.DeepSkyBlue, new frmAddNewClient());
+            SecureButtonClick(btnAddNewClient, Color.DeepSkyBlue, new frmAddNewClient(), Users.enPermissions.AddNewClient);
         }
 
         private void btnDeleteClient_Click(object sender, EventArgs e)
         {
-            if (!_UI.CheckAccessRights(Users.enPermissions.DeleteClient))
-                return;
-
-            HandleButtonClick(btnDeleteClient, Color.Gold, new frmDeleteClient());
+            SecureButtonClick(btnDeleteClient, Color.Gold, new frmDeleteClient(), Users.enPermissions.DeleteClient);
         }
 
         private void btnUpdateClient_Click(object sender, EventArgs e)
         {
-            if (!_UI.CheckAccessRights(Users.enPermissions.UpdateClient))
-                return;
-
-            HandleButtonClick(btnUpdateClient, Color.DarkSeaGreen, new frmUpdateClient());
+            SecureButtonClick(btnUpdateClient, Color.DarkSeaGreen, new frmUpdateClient(), Users.enPermissions.UpdateClient);
         }
 
         private void btnFindClient_Click(object sender, EventArgs e)
         {
-            if (!_UI.CheckAccessRights(Users.enPermissions.FindClient))
-                return;
-
-            HandleButtonClick(btnFindClient, Color.DarkRed, new frmFindClient());
+            SecureButtonClick(btnFindClient, Color.DarkRed, new frmFindClient(), Users.enPermissions.FindClient);
         }
 
         private void btnTransactions_Click(object sender, EventArgs e)
         {
+            if (!_UI.CheckAccessRights(Users.enPermissions.Transaction))
+                return;
+
             TogglePanelVisibility(pnlTransactions);
         }
 
         private void btnManageUsers_Click(object sender, EventArgs e)
         {
+            if (!_UI.CheckAccessRights(Users.enPermissions.ManageUsers))
+                return;
+
             TogglePanelVisibility(pnlUsers);
         }
 
@@ -210,7 +209,7 @@ namespace BankSystem
 
         private void btnLoginRegisters_Click(object sender, EventArgs e)
         {
-            HandleButtonClick(btnLoginRegisters, Color.SteelBlue, new frmLoginRegisters());
+            SecureButtonClick(btnLoginRegisters, Color.SteelBlue, new frmLoginRegisters(), Users.enPermissions.LoginRegisters);
         }
 
         private void Logout()
