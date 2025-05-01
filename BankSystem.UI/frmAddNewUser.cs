@@ -70,6 +70,8 @@ namespace BankSystem
             _userUI.ValidationSave();
         }
 
+        
+
         private bool IsAnyPermissionChecked()
         {
             foreach (Control control in pnlPermissions.Controls)
@@ -106,6 +108,7 @@ namespace BankSystem
 
             _userUI.ClearForm(pnlUserInfo);   
         }
+        
         
         private void btnAddNewUser_Click(object sender, EventArgs e)
         {

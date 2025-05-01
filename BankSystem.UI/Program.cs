@@ -20,7 +20,7 @@ using System.Windows.Forms;
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMainMenu());
+            Application.Run(new frmLoginScreen());
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]

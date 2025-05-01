@@ -77,6 +77,9 @@ namespace BankSystem
             this.Phone = phone;
         }
 
+        public UIHelper() { }
+        
+
         //Constructor For frmTransfer
         public UIHelper(ErrorProvider errorProvider1, TextBox txtTransactionAmount, Clients client, Persons person, Phones phone,
              Guna2GroupBox gbClientCardFrom, Guna2GroupBox gbClientCardTo, Label lblFirstNameFrom, Label lblLastNameFrom, Label lblBalanceFrom,
@@ -1082,6 +1085,17 @@ namespace BankSystem
             FillPersonData();
 
             FillUserData();
+        }
+
+        public bool CheckAccessRights(Users.enPermissions permission)
+        {
+            if (!User.CheckAccessPermission(permission))
+            {
+                ShowMessage("Access Denied! Contact Your Admin");
+                return false;
+            }
+
+            return true;
         }
 
         private void SetTypeWord()

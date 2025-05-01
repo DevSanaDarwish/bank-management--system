@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClassLibraryForChildForm;
+using BankSystemBusinessLayer;
 
 namespace BankSystem
 {
@@ -32,6 +33,8 @@ namespace BankSystem
 
             SetUsernameInLabel();
         }
+
+        UIHelper _UI = new UIHelper();
 
         private void SetUsernameInLabel()
         {
@@ -99,29 +102,44 @@ namespace BankSystem
 
             ChildFormManager.OpenChildForm(form, pnlContent);
         }
-
+        
         private void btnShowClientsList_Click(object sender, EventArgs e)
         {
+            if (!_UI.CheckAccessRights(Users.enPermissions.ShowClientsList))
+                return;
+            
             HandleButtonClick(btnShowClientsList, Color.DeepPink, new frmShowClientsList());
         }
 
         private void btnAddNewClient_Click(object sender, EventArgs e)
         {
+            if (!_UI.CheckAccessRights(Users.enPermissions.AddNewClient))
+                return;
+
             HandleButtonClick(btnAddNewClient, Color.DeepSkyBlue, new frmAddNewClient());
         }
 
         private void btnDeleteClient_Click(object sender, EventArgs e)
         {
+            if (!_UI.CheckAccessRights(Users.enPermissions.DeleteClient))
+                return;
+
             HandleButtonClick(btnDeleteClient, Color.Gold, new frmDeleteClient());
         }
 
         private void btnUpdateClient_Click(object sender, EventArgs e)
         {
+            if (!_UI.CheckAccessRights(Users.enPermissions.UpdateClient))
+                return;
+
             HandleButtonClick(btnUpdateClient, Color.DarkSeaGreen, new frmUpdateClient());
         }
 
         private void btnFindClient_Click(object sender, EventArgs e)
         {
+            if (!_UI.CheckAccessRights(Users.enPermissions.FindClient))
+                return;
+
             HandleButtonClick(btnFindClient, Color.DarkRed, new frmFindClient());
         }
 

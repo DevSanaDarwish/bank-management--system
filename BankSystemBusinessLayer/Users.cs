@@ -59,12 +59,16 @@ namespace BankSystemBusinessLayer
             Mode = enMode.Update;
         }
 
-        private bool CheckAccessPermission(enPermissions permission)
+        public bool CheckAccessPermission(enPermissions permission)
         {
+            if (this.Permissions == (int)enPermissions.All)
+                return true;
 
-        }
+            if (((int)permission & this.Permissions) == (int)permission)
+                return true;
 
-
+            return false;
+        }       
 
         public static DataTable GetAllUsers()
         {
