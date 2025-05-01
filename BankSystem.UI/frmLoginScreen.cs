@@ -150,21 +150,21 @@ namespace BankSystem
             SetLoginPanelBackColor();
         }
 
-        private void ColoringPasswordAndUsernamePanel()
+        private void ColoringPasswordAndUsernamePanel(Color passwordLineColor, Color usernameLineColor)
         {
-            ControlHelper.ColoringPanel(pnlLineForPassword, Color.White);
+            ControlHelper.ColoringPanel(pnlLineForPassword, passwordLineColor);
 
-            ControlHelper.ColoringPanel(pnlLineForUsername, Color.MidnightBlue);
+            ControlHelper.ColoringPanel(pnlLineForUsername, usernameLineColor);
         }
 
         private void txtUsername_Click(object sender, EventArgs e)
         {
-            ColoringPasswordAndUsernamePanel();
+            ColoringPasswordAndUsernamePanel(Color.White, Color.MidnightBlue);
         }
         
         private void txtPassword_Click(object sender, EventArgs e)
         {
-            ColoringPasswordAndUsernamePanel();
+            ColoringPasswordAndUsernamePanel(Color.MidnightBlue, Color.White);
         }
 
         private void ShowPassword()
