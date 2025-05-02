@@ -65,14 +65,17 @@ namespace BankSystem
             return BusinessInputValidator.IsDifferentStringValues(value1, value2);
         }
 
-        public static bool IsAmountValid(decimal amount, decimal maxAmount, decimal minAmount)
+        public static bool ValidationValue(decimal value, decimal maxValue, decimal minValue)
         {
-            return BusinessInputValidator.IsAmountValueValid(amount, maxAmount, minAmount);
+            return BusinessInputValidator.ValidationValue(value, maxValue, minValue);
         }
+
 
         public static bool IsBalanceZero(decimal balance)
         {
             return BusinessInputValidator.IsValueZero(balance);
         }
+
+
     }
 }

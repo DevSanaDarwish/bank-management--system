@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
+//using System.Web.UI;
 using System.Windows.Forms;
 using static BankSystemBusinessLayer.Users;
 
@@ -61,11 +62,11 @@ namespace BankSystem
             _userUI.AddPhone();
         }
 
-        private void AddNewUser()
+        private void AddNewUser(int permission)
         {
             InitializeAllObjects();
 
-            _userUI.FillUserInfo();
+            _userUI.FillUserInfo(permission);
 
             _userUI.ValidationSave();
         }
@@ -85,26 +86,75 @@ namespace BankSystem
             return false;
         }
 
-        private void HandleNewUser()
+        private void ClearCheckedPermissions()
+        {
+            foreach (Control control in pnlPermissions.Controls)
+            {
+                if (control is Guna2CheckBox checkBox && checkBox.Checked)
+                {
+                    checkBox.Checked = false;
+                }
+            }
+        }
+
+        private bool IsValidPasswordLength(byte minimumPasswordLength, byte maximumPasswordLength)
+        {
+            byte passwordLength = (Byte)txtPassword.Text.Length;
+
+            return (PresentationInputValidator.ValidationValue(passwordLength, maximumPasswordLength, minimumPasswordLength));
+        }
+
+        private bool IsValidPermissionSelection()
         {
             if (!IsAnyPermissionChecked())
             {
                 _userUI.ShowMessage("You must choose one permission at least");
-                return;
+                return false;
             }
+            return true;
+        }
 
-            if (!_userUI.ValidateInputFields(pnlUserInfo))
-                return;
+        private bool IsValidInputFields()
+        {
+            return _userUI.ValidateInputFields(pnlUserInfo);
+        }
 
-            if(_userUI.IsUsernameDuplicated(txtUsername.Text))
+        private bool IsUsernameDuplicated()
+        {
+            if (_userUI.IsUsernameDuplicated(txtUsername.Text))
             {
                 _userUI.ShowMessage("This username already exists");
-                return;
+                return true;
+            }
+            return false;
+        }
+
+        private bool IsPasswordLengthValid()
+        {
+            byte minimumPasswordLength = Users.GetMinimumPasswordLength();
+            byte maximumPasswordLength = Users.GetMaximumPasswordLength();
+
+            if (!IsValidPasswordLength(minimumPasswordLength, maximumPasswordLength))
+            {
+                string message = $"The password must be between {minimumPasswordLength} and {maximumPasswordLength} characters long.";
+                errorProvider1.SetError(txtPassword, message);
+                return false;
             }
 
-            _userUI.Permission = GetPermissions();
+            return true;
+        }
 
-            AddNewUser();
+
+        private void HandleNewUser()
+        {
+            if (!IsValidPermissionSelection() || !IsValidInputFields() || IsUsernameDuplicated() || !IsPasswordLengthValid())
+                return;
+
+            int permission = GetPermissions();
+
+            AddNewUser(permission);
+
+            ClearCheckedPermissions();
 
             _userUI.ClearForm(pnlUserInfo);   
         }
@@ -187,7 +237,7 @@ namespace BankSystem
             {
                 if (control is Guna2CheckBox checkBox && checkBox.Checked)
                 {
-                    if (checkBox == chkAll)
+                    if (chkAll.Checked)
                         return -1;
 
                     else if(checkBox == chkShowClientsList)

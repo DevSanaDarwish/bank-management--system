@@ -361,7 +361,6 @@ namespace BankSystem
        
         private bool ValidateControlText(TextBox control, string messageValue)
         {
-
             if (string.IsNullOrWhiteSpace(control.Text))
             {
                 errorProvider1.SetError(control, messageValue);
@@ -370,16 +369,19 @@ namespace BankSystem
             }
 
             //Show error message if the control was txtPassword
-            if(control == txtPassword && !IsValidPasswordLength())
+            if(control == txtPassword)
             {
                 byte minimumPasswordLength = Users.GetMinimumPasswordLength();
                 byte maximumPasswordLength = Users.GetMaximumPasswordLength();
 
-                string passwordMessage = $"The password must be between {minimumPasswordLength} and {maximumPasswordLength} characters long.";
+                if(!IsValidPasswordLength(maximumPasswordLength, minimumPasswordLength))
+                {
+                    string passwordMessage = $"The password must be between {minimumPasswordLength} and {maximumPasswordLength} characters long.";
 
-                errorProvider1.SetError(control, passwordMessage);
+                    errorProvider1.SetError(control, passwordMessage);
 
-                return false;
+                    return false;
+                }            
             }
 
             errorProvider1.SetError(control, "");
@@ -387,11 +389,11 @@ namespace BankSystem
             return true;
         }
 
-        private bool IsValidPasswordLength()
+        private bool IsValidPasswordLength(int maxValue, int minValue)
         {
             byte passwordLength = (Byte)txtPassword.Text.Length;
 
-            return (Users.IsValidPasswordLength(passwordLength));            
+            return (PresentationInputValidator.ValidationValue(passwordLength, maxValue, minValue));            
         }
 
         private bool IsValidInputFields()

@@ -29,13 +29,13 @@ namespace BankSystem
             {
                 lstColumns = new List<ColumnConfig>
                 {
-                    new ColumnConfig { ColumnName = "UserID", Width = 140 },
-                    new ColumnConfig { ColumnName = "Username", Width = 170 },
-                    new ColumnConfig { ColumnName = "FullName", DisplayName = "Full Name", Width = 220 },
-                    new ColumnConfig { ColumnName = "Email", Width = 190 },
-                    new ColumnConfig { ColumnName = "PhoneNumbers", DisplayName = "Phone Numbers", Width = 250 },
-                    new ColumnConfig { ColumnName = "Password", Width = 170 },
-                    new ColumnConfig { ColumnName = "Permissions", Width = 170 }             
+                    new ColumnConfig { ColumnName = "UserID", Width = 110 },
+                    new ColumnConfig { ColumnName = "Username", Width = 150 },
+                    new ColumnConfig { ColumnName = "FullName", DisplayName = "Full Name", Width = 240 },
+                    new ColumnConfig { ColumnName = "Email", Width = 200 },
+                    new ColumnConfig { ColumnName = "PhoneNumbers", DisplayName = "Phone Numbers", Width = 330 },
+                    new ColumnConfig { ColumnName = "Password", Width = 130 },
+                    new ColumnConfig { ColumnName = "Permissions", Width = 160 }             
                 }
             };
         }

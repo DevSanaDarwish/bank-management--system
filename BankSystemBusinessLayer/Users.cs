@@ -112,10 +112,6 @@ namespace BankSystemBusinessLayer
             return false;
         }
 
-        private bool IsNotStringValidation()
-        {
-            return (!BusinessInputValidator.IsTextString(this.Username));
-        }
 
         private bool AddNewUser()
         {
@@ -140,7 +136,7 @@ namespace BankSystemBusinessLayer
 
         public bool Save()
         {
-            if (IsEmptyValidation() || IsNotNumericValidation() || IsNotStringValidation())
+            if (IsEmptyValidation() || IsNotNumericValidation())
                 return false;
 
             switch (Mode)
@@ -197,13 +193,15 @@ namespace BankSystemBusinessLayer
             return _maximumPasswordLength;
         }
 
-        public static bool IsValidPasswordLength(byte passwordLength)
-        {
-            if (passwordLength == 0)
-                return false;
+        //public static bool IsValidPasswordLength(byte passwordLength)
+        //{
+        //    //if (passwordLength == 0)
+        //    //    return false;
 
-            return (passwordLength >= _minimumPasswordLength && passwordLength <= _maximumPasswordLength);
-        }
+        //    //return (passwordLength >= _minimumPasswordLength && passwordLength <= _maximumPasswordLength);
+
+        //    return (BusinessInputValidator.ValidationValue(passwordLength, _maximumPasswordLength, _minimumPasswordLength));
+        //}
 
     }
 }

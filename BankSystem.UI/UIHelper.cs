@@ -620,7 +620,7 @@ namespace BankSystem
                         AllValidation(textbox, PresentationInputValidator.IsNumeric(textbox.Text), message);
                     }
 
-                    if (textbox == _txtFirstName || textbox == _txtLastName || textbox == _txtUsername)
+                    if (textbox == _txtFirstName || textbox == _txtLastName)
                     {
                         AllValidation(textbox, PresentationInputValidator.IsString(textbox.Text), message);
                     }
@@ -660,6 +660,7 @@ namespace BankSystem
         }
 
 
+       
         public void ClearForm(Guna2Panel panel)
         {
             ClearTextBoxes(panel);
@@ -667,7 +668,7 @@ namespace BankSystem
             if( Action != enAction.Update)
             {
                 ClearComboBoxPhones();
-            }    
+            }  
         }
 
         public bool IsUsernameDuplicated(string username)
@@ -1066,11 +1067,12 @@ namespace BankSystem
                 Client.AccountNumber = _txtAccountNumber.Text;
         }
 
-        private void FillUserData()
+        private void FillUserData(int permission)
         {
             User.Username = _txtUsername.Text;
             User.Password = _txtPassword.Text;
-            User.Permissions = Permission;
+            //User.Permissions = Permission;
+            User.Permissions = permission;
         }
 
         public void FillClientInfo()
@@ -1080,11 +1082,11 @@ namespace BankSystem
             FillClientData();
         }
 
-        public void FillUserInfo()
+        public void FillUserInfo(int permission)
         {
             FillPersonData();
 
-            FillUserData();
+            FillUserData(permission);
         }
 
         public bool CheckAccessRights(Users.enPermissions permission)
@@ -1209,13 +1211,19 @@ namespace BankSystem
             //Phone.PhoneID = PersonID;
         }
 
-        private void SetPersonIDToClientObject()
+        private void SetPersonIDToClientUserObject()
         {
             string firstName = _txtFirstName.Text, lastName = _txtLastName.Text;
 
             PersonID = Persons.Find(firstName, lastName).PersonID;
 
-            Client.PersonID = PersonID;
+
+            if(_userClient == enUserClient.Client)
+                Client.PersonID = PersonID;
+
+            else
+                User.PersonID = PersonID;
+
         }
 
 
@@ -1240,7 +1248,7 @@ namespace BankSystem
                     break;
 
                 default:
-                    SetPersonIDToClientObject();
+                    SetPersonIDToClientUserObject();
                     _statusWord = enOperationStatus.Added;
                     break;
             }
@@ -1329,7 +1337,7 @@ namespace BankSystem
         {
             decimal amount = Convert.ToDecimal(txtAmount.Text);
 
-            if (!PresentationInputValidator.IsAmountValid(amount, _maxAmount, _minAmount))
+            if (!PresentationInputValidator.ValidationValue(amount, _maxAmount, _minAmount))
             {
                 AllValidation(txtAmount, false, $"The amount is invalid, it should be between {_minAmount} and {_maxAmount}");
                 return false;

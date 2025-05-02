@@ -77,9 +77,12 @@ namespace BankSystemBusinessLayer
             return !string.Equals(value1, value2, StringComparison.OrdinalIgnoreCase);
         }
 
-        public static bool IsAmountValueValid(decimal amount, decimal maxAmount, decimal minAmount)
+        public static bool ValidationValue(decimal value, decimal maxValue, decimal minValue)
         {
-            return (amount <= maxAmount && amount >= minAmount);
+            if (value == 0)
+                return false;
+
+            return (value <= maxValue && value >= minValue);
         }
     }
 }
