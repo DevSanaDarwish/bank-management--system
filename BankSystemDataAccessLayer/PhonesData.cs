@@ -170,6 +170,54 @@ namespace BankSystemDataAccessLayer
             return isFound;
         }
 
+        public static bool GetPhoneNumberByUserIDInList(int userID, List<string> phoneNumbers, List<int> phoneIds)
+        {
+            bool isFound = false;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = @"SELECT ph.PhoneId, ph.PhoneNumber FROM Phones ph
+                            INNER JOIN Persons p ON p.PersonId = ph.PersonId
+                            INNER JOIN Users u ON u.PersonId = p.PersonId
+                            WHERE u.UserId = @userID;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@userID", userID);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    isFound = true;
+
+                    phoneNumbers.Add((string)reader["PhoneNumber"]);
+
+                    phoneIds.Add((int)reader["phoneId"]);
+                }
+
+                reader.Close();
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+
+                isFound = false;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return isFound;
+        }
+
         public static bool GetPhoneNumberByClientID(int clientID, ref string phoneNumber)
         {
             bool isFound = false;

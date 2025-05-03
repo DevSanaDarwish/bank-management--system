@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUpdateUser));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnShowInfo = new Guna.UI2.WinForms.Guna2Button();
@@ -51,19 +52,22 @@
             this.lblPermissions = new System.Windows.Forms.Label();
             this.lblEmail = new System.Windows.Forms.Label();
             this.lblPassword = new System.Windows.Forms.Label();
-            this.lblUsername = new System.Windows.Forms.Label();
             this.lblLastName = new System.Windows.Forms.Label();
             this.lblFirstName = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnUpdateUser = new Guna.UI2.WinForms.Guna2Button();
+            this.lblPhone = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.gbAllPhones.SuspendLayout();
             this.pnlUserInfo.SuspendLayout();
             this.gbUserCard.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -91,6 +95,7 @@
             this.btnShowInfo.Size = new System.Drawing.Size(134, 35);
             this.btnShowInfo.TabIndex = 40;
             this.btnShowInfo.Text = "Show Info";
+            this.btnShowInfo.Click += new System.EventHandler(this.btnShowInfo_Click);
             // 
             // txtUsername
             // 
@@ -140,6 +145,7 @@
             this.btnAddNewPhone.Size = new System.Drawing.Size(171, 36);
             this.btnAddNewPhone.TabIndex = 51;
             this.btnAddNewPhone.Text = "Add New Phone";
+            this.btnAddNewPhone.Click += new System.EventHandler(this.btnAddNewPhone_Click);
             // 
             // pnlUserInfo
             // 
@@ -273,16 +279,16 @@
             // 
             // gbUserCard
             // 
-            this.gbUserCard.BorderColor = System.Drawing.Color.Empty;
+            this.gbUserCard.BorderColor = System.Drawing.Color.Coral;
+            this.gbUserCard.Controls.Add(this.lblPhone);
+            this.gbUserCard.Controls.Add(this.label8);
             this.gbUserCard.Controls.Add(this.lblPermissions);
             this.gbUserCard.Controls.Add(this.lblEmail);
             this.gbUserCard.Controls.Add(this.lblPassword);
-            this.gbUserCard.Controls.Add(this.lblUsername);
             this.gbUserCard.Controls.Add(this.lblLastName);
             this.gbUserCard.Controls.Add(this.lblFirstName);
             this.gbUserCard.Controls.Add(this.label5);
             this.gbUserCard.Controls.Add(this.label4);
-            this.gbUserCard.Controls.Add(this.label3);
             this.gbUserCard.Controls.Add(this.label2);
             this.gbUserCard.Controls.Add(this.label7);
             this.gbUserCard.Controls.Add(this.label);
@@ -301,7 +307,7 @@
             this.lblPermissions.AutoSize = true;
             this.lblPermissions.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPermissions.ForeColor = System.Drawing.Color.Black;
-            this.lblPermissions.Location = new System.Drawing.Point(474, 144);
+            this.lblPermissions.Location = new System.Drawing.Point(143, 102);
             this.lblPermissions.Name = "lblPermissions";
             this.lblPermissions.Size = new System.Drawing.Size(124, 26);
             this.lblPermissions.TabIndex = 32;
@@ -328,17 +334,6 @@
             this.lblPassword.Size = new System.Drawing.Size(124, 26);
             this.lblPassword.TabIndex = 30;
             this.lblPassword.Text = "First Name: ";
-            // 
-            // lblUsername
-            // 
-            this.lblUsername.AutoSize = true;
-            this.lblUsername.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUsername.ForeColor = System.Drawing.Color.Black;
-            this.lblUsername.Location = new System.Drawing.Point(143, 102);
-            this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(124, 26);
-            this.lblUsername.TabIndex = 29;
-            this.lblUsername.Text = "First Name: ";
             // 
             // lblLastName
             // 
@@ -367,7 +362,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(350, 144);
+            this.label5.Location = new System.Drawing.Point(15, 102);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(136, 26);
             this.label5.TabIndex = 19;
@@ -383,17 +378,6 @@
             this.label4.Size = new System.Drawing.Size(113, 26);
             this.label4.TabIndex = 18;
             this.label4.Text = "Password: ";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(15, 102);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(121, 26);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "Username: ";
             // 
             // label2
             // 
@@ -428,12 +412,57 @@
             this.label.TabIndex = 14;
             this.label.Text = "First Name: ";
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
+            // btnUpdateUser
+            // 
+            this.btnUpdateUser.BackColor = System.Drawing.Color.Coral;
+            this.btnUpdateUser.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnUpdateUser.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnUpdateUser.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnUpdateUser.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnUpdateUser.FillColor = System.Drawing.Color.Empty;
+            this.btnUpdateUser.Font = new System.Drawing.Font("Segoe UI Semibold", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpdateUser.ForeColor = System.Drawing.Color.White;
+            this.btnUpdateUser.Location = new System.Drawing.Point(557, 759);
+            this.btnUpdateUser.Name = "btnUpdateUser";
+            this.btnUpdateUser.Size = new System.Drawing.Size(296, 71);
+            this.btnUpdateUser.TabIndex = 43;
+            this.btnUpdateUser.Text = "Update";
+            this.btnUpdateUser.Visible = false;
+            this.btnUpdateUser.Click += new System.EventHandler(this.btnUpdateUser_Click);
+            // 
+            // lblPhone
+            // 
+            this.lblPhone.AutoSize = true;
+            this.lblPhone.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPhone.ForeColor = System.Drawing.Color.Black;
+            this.lblPhone.Location = new System.Drawing.Point(474, 144);
+            this.lblPhone.Name = "lblPhone";
+            this.lblPhone.Size = new System.Drawing.Size(124, 26);
+            this.lblPhone.TabIndex = 34;
+            this.lblPhone.Text = "First Name: ";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.Black;
+            this.label8.Location = new System.Drawing.Point(350, 144);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(84, 26);
+            this.label8.TabIndex = 33;
+            this.label8.Text = "Phone: ";
+            // 
             // frmUpdateUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1379, 830);
+            this.Controls.Add(this.btnUpdateUser);
             this.Controls.Add(this.pnlUserInfo);
             this.Controls.Add(this.gbUserCard);
             this.Controls.Add(this.btnShowInfo);
@@ -449,6 +478,7 @@
             this.pnlUserInfo.PerformLayout();
             this.gbUserCard.ResumeLayout(false);
             this.gbUserCard.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -478,14 +508,16 @@
         private System.Windows.Forms.Label lblPermissions;
         private System.Windows.Forms.Label lblEmail;
         private System.Windows.Forms.Label lblPassword;
-        private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.Label lblLastName;
         private System.Windows.Forms.Label lblFirstName;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private Guna.UI2.WinForms.Guna2Button btnUpdateUser;
+        private System.Windows.Forms.Label lblPhone;
+        private System.Windows.Forms.Label label8;
     }
 }

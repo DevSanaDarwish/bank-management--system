@@ -24,26 +24,26 @@ namespace BankSystem
         Persons _person = new Persons();
         Phones _phone = new Phones();
 
-        UIHelper _clientUI;
+        UIHelper _userUI;
 
 
-        private void InitializeClientUIObject()
+        private void InitializeUserUIObject()
         {
-            _clientUI = new UIHelper(errorProvider1, gbClientCard, txtAccountNumber, lblFirstName, lblLastName, lblBalance, lblPinCode,
-                lblPhone, lblAccountNumber, lblEmail, _client, _person, _phone);
+            _userUI = new UIHelper(errorProvider1, gbUserCard, txtUsername, lblFullName, lblPassword, lblPermissions,
+                lblPhone, lblUsername, lblEmail, _user, _person, _phone);
         }
-        private void HandleClientAction(enAction clientAction)
+        private void HandleUserAction(enAction userAction)
         {
-            InitializeClientUIObject();
+            InitializeUserUIObject();
 
-            _clientUI.Action = clientAction;
+            _userUI.Action = userAction;
 
-            _clientUI.HandleClientInfo();
+            _userUI.HandleUserInfo();
         }
 
         private void btnFindClient_Click(object sender, EventArgs e)
         {
-            HandleClientAction(enAction.Find);
+            HandleUserAction(enAction.Find);
         }
     }
 }

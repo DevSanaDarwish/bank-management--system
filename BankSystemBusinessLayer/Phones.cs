@@ -158,7 +158,7 @@ namespace BankSystemBusinessLayer
             return new List<int>();
         }
 
-        public static List<Phones> FindInList(int clientID)
+        public static List<Phones> FindInListByClientID(int clientID)
         {
             List<string> phoneNumbers = new List<string>();
 
@@ -179,7 +179,28 @@ namespace BankSystemBusinessLayer
             return lstPhones;
         }
 
-        
+        public static List<Phones> FindInListByUserID(int userID)
+        {
+            List<string> phoneNumbers = new List<string>();
+
+            List<int> phoneIds = new List<int>();
+
+            List<Phones> lstPhones = new List<Phones>();
+
+            if (PhonesData.GetPhoneNumberByUserIDInList(userID, phoneNumbers, phoneIds))
+            {
+                for (byte i = 0; i < phoneNumbers.Count; i++)
+                {
+                    Phones phone = new Phones(phoneNumbers[i], phoneIds[i]);
+
+                    lstPhones.Add(phone);
+                }
+            }
+
+            return lstPhones;
+        }
+
+
 
         //public static void ResetPhonesIdentity()
         //{

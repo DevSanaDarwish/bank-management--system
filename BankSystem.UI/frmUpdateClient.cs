@@ -127,7 +127,7 @@ namespace BankSystem
 
             if (ClientUI.LoadPhoneInfo())
             {
-                List<Phones> phonesList = Phones.FindInList(ClientUI.Client.ClientID);
+                List<Phones> phonesList = Phones.FindInListByClientID(ClientUI.Client.ClientID);
 
                 foreach (Phones phone in phonesList)
                 {
@@ -301,6 +301,10 @@ namespace BankSystem
             ShowAddPhoneButton();
 
             CreateTextBoxes();
+
+            _numberOfOriginalPhones = GetNumberOfPhones();
+
+            _originalPhoneNumbers = GetPhonesNumbersByDatabase();
         }
 
         public void ShowPhonesNumbers()
@@ -329,10 +333,6 @@ namespace BankSystem
         private void btnShowInfo_Click(object sender, EventArgs e)
         {
             HandleClientAction(enAction.UpdateShowInfo);
-
-            _numberOfOriginalPhones = GetNumberOfPhones();
-
-            _originalPhoneNumbers = GetPhonesNumbersByDatabase();
         }
 
         private bool IsUpdatedOrNewPhone(TextBox textBox)
