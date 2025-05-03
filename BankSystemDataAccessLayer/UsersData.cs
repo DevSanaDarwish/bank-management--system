@@ -83,9 +83,9 @@ namespace BankSystemDataAccessLayer
             return userID;
         }
 
-        public static int GetPermissionsByUserID(int userID)
+        public static short GetPermissionsByUserID(int userID)
         {
-            int permissions = -1;
+            short permissions = -1;
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
 
@@ -101,7 +101,7 @@ namespace BankSystemDataAccessLayer
 
                 object result = command.ExecuteScalar();
 
-                if (result != null && int.TryParse(result.ToString(), out int permissionFromDB))
+                if (result != null && short.TryParse(result.ToString(), out short permissionFromDB))
                 {
                     permissions = permissionFromDB;
                 }
@@ -117,7 +117,7 @@ namespace BankSystemDataAccessLayer
             return permissions;
         }
 
-        public static bool GetUserInfoByUsername(string username, ref int permissions, ref string password, ref int personID, ref int userID)
+        public static bool GetUserInfoByUsername(string username, ref short permissions, ref string password, ref int personID, ref int userID)
         {
             bool isFound = false;
 
@@ -143,7 +143,7 @@ namespace BankSystemDataAccessLayer
 
                     password = (string)reader["Password"];
 
-                    permissions = (int)reader["Permissions"];
+                    permissions = (short)reader["Permissions"];
 
                     personID = (int)reader["PersonID"];
                 }
@@ -224,7 +224,7 @@ namespace BankSystemDataAccessLayer
             }
         }
 
-        public static int AddNewUser(string username, int permissions, string password, int personID)
+        public static int AddNewUser(string username, short permissions, string password, int personID)
         {
             int userID = -1;
 
@@ -295,7 +295,7 @@ namespace BankSystemDataAccessLayer
             return (rowsAffected > 0);
         }
 
-        public static bool UpdateUser(string username, int permissions, string password)
+        public static bool UpdateUser(string username, short permissions, string password)
         {
             int rowsAffected = 0;
 

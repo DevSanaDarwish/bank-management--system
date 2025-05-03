@@ -122,7 +122,18 @@ namespace BankSystemBusinessLayer
             return false;
         }
 
-        public static Phones Find(int clientID)
+        public static Phones FindByUserID(int userID)
+        {
+            string phoneNumber = "";
+
+            if (PhonesData.GetPhoneNumberByUserID(userID, ref phoneNumber))
+                return new Phones(phoneNumber);
+
+            else
+                return null;
+        }
+
+        public static Phones FindByClientID(int clientID)
         {
             string phoneNumber = "";
 

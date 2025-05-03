@@ -26,7 +26,7 @@ namespace BankSystemBusinessLayer
 
         public int UserID { get; set; }
         public string Username { get; set; }
-        public int Permissions { get; set; }
+        public short Permissions { get; set; }
         public string Password { get; set; }
         public int PersonID { get; set; }
 
@@ -48,7 +48,7 @@ namespace BankSystemBusinessLayer
             this.Username = username;
             this.Password = password;
         }
-        private Users(int userID, string username, int permissions, string password, int personID)
+        private Users(int userID, string username, short permissions, string password, int personID)
         {
             this.UserID = userID;
             this.Username = username;
@@ -62,7 +62,8 @@ namespace BankSystemBusinessLayer
         public static Users FindByUsername(string username)
         {
             string password = "";
-            int permissions = -1, personsID = -1, userID = -1;
+            short permissions = -1;
+            int personsID = -1, userID = -1;
 
             if (UsersData.GetUserInfoByUsername(username, ref permissions, ref password, ref personsID, ref userID))
                 return new Users(userID, username, permissions, password, personsID);
@@ -73,10 +74,10 @@ namespace BankSystemBusinessLayer
 
         public bool CheckAccessPermission(enPermissions selectedPermission)
         {
-            if (this.Permissions == (int)enPermissions.All)
+            if (this.Permissions == (short)enPermissions.All)
                 return true;
 
-            if (((int)selectedPermission & this.Permissions) == (int)selectedPermission)
+            if (((short)selectedPermission & this.Permissions) == (short)selectedPermission)
                 return true;
 
             return false;
@@ -101,7 +102,7 @@ namespace BankSystemBusinessLayer
             return UsersData.GetUserIDByUsername(username);
         }
 
-        public static int GetPermissionsByUserID(int userID)
+        public static short GetPermissionsByUserID(int userID)
         {
             return UsersData.GetPermissionsByUserID(userID);
         }

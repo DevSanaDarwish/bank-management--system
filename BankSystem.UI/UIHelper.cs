@@ -54,7 +54,8 @@ namespace BankSystem
 
         bool _isValid = true;
 
-        public int PersonID = -1, PhoneID = -1, ClientID = -1, SourceClientID = -1, DestinationClientID = -1, UserID = -1, Permission = -1;
+        public int PersonID = -1, PhoneID = -1, ClientID = -1, SourceClientID = -1, DestinationClientID = -1, UserID = -1;
+        public short Permission = -1;
 
         const decimal _maxAmount = 50000, _minAmount = 500;
 
@@ -90,7 +91,7 @@ namespace BankSystem
       
 
         //Constructor For frmMainMenu
-        public UIHelper(int permission) 
+        public UIHelper(short permission) 
         { 
             this.Permission = permission;
         }
@@ -253,6 +254,7 @@ namespace BankSystem
             this._clientUI = clientUI;
             this._btnDeleteClient = btnDeleteClient;
             this._form = form;
+            this._userClient = enUserClient.Client;
         }
 
         //Constructor For frmDeleteUser
@@ -273,6 +275,7 @@ namespace BankSystem
             this._form = form;
             this._userUI = userUI;
             this._btnDeleteUser = btnDeleteUser;
+            this._userClient = enUserClient.User;
         }
 
         private void SetErrorOnTextBox(TextBox textBox, string message = "This field should not be empty")
@@ -321,9 +324,11 @@ namespace BankSystem
              HideTransactionAmountLabel(_lblTransactionAmount);
         }
 
-        private bool IsClientNotFound(object obj)
+        private bool IsObjectNotFound(object obj)
         {
-            string message = "Sorry, This Account Number Information Does Not Exist";
+            string word = _userClient == enUserClient.Client ? "Account Number" : "Username";
+
+            string message = $"Sorry, This {word} Information Does Not Exist";
 
             if (PresentationInputValidator.IsObjectNull(obj))
             {
@@ -344,59 +349,58 @@ namespace BankSystem
             return false;
         }
 
-        private bool IsUserNotFound(object obj)
-        {
-            string message = "Sorry, This Username Information Does Not Exist";
-
-            if (PresentationInputValidator.IsObjectNull(obj))
-            {
-                HidePanelOrGroup();
-
-                HideButton();
-
-                ShowMessage(message);
-
-                return true;
-            }
-
-            return false;
-        }
 
         private bool LoadClientInfo(string accountNumber)
         {
             Client = Clients.FindByAccountNumber(accountNumber);
 
-            return !IsClientNotFound(Client);
+            return !IsObjectNotFound(Client);
         }
 
         private bool LoadUserInfo(string username)
         {
             User = Users.FindByUsername(username);
 
-            return !IsUserNotFound(User);
+            return !IsObjectNotFound(User);
         }
 
         private bool LoadPersonInfo()
         {
-            Person = Persons.Find(Client.PersonID);
+            if(_userClient == enUserClient.Client)
+            {
+                Person = Persons.Find(Client.PersonID);
+                PersonID = Client.PersonID;
+                return !IsObjectNotFound(Person);
+            }
 
-            PersonID = Client.PersonID;
-
-            return !IsClientNotFound(Person);
+            else
+            {
+                Person = Persons.Find(User.PersonID);
+                PersonID = User.PersonID;
+                return !IsObjectNotFound(Person);
+            }     
         }
 
         public bool LoadPhoneInfo()
         {
-            Phone = Phones.Find(Client.ClientID);
+            if (_userClient == enUserClient.Client)
+            {
+                Phone = Phones.FindByClientID(Client.ClientID);
+                return !IsObjectNotFound(Phone);
+            }
 
-            return !IsClientNotFound(Phone);
+            else
+            {
+                Phone = Phones.FindByUserID(User.UserID);
+                return !IsObjectNotFound(Phone);
+            }
         }
 
         //public bool LoadPhoneInfoByFindByList()
         //{
         //    Phone = Phones.FindInList(Client.ClientID);
             
-        //    return !IsClientNotFound(Phone);
+        //    return !IsObjectNotFound(Phone);
         //}
 
 
@@ -405,9 +409,9 @@ namespace BankSystem
             return LoadClientInfo(accountNumber) && LoadPersonInfo() && LoadPhoneInfo();
         }
 
-        private bool AreUserObjectsInfoSuccessfullyLoaded(string accountNumber)
+        private bool AreUserObjectsInfoSuccessfullyLoaded(string username)
         {
-            return LoadUserInfo(accountNumber) && LoadPersonInfo() && LoadPhoneInfo();
+            return LoadUserInfo(username) && LoadPersonInfo() && LoadPhoneInfo();
         }
 
         private void SetEmailLabel(Label label)
@@ -1214,7 +1218,7 @@ namespace BankSystem
                 Client.AccountNumber = _txtAccountNumber.Text;
         }
 
-        private void FillUserData(int permission)
+        private void FillUserData(short permission)
         {
             User.Username = _txtUsername.Text;
             User.Password = _txtPassword.Text;
@@ -1229,7 +1233,7 @@ namespace BankSystem
             FillClientData();
         }
 
-        public void FillUserInfo(int permission)
+        public void FillUserInfo(short permission)
         {
             FillPersonData();
 

@@ -62,7 +62,7 @@ namespace BankSystem
             _userUI.AddPhone();
         }
 
-        private void AddNewUser(int permission)
+        private void AddNewUser(short permission)
         {
             InitializeAllObjects();
 
@@ -150,7 +150,7 @@ namespace BankSystem
             if (!IsValidPermissionSelection() || !IsValidInputFields() || IsUsernameDuplicated() || !IsPasswordLengthValid())
                 return;
 
-            int permission = GetPermissions();
+            short permission = GetPermissions();
 
             AddNewUser(permission);
 
@@ -229,9 +229,9 @@ namespace BankSystem
             _isChangingPermissions = false;
         }
 
-        public int GetPermissions()
+        public short GetPermissions()
         {
-            int permission = 0;
+            short permission = 0;
 
             foreach(Control control in pnlPermissions.Controls)
             {
@@ -242,42 +242,42 @@ namespace BankSystem
 
                     else if(checkBox == chkShowClientsList)
                     {
-                        permission += (int)enPermissions.ShowClientsList;
+                        permission += (short)enPermissions.ShowClientsList;
                     }
 
                     else if (checkBox == chkFindClient)
                     {
-                        permission += (int)enPermissions.FindClient;
+                        permission += (short)enPermissions.FindClient;
                     }
 
                     else if (checkBox == chkAddNewClient)
                     {
-                        permission += (int)enPermissions.AddNewClient;
+                        permission += (short)enPermissions.AddNewClient;
                     }
 
                     else if (checkBox == chkTransaction)
                     {
-                        permission += (int)enPermissions.Transaction;
+                        permission += (short)enPermissions.Transaction;
                     }
 
                     else if (checkBox == chkDeleteClient)
                     {
-                        permission += (int)enPermissions.DeleteClient;
+                        permission += (short)enPermissions.DeleteClient;
                     }
 
                     else if (checkBox == chkManageUsers)
                     {
-                        permission += (int)enPermissions.ManageUsers;
+                        permission += (short)enPermissions.ManageUsers;
                     }
 
                     else if (checkBox == chkUpdateClient)
                     {
-                        permission += (int)enPermissions.UpdateClient;
+                        permission += (short)enPermissions.UpdateClient;
                     }
 
                     else if (checkBox == chkLoginRegisters)
                     {
-                        permission += (int)enPermissions.LoginRegisters;
+                        permission += (short)enPermissions.LoginRegisters;
                     }
                 }
             }

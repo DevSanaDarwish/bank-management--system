@@ -218,6 +218,55 @@ namespace BankSystemDataAccessLayer
             return isFound;
         }
 
+        public static bool GetPhoneNumberByUserID(int userID, ref string phoneNumber)
+        {
+            bool isFound = false;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = @"Select PhoneNumbers From vwUsers Where UserID = @userID;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@userID", userID);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    isFound = true;
+
+                    phoneNumber = (string)reader["PhoneNumbers"];
+                }
+
+                else
+                {
+                    isFound = false;
+                }
+
+                reader.Close();
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+
+                isFound = false;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return isFound;
+        }
+
+
         public static bool DeletePhone(int personID)
         {
             int rowsAffected = 0;

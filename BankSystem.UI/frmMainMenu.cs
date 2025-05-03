@@ -41,7 +41,7 @@ namespace BankSystem
         {
             _UI = new UIHelper(GetPermissionByUserID());
         }
-        private int GetPermissionByUserID()
+        private short GetPermissionByUserID()
         {
             return Users.GetPermissionsByUserID(_userID);
         }
