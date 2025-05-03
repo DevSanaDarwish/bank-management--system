@@ -30,6 +30,23 @@ namespace BankSystem
 
         List<string> _originalPhoneNumbers = new List<string>();
 
+        //This flag prevents recursive event calls when checkboxes are being changed programmatically
+        bool _isChangingPermissions = false;
+
+        public enum enPermissions
+        {
+            All = -1,
+            ShowClientsList = 1,
+            FindClient = 2,
+            AddNewClient = 4,
+            Transaction = 8,
+            DeleteClient = 16,
+            ManageUsers = 32,
+            UpdateClient = 64,
+            LoginRegisters = 128
+        };
+
+
 
         private void InitializeAllObjects()
         {
@@ -206,6 +223,203 @@ namespace BankSystem
             _originalPhoneNumbers = GetPhonesNumbersByDatabase();
         }
 
+        private void MarkControlAsInvalid(TextBox textBox, string message)
+        {
+            UserUI.AllValidation(textBox, false, message);
+        }
+
+        private bool IsPhoneNumberNull(string phoneNumber, TextBox textBox)
+        {
+            string nullMessage = "This Field Should Not Be Empty";
+
+            if (PresentationInputValidator.IsControlTextNull(phoneNumber))
+            {
+                MarkControlAsInvalid(textBox, nullMessage);
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool IsPhoneNumberValidFormat(string phoneNumber, TextBox textBox)
+        {
+            string numMessage = "This Field Should Be Numeric";
+
+            if (!PresentationInputValidator.IsNumeric(phoneNumber))
+            {
+                MarkControlAsInvalid(textBox, numMessage);
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool IsNumberDuplicatedInHashSet(string phoneNumber, HashSet<string> seenNumbers)
+        {
+            return seenNumbers.Contains(phoneNumber);
+        }
+
+        private void AddNumberToHashSet(string phoneNumber, HashSet<string> seenNumbers)
+        {
+            seenNumbers.Add(phoneNumber);
+        }
+
+        private void MarkDuplicated(TextBox textBox, ref bool isDuplicated)
+        {
+            string duplicatedValueMessage = "This number already exists";
+
+            MarkControlAsInvalid(textBox, duplicatedValueMessage);
+
+            isDuplicated = true;
+        }
+
+        private bool CheckPhoneNumbersIfDuplicated()
+        {
+            bool isDuplicated = false;
+            HashSet<string> seenNumbers = new HashSet<string>();
+
+            foreach (Control control in gbAllPhones.Controls)
+            {
+                if (control is TextBox textBox)
+                {
+                    string phoneNumber = textBox.Text;
+
+                    if (IsNumberDuplicatedInHashSet(phoneNumber, seenNumbers))
+                    {
+                        MarkDuplicated(textBox, ref isDuplicated);
+
+                        continue;
+                    }
+
+                    AddNumberToHashSet(phoneNumber, seenNumbers);
+
+                    if (IsNumberDuplicatedInDatabase(phoneNumber, textBox))
+                    {
+                        MarkDuplicated(textBox, ref isDuplicated);
+                    }
+                }
+            }
+
+            return isDuplicated;
+        }
+
+        private bool IsNumberDuplicatedInDatabase(string phoneNumber, TextBox textBox)
+        {
+            return IsUpdatedOrNewPhone(textBox) && PresentationInputValidator.IsPhoneNumberValueDuplicated(phoneNumber);
+        }
+
+        private bool IsUpdatedOrNewPhone(TextBox textBox)
+        {
+            for (byte i = 0; i < _originalPhoneNumbers.Count; i++)
+            {
+                if (textBox.Text == _originalPhoneNumbers[i])
+                    return false;
+            }
+
+            return true;
+        }
+
+        public bool ValidatePhoneNumbers()
+        {
+            bool isValid = true;
+
+            foreach (Control control in gbAllPhones.Controls)
+            {
+                if (control is TextBox textBox)
+                {
+                    string phoneNumber = textBox.Text;
+
+                    if (IsPhoneNumberNull(phoneNumber, textBox))
+                        isValid = false;
+
+                    if (!IsPhoneNumberValidFormat(phoneNumber, textBox))
+                        isValid = false;
+                }
+            }
+
+            if (CheckPhoneNumbersIfDuplicated())
+                isValid = false;
+
+            return isValid;
+        }
+
+
+        public short GetPermissions()
+        {
+            short permission = 0;
+
+            foreach (Control control in pnlPermissions.Controls)
+            {
+                if (control is Guna2CheckBox checkBox && checkBox.Checked)
+                {
+                    if (chkAll.Checked)
+                        return -1;
+
+                    else if (checkBox == chkShowClientsList)
+                    {
+                        permission += (short)enPermissions.ShowClientsList;
+                    }
+
+                    else if (checkBox == chkFindClient)
+                    {
+                        permission += (short)enPermissions.FindClient;
+                    }
+
+                    else if (checkBox == chkAddNewClient)
+                    {
+                        permission += (short)enPermissions.AddNewClient;
+                    }
+
+                    else if (checkBox == chkTransaction)
+                    {
+                        permission += (short)enPermissions.Transaction;
+                    }
+
+                    else if (checkBox == chkDeleteClient)
+                    {
+                        permission += (short)enPermissions.DeleteClient;
+                    }
+
+                    else if (checkBox == chkManageUsers)
+                    {
+                        permission += (short)enPermissions.ManageUsers;
+                    }
+
+                    else if (checkBox == chkUpdateClient)
+                    {
+                        permission += (short)enPermissions.UpdateClient;
+                    }
+
+                    else if (checkBox == chkLoginRegisters)
+                    {
+                        permission += (short)enPermissions.LoginRegisters;
+                    }
+                }
+            }
+
+            return permission;
+        }
+
+        private void Update()
+        {
+            enAction clientAction = enAction.Update;
+            SetUserAction(clientAction);
+
+            short permission = GetPermissions();
+
+            UserUI.FillUserInfo(permission);
+
+            UserUI.ValidationSave();
+        }
+
+        public void UpdateUser()
+        {
+            Update();
+
+            UserUI.ClearForm(pnlUserInfo);
+
+            UserUI.HidePanelOrGroup();
+        }
         private void HandleUserAction(enAction UserAction)
         {
             InitializeAllObjects();
@@ -262,6 +476,68 @@ namespace BankSystem
             }
 
             return lstPhones;
+        }
+
+        private void chkAll_CheckedChanged(object sender, EventArgs e)
+        {
+            // Exit if we're currently updating checkboxes to avoid triggering this event again
+            if (_isChangingPermissions)
+                return;
+
+            //Prevents events from interacting during updating
+            _isChangingPermissions = true;
+
+            foreach (Control control in pnlPermissions.Controls)
+            {
+                //We put "checkbox != chkAll" because it is a line of protection that prevents the event from running on itself
+                // and protects you from unnecessary repetitive execution.
+                if (control is Guna2CheckBox checkbox && checkbox != chkAll)
+                {
+                    // Set its checked state to match the "All" checkbox
+                    checkbox.Checked = chkAll.Checked;
+                }
+            }
+
+            //Now that we're done the update, let's get back to doing the events 
+            _isChangingPermissions = false;
+        }
+
+        private void PermissionCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            // Exit if we're currently updating checkboxes to avoid triggering this event again
+            if (_isChangingPermissions)
+                return;
+
+            _isChangingPermissions = true;
+
+            // If any individual checkbox is unchecked by the user
+            if (sender is Guna2CheckBox checkbox && !checkbox.Checked)
+            {
+                // Uncheck the "All" checkbox
+                chkAll.Checked = false;
+            }
+
+            else
+            {
+                // Check if all individual checkboxes are selected manually
+                bool allChecked = true;
+
+                foreach (Control control in pnlPermissions.Controls)
+                {
+                    // If any checkbox (other than "All") is not checked, set the flag to false
+                    if (control is Guna2CheckBox checkBox && checkBox != chkAll && !checkBox.Checked)
+                    {
+                        allChecked = false;
+                        break;
+                    }
+                }
+
+                // If all individual checkboxes are checked manually, also check the "All" checkbox
+                chkAll.Checked = allChecked;
+            }
+
+            //Now that we're done the update, let's get back to doing the events 
+            _isChangingPermissions = false;
         }
 
 

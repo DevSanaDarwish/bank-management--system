@@ -412,6 +412,7 @@ namespace BankSystem
             ClientUI.AllValidation(textBox, false, message);
         }
 
+
         private bool IsPhoneNumberNull(string phoneNumber, TextBox textBox)
         {
             string nullMessage = "This Field Should Not Be Empty";

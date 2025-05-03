@@ -32,7 +32,7 @@ namespace BankSystem
 
         private void InitializeClientUIObject(Users user, Persons person, Phones phone)
         {
-            _userUI = new UIHelper(errorProvider1, gbUserCard, txtUsername, lblFullName,
+            _userUI = new UIHelper(errorProvider1, gbUserCard, txtUsername, lblFirstName, lblLastName,
                  lblPhone, lblUsername, lblEmail, lblPassword, lblPermissions, user, person, phone, _userUI, btnDeleteUser, this);
         }
 

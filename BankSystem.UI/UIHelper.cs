@@ -273,15 +273,16 @@ namespace BankSystem
         }
 
         //Constructor For frmFindUser
-        public UIHelper(ErrorProvider errorProvider1, Guna2GroupBox gbUserCard, TextBox txtUsername,
-          Label lblFullName, Label lblPassword, Label lblPermissions, Label lblPhone, Label lblUsername, Label lblEmail,
+        public UIHelper(ErrorProvider errorProvider1, Guna2GroupBox gbUserCard, TextBox txtUsername, Label lblFirstName,
+          Label lblLastName, Label lblPassword, Label lblPermissions, Label lblPhone, Label lblUsername, Label lblEmail,
           Users user, Persons person, Phones phone)
         {
             InitializeCommonUserFields(errorProvider1, user, person, phone);
 
             this._txtUsername = txtUsername;
             this._gbUserCard = gbUserCard;
-            this._lblFullName = lblFullName;
+            this._lblFirstName = lblFirstName;
+            this._lblLastName = lblLastName;
             this._lblPassword = lblPassword;
             this._lblPermissions = lblPermissions;
             this._lblPhone = lblPhone;
@@ -312,15 +313,16 @@ namespace BankSystem
         }
 
         //Constructor For frmDeleteUser
-        public UIHelper(ErrorProvider errorProvider1, Guna2GroupBox gbUserCard, TextBox txtUsername,
-         Label lblFullName,  Label lblPhone, Label lblUsername, Label lblEmail, Label lblPassword, Label lblPermissions,
+        public UIHelper(ErrorProvider errorProvider1, Guna2GroupBox gbUserCard, TextBox txtUsername, Label lblFirstName,
+         Label lblLastName,  Label lblPhone, Label lblUsername, Label lblEmail, Label lblPassword, Label lblPermissions,
          Users user, Persons person, Phones phone, UIHelper userUI, Guna2Button btnDeleteUser, Form form)
         {
             InitializeCommonUserFields(errorProvider1, user, person, phone);
 
             this._gbUserCard = gbUserCard;
             this._txtUsername = txtUsername;
-            this._lblFullName = lblFullName;
+            this._lblFirstName = lblFirstName;
+            this._lblLastName = lblLastName;
             this._lblPhone = lblPhone;
             this._lblUsername = lblUsername;
             this._lblEmail = lblEmail;
@@ -541,10 +543,8 @@ namespace BankSystem
             if(!(Action == enAction.UpdateShowInfo))
             {
                 _lblUsername.Text = User.Username;
-                _lblFullName.Text = Person.FirstName + " " + Person.LastName;
             }
                 
-
             _lblFirstName.Text = Person.FirstName;
 
             _lblLastName.Text = Person.LastName;
@@ -908,7 +908,7 @@ namespace BankSystem
         private bool IsUserUpdateAndValid()
         {
             if (Action == enAction.Update)
-                return (ValidateInputFields(_pnlClientInfo) && ((frmUpdateClient)_form).ValidatePhoneNumbers());
+                return (ValidateInputFields(_pnlUserInfo) && ((frmUpdateUser)_form).ValidatePhoneNumbers());
 
             return true;
         }
@@ -954,6 +954,9 @@ namespace BankSystem
                     ((frmDeleteUser)_form).DeleteUser(GetAccountNumberOrUsername(_txtUsername), User);
                     break;
 
+                case enAction.Update:
+                    ((frmUpdateUser)_form).UpdateUser();
+                    break;
             }
         }
 
@@ -1005,7 +1008,10 @@ namespace BankSystem
 
         private void Confirm(string confirmMessage)
         {
-            if (!IsClientUpdateAndValid())
+            if (_userClient == enUserClient.Client && !IsClientUpdateAndValid())
+                return;
+
+            if (_userClient == enUserClient.User && !IsUserUpdateAndValid())
                 return;
 
             if (ShowConfirmMessage(confirmMessage))
@@ -1371,6 +1377,7 @@ namespace BankSystem
             FillClientData();
         }
 
+       
         public void FillUserInfo(short permission)
         {
             FillPersonData();

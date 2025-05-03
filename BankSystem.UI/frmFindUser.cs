@@ -29,7 +29,7 @@ namespace BankSystem
 
         private void InitializeUserUIObject()
         {
-            _userUI = new UIHelper(errorProvider1, gbUserCard, txtUsername, lblFullName, lblPassword, lblPermissions,
+            _userUI = new UIHelper(errorProvider1, gbUserCard, txtUsername,lblFirstName, lblLastName, lblPassword, lblPermissions,
                 lblPhone, lblUsername, lblEmail, _user, _person, _phone);
         }
         private void HandleUserAction(enAction userAction)
