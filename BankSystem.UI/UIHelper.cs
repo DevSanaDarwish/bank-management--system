@@ -35,19 +35,20 @@ namespace BankSystem
         enum enUserClient { User, Client };
         enUserClient _userClient;
 
-        Guna2Button _btnUpdateClient, _btnDeleteClient, _btnTransaction;
+        Guna2Button _btnUpdateClient, _btnDeleteClient, _btnTransaction, _btnDeleteUser;
 
         ErrorProvider _errorProvider1;
 
-        Guna2GroupBox _gbClientCard, _gbClientCard2, _gbAllPhones;
+        Guna2GroupBox _gbClientCard, _gbClientCard2, _gbAllPhones, _gbUserCard;
 
         TextBox _txtAccountNumber, _txtEmail, _txtPhone, _txtBalance, _txtPinCode, _txtFirstName, _txtLastName, _txtTransactionAmount,
             _txtAccNumFrom, _txtAccNumTo, _txtUsername, _txtPassword;
 
         Guna2Panel _pnlClientInfo, _pnlUserInfo;
 
-        Label _lblFirstName, _lblLastName, _lblBalance, _lblPinCode, _lblPhone, _lblAccountNumber, _lblEmail, _lblTransactionAmount,
-            _lblFirstNameTo, _lblLastNameTo, _lblBalanceTo, _lblPinCodeTo, _lblPhoneTo, _lblAccountNumberTo, _lblEmailTo;
+        Label _lblFirstName, _lblLastName, _lblBalance, _lblPinCode, _lblPhone, _lblAccountNumber, _lblEmail, _lblTransactionAmount, _lblUsername,
+            _lblFirstNameTo, _lblLastNameTo, _lblBalanceTo, _lblPinCodeTo, _lblPhoneTo, _lblAccountNumberTo, _lblEmailTo, _lblFullName,
+            _lblPermissions, _lblPassword;
 
         ComboBox _cbPhones;
 
@@ -68,7 +69,7 @@ namespace BankSystem
         UIHelper _clientUI;
         UIHelper _userUI;
 
-        private void InitializeCommonFields(ErrorProvider errorProvider1, TextBox txtAccountNumber, Clients client, Persons person, Phones phone)
+        private void InitializeCommonClientFields(ErrorProvider errorProvider1, TextBox txtAccountNumber, Clients client, Persons person, Phones phone)
         {
             this._errorProvider1 = errorProvider1;
             this._txtAccountNumber = txtAccountNumber;
@@ -77,7 +78,22 @@ namespace BankSystem
             this.Phone = phone;
         }
 
+        private void InitializeCommonUserFields(ErrorProvider errorProvider1, Users user, Persons person, Phones phone)
+        {
+            this._errorProvider1 = errorProvider1;
+            this.User = user;
+            this.Person = person;
+            this.Phone = phone;
+        }
+
         public UIHelper() { }
+      
+
+        //Constructor For frmMainMenu
+        public UIHelper(int permission) 
+        { 
+            this.Permission = permission;
+        }
         
 
         //Constructor For frmTransfer
@@ -87,7 +103,7 @@ namespace BankSystem
              Label lblPinCodeTo, Label lblPhoneTo, Label lblEmailTo,
              Form form, UIHelper clientUI, Guna2Button btnTransfer, TextBox txtAccNumFrom, TextBox txtAccNumTo, int userID)
         {
-            InitializeCommonFields(errorProvider1, txtTransactionAmount, client, person, phone);
+            InitializeCommonClientFields(errorProvider1, txtTransactionAmount, client, person, phone);
 
             this._txtTransactionAmount = txtTransactionAmount;
             this._gbClientCard = gbClientCardFrom;
@@ -117,7 +133,7 @@ namespace BankSystem
             Clients client, Persons person, Phones phone, Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone,
             Label lblAccountNumber, Label lblEmail, TextBox txtTransactionAmount, Label lblTransactionAmount, Form form)
         {
-            InitializeCommonFields(errorProvider1, txtAccountNumber, client, person, phone);
+            InitializeCommonClientFields(errorProvider1, txtAccountNumber, client, person, phone);
 
             this._btnTransaction = btnTransaction;
             this._gbClientCard = gbClientCard;
@@ -139,7 +155,7 @@ namespace BankSystem
            Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, Label lblEmail,
            Clients client, Persons person, Phones phone, Guna2Button btnUpdateClient, int phoneID, UIHelper clientUI, Form form)
         {
-            InitializeCommonFields(errorProvider1, txtAccountNumber, client, person, phone);
+            InitializeCommonClientFields(errorProvider1, txtAccountNumber, client, person, phone);
 
             this._gbClientCard = gbClientCard;
             this._lblFirstName = lblFirstName;
@@ -169,7 +185,7 @@ namespace BankSystem
             TextBox txtBalance, TextBox txtPinCode, TextBox txtFirstName, TextBox txtLastName, Guna2Panel pnlClientInfo, bool isValid,
             Clients client, Persons person, Phones phone, ComboBox cbPhones)
         {
-            InitializeCommonFields(errorProvider1, txtAccountNumber, client, person, phone);
+            InitializeCommonClientFields(errorProvider1, txtAccountNumber, client, person, phone);
 
             this._pnlClientInfo = pnlClientInfo;
             this._txtEmail = txtEmail;
@@ -188,11 +204,7 @@ namespace BankSystem
             TextBox txtPassword, TextBox txtFirstName, TextBox txtLastName, Guna2Panel pnlUserInfo, bool isValid,
             Users user, Persons person, Phones phone, ComboBox cbPhones)
         {
-            this._errorProvider1 = errorProvider1;
-            this.User = user;
-            this.Person = person;
-            this.Phone = phone;
-
+            InitializeCommonUserFields(errorProvider1, user, person, phone);
 
             this._pnlUserInfo = pnlUserInfo;
             this._txtEmail = txtEmail;
@@ -211,7 +223,7 @@ namespace BankSystem
           Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, Label lblAccountNumber, Label lblEmail,
           Clients client, Persons person, Phones phone)
         {
-            InitializeCommonFields(errorProvider1, txtAccountNumber, client, person, phone);
+            InitializeCommonClientFields(errorProvider1, txtAccountNumber, client, person, phone);
 
             this._gbClientCard = gbClientCard;
             this._lblFirstName = lblFirstName;
@@ -228,7 +240,7 @@ namespace BankSystem
          Label lblFirstName, Label lblLastName, Label lblBalance, Label lblPinCode, Label lblPhone, Label lblAccountNumber, Label lblEmail,
          Clients client, Persons person, Phones phone, UIHelper clientUI, Guna2Button btnDeleteClient, Form form)
         {
-            InitializeCommonFields(errorProvider1, txtAccountNumber, client, person, phone);
+            InitializeCommonClientFields(errorProvider1, txtAccountNumber, client, person, phone);
 
             this._gbClientCard = gbClientCard;
             this._lblFirstName = lblFirstName;
@@ -243,9 +255,29 @@ namespace BankSystem
             this._form = form;
         }
 
-        private void SetErrorOnAccountNumber(string message = "This field should not be empty")
+        //Constructor For frmDeleteUser
+        public UIHelper(ErrorProvider errorProvider1, Guna2GroupBox gbUserCard, TextBox txtUsername,
+         Label lblFullName,  Label lblPhone, Label lblUsername, Label lblEmail, Label lblPassword, Label lblPermissions,
+         Users user, Persons person, Phones phone, UIHelper userUI, Guna2Button btnDeleteUser, Form form)
         {
-            PresentationInputValidator.SetMessageError(_txtAccountNumber, message, _errorProvider1);
+            InitializeCommonUserFields(errorProvider1, user, person, phone);
+
+            this._gbUserCard = gbUserCard;
+            this._txtUsername = txtUsername;
+            this._lblFullName = lblFullName;
+            this._lblPhone = lblPhone;
+            this._lblUsername = lblUsername;
+            this._lblEmail = lblEmail;
+            this._lblPassword = lblPassword;
+            this._lblPermissions = lblPermissions;
+            this._form = form;
+            this._userUI = userUI;
+            this._btnDeleteUser = btnDeleteUser;
+        }
+
+        private void SetErrorOnTextBox(TextBox textBox, string message = "This field should not be empty")
+        {
+            PresentationInputValidator.SetMessageError(textBox, message, _errorProvider1);
         }
 
         public void ShowMessage(string text)
@@ -263,7 +295,12 @@ namespace BankSystem
 
                 case enAction.DeleteShowInfo:
                 case enAction.Delete:
-                    ControlHelper.HideControl(_btnDeleteClient);
+                    if(_userClient == enUserClient.Client)
+                        ControlHelper.HideControl(_btnDeleteClient);
+
+                    else
+                        ControlHelper.HideControl(_btnDeleteUser);
+
                     break;
 
                 case enAction.DepositShowInfo:
@@ -307,11 +344,36 @@ namespace BankSystem
             return false;
         }
 
+        private bool IsUserNotFound(object obj)
+        {
+            string message = "Sorry, This Username Information Does Not Exist";
+
+            if (PresentationInputValidator.IsObjectNull(obj))
+            {
+                HidePanelOrGroup();
+
+                HideButton();
+
+                ShowMessage(message);
+
+                return true;
+            }
+
+            return false;
+        }
+
         private bool LoadClientInfo(string accountNumber)
         {
             Client = Clients.FindByAccountNumber(accountNumber);
 
             return !IsClientNotFound(Client);
+        }
+
+        private bool LoadUserInfo(string username)
+        {
+            User = Users.FindByUsername(username);
+
+            return !IsUserNotFound(User);
         }
 
         private bool LoadPersonInfo()
@@ -338,9 +400,14 @@ namespace BankSystem
         //}
 
 
-        private bool AreObjectsInfoSuccessfullyLoaded(string accountNumber)
+        private bool AreClientObjectsInfoSuccessfullyLoaded(string accountNumber)
         {
             return LoadClientInfo(accountNumber) && LoadPersonInfo() && LoadPhoneInfo();
+        }
+
+        private bool AreUserObjectsInfoSuccessfullyLoaded(string accountNumber)
+        {
+            return LoadUserInfo(accountNumber) && LoadPersonInfo() && LoadPhoneInfo();
         }
 
         private void SetEmailLabel(Label label)
@@ -361,7 +428,15 @@ namespace BankSystem
             }
         }
 
-        private void SetLabelsInfo(string accountNumber)
+        private void SetUsernameLabel(string username)
+        {
+            if (Action == enAction.DeleteShowInfo || Action == enAction.Find)
+            {
+                _lblUsername.Text = username;
+            }
+        }
+
+        private void SetLabelsInfo(string value)
         {
             switch (Action)
             {
@@ -370,7 +445,13 @@ namespace BankSystem
                     break;
 
                 default:
-                    FillClientCard(accountNumber);
+
+                    if (_userClient == enUserClient.Client)
+                        FillClientCard(value);
+
+                    else
+                        FillUserCard(value);
+
                     break;
             }
         }
@@ -390,6 +471,23 @@ namespace BankSystem
             SetEmailLabel(_lblEmail);
 
             SetAccountNumberLabel(accountNumber);
+        }
+
+        private void FillUserCard(string username)
+        {
+            _lblUsername.Text = User.Username;
+
+            _lblFullName.Text = Person.FirstName + " " + Person.LastName;
+
+            _lblPassword.Text = User.Password;
+
+            _lblPermissions.Text = User.Permissions.ToString();
+
+            _lblPhone.Text = Phone.PhoneNumber;
+
+            SetEmailLabel(_lblEmail);
+
+            SetUsernameLabel(username);
         }
 
         private void FillClientCardInLabelsTo()
@@ -462,21 +560,32 @@ namespace BankSystem
         {
             string accountNumber = _txtAccountNumber.Text;
 
-            if (!AreObjectsInfoSuccessfullyLoaded(accountNumber))
+            if (!AreClientObjectsInfoSuccessfullyLoaded(accountNumber))
                 return;
 
-            HandleShowClientInfo(accountNumber);
+            HandleShowClientUserInfo(accountNumber);
         }
 
-        private void HandleShowClientInfo(string accountNumber)
+        private void ShowUserInfo()
         {
-            SetLabelsInfo(accountNumber);
+            string username = _txtUsername.Text;
+
+            if (!AreUserObjectsInfoSuccessfullyLoaded(username))
+                return;
+
+            HandleShowClientUserInfo(username);
+        }
+
+        private void HandleShowClientUserInfo(string value)
+        {
+            SetLabelsInfo(value);
 
             ShowButton();
 
             HandleClientActionForShowInfo();
 
-            HandleTransactionButton();
+            if(_userClient == enUserClient.Client)
+                HandleTransactionButton();
         }
 
         private void HandleClientActionForShowInfo()
@@ -800,11 +909,11 @@ namespace BankSystem
         {
             string accTo = GetAccountNumber(_txtAccNumTo), accFrom = GetAccountNumber(_txtAccNumFrom);
 
-            if (AreObjectsInfoSuccessfullyLoaded(accFrom))
+            if (AreClientObjectsInfoSuccessfullyLoaded(accFrom))
             {
                 SourceClientID = Client.ClientID;
 
-                if(AreObjectsInfoSuccessfullyLoaded(accTo))
+                if(AreClientObjectsInfoSuccessfullyLoaded(accTo))
                 {
                     DestinationClientID = Client.ClientID;
                 }
@@ -819,7 +928,7 @@ namespace BankSystem
         {
             return (Action == enAction.Transfer && ConfirmTransferOperation())
                    ||
-                   AreObjectsInfoSuccessfullyLoaded(GetAccountNumber(_txtAccountNumber));
+                   AreClientObjectsInfoSuccessfullyLoaded(GetAccountNumber(_txtAccountNumber));
         }
        
         private void ConfirmOperation(string confirmMessage)
@@ -835,16 +944,16 @@ namespace BankSystem
             }
         }
 
-        private void ExecuteClientAction()
+        private void ExecuteClientUserAction()
         {
             switch (Action)
             {
                 case enAction.Update:
-                    ConfirmOperation("Ary you sure to update information this client?");
+                    ConfirmOperation("Are you sure to do that update?");
                     break;
 
                 case enAction.Delete:
-                    ConfirmOperation("Ary you sure to delete this client?");
+                    ConfirmOperation("Are you sure to do that delete?");
                     break;
 
                 case enAction.Deposit:
@@ -860,7 +969,12 @@ namespace BankSystem
                     break;
 
                 default:
-                    ShowClientInfo();
+                    if(_userClient == enUserClient.Client)
+                        ShowClientInfo();
+
+                    else
+                        ShowUserInfo();
+
                     break;
             }
         }
@@ -874,7 +988,12 @@ namespace BankSystem
                     break;
 
                 case enAction.DeleteShowInfo:
-                    ControlHelper.VisibleControl(_btnDeleteClient);
+                    if(_userClient == enUserClient.Client)
+                        ControlHelper.VisibleControl(_btnDeleteClient);
+
+                    else
+                        ControlHelper.VisibleControl(_btnDeleteUser);
+
                     break;
 
                 case enAction.DepositShowInfo:
@@ -898,7 +1017,12 @@ namespace BankSystem
                     break;
 
                 default:
-                    ControlHelper.VisibleControl(_gbClientCard);
+                    if(_userClient == enUserClient.Client)
+                        ControlHelper.VisibleControl(_gbClientCard);
+
+                    else
+                        ControlHelper.VisibleControl(_gbUserCard);
+
                     break;
             }
         }
@@ -925,7 +1049,12 @@ namespace BankSystem
                     break;
 
                 default:
-                    ControlHelper.HideControl(_gbClientCard);
+                    if(_userClient == enUserClient.Client)
+                        ControlHelper.HideControl(_gbClientCard);
+
+                    else
+                        ControlHelper.HideControl(_gbUserCard);
+
                     break;
             }
         }
@@ -971,9 +1100,18 @@ namespace BankSystem
 
             ShowPanelOrGroup();
 
-            SetErrorOnAccountNumber("");
+            SetErrorOnTextBox(_txtAccountNumber, "");
 
-            ExecuteClientAction();
+            ExecuteClientUserAction();
+        }
+
+        private void PerformUserActionWorkflow()
+        {
+            ShowPanelOrGroup();
+
+            SetErrorOnTextBox(_txtUsername, "");
+
+            ExecuteClientUserAction();
         }
 
         public void HandleClientInfo()
@@ -984,7 +1122,16 @@ namespace BankSystem
                 PerformClientActionWorkflow();
 
             else
-                SetErrorOnAccountNumber();
+                SetErrorOnTextBox(_txtAccountNumber);
+        }
+
+        public void HandleUserInfo()
+        {
+            if (!PresentationInputValidator.IsControlTextNull(_txtUsername.Text))
+                PerformUserActionWorkflow();
+
+            else
+                SetErrorOnTextBox(_txtUsername);
         }
 
         private bool IsPhoneNumberValid()
@@ -1091,6 +1238,8 @@ namespace BankSystem
 
         public bool CheckAccessRights(Users.enPermissions permission)
         {
+            User.Permissions = Permission;
+
             if (!User.CheckAccessPermission(permission))
             {
                 ShowMessage("Access Denied! Contact Your Admin");
@@ -1364,7 +1513,7 @@ namespace BankSystem
 
             ClearAccountNumberText(_txtAccNumFrom);
 
-            SetErrorOnAccountNumber("");
+            SetErrorOnTextBox(_txtAccountNumber);
         }
         private void HandleTransactionUI()
         {
@@ -1397,7 +1546,7 @@ namespace BankSystem
             if (!ValidateInputAmount())
                 return;
             
-            ExecuteClientAction();
+            ExecuteClientUserAction();
         }
 
 

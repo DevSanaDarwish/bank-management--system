@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDeleteUser));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.gbUserCard = new Guna.UI2.WinForms.Guna2GroupBox();
@@ -47,8 +48,10 @@
             this.label6 = new System.Windows.Forms.Label();
             this.btnShowInfo = new Guna.UI2.WinForms.Guna2Button();
             this.btnDeleteUser = new Guna.UI2.WinForms.Guna2Button();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.gbUserCard.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -270,6 +273,11 @@
             this.btnDeleteUser.TabIndex = 25;
             this.btnDeleteUser.Text = "Delete";
             this.btnDeleteUser.Visible = false;
+            this.btnDeleteUser.Click += new System.EventHandler(this.btnDeleteUser_Click);
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
             // 
             // frmDeleteUser
             // 
@@ -289,6 +297,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.gbUserCard.ResumeLayout(false);
             this.gbUserCard.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -314,5 +323,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

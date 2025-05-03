@@ -36,6 +36,15 @@ namespace BankSystem
 
         UIHelper _UI = new UIHelper();
 
+
+        private void SentPermissionToUIHelperClass()
+        {
+            _UI = new UIHelper(GetPermissionByUserID());
+        }
+        private int GetPermissionByUserID()
+        {
+            return Users.GetPermissionsByUserID(_userID);
+        }
         private void SetUsernameInLabel()
         {
             lblUsername.Text = _username;
@@ -105,6 +114,8 @@ namespace BankSystem
 
         private void SecureButtonClick(Guna2Button button, Color color, Form form, Users.enPermissions permission)
         {
+            SentPermissionToUIHelperClass();
+
             if (!_UI.CheckAccessRights(permission))
                 return;
 
@@ -138,6 +149,8 @@ namespace BankSystem
 
         private void btnTransactions_Click(object sender, EventArgs e)
         {
+            SentPermissionToUIHelperClass();
+
             if (!_UI.CheckAccessRights(Users.enPermissions.Transaction))
                 return;
 
@@ -146,6 +159,8 @@ namespace BankSystem
 
         private void btnManageUsers_Click(object sender, EventArgs e)
         {
+            SentPermissionToUIHelperClass();
+
             if (!_UI.CheckAccessRights(Users.enPermissions.ManageUsers))
                 return;
 

@@ -59,12 +59,24 @@ namespace BankSystemBusinessLayer
             Mode = enMode.Update;
         }
 
-        public bool CheckAccessPermission(enPermissions permission)
+        public static Users FindByUsername(string username)
+        {
+            string password = "";
+            int permissions = -1, personsID = -1, userID = -1;
+
+            if (UsersData.GetUserInfoByUsername(username, ref permissions, ref password, ref personsID, ref userID))
+                return new Users(userID, username, permissions, password, personsID);
+
+            else
+                return null;
+        }
+
+        public bool CheckAccessPermission(enPermissions selectedPermission)
         {
             if (this.Permissions == (int)enPermissions.All)
                 return true;
 
-            if (((int)permission & this.Permissions) == (int)permission)
+            if (((int)selectedPermission & this.Permissions) == (int)selectedPermission)
                 return true;
 
             return false;
@@ -87,6 +99,11 @@ namespace BankSystemBusinessLayer
         public static int GetUserIDByUsername(string username)
         {
             return UsersData.GetUserIDByUsername(username);
+        }
+
+        public static int GetPermissionsByUserID(int userID)
+        {
+            return UsersData.GetPermissionsByUserID(userID);
         }
 
         private bool IsEmptyValidation()

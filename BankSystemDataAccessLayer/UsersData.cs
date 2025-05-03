@@ -83,6 +83,85 @@ namespace BankSystemDataAccessLayer
             return userID;
         }
 
+        public static int GetPermissionsByUserID(int userID)
+        {
+            int permissions = -1;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = "Select Permissions From Users Where UserID = @userID;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@userID", userID);
+
+            try
+            {
+                connection.Open();
+
+                object result = command.ExecuteScalar();
+
+                if (result != null && int.TryParse(result.ToString(), out int permissionFromDB))
+                {
+                    permissions = permissionFromDB;
+                }
+            }
+
+            catch (Exception ex) { }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return permissions;
+        }
+
+        public static bool GetUserInfoByUsername(string username, ref int permissions, ref string password, ref int personID, ref int userID)
+        {
+            bool isFound = false;
+
+            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
+
+            string query = "Select * From Users Where Username = @username";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@username", username);
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    isFound = true;
+
+                    userID = (int)reader["UserID"];
+
+                    password = (string)reader["Password"];
+
+                    permissions = (int)reader["Permissions"];
+
+                    personID = (int)reader["PersonID"];
+                }
+            }
+
+            catch (Exception ex)
+            {
+                isFound = false;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return isFound;
+        }
+
         public static DataTable GetAllUsers()
         {
             DataTable dtUsers = new DataTable();
