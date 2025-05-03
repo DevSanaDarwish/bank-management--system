@@ -90,7 +90,7 @@ namespace BankSystemBusinessLayer
 
         public static Users Find(string username, string password)
         {
-            if (UsersData.GetUsernameAndPassword(username, password))
+            if (UsersData.IsUserValid(username, password))
                 return new Users(username, password);
 
             else
@@ -210,16 +210,5 @@ namespace BankSystemBusinessLayer
         {
             return _maximumPasswordLength;
         }
-
-        //public static bool IsValidPasswordLength(byte passwordLength)
-        //{
-        //    //if (passwordLength == 0)
-        //    //    return false;
-
-        //    //return (passwordLength >= _minimumPasswordLength && passwordLength <= _maximumPasswordLength);
-
-        //    return (BusinessInputValidator.ValidationValue(passwordLength, _maximumPasswordLength, _minimumPasswordLength));
-        //}
-
     }
 }

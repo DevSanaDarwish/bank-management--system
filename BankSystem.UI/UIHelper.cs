@@ -762,12 +762,13 @@ namespace BankSystem
             }
 
             if (Action == enAction.Update)
-                ClearAccountNumberText(_txtAccountNumber);
+                ClearTextBox(_txtAccountNumber);
         }
 
-        public void ClearAccountNumberText(TextBox textBox)
+        public void ClearTextBox(TextBox textBox)
         {
-            SetTextAccountNumber();
+            if(_userClient == enUserClient.Client)
+                SetTextAccountNumber();
 
             ControlHelper.ClearTextBox(textBox);
         }
@@ -804,11 +805,11 @@ namespace BankSystem
             return IsInputFieldsNotNull(panel) && IsInputFieldsValid(panel);
         }
         
-        private string GetAccountNumber(TextBox textbox)
+        private string GetAccountNumberOrUsername(TextBox textbox)
         {
-            string accountNumber = textbox.Text;
+            string text = textbox.Text;
 
-            return accountNumber;
+            return text;
         }
 
         private bool IsUpdateAndValid()
@@ -835,7 +836,7 @@ namespace BankSystem
                     break;
 
                 case enAction.Delete:
-                    ((frmDeleteClient)_form).DeleteClient(GetAccountNumber(_txtAccountNumber), Client);
+                    ((frmDeleteClient)_form).DeleteClient(GetAccountNumberOrUsername(_txtAccountNumber), Client);
                     break;
 
                 case enAction.Deposit:
@@ -849,6 +850,17 @@ namespace BankSystem
                 case enAction.Transfer:
                     ConfirmTransfer();
                     break;
+            }
+        }
+
+        private void ExecuteUserOperations()
+        {
+            switch (Action)
+            {
+                case enAction.Delete:
+                    ((frmDeleteUser)_form).DeleteUser(GetAccountNumberOrUsername(_txtUsername), User);
+                    break;
+
             }
         }
 
@@ -905,13 +917,17 @@ namespace BankSystem
 
             if (ShowConfirmMessage(confirmMessage))
             {
-                ExecuteClientOperations();
+                if(_userClient == enUserClient.Client)
+                    ExecuteClientOperations();
+
+                else
+                    ExecuteUserOperations();
             }
         }
 
         private bool ConfirmTransferOperation()
         {
-            string accTo = GetAccountNumber(_txtAccNumTo), accFrom = GetAccountNumber(_txtAccNumFrom);
+            string accTo = GetAccountNumberOrUsername(_txtAccNumTo), accFrom = GetAccountNumberOrUsername(_txtAccNumFrom);
 
             if (AreClientObjectsInfoSuccessfullyLoaded(accFrom))
             {
@@ -932,19 +948,24 @@ namespace BankSystem
         {
             return (Action == enAction.Transfer && ConfirmTransferOperation())
                    ||
-                   AreClientObjectsInfoSuccessfullyLoaded(GetAccountNumber(_txtAccountNumber));
+                   AreClientObjectsInfoSuccessfullyLoaded(GetAccountNumberOrUsername(_txtAccountNumber));
         }
        
         private void ConfirmOperation(string confirmMessage)
         {
-            if (CanConfirmMessage())
+            if (_userClient == enUserClient.Client && CanConfirmMessage())
+            {
+                Confirm(confirmMessage);
+            }
+
+            else if(_userClient == enUserClient.User && AreUserObjectsInfoSuccessfullyLoaded(GetAccountNumberOrUsername(_txtUsername)))
             {
                 Confirm(confirmMessage);
             }
 
             else
             {
-                ShowMessage("Failed to load client data");
+                ShowMessage("Failed to load data");
             }
         }
 
@@ -1513,9 +1534,9 @@ namespace BankSystem
         {
             _btnTransaction.Enabled = false;
 
-            ClearAccountNumberText(_txtAccNumTo);
+            ClearTextBox(_txtAccNumTo);
 
-            ClearAccountNumberText(_txtAccNumFrom);
+            ClearTextBox(_txtAccNumFrom);
 
             SetErrorOnTextBox(_txtAccountNumber);
         }
@@ -1525,9 +1546,9 @@ namespace BankSystem
 
             ShowSuccessfulMessage();
 
-            ClearAccountNumberText(_txtAccountNumber);
+            ClearTextBox(_txtAccountNumber);
 
-            ClearAccountNumberText(_txtTransactionAmount);
+            ClearTextBox(_txtTransactionAmount);
 
             HidePanelOrGroup();
 

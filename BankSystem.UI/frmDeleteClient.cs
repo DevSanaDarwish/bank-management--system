@@ -82,7 +82,7 @@ namespace BankSystem
         {
             _clientUI.ShowMessage("Client Deleted Successfully");
 
-            _clientUI.ClearAccountNumberText(txtAccountNumber);
+            _clientUI.ClearTextBox(txtAccountNumber);
 
             _clientUI.HidePanelOrGroup();
 

@@ -157,7 +157,7 @@ namespace BankSystemDataAccessLayer
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
 
-            string query = "Select Sum(Balance) From Clients;";
+            string query = "Select Sum(Balance) From Clients WHERE IsDeleted = 0;";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -222,80 +222,14 @@ namespace BankSystemDataAccessLayer
             return clientID;
         }
 
-        public static bool GetClientInfoByFirstName(string firstName, ref string lastName, ref string email, ref string phoneNumber, ref string pinCode, ref decimal balance, ref string accountNumber, ref int clientID)
-        {
-            bool isFound = false;
-
-            SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
-
-            //string query = "\r\nSELECT Persons.FirstName, Persons.LastName, Persons.Email, Clients.PinCode, Clients.Balance, Clients.AccountNumber, Phones.PhoneNumber\r\nFROM     Clients INNER JOIN\r\n                  Persons ON Clients.PersonID = Persons.PersonID INNER JOIN\r\n                  Phones ON Persons.PersonID = Phones.PersonID\r\n\r\n\t\t\t\t  Where FirstName = 'Sana';";
-
-            string query = "Select * From vwClientsWithoutClientID Where FirstName = @firstName";
-
-            SqlCommand command = new SqlCommand(query, connection);
-
-            command.Parameters.AddWithValue("@firstName", firstName);
-            
-            try
-            {
-                connection.Open();
-
-                SqlDataReader reader = command.ExecuteReader();
-
-                if (reader.Read())
-                {
-                    isFound = true;
-
-                    clientID = (int)reader["ClientID"];
-
-                    lastName = (string)reader["LastName"];
-
-                    phoneNumber = (string)reader["PhoneNumber"];
-
-                    pinCode = (string)reader["PinCode"];
-
-                    balance = (decimal)reader["Balance"];
-
-                    accountNumber = (string)reader["AccountNumber"];
-
-                    if (reader["Email"] != DBNull.Value)
-                        email = (string)reader["Email"];
-
-                    else
-                        email = "";
-
-                }
-
-                else
-                {
-                    isFound = false;
-                }
-
-                reader.Close();
-            }
-
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error: " + ex.Message);
-
-                isFound = false;
-            }
-
-            finally
-            {
-                connection.Close();
-            }
-
-            return isFound;
-        }
-
+       
         public static bool GetClientInfoByAccountNumber(string accountNumber, ref string pinCode, ref decimal balance, ref int personID, ref int clientID)
         {
             bool isFound = false;
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
 
-            string query = "Select * From Clients Where AccountNumber = @accountNumber";
+            string query = "Select * From Clients Where AccountNumber = @accountNumber And IsDeleted = 0";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -340,7 +274,7 @@ namespace BankSystemDataAccessLayer
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
 
-            string query = "Delete Clients Where AccountNumber = @accountNumber";
+            string query = "UPDATE Clients SET IsDeleted = 1 WHERE AccountNumber = @accountNumber;";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -374,7 +308,7 @@ namespace BankSystemDataAccessLayer
 
             string query = @"Update Clients 
                            set PinCode = @pinCode,   Balance = @balance
-                           Where AccountNumber = @accountNumber;";
+                           Where AccountNumber = @accountNumber And IsDeleted = 0;";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -411,7 +345,7 @@ namespace BankSystemDataAccessLayer
 
             string query = @"Update Clients 
                            set Balance = Balance + @amount
-                           Where AccountNumber = @accountNumber;";
+                           Where AccountNumber = @accountNumber And IsDeleted = 0;";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -446,7 +380,7 @@ namespace BankSystemDataAccessLayer
 
             string query = @"Update Clients 
                            set Balance = Balance - @amount
-                           Where AccountNumber = @accountNumber;";
+                           Where AccountNumber = @accountNumber And IsDeleted = 0;";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -477,7 +411,7 @@ namespace BankSystemDataAccessLayer
         {
             SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
 
-            string query = "Select 1 Where Exists (Select 1 From Clients Where AccountNumber = @accountNumber);";
+            string query = "Select 1 Where Exists (Select 1 From Clients Where AccountNumber = @accountNumber And IsDeleted = 0);";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -509,11 +443,11 @@ namespace BankSystemDataAccessLayer
 
             string query = @"Update Clients 
                            set Balance = Balance - @amount
-                           Where AccountNumber = @accountNumberFrom; 
+                           Where AccountNumber = @accountNumberFrom And IsDeleted = 0; 
 
                            Update Clients 
                            set Balance = Balance + @amount
-                           Where AccountNumber = @accountNumberTo;";
+                           Where AccountNumber = @accountNumberTo And IsDeleted = 0;";
 
             SqlCommand command = new SqlCommand(query, connection);
 

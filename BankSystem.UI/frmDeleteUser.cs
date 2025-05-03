@@ -50,6 +50,32 @@ namespace BankSystem
             _userUI.HandleUserInfo();
         }
 
+        private bool IsDeletionSuccessful(string username, Users user)
+        {
+            int personID = user.PersonID;
+
+            return (Users.DeleteUser(username) && Phones.DeletePhone(personID) && Persons.DeletePerson(personID));
+        }
+
+        private void HandleUserDeletionUI()
+        {
+            _userUI.ShowMessage("User Deleted Successfully");
+            _userUI.ClearTextBox(txtUsername);
+            _userUI.HidePanelOrGroup();
+            _userUI.HideButton();
+        }
+
+        public void DeleteUser(string username, Users user)
+        {
+            if (IsDeletionSuccessful(username, user))
+            {
+                HandleUserDeletionUI();
+            }
+
+            else
+                _userUI.ShowMessage("Deletion Failed");
+        }
+
         private void btnShowInfo_Click(object sender, EventArgs e)
         {
             HandleUserAction(enAction.DeleteShowInfo);

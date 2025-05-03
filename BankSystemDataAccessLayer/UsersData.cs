@@ -6,13 +6,13 @@ namespace BankSystemDataAccessLayer
 {
     public class UsersData
     {
-        public static bool GetUsernameAndPassword(string username, string password)
+        public static bool IsUserValid(string username, string password)
         {
             bool isFound = false;
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
 
-            string query = "Select Username, Password From Users Where Username = @username And Password = @password";
+            string query = "Select 1 Where Exists (Select 1 From Users Where Username = @username And Password = @password And IsDeleted = 0)";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -55,7 +55,7 @@ namespace BankSystemDataAccessLayer
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
 
-            string query = "Select UserID From Users Where Username = @username;";
+            string query = "Select UserID From Users Where Username = @username And IsDeleted = 0;";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -89,7 +89,7 @@ namespace BankSystemDataAccessLayer
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
 
-            string query = "Select Permissions From Users Where UserID = @userID;";
+            string query = "Select Permissions From Users Where UserID = @userID And IsDeleted = 0;";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -123,7 +123,7 @@ namespace BankSystemDataAccessLayer
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
 
-            string query = "Select * From Users Where Username = @username";
+            string query = "Select * From Users Where Username = @username And IsDeleted = 0";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -200,7 +200,7 @@ namespace BankSystemDataAccessLayer
         {
             SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
 
-            string query = "Select 1 Where Exists (Select 1 From Users Where Username = @username);";
+            string query = "Select 1 Where Exists (Select 1 From Users Where Username = @username And IsDeleted = 0);";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -269,7 +269,7 @@ namespace BankSystemDataAccessLayer
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
 
-            string query = "Delete Users Where Username = @username";
+            string query = "UPDATE Users SET IsDeleted = 1 WHERE Username = @username;";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -303,7 +303,7 @@ namespace BankSystemDataAccessLayer
 
             string query = @"Update Users 
                            set Password = @password,   Permissions = @permissions
-                           Where Username = @username;";
+                           Where Username = @username And IsDeleted = 0;";
 
             SqlCommand command = new SqlCommand(query, connection);
 
