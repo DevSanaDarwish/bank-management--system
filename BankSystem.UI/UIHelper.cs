@@ -127,6 +127,7 @@ namespace BankSystem
             this._txtAccNumFrom = txtAccNumFrom;
             this._txtAccNumTo = txtAccNumTo;
             this.UserID = userID;
+            this._userClient = enUserClient.Client;
         }
 
         //Constructor For frmDeposit And frmWithdraw
@@ -148,6 +149,7 @@ namespace BankSystem
             this._txtTransactionAmount = txtTransactionAmount;
             this._lblTransactionAmount = lblTransactionAmount;
             this._form = form;
+            this._userClient = enUserClient.Client;
         }
 
         //Constructor For frmUpdateClient 
@@ -179,6 +181,7 @@ namespace BankSystem
             this.PhoneID = phoneID;
             this._clientUI = clientUI;
             this._form = form;
+            this._userClient = enUserClient.Client;
         }
 
         //Constructor For frmAddNewClient
@@ -234,6 +237,7 @@ namespace BankSystem
             this._lblPhone = lblPhone;
             this._lblAccountNumber = lblAccountNumber;
             this._lblEmail = lblEmail;
+            this._userClient = enUserClient.Client;
         }
 
         //Constructor For frmDeleteClient

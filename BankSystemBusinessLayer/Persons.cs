@@ -124,6 +124,8 @@ namespace BankSystemBusinessLayer
         //        return;
         //}
 
+
+        //مالا داعي
         public static bool DeletePerson(int personID)
         {
             return PersonsData.DeletePerson(personID);

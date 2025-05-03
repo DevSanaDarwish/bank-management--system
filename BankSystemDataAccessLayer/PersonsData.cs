@@ -99,7 +99,7 @@ namespace BankSystemDataAccessLayer
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
 
-            string query = "Select * From Persons Where FirstName = @firstName And LastName = @lastName";
+            string query = "Select * From Persons Where FirstName = @firstName And LastName = @lastName And IsDeleted = 0";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -158,7 +158,7 @@ namespace BankSystemDataAccessLayer
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
 
-            string query = "Select * From Persons Where PersonID = @personID";
+            string query = "Select * From Persons Where PersonID = @personID And IsDeleted = 0";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -212,13 +212,14 @@ namespace BankSystemDataAccessLayer
             return isFound;
         }
 
+        //مالا داعي
         public static bool DeletePerson(int personID)
         {
             int rowsAffected = 0;
 
             SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
 
-            string query = "Delete Persons Where personID = @personID";
+            string query = "Update Persons Set IsDeleted = 1 WHERE PersonID = @personID";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -252,7 +253,7 @@ namespace BankSystemDataAccessLayer
 
             string query = @"Update Persons 
                            set FirstName = @firstName,   LastName = @lastName,   Email = @email
-                           Where PersonID = @personID;";
+                           Where PersonID = @personID And IsDeleted = 0;";
 
             SqlCommand command = new SqlCommand(query, connection);
 

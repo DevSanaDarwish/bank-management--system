@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmFindUser));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.gbUserCard = new Guna.UI2.WinForms.Guna2GroupBox();
@@ -48,8 +49,10 @@
             this.btnFindClient = new Guna.UI2.WinForms.Guna2Button();
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.gbUserCard.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -259,6 +262,7 @@
             this.btnFindClient.Size = new System.Drawing.Size(168, 59);
             this.btnFindClient.TabIndex = 29;
             this.btnFindClient.Text = "Search";
+            this.btnFindClient.Click += new System.EventHandler(this.btnFindClient_Click);
             // 
             // txtUsername
             // 
@@ -280,6 +284,10 @@
             this.label6.TabIndex = 27;
             this.label6.Text = "Please Enter Username:";
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // frmFindUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -297,6 +305,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.gbUserCard.ResumeLayout(false);
             this.gbUserCard.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -323,5 +332,6 @@
         private Guna.UI2.WinForms.Guna2Button btnFindClient;
         private System.Windows.Forms.TextBox txtUsername;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
