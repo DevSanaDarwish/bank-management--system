@@ -95,6 +95,8 @@ namespace BankSystem
             ClientUI.ClearForm(pnlClientInfo);
 
             ClientUI.HidePanelOrGroup();
+
+            ClientUI.HideButton();
         }
 
         private void HandleClientAction(enAction clientAction)

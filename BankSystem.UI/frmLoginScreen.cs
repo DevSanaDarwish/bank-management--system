@@ -31,6 +31,7 @@ namespace BankSystem
 
         StringBuilder _formattedSelectedTime = new StringBuilder();
         string _username { get; set; }
+
         int _userID { get; set; }
 
 
@@ -343,7 +344,7 @@ namespace BankSystem
                 {
                     OpenMainForm();
 
-                    AddLoginRegisters();
+                    AddLoginRegisters();               
                 }
 
                 else

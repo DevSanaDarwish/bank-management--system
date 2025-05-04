@@ -349,6 +349,7 @@ namespace BankSystem
             switch (Action)
             {
                 case enAction.UpdateShowInfo:
+                case enAction.Update:
                     if(_userClient == enUserClient.Client)
                         ControlHelper.HideControl(_btnUpdateClient);
 
@@ -850,7 +851,14 @@ namespace BankSystem
             }
 
             if (Action == enAction.Update)
-                ClearTextBox(_txtAccountNumber);
+            {
+                if(_userClient == enUserClient.Client)
+                    ClearTextBox(_txtAccountNumber);
+
+                else
+                    ClearTextBox(_txtUsername);
+            }
+                
         }
 
         public void ClearTextBox(TextBox textBox)
@@ -1251,7 +1259,7 @@ namespace BankSystem
 
             ShowPanelOrGroup();
 
-            //SetErrorOnTextBox(_txtAccountNumber, "");
+            SetErrorOnTextBox(_txtAccountNumber, "");
 
             ExecuteClientUserAction();
         }
@@ -1260,7 +1268,7 @@ namespace BankSystem
         {
             ShowPanelOrGroup();
 
-            //SetErrorOnTextBox(_txtUsername, "");
+            SetErrorOnTextBox(_txtUsername, "");
 
             ExecuteClientUserAction();
         }
@@ -1369,7 +1377,6 @@ namespace BankSystem
         {
             User.Username = _txtUsername.Text;
             User.Password = _txtPassword.Text;
-            //User.Permissions = Permission;
             User.Permissions = permission;
         }
 
@@ -1433,7 +1440,7 @@ namespace BankSystem
             SetTypeWord();
 
             if (Person.Save())
-                ValidationClientsAndPhonesSave();
+                ValidationClientsUsersAndPhonesSave();
 
             else
                 ShowFailedMessage();
@@ -1498,18 +1505,17 @@ namespace BankSystem
 
         private void FillPhoneListObject()
         {
-            ClientID = Clients.FindByAccountNumber(_txtAccountNumber.Text).ClientID;
-
-            PhoneList = Phones.FindInListByClientID(ClientID);
-
-
-            //List<int> lstPhoneIDs = Phones.GetPhoneIDs(ClientID);
-
-            //Phone.PhoneNumber = item;
-
-            //Phone.PhoneID = PhoneID;
-
-            //Phone.PhoneID = PersonID;
+            if (_userClient == enUserClient.Client)
+            {
+                ClientID = Clients.FindByAccountNumber(_txtAccountNumber.Text).ClientID;
+                PhoneList = Phones.FindInListByClientID(ClientID);
+            }
+                
+            else
+            {
+                UserID = Users.FindByUsername(_txtUsername.Text).UserID;
+                PhoneList = Phones.FindInListByUserID(UserID);
+            }                      
         }
 
         private void SetPersonIDToClientUserObject()
@@ -1575,13 +1581,18 @@ namespace BankSystem
             }
         }
 
-        private void ValidationClientsAndPhonesSave()
+        private void ValidationClientsUsersAndPhonesSave()
         {
             SetStatusWord();
 
             if(Action == enAction.Update)
             {
-                ((frmUpdateClient)_form).UpdatePhones();
+                if(_userClient == enUserClient.Client)
+                    ((frmUpdateClient)_form).UpdatePhones();
+
+                else
+                    ((frmUpdateUser)_form).UpdatePhones();
+
                 ShowSaveMessage();
                 return;
             }

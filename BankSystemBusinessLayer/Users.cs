@@ -147,11 +147,6 @@ namespace BankSystemBusinessLayer
             return UsersData.UpdateUser(this.Username, this.Permissions, this.Password);
         }
 
-        //public bool UpdateUser()
-        //{
-
-        //}
-
         public bool Save()
         {
             if (IsEmptyValidation() || IsNotNumericValidation())
@@ -168,8 +163,8 @@ namespace BankSystemBusinessLayer
 
                     return false;
 
-               // case enMode.Update:
-                    //return UpdateUser();
+                case enMode.Update:
+                    return UpdateUser();
             }
 
             return false;

@@ -335,6 +335,33 @@ namespace BankSystem
             return PermissionsHelper.GetPermissions(pnlPermissions, chkAll);
         }
 
+        private void HandleAllPhones()
+        {
+            short index = 0;
+
+            foreach (Control control in gbAllPhones.Controls)
+            {
+                if (control is TextBox textbox)
+                {
+                    string item = textbox.Text;
+
+                    if (index < _numberOfOriginalPhones)
+                        UserUI.ProcessPhoneItem(item, index);
+
+                    else
+                        UserUI.ProcessPhoneItemForAdd(item);
+
+                    index++;
+                }
+
+            }
+        }
+
+        public void UpdatePhones()
+        {
+            HandleAllPhones();
+        }
+
 
         private void Update()
         {
@@ -372,6 +399,8 @@ namespace BankSystem
             UserUI.ClearForm(pnlUserInfo);
 
             UserUI.HidePanelOrGroup();
+
+            UserUI.HideButton();
         }
         private void HandleUserAction(enAction UserAction)
         {
