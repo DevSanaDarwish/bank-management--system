@@ -412,6 +412,36 @@ namespace BankSystem
             UserUI.ValidationSave();
         }
 
+        private void SetTagToCheckBoxes()
+        {
+            chkShowClientsList.Tag = enPermissions.ShowClientsList;
+            chkAddNewClient.Tag = enPermissions.AddNewClient;
+            chkTransaction.Tag = enPermissions.Transaction;
+            chkDeleteClient.Tag = enPermissions.DeleteClient;
+            chkUpdateClient.Tag = enPermissions.UpdateClient;
+            chkFindClient.Tag = enPermissions.FindClient;
+            chkManageUsers.Tag = enPermissions.ManageUsers;
+            chkLoginRegisters.Tag = enPermissions.LoginRegisters;
+        }
+
+        public void LoadUserPermission(short userPermission)
+        {
+            if(userPermission == -1)
+            {
+                chkAll.Checked = true;
+                return;
+
+            }    
+
+            foreach (Control control in pnlPermissions.Controls)
+            {
+                if(control is CheckBox checkbox && checkbox.Tag is enPermissions permission)
+                {
+                    checkbox.Checked = ((userPermission & (short)permission) == (short)permission);
+                }
+            }
+        }
+
         public void UpdateUser()
         {
             Update();
@@ -476,6 +506,11 @@ namespace BankSystem
             }
 
             return lstPhones;
+        }
+
+        private void frmUpdateUser_Load(object sender, EventArgs e)
+        {
+            SetTagToCheckBoxes();
         }
 
         private void chkAll_CheckedChanged(object sender, EventArgs e)
@@ -544,10 +579,6 @@ namespace BankSystem
         private void btnShowInfo_Click(object sender, EventArgs e)
         {
             HandleUserAction(enAction.UpdateShowInfo);
-
-            //_numberOfOriginalPhones = GetNumberOfPhones();
-
-            //_originalPhoneNumbers = GetPhonesNumbersByDatabase();
         }
     }
 }

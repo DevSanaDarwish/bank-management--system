@@ -37,6 +37,17 @@
             this.gbAllPhones = new Guna.UI2.WinForms.Guna2GroupBox();
             this.btnAddNewPhone = new Guna.UI2.WinForms.Guna2Button();
             this.pnlUserInfo = new Guna.UI2.WinForms.Guna2Panel();
+            this.pnlPermissions = new Guna.UI2.WinForms.Guna2GradientPanel();
+            this.chkLoginRegisters = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.chkTransaction = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.chkManageUsers = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.chkFindClient = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.chkAll = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.chkShowClientsList = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.chkUpdateClient = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.chkDeleteClient = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.chkAddNewClient = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.txtPermissions = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
@@ -63,23 +74,12 @@
             this.label = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnUpdateUser = new Guna.UI2.WinForms.Guna2Button();
-            this.pnlPermissions = new Guna.UI2.WinForms.Guna2GradientPanel();
-            this.chkLoginRegisters = new Guna.UI2.WinForms.Guna2CheckBox();
-            this.chkTransaction = new Guna.UI2.WinForms.Guna2CheckBox();
-            this.chkManageUsers = new Guna.UI2.WinForms.Guna2CheckBox();
-            this.chkFindClient = new Guna.UI2.WinForms.Guna2CheckBox();
-            this.chkAll = new Guna.UI2.WinForms.Guna2CheckBox();
-            this.chkShowClientsList = new Guna.UI2.WinForms.Guna2CheckBox();
-            this.chkUpdateClient = new Guna.UI2.WinForms.Guna2CheckBox();
-            this.chkDeleteClient = new Guna.UI2.WinForms.Guna2CheckBox();
-            this.chkAddNewClient = new Guna.UI2.WinForms.Guna2CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.gbAllPhones.SuspendLayout();
             this.pnlUserInfo.SuspendLayout();
+            this.pnlPermissions.SuspendLayout();
             this.gbUserCard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
-            this.pnlPermissions.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -180,6 +180,207 @@
             this.pnlUserInfo.Size = new System.Drawing.Size(932, 629);
             this.pnlUserInfo.TabIndex = 42;
             this.pnlUserInfo.Visible = false;
+            // 
+            // pnlPermissions
+            // 
+            this.pnlPermissions.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.pnlPermissions.BorderColor = System.Drawing.Color.Black;
+            this.pnlPermissions.BorderThickness = 1;
+            this.pnlPermissions.Controls.Add(this.chkLoginRegisters);
+            this.pnlPermissions.Controls.Add(this.chkTransaction);
+            this.pnlPermissions.Controls.Add(this.chkManageUsers);
+            this.pnlPermissions.Controls.Add(this.chkFindClient);
+            this.pnlPermissions.Controls.Add(this.chkAll);
+            this.pnlPermissions.Controls.Add(this.chkShowClientsList);
+            this.pnlPermissions.Controls.Add(this.chkUpdateClient);
+            this.pnlPermissions.Controls.Add(this.chkDeleteClient);
+            this.pnlPermissions.Controls.Add(this.chkAddNewClient);
+            this.pnlPermissions.Location = new System.Drawing.Point(567, 117);
+            this.pnlPermissions.Name = "pnlPermissions";
+            this.pnlPermissions.Size = new System.Drawing.Size(365, 213);
+            this.pnlPermissions.TabIndex = 45;
+            // 
+            // chkLoginRegisters
+            // 
+            this.chkLoginRegisters.AutoSize = true;
+            this.chkLoginRegisters.CheckedState.BorderColor = System.Drawing.Color.Coral;
+            this.chkLoginRegisters.CheckedState.BorderRadius = 0;
+            this.chkLoginRegisters.CheckedState.BorderThickness = 0;
+            this.chkLoginRegisters.CheckedState.FillColor = System.Drawing.Color.Coral;
+            this.chkLoginRegisters.Font = new System.Drawing.Font("Tahoma", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkLoginRegisters.Location = new System.Drawing.Point(196, 181);
+            this.chkLoginRegisters.Name = "chkLoginRegisters";
+            this.chkLoginRegisters.Size = new System.Drawing.Size(152, 26);
+            this.chkLoginRegisters.TabIndex = 9;
+            this.chkLoginRegisters.Text = "Login Registers";
+            this.chkLoginRegisters.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkLoginRegisters.UncheckedState.BorderRadius = 0;
+            this.chkLoginRegisters.UncheckedState.BorderThickness = 0;
+            this.chkLoginRegisters.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkLoginRegisters.CheckedChanged += new System.EventHandler(this.PermissionCheckBox_CheckedChanged);
+            // 
+            // chkTransaction
+            // 
+            this.chkTransaction.AutoSize = true;
+            this.chkTransaction.CheckedState.BorderColor = System.Drawing.Color.Coral;
+            this.chkTransaction.CheckedState.BorderRadius = 0;
+            this.chkTransaction.CheckedState.BorderThickness = 0;
+            this.chkTransaction.CheckedState.FillColor = System.Drawing.Color.Coral;
+            this.chkTransaction.Font = new System.Drawing.Font("Tahoma", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkTransaction.Location = new System.Drawing.Point(196, 95);
+            this.chkTransaction.Name = "chkTransaction";
+            this.chkTransaction.Size = new System.Drawing.Size(123, 26);
+            this.chkTransaction.TabIndex = 8;
+            this.chkTransaction.Text = "Transaction";
+            this.chkTransaction.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkTransaction.UncheckedState.BorderRadius = 0;
+            this.chkTransaction.UncheckedState.BorderThickness = 0;
+            this.chkTransaction.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkTransaction.CheckedChanged += new System.EventHandler(this.PermissionCheckBox_CheckedChanged);
+            // 
+            // chkManageUsers
+            // 
+            this.chkManageUsers.AutoSize = true;
+            this.chkManageUsers.CheckedState.BorderColor = System.Drawing.Color.Coral;
+            this.chkManageUsers.CheckedState.BorderRadius = 0;
+            this.chkManageUsers.CheckedState.BorderThickness = 0;
+            this.chkManageUsers.CheckedState.FillColor = System.Drawing.Color.Coral;
+            this.chkManageUsers.Font = new System.Drawing.Font("Tahoma", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkManageUsers.Location = new System.Drawing.Point(196, 138);
+            this.chkManageUsers.Name = "chkManageUsers";
+            this.chkManageUsers.Size = new System.Drawing.Size(142, 26);
+            this.chkManageUsers.TabIndex = 7;
+            this.chkManageUsers.Text = "Manage Users";
+            this.chkManageUsers.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkManageUsers.UncheckedState.BorderRadius = 0;
+            this.chkManageUsers.UncheckedState.BorderThickness = 0;
+            this.chkManageUsers.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkManageUsers.CheckedChanged += new System.EventHandler(this.PermissionCheckBox_CheckedChanged);
+            // 
+            // chkFindClient
+            // 
+            this.chkFindClient.AutoSize = true;
+            this.chkFindClient.CheckedState.BorderColor = System.Drawing.Color.Coral;
+            this.chkFindClient.CheckedState.BorderRadius = 0;
+            this.chkFindClient.CheckedState.BorderThickness = 0;
+            this.chkFindClient.CheckedState.FillColor = System.Drawing.Color.Coral;
+            this.chkFindClient.Font = new System.Drawing.Font("Tahoma", 10.8F);
+            this.chkFindClient.Location = new System.Drawing.Point(196, 52);
+            this.chkFindClient.Name = "chkFindClient";
+            this.chkFindClient.Size = new System.Drawing.Size(115, 26);
+            this.chkFindClient.TabIndex = 6;
+            this.chkFindClient.Text = "Find Client";
+            this.chkFindClient.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkFindClient.UncheckedState.BorderRadius = 0;
+            this.chkFindClient.UncheckedState.BorderThickness = 0;
+            this.chkFindClient.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkFindClient.CheckedChanged += new System.EventHandler(this.PermissionCheckBox_CheckedChanged);
+            // 
+            // chkAll
+            // 
+            this.chkAll.AutoSize = true;
+            this.chkAll.CheckedState.BorderColor = System.Drawing.Color.Coral;
+            this.chkAll.CheckedState.BorderRadius = 0;
+            this.chkAll.CheckedState.BorderThickness = 0;
+            this.chkAll.CheckedState.FillColor = System.Drawing.Color.Coral;
+            this.chkAll.Font = new System.Drawing.Font("Tahoma", 10.8F);
+            this.chkAll.Location = new System.Drawing.Point(12, 9);
+            this.chkAll.Name = "chkAll";
+            this.chkAll.Size = new System.Drawing.Size(51, 26);
+            this.chkAll.TabIndex = 5;
+            this.chkAll.Text = "All";
+            this.chkAll.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkAll.UncheckedState.BorderRadius = 0;
+            this.chkAll.UncheckedState.BorderThickness = 0;
+            this.chkAll.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkAll.CheckedChanged += new System.EventHandler(this.chkAll_CheckedChanged);
+            // 
+            // chkShowClientsList
+            // 
+            this.chkShowClientsList.AutoSize = true;
+            this.chkShowClientsList.CheckedState.BorderColor = System.Drawing.Color.Coral;
+            this.chkShowClientsList.CheckedState.BorderRadius = 0;
+            this.chkShowClientsList.CheckedState.BorderThickness = 0;
+            this.chkShowClientsList.CheckedState.FillColor = System.Drawing.Color.Coral;
+            this.chkShowClientsList.Font = new System.Drawing.Font("Tahoma", 10.8F);
+            this.chkShowClientsList.Location = new System.Drawing.Point(12, 52);
+            this.chkShowClientsList.Name = "chkShowClientsList";
+            this.chkShowClientsList.Size = new System.Drawing.Size(166, 26);
+            this.chkShowClientsList.TabIndex = 4;
+            this.chkShowClientsList.Tag = "";
+            this.chkShowClientsList.Text = "Show Clients List";
+            this.chkShowClientsList.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkShowClientsList.UncheckedState.BorderRadius = 0;
+            this.chkShowClientsList.UncheckedState.BorderThickness = 0;
+            this.chkShowClientsList.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkShowClientsList.CheckedChanged += new System.EventHandler(this.PermissionCheckBox_CheckedChanged);
+            // 
+            // chkUpdateClient
+            // 
+            this.chkUpdateClient.AutoSize = true;
+            this.chkUpdateClient.CheckedState.BorderColor = System.Drawing.Color.Coral;
+            this.chkUpdateClient.CheckedState.BorderRadius = 0;
+            this.chkUpdateClient.CheckedState.BorderThickness = 0;
+            this.chkUpdateClient.CheckedState.FillColor = System.Drawing.Color.Coral;
+            this.chkUpdateClient.Font = new System.Drawing.Font("Tahoma", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkUpdateClient.Location = new System.Drawing.Point(12, 181);
+            this.chkUpdateClient.Name = "chkUpdateClient";
+            this.chkUpdateClient.Size = new System.Drawing.Size(138, 26);
+            this.chkUpdateClient.TabIndex = 3;
+            this.chkUpdateClient.Text = "Update Client";
+            this.chkUpdateClient.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkUpdateClient.UncheckedState.BorderRadius = 0;
+            this.chkUpdateClient.UncheckedState.BorderThickness = 0;
+            this.chkUpdateClient.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkUpdateClient.CheckedChanged += new System.EventHandler(this.PermissionCheckBox_CheckedChanged);
+            // 
+            // chkDeleteClient
+            // 
+            this.chkDeleteClient.AutoSize = true;
+            this.chkDeleteClient.CheckedState.BorderColor = System.Drawing.Color.Coral;
+            this.chkDeleteClient.CheckedState.BorderRadius = 0;
+            this.chkDeleteClient.CheckedState.BorderThickness = 0;
+            this.chkDeleteClient.CheckedState.FillColor = System.Drawing.Color.Coral;
+            this.chkDeleteClient.Font = new System.Drawing.Font("Tahoma", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkDeleteClient.Location = new System.Drawing.Point(12, 138);
+            this.chkDeleteClient.Name = "chkDeleteClient";
+            this.chkDeleteClient.Size = new System.Drawing.Size(131, 26);
+            this.chkDeleteClient.TabIndex = 2;
+            this.chkDeleteClient.Text = "Delete Client";
+            this.chkDeleteClient.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkDeleteClient.UncheckedState.BorderRadius = 0;
+            this.chkDeleteClient.UncheckedState.BorderThickness = 0;
+            this.chkDeleteClient.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkDeleteClient.CheckedChanged += new System.EventHandler(this.PermissionCheckBox_CheckedChanged);
+            // 
+            // chkAddNewClient
+            // 
+            this.chkAddNewClient.AutoSize = true;
+            this.chkAddNewClient.CheckedState.BorderColor = System.Drawing.Color.Coral;
+            this.chkAddNewClient.CheckedState.BorderRadius = 0;
+            this.chkAddNewClient.CheckedState.BorderThickness = 0;
+            this.chkAddNewClient.CheckedState.FillColor = System.Drawing.Color.Coral;
+            this.chkAddNewClient.Font = new System.Drawing.Font("Tahoma", 10.8F);
+            this.chkAddNewClient.Location = new System.Drawing.Point(13, 95);
+            this.chkAddNewClient.Name = "chkAddNewClient";
+            this.chkAddNewClient.Size = new System.Drawing.Size(153, 26);
+            this.chkAddNewClient.TabIndex = 1;
+            this.chkAddNewClient.Text = "Add New Client";
+            this.chkAddNewClient.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkAddNewClient.UncheckedState.BorderRadius = 0;
+            this.chkAddNewClient.UncheckedState.BorderThickness = 0;
+            this.chkAddNewClient.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkAddNewClient.CheckedChanged += new System.EventHandler(this.PermissionCheckBox_CheckedChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(562, 74);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(147, 28);
+            this.label3.TabIndex = 44;
+            this.label3.Text = "Permissions:";
             // 
             // txtEmail
             // 
@@ -470,206 +671,6 @@
             this.btnUpdateUser.Visible = false;
             this.btnUpdateUser.Click += new System.EventHandler(this.btnUpdateUser_Click);
             // 
-            // pnlPermissions
-            // 
-            this.pnlPermissions.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.pnlPermissions.BorderColor = System.Drawing.Color.Black;
-            this.pnlPermissions.BorderThickness = 1;
-            this.pnlPermissions.Controls.Add(this.chkLoginRegisters);
-            this.pnlPermissions.Controls.Add(this.chkTransaction);
-            this.pnlPermissions.Controls.Add(this.chkManageUsers);
-            this.pnlPermissions.Controls.Add(this.chkFindClient);
-            this.pnlPermissions.Controls.Add(this.chkAll);
-            this.pnlPermissions.Controls.Add(this.chkShowClientsList);
-            this.pnlPermissions.Controls.Add(this.chkUpdateClient);
-            this.pnlPermissions.Controls.Add(this.chkDeleteClient);
-            this.pnlPermissions.Controls.Add(this.chkAddNewClient);
-            this.pnlPermissions.Location = new System.Drawing.Point(567, 117);
-            this.pnlPermissions.Name = "pnlPermissions";
-            this.pnlPermissions.Size = new System.Drawing.Size(365, 213);
-            this.pnlPermissions.TabIndex = 45;
-            // 
-            // chkLoginRegisters
-            // 
-            this.chkLoginRegisters.AutoSize = true;
-            this.chkLoginRegisters.CheckedState.BorderColor = System.Drawing.Color.Coral;
-            this.chkLoginRegisters.CheckedState.BorderRadius = 0;
-            this.chkLoginRegisters.CheckedState.BorderThickness = 0;
-            this.chkLoginRegisters.CheckedState.FillColor = System.Drawing.Color.Coral;
-            this.chkLoginRegisters.Font = new System.Drawing.Font("Tahoma", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkLoginRegisters.Location = new System.Drawing.Point(196, 181);
-            this.chkLoginRegisters.Name = "chkLoginRegisters";
-            this.chkLoginRegisters.Size = new System.Drawing.Size(152, 26);
-            this.chkLoginRegisters.TabIndex = 9;
-            this.chkLoginRegisters.Text = "Login Registers";
-            this.chkLoginRegisters.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.chkLoginRegisters.UncheckedState.BorderRadius = 0;
-            this.chkLoginRegisters.UncheckedState.BorderThickness = 0;
-            this.chkLoginRegisters.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.chkLoginRegisters.CheckedChanged += new System.EventHandler(this.PermissionCheckBox_CheckedChanged);
-            // 
-            // chkTransaction
-            // 
-            this.chkTransaction.AutoSize = true;
-            this.chkTransaction.CheckedState.BorderColor = System.Drawing.Color.Coral;
-            this.chkTransaction.CheckedState.BorderRadius = 0;
-            this.chkTransaction.CheckedState.BorderThickness = 0;
-            this.chkTransaction.CheckedState.FillColor = System.Drawing.Color.Coral;
-            this.chkTransaction.Font = new System.Drawing.Font("Tahoma", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkTransaction.Location = new System.Drawing.Point(196, 95);
-            this.chkTransaction.Name = "chkTransaction";
-            this.chkTransaction.Size = new System.Drawing.Size(123, 26);
-            this.chkTransaction.TabIndex = 8;
-            this.chkTransaction.Text = "Transaction";
-            this.chkTransaction.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.chkTransaction.UncheckedState.BorderRadius = 0;
-            this.chkTransaction.UncheckedState.BorderThickness = 0;
-            this.chkTransaction.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.chkTransaction.CheckedChanged += new System.EventHandler(this.PermissionCheckBox_CheckedChanged);
-            // 
-            // chkManageUsers
-            // 
-            this.chkManageUsers.AutoSize = true;
-            this.chkManageUsers.CheckedState.BorderColor = System.Drawing.Color.Coral;
-            this.chkManageUsers.CheckedState.BorderRadius = 0;
-            this.chkManageUsers.CheckedState.BorderThickness = 0;
-            this.chkManageUsers.CheckedState.FillColor = System.Drawing.Color.Coral;
-            this.chkManageUsers.Font = new System.Drawing.Font("Tahoma", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkManageUsers.Location = new System.Drawing.Point(196, 138);
-            this.chkManageUsers.Name = "chkManageUsers";
-            this.chkManageUsers.Size = new System.Drawing.Size(142, 26);
-            this.chkManageUsers.TabIndex = 7;
-            this.chkManageUsers.Text = "Manage Users";
-            this.chkManageUsers.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.chkManageUsers.UncheckedState.BorderRadius = 0;
-            this.chkManageUsers.UncheckedState.BorderThickness = 0;
-            this.chkManageUsers.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.chkManageUsers.CheckedChanged += new System.EventHandler(this.PermissionCheckBox_CheckedChanged);
-            // 
-            // chkFindClient
-            // 
-            this.chkFindClient.AutoSize = true;
-            this.chkFindClient.CheckedState.BorderColor = System.Drawing.Color.Coral;
-            this.chkFindClient.CheckedState.BorderRadius = 0;
-            this.chkFindClient.CheckedState.BorderThickness = 0;
-            this.chkFindClient.CheckedState.FillColor = System.Drawing.Color.Coral;
-            this.chkFindClient.Font = new System.Drawing.Font("Tahoma", 10.8F);
-            this.chkFindClient.Location = new System.Drawing.Point(196, 52);
-            this.chkFindClient.Name = "chkFindClient";
-            this.chkFindClient.Size = new System.Drawing.Size(115, 26);
-            this.chkFindClient.TabIndex = 6;
-            this.chkFindClient.Text = "Find Client";
-            this.chkFindClient.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.chkFindClient.UncheckedState.BorderRadius = 0;
-            this.chkFindClient.UncheckedState.BorderThickness = 0;
-            this.chkFindClient.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.chkFindClient.CheckedChanged += new System.EventHandler(this.PermissionCheckBox_CheckedChanged);
-            // 
-            // chkAll
-            // 
-            this.chkAll.AutoSize = true;
-            this.chkAll.CheckedState.BorderColor = System.Drawing.Color.Coral;
-            this.chkAll.CheckedState.BorderRadius = 0;
-            this.chkAll.CheckedState.BorderThickness = 0;
-            this.chkAll.CheckedState.FillColor = System.Drawing.Color.Coral;
-            this.chkAll.Font = new System.Drawing.Font("Tahoma", 10.8F);
-            this.chkAll.Location = new System.Drawing.Point(12, 9);
-            this.chkAll.Name = "chkAll";
-            this.chkAll.Size = new System.Drawing.Size(51, 26);
-            this.chkAll.TabIndex = 5;
-            this.chkAll.Text = "All";
-            this.chkAll.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.chkAll.UncheckedState.BorderRadius = 0;
-            this.chkAll.UncheckedState.BorderThickness = 0;
-            this.chkAll.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.chkAll.CheckedChanged += new System.EventHandler(this.chkAll_CheckedChanged);
-            // 
-            // chkShowClientsList
-            // 
-            this.chkShowClientsList.AutoSize = true;
-            this.chkShowClientsList.CheckedState.BorderColor = System.Drawing.Color.Coral;
-            this.chkShowClientsList.CheckedState.BorderRadius = 0;
-            this.chkShowClientsList.CheckedState.BorderThickness = 0;
-            this.chkShowClientsList.CheckedState.FillColor = System.Drawing.Color.Coral;
-            this.chkShowClientsList.Font = new System.Drawing.Font("Tahoma", 10.8F);
-            this.chkShowClientsList.Location = new System.Drawing.Point(12, 52);
-            this.chkShowClientsList.Name = "chkShowClientsList";
-            this.chkShowClientsList.Size = new System.Drawing.Size(166, 26);
-            this.chkShowClientsList.TabIndex = 4;
-            this.chkShowClientsList.Text = "Show Clients List";
-            this.chkShowClientsList.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.chkShowClientsList.UncheckedState.BorderRadius = 0;
-            this.chkShowClientsList.UncheckedState.BorderThickness = 0;
-            this.chkShowClientsList.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.chkShowClientsList.CheckedChanged += new System.EventHandler(this.PermissionCheckBox_CheckedChanged);
-            // 
-            // chkUpdateClient
-            // 
-            this.chkUpdateClient.AutoSize = true;
-            this.chkUpdateClient.CheckedState.BorderColor = System.Drawing.Color.Coral;
-            this.chkUpdateClient.CheckedState.BorderRadius = 0;
-            this.chkUpdateClient.CheckedState.BorderThickness = 0;
-            this.chkUpdateClient.CheckedState.FillColor = System.Drawing.Color.Coral;
-            this.chkUpdateClient.Font = new System.Drawing.Font("Tahoma", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkUpdateClient.Location = new System.Drawing.Point(12, 181);
-            this.chkUpdateClient.Name = "chkUpdateClient";
-            this.chkUpdateClient.Size = new System.Drawing.Size(138, 26);
-            this.chkUpdateClient.TabIndex = 3;
-            this.chkUpdateClient.Text = "Update Client";
-            this.chkUpdateClient.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.chkUpdateClient.UncheckedState.BorderRadius = 0;
-            this.chkUpdateClient.UncheckedState.BorderThickness = 0;
-            this.chkUpdateClient.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.chkUpdateClient.CheckedChanged += new System.EventHandler(this.PermissionCheckBox_CheckedChanged);
-            // 
-            // chkDeleteClient
-            // 
-            this.chkDeleteClient.AutoSize = true;
-            this.chkDeleteClient.CheckedState.BorderColor = System.Drawing.Color.Coral;
-            this.chkDeleteClient.CheckedState.BorderRadius = 0;
-            this.chkDeleteClient.CheckedState.BorderThickness = 0;
-            this.chkDeleteClient.CheckedState.FillColor = System.Drawing.Color.Coral;
-            this.chkDeleteClient.Font = new System.Drawing.Font("Tahoma", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkDeleteClient.Location = new System.Drawing.Point(12, 138);
-            this.chkDeleteClient.Name = "chkDeleteClient";
-            this.chkDeleteClient.Size = new System.Drawing.Size(131, 26);
-            this.chkDeleteClient.TabIndex = 2;
-            this.chkDeleteClient.Text = "Delete Client";
-            this.chkDeleteClient.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.chkDeleteClient.UncheckedState.BorderRadius = 0;
-            this.chkDeleteClient.UncheckedState.BorderThickness = 0;
-            this.chkDeleteClient.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.chkDeleteClient.CheckedChanged += new System.EventHandler(this.PermissionCheckBox_CheckedChanged);
-            // 
-            // chkAddNewClient
-            // 
-            this.chkAddNewClient.AutoSize = true;
-            this.chkAddNewClient.CheckedState.BorderColor = System.Drawing.Color.Coral;
-            this.chkAddNewClient.CheckedState.BorderRadius = 0;
-            this.chkAddNewClient.CheckedState.BorderThickness = 0;
-            this.chkAddNewClient.CheckedState.FillColor = System.Drawing.Color.Coral;
-            this.chkAddNewClient.Font = new System.Drawing.Font("Tahoma", 10.8F);
-            this.chkAddNewClient.Location = new System.Drawing.Point(13, 95);
-            this.chkAddNewClient.Name = "chkAddNewClient";
-            this.chkAddNewClient.Size = new System.Drawing.Size(153, 26);
-            this.chkAddNewClient.TabIndex = 1;
-            this.chkAddNewClient.Text = "Add New Client";
-            this.chkAddNewClient.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.chkAddNewClient.UncheckedState.BorderRadius = 0;
-            this.chkAddNewClient.UncheckedState.BorderThickness = 0;
-            this.chkAddNewClient.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.chkAddNewClient.CheckedChanged += new System.EventHandler(this.PermissionCheckBox_CheckedChanged);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Trebuchet MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(562, 74);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(147, 28);
-            this.label3.TabIndex = 44;
-            this.label3.Text = "Permissions:";
-            // 
             // frmUpdateUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -686,15 +687,16 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmUpdateUser";
             this.Text = "frmUpdateUser";
+            this.Load += new System.EventHandler(this.frmUpdateUser_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.gbAllPhones.ResumeLayout(false);
             this.pnlUserInfo.ResumeLayout(false);
             this.pnlUserInfo.PerformLayout();
+            this.pnlPermissions.ResumeLayout(false);
+            this.pnlPermissions.PerformLayout();
             this.gbUserCard.ResumeLayout(false);
             this.gbUserCard.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
-            this.pnlPermissions.ResumeLayout(false);
-            this.pnlPermissions.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

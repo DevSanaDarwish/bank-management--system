@@ -229,6 +229,24 @@ namespace BankSystem
             _isChangingPermissions = false;
         }
 
+        public short GettPermissions()
+        {
+            short permission = 0;
+
+            if (chkAll.Checked)
+                return -1;
+
+            foreach (Control control in pnlPermissions.Controls)
+            {
+                if(control is Guna2CheckBox checkbox && checkbox.Checked && checkbox.Tag is enPermissions selectedPermission)
+                {
+                    permission += (short)selectedPermission;
+                }
+            }
+
+            return permission;
+
+        }
         public short GetPermissions()
         {
             short permission = 0;

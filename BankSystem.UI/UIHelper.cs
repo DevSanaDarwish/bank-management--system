@@ -712,7 +712,10 @@ namespace BankSystem
         {
             FillDefaultValuesForUserUpdate();
 
+            ((frmUpdateUser)_form).LoadUserPermission(User.Permissions);
+
             ((frmUpdateUser)_form).ShowAllPhones();
+           
         }
 
         private void EnableTransactionButton()
