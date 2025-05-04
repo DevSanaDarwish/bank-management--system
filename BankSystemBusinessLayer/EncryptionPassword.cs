@@ -23,22 +23,5 @@ namespace BankSystemBusinessLayer
 
             return sbEncryptPassword;
         }
-
-        //public static StringBuilder DecryptThePassword(string password, int key = 10)
-        //{
-        //    StringBuilder sbDecryptPassword = new StringBuilder();
-
-        //    if (string.IsNullOrEmpty(password))
-        //        return sbDecryptPassword;
-
-        //    for (byte i = 0; i < password.Length; i++)
-        //    {
-        //        sbDecryptPassword.Append((char)(password[i] - key));
-        //    }
-
-        //    return sbDecryptPassword;
-        //}
-
-
     }
 }

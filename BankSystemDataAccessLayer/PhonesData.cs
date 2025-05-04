@@ -7,47 +7,6 @@ namespace BankSystemDataAccessLayer
 {
     public class PhonesData
     {
-
-        //public static bool ResetPhonesIdentity()
-        //{
-        //    int rowsAffected = 0, maxPhoneID = 0;
-
-        //    SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
-
-        //    string getMaxPhoneIDQuery = "SELECT ISNULL(MAX(PhoneID), 0) FROM Phones;";
-
-        //    SqlCommand getMaxPhoneIDCommand = new SqlCommand(getMaxPhoneIDQuery, connection);
-
-        //    try
-        //    {
-        //        connection.Open();
-
-        //        object result = getMaxPhoneIDCommand.ExecuteScalar();
-
-        //        if (result != null)
-        //        {
-        //            maxPhoneID = (int)result;
-        //        }
-
-        //        string resetIdentityQuery = $"DBCC CHECKIDENT ('Phones', RESEED, {maxPhoneID});";
-
-        //        SqlCommand resetIdentityCommand = new SqlCommand(resetIdentityQuery, connection);
-
-        //        rowsAffected = resetIdentityCommand.ExecuteNonQuery();
-        //    }
-
-        //    catch (Exception ex)
-        //    {
-        //        return false;
-        //    }
-
-        //    finally
-        //    {
-        //        connection.Close();
-        //    }
-
-        //    return (rowsAffected > 0);
-        //}
         public static int AddNewPhone(string phoneNumber, int personID)
         {
             int phoneID = -1;
@@ -313,7 +272,6 @@ namespace BankSystemDataAccessLayer
 
             return isFound;
         }
-
 
         public static bool DeletePhone(int personID)
         {

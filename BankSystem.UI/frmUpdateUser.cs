@@ -167,7 +167,6 @@ namespace BankSystem
             CheckAndNotifyIfPhoneDeleted(phoneNumber);
         }
 
-
         private void CreatePhoneNumberTextBoxAndDeleteButton(string phoneNumber)
         {
             TextBox textBox = new TextBox();
@@ -182,6 +181,7 @@ namespace BankSystem
 
             this.Refresh();
         }
+
         public void CreateTextBoxes()
         {
             List<string> phones = GetPhonesNumbersByDatabase();
@@ -329,7 +329,6 @@ namespace BankSystem
             return isValid;
         }
 
-
         public short GetPermissions()
         {
             return PermissionsHelper.GetPermissions(pnlPermissions, chkAll);
@@ -361,7 +360,6 @@ namespace BankSystem
         {
             HandleAllPhones();
         }
-
 
         private void Update()
         {
@@ -402,6 +400,7 @@ namespace BankSystem
 
             UserUI.HideButton();
         }
+
         private void HandleUserAction(enAction UserAction)
         {
             InitializeAllObjects();
@@ -526,7 +525,6 @@ namespace BankSystem
             //Now that we're done the update, let's get back to doing the events 
             _isChangingPermissions = false;
         }
-
 
         private void btnShowInfo_Click(object sender, EventArgs e)
         {

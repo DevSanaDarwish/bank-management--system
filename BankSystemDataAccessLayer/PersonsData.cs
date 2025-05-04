@@ -7,47 +7,6 @@ namespace BankSystemDataAccessLayer
 {
     public class PersonsData
     {
-
-        //public static bool ResetPersonsIdentity()
-        //{     
-        //        int rowsAffected = 0, maxPersonID = 0;
-
-        //        SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
-
-        //        string getMaxPersonIDQuery = "SELECT ISNULL(MAX(PersonID), 0) FROM Persons;";
-
-        //        SqlCommand getMaxPersonIDCommand = new SqlCommand(getMaxPersonIDQuery, connection);
-
-        //        try
-        //        {
-        //            connection.Open();
-
-        //            object result = getMaxPersonIDCommand.ExecuteScalar();
-
-        //            if (result != null)
-        //            {
-        //                maxPersonID = (int)result;
-        //            }
-
-        //            string resetIdentityQuery = $"DBCC CHECKIDENT ('Persons', RESEED, {maxPersonID});";
-
-        //            SqlCommand resetIdentityCommand = new SqlCommand(resetIdentityQuery, connection);
-
-        //            rowsAffected = resetIdentityCommand.ExecuteNonQuery();
-        //        }
-
-        //        catch (Exception ex)
-        //        {
-        //            return false;
-        //        }
-
-        //        finally
-        //        {
-        //            connection.Close();
-        //        }
-
-        //        return (rowsAffected > 0);           
-        //}
         public static int AddNewPerson(string firstName, string lastName, string email)
         {
             int personID = -1;
@@ -212,7 +171,6 @@ namespace BankSystemDataAccessLayer
             return isFound;
         }
 
-        //مالا داعي
         public static bool DeletePerson(int personID)
         {
             int rowsAffected = 0;

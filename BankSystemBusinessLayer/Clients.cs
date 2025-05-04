@@ -115,12 +115,6 @@ namespace BankSystemBusinessLayer
                 return null;
         }
 
-        //public static void ResetClientIdentity()
-        //{
-        //    if (!ClientsData.ResetClientIdentity())
-        //        return;
-        //}
-
         public static bool DeleteClient(string accountNumber)
         {
             return (ClientsData.DeleteClient(accountNumber));
@@ -174,8 +168,6 @@ namespace BankSystemBusinessLayer
         public static decimal GetSumOfBalances()
         {
             return ClientsData.GetSumOfBalances();
-        }
-
-       
+        }    
     }
 }

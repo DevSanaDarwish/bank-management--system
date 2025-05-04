@@ -411,7 +411,6 @@ namespace BankSystem
             return false;
         }
 
-
         private bool LoadClientInfo(string accountNumber)
         {
             Client = Clients.FindByAccountNumber(accountNumber);
@@ -457,14 +456,6 @@ namespace BankSystem
                 return !IsObjectNotFound(Phone);
             }
         }
-
-        //public bool LoadPhoneInfoByFindByList()
-        //{
-        //    Phone = Phones.FindInListByClientID(Client.ClientID);
-            
-        //    return !IsObjectNotFound(Phone);
-        //}
-
 
         private bool AreClientObjectsInfoSuccessfullyLoaded(string accountNumber)
         {
@@ -628,18 +619,11 @@ namespace BankSystem
             ShowTransactionAmountLabel(_lblTransactionAmount);
         }
 
-        private void ShowDefaultValues()
-        {
-            if (Action == enAction.UpdateShowInfo)
-            {
-                FillDefaultValuesForClientUpdate();
-            }
-        }
-
         private bool CanEnableTransactionButton()
         {
             return (Action == enAction.TransferShowInfoFrom || Action == enAction.TransferShowInfoTo) && AreGroupBoxesVisible();
         }
+
         private void ShowClientInfo()
         {
             string accountNumber = _txtAccountNumber.Text;
@@ -691,8 +675,7 @@ namespace BankSystem
                     break;
             }
         }
-
-       
+   
         private void HandleTransactionButton()
         {
             if (CanEnableTransactionButton())
@@ -700,8 +683,7 @@ namespace BankSystem
                 EnableTransactionButton();
             }
         }
-
-        
+     
         private void PrepareClientUpdateForm()
         {
             FillDefaultValuesForClientUpdate();
@@ -868,9 +850,7 @@ namespace BankSystem
 
             ControlHelper.ClearTextBox(textBox);
         }
-
-
-       
+  
         public void ClearForm(Guna2Panel panel)
         {
             ClearTextBoxes(panel);
@@ -889,11 +869,6 @@ namespace BankSystem
         public bool IsAccountNumberDuplicated(string accountNumber)
         {
             return PresentationInputValidator.IsAccountNumberDuplicated(accountNumber);
-        }
-
-        public bool IsPhoneNumberValueDuplicated(string phoneNumber)
-        {
-            return PresentationInputValidator.IsPhoneNumberValueDuplicated(phoneNumber);
         }
 
         public bool ValidateInputFields(Guna2Panel panel)
@@ -928,7 +903,6 @@ namespace BankSystem
         {
             return (MessageBox.Show(confirmMessage, "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes);
         }
-
 
         private void ExecuteClientOperations()
         {
@@ -981,6 +955,7 @@ namespace BankSystem
             TransferLog.DestinationBalance = Convert.ToDecimal(_lblBalanceTo.Text);
             TransferLog.UserID = UserID;
         }
+
         private bool AddTransferLog()
         {
             FillTransferLogObject();
@@ -1007,6 +982,7 @@ namespace BankSystem
         {
             ProcessTransaction(IsTransferSuccessful() && AddTransferLog());
         }
+
         private void ConfirmWithdraw()
         {
             ProcessTransaction(IsWithdrawSuccessful());
@@ -1175,8 +1151,6 @@ namespace BankSystem
                     break;
             }
         }
-
-
 
         public void HidePanelOrGroup()
         {
@@ -1386,8 +1360,7 @@ namespace BankSystem
 
             FillClientData();
         }
-
-       
+    
         public void FillUserInfo(short permission)
         {
             FillPersonData();
@@ -1478,22 +1451,11 @@ namespace BankSystem
             {
                 ResetPhoneObject(PhoneList[index]);
             }
-
-            //foreach (Phones phone in PhoneList)
-            //{
-            //    if (phone.Save(phoneItem))
-            //    {
-            //        ResetPhoneObject(phone);
-            //    }
-            //}
         }
-
         
         private void ResetPhoneObject(Phones phone)
         {
             phone = new Phones();
-
-            //Phone = new Phones();
         }
 
         private void FillPhoneListObjectForAdd(string item)
@@ -1532,7 +1494,6 @@ namespace BankSystem
                 User.PersonID = PersonID;
 
         }
-
 
         private void SetStatusWord()
         {
@@ -1678,6 +1639,7 @@ namespace BankSystem
 
             SetErrorOnTextBox(_txtAccountNumber);
         }
+
         private void HandleTransactionUI()
         {
             SetStatusWord();
@@ -1703,7 +1665,6 @@ namespace BankSystem
             HideTransactionAmountText(_txtTransactionAmount);
         }
 
-
         public void HandleTransactionOperation()
         {
             if (!ValidateInputAmount())
@@ -1711,7 +1672,6 @@ namespace BankSystem
             
             ExecuteClientUserAction();
         }
-
 
         private bool IsDepositSuccessful()
         {
@@ -1751,9 +1711,7 @@ namespace BankSystem
 
             return true;
         }
-
         
-
         private bool IsWithdrawSuccessful()
         {
             decimal withdrawAmount = Convert.ToDecimal(_txtTransactionAmount.Text);

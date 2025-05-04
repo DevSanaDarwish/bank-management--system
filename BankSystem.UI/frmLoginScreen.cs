@@ -208,12 +208,8 @@ namespace BankSystem
             TogglePasswordVisibility();
         }
 
-
-        //enteredPassword = 1234            encryptedPassword = 98634;
         private bool IsValidUsernameAndPassword()     
         {
-            //txtPassword.Text = Users.EncryptInputPassword(txtPassword.Text);
-
             Users user = Users.Find(txtUsername.Text, txtPassword.Text);
 
             if(user != null)
@@ -326,11 +322,6 @@ namespace BankSystem
             }
 
             ShowLoginMessage();
-        }
-
-        private void FillLoginRegisterObject()
-        {
-
         }
 
         private bool AddLoginRegisters()

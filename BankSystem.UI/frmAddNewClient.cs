@@ -77,25 +77,5 @@ namespace BankSystem
 
             _clientUI.AddPhone();
         }
-
-        //private void ResetTablesIdentity()
-        //{
-        //    Clients.ResetClientIdentity();
-        //    Persons.ResetPersonIdentity();
-        //    Phones.ResetPhonesIdentity();
-        //}
-
-        private void frmAddNewClient_Load(object sender, EventArgs e)
-        {
-            //try
-            //{
-            //    ResetTablesIdentity();
-            //}
-
-            //catch (Exception ex)
-            //{
-            //    ShowMessage(ex.Message);
-            //}
-        }
     }
 }

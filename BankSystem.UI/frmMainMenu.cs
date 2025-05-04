@@ -41,10 +41,12 @@ namespace BankSystem
         {
             _UI = new UIHelper(GetPermissionByUserID());
         }
+
         private short GetPermissionByUserID()
         {
             return Users.GetPermissionsByUserID(_userID);
         }
+
         private void SetUsernameInLabel()
         {
             lblUsername.Text = _username;
@@ -264,8 +266,6 @@ namespace BankSystem
             pnlTitle.BackColor = Color.FromArgb(51, 51, 76);
 
             ChildFormManager.OpenChildForm(new frmHome(), pnlContent);
-        }
-
-        
+        }       
     }
 }

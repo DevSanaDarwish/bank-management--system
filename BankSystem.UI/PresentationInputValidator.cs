@@ -70,12 +70,9 @@ namespace BankSystem
             return BusinessInputValidator.ValidationValue(value, maxValue, minValue);
         }
 
-
         public static bool IsBalanceZero(decimal balance)
         {
             return BusinessInputValidator.IsValueZero(balance);
         }
-
-
     }
 }

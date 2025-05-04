@@ -28,19 +28,6 @@ namespace BankSystemBusinessLayer
             this.DestinationClientID = -1;
         }
 
-        public TransferLogs(int transferLogID, DateTime date, decimal amount, decimal sourceBalance, decimal destinationBalance,
-            int userID, int sourceClientID, int destinationClientID)
-        {
-            this.TransferLogID = transferLogID;
-            this.Date = date;
-            this.Amount = amount;
-            this.SourceBalance = sourceBalance;
-            this.DestinationBalance = destinationBalance;
-            this.UserID = userID;
-            this.SourceClientID = sourceClientID;
-            this.DestinationClientID = destinationClientID;
-        }
-
         public static DataTable GetTransferLogsList()
         {
             return TransferLogsData.GetTransferLogsList();
@@ -53,7 +40,5 @@ namespace BankSystemBusinessLayer
 
             return (TransferLogID != -1);
         }
-
-   
     }
 }

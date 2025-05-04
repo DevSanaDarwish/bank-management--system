@@ -10,20 +10,6 @@ namespace BankSystemBusinessLayer
         public enum enMode { AddNew = 1, Update = 2};
         public enMode Mode = enMode.AddNew;
 
-        //public enum enPermissions
-        //{ 
-        //  All = -1, 
-        //  ShowClientsList = 1,
-        //  FindClient = 2,
-        //  AddNewClient = 4,
-        //  Transaction = 8, 
-        //  DeleteClient = 16,
-        //  ManageUsers = 32, 
-        //  UpdateClient = 64,
-        //  LoginRegisters = 128
-        //};
-
-
         public int UserID { get; set; }
         public string Username { get; set; }
         public short Permissions { get; set; }
@@ -48,6 +34,7 @@ namespace BankSystemBusinessLayer
             this.Username = username;
             this.Password = password;
         }
+
         private Users(int userID, string username, short permissions, string password, int personID)
         {
             this.UserID = userID;
@@ -93,7 +80,6 @@ namespace BankSystemBusinessLayer
             return EncryptionPassword.EncryptThePassword(originalPassword).ToString();
         }
 
-
         public static Users Find(string username, string password)
         {
             password = EncryptInputPassword(password);
@@ -138,7 +124,6 @@ namespace BankSystemBusinessLayer
             return false;
         }
 
-
         private bool AddNewUser()
         {
             this.Password = EncryptInputPassword(this.Password);
@@ -152,6 +137,7 @@ namespace BankSystemBusinessLayer
         {
             return UsersData.DeleteUser(username);
         }
+
         public bool UpdateUser()
         {
             this.Password = EncryptInputPassword(this.Password);

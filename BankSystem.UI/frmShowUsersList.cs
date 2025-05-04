@@ -40,7 +40,6 @@ namespace BankSystem
             };
         }
 
-
         private void ConfigureDataGridView()
         {
             DataGridViewHelper.ConfigureDataGridView(dgvAllUsers, GetClientsGridConfig());

@@ -19,9 +19,8 @@ namespace BankSystemBusinessLayer
         }
 
 
-        public LoginRegisters(/*int loginRegisterID,*/ DateTime dateTime, int userID)
+        public LoginRegisters(DateTime dateTime, int userID)
         {
-            //LoginRegisterID = loginRegisterID;
             DateTime = dateTime;
             UserID = userID;
         }

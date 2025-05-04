@@ -42,6 +42,7 @@ namespace BankSystem
 
             InitializeUserUIObject(user, person, phone);
         }
+
         private void btnAddPhone_Click(object sender, EventArgs e)
         {
             InitializeAllObjects();
@@ -56,9 +57,7 @@ namespace BankSystem
             _userUI.FillUserInfo(permission);
 
             _userUI.ValidationSave();
-        }
-
-        
+        }     
 
         private bool IsAnyPermissionChecked()
         {
@@ -145,8 +144,7 @@ namespace BankSystem
 
             _userUI.ClearForm(pnlUserInfo);   
         }
-        
-        
+          
         private void btnAddNewUser_Click(object sender, EventArgs e)
         {
             InitializeAllObjects();
@@ -232,7 +230,6 @@ namespace BankSystem
             chkManageUsers.Tag = PermissionsEnum.enPermissions.ManageUsers;
             chkLoginRegisters.Tag = PermissionsEnum.enPermissions.LoginRegisters;
         }
-
 
         private void frmAddNewUser_Load(object sender, EventArgs e)
         {

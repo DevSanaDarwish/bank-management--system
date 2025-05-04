@@ -86,7 +86,6 @@ namespace BankSystemBusinessLayer
                 case enMode.AddNew:
                     if(AddNewPhone())
                     {
-                        //Mode = enMode.Update;
                         return true;
                     }
 
@@ -199,14 +198,6 @@ namespace BankSystemBusinessLayer
 
             return lstPhones;
         }
-
-
-
-        //public static void ResetPhonesIdentity()
-        //{
-        //    if (!PhonesData.ResetPhonesIdentity())
-        //        return;
-        //}
 
         public static bool DeletePhone(int personID)
         {

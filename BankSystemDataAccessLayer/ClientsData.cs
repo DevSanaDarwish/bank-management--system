@@ -8,80 +8,6 @@ namespace BankSystemDataAccessLayer
 {
     public class ClientsData
     {
-        //    public static bool ResetClientIdentity()
-        //    {
-        //        int rowsAffected = 0;
-
-        //        SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
-
-        //        string resetIdentityQuery = @"
-        //                 DECLARE @maxClientID INT;
-        //                 SELECT @maxClientID = ISNULL(MAX(ClientID), 0) FROM Clients;
-        //                 DBCC CHECKIDENT ('Clients', RESEED, @maxClientID);";
-
-        //        SqlCommand resetIdentityCommand = new SqlCommand(resetIdentityQuery, connection);
-
-        //        try
-        //        {
-        //            connection.Open();
-        //            rowsAffected = resetIdentityCommand.ExecuteNonQuery();
-        //        }
-
-        //        catch (Exception ex)
-        //        {
-        //            return false;
-        //        }
-
-        //        finally
-        //        {
-        //            connection.Close();
-        //        }
-
-        //        return (rowsAffected > 0);
-            
-            
-
-        //    //int rowsAffected = 0, maxClientID = 0;
-
-        //    //SqlConnection connection = new SqlConnection(DataAccessSettings.connectionString);
-
-        //    //string getMaxClientIDQuery = "SELECT ISNULL(MAX(ClientID), 0) FROM Clients;";
-
-        //    //SqlCommand getMaxClientIDCommand = new SqlCommand(getMaxClientIDQuery, connection);
-
-        //    //try
-        //    //{
-        //    //    connection.Open();
-
-        //    //    object result = getMaxClientIDCommand.ExecuteScalar();
-
-        //    //    if(result != null)
-        //    //    {
-        //    //        maxClientID = (int)result;
-        //    //    }
-
-        //    //    string resetIdentityQuery = $"DBCC CHECKIDENT ('Clients', RESEED, {maxClientID});";
-
-        //    //    SqlCommand resetIdentityCommand = new SqlCommand(resetIdentityQuery, connection);
-
-        //    //    rowsAffected = resetIdentityCommand.ExecuteNonQuery();
-        //    //}
-
-        //    //catch (Exception ex)
-        //    //{
-        //    //    return false;
-        //    //}
-
-        //    //finally
-        //    //{
-        //    //    connection.Close();
-        //    //}
-
-        //    //return (rowsAffected > 0);
-        //}
-
-        
-
         public static DataTable GetTotalBalances()
         {
             DataTable dtBalances = new DataTable();
@@ -222,7 +148,6 @@ namespace BankSystemDataAccessLayer
             return clientID;
         }
 
-       
         public static bool GetClientInfoByAccountNumber(string accountNumber, ref string pinCode, ref decimal balance, ref int personID, ref int clientID)
         {
             bool isFound = false;

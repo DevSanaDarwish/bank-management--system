@@ -84,8 +84,6 @@ namespace BankSystem
         private void btnDeleteUser_Click(object sender, EventArgs e)
         {
             HandleUserAction(enAction.Delete);
-        }
-
-       
+        }     
     }
 }

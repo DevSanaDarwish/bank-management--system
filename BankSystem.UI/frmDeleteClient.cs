@@ -19,17 +19,6 @@ namespace BankSystem
             InitializeComponent();
         }
 
-        //public frmDeleteClient(Clients client, Persons person, Phones phone, ClientUIHelper clientUI, TextBox txtAccountNumber)
-        //{
-        //    InitializeComponent();
-
-        //    this.Client = client;
-        //    this.Person = person;
-        //    this.Phone = phone;
-        //    this.ClientUI = clientUI;
-        //    this._txtAccountNumber = txtAccountNumber;
-        //}
-
         UIHelper _clientUI;
 
         private void InitializeAllObjects()

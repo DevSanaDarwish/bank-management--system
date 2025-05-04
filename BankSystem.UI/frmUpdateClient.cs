@@ -23,30 +23,6 @@ namespace BankSystem
         }
 
 
-
-        //public frmUpdateClient(Clients client, Persons person, Phones phone, int PersonID, TextBox txtEmail, TextBox txtBalance, TextBox txtPinCode, TextBox txtFirstName, TextBox txtLastName, ClientUIHelper clientUI)
-        //{
-        //    InitializeComponent();
-
-        //    this.Client = client;
-        //    this.Person = person;
-        //    this.Phone = phone;
-        //    this.PersonID = PersonID;
-        //    this._txtEmail = txtEmail;
-        //    this._txtBalance = txtBalance;
-        //    this._txtPinCode = txtPinCode;
-        //    this._txtFirstName = txtFirstName;
-        //    this._txtLastName = txtLastName;
-        //    this.ClientUI = clientUI;
-        //}
-
-        public frmUpdateClient(UIHelper clientUI)
-        {
-            InitializeComponent();
-
-            this.ClientUI = clientUI;
-        }
-
         public UIHelper ClientUI;
 
         const short _initialTextboxX = 10, _initialTextboxY = 120;
@@ -112,17 +88,6 @@ namespace BankSystem
         {
             return Convert.ToByte(lblPhone.Text.Split(',').Length);
         }
-
-        private byte GetCountOfPhonesNumbersByDatabase()
-        {
-            return Phones.GetCountOfPhonesNumbers(ClientUI.PersonID);
-        }
-
-        private string[] GetPhonesNumbers()
-        {
-            return lblPhone.Text.Split(',');
-        }
-
         private List<string> GetPhonesNumbersByDatabase()
         {
             List<string> lstPhones = new List<string>();
@@ -413,7 +378,6 @@ namespace BankSystem
         {
             ClientUI.AllValidation(textBox, false, message);
         }
-
 
         private bool IsPhoneNumberNull(string phoneNumber, TextBox textBox)
         {
