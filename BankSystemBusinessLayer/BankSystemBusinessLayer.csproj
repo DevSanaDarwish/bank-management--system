@@ -44,6 +44,7 @@
     <Compile Include="Clients.cs" />
     <Compile Include="BusinessInputValidator.cs" />
     <Compile Include="LoginRegisters.cs" />
+    <Compile Include="PermissionsEnum.cs" />
     <Compile Include="Persons.cs" />
     <Compile Include="Phones.cs" />
     <Compile Include="TransferLogs.cs" />

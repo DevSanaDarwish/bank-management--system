@@ -112,7 +112,7 @@ namespace BankSystem
             ChildFormManager.OpenChildForm(form, pnlContent);
         }
 
-        private void SecureButtonClick(Guna2Button button, Color color, Form form, Users.enPermissions permission)
+        private void SecureButtonClick(Guna2Button button, Color color, Form form, PermissionsEnum.enPermissions permission)
         {
             SentPermissionToUIHelperClass();
 
@@ -124,34 +124,34 @@ namespace BankSystem
         
         private void btnShowClientsList_Click(object sender, EventArgs e)
         {
-            SecureButtonClick(btnShowClientsList, Color.DeepPink, new frmShowClientsList(), Users.enPermissions.ShowClientsList);
+            SecureButtonClick(btnShowClientsList, Color.DeepPink, new frmShowClientsList(), PermissionsEnum.enPermissions.ShowClientsList);
         }
 
         private void btnAddNewClient_Click(object sender, EventArgs e)
         {
-            SecureButtonClick(btnAddNewClient, Color.DeepSkyBlue, new frmAddNewClient(), Users.enPermissions.AddNewClient);
+            SecureButtonClick(btnAddNewClient, Color.DeepSkyBlue, new frmAddNewClient(), PermissionsEnum.enPermissions.AddNewClient);
         }
 
         private void btnDeleteClient_Click(object sender, EventArgs e)
         {
-            SecureButtonClick(btnDeleteClient, Color.Gold, new frmDeleteClient(), Users.enPermissions.DeleteClient);
+            SecureButtonClick(btnDeleteClient, Color.Gold, new frmDeleteClient(), PermissionsEnum.enPermissions.DeleteClient);
         }
 
         private void btnUpdateClient_Click(object sender, EventArgs e)
         {
-            SecureButtonClick(btnUpdateClient, Color.DarkSeaGreen, new frmUpdateClient(), Users.enPermissions.UpdateClient);
+            SecureButtonClick(btnUpdateClient, Color.DarkSeaGreen, new frmUpdateClient(), PermissionsEnum.enPermissions.UpdateClient);
         }
 
         private void btnFindClient_Click(object sender, EventArgs e)
         {
-            SecureButtonClick(btnFindClient, Color.DarkRed, new frmFindClient(), Users.enPermissions.FindClient);
+            SecureButtonClick(btnFindClient, Color.DarkRed, new frmFindClient(), PermissionsEnum.enPermissions.FindClient);
         }
 
         private void btnTransactions_Click(object sender, EventArgs e)
         {
             SentPermissionToUIHelperClass();
 
-            if (!_UI.CheckAccessRights(Users.enPermissions.Transaction))
+            if (!_UI.CheckAccessRights(PermissionsEnum.enPermissions.Transaction))
                 return;
 
             TogglePanelVisibility(pnlTransactions);
@@ -161,7 +161,7 @@ namespace BankSystem
         {
             SentPermissionToUIHelperClass();
 
-            if (!_UI.CheckAccessRights(Users.enPermissions.ManageUsers))
+            if (!_UI.CheckAccessRights(PermissionsEnum.enPermissions.ManageUsers))
                 return;
 
             TogglePanelVisibility(pnlUsers);
@@ -224,7 +224,7 @@ namespace BankSystem
 
         private void btnLoginRegisters_Click(object sender, EventArgs e)
         {
-            SecureButtonClick(btnLoginRegisters, Color.SteelBlue, new frmLoginRegisters(), Users.enPermissions.LoginRegisters);
+            SecureButtonClick(btnLoginRegisters, Color.SteelBlue, new frmLoginRegisters(), PermissionsEnum.enPermissions.LoginRegisters);
         }
 
         private void Logout()

@@ -22,19 +22,6 @@ namespace BankSystem
             InitializeComponent();
         }
 
-        public enum enPermissions
-        {
-            All = -1,
-            ShowClientsList = 1,
-            FindClient = 2,
-            AddNewClient = 4,
-            Transaction = 8,
-            DeleteClient = 16,
-            ManageUsers = 32,
-            UpdateClient = 64,
-            LoginRegisters = 128
-        };
-
 
         UIHelper _userUI;
 
@@ -229,78 +216,27 @@ namespace BankSystem
             _isChangingPermissions = false;
         }
 
-        public short GettPermissions()
-        {
-            short permission = 0;
-
-            if (chkAll.Checked)
-                return -1;
-
-            foreach (Control control in pnlPermissions.Controls)
-            {
-                if(control is Guna2CheckBox checkbox && checkbox.Checked && checkbox.Tag is enPermissions selectedPermission)
-                {
-                    permission += (short)selectedPermission;
-                }
-            }
-
-            return permission;
-
-        }
         public short GetPermissions()
         {
-            short permission = 0;
-
-            foreach(Control control in pnlPermissions.Controls)
-            {
-                if (control is Guna2CheckBox checkBox && checkBox.Checked)
-                {
-                    if (chkAll.Checked)
-                        return -1;
-
-                    else if(checkBox == chkShowClientsList)
-                    {
-                        permission += (short)enPermissions.ShowClientsList;
-                    }
-
-                    else if (checkBox == chkFindClient)
-                    {
-                        permission += (short)enPermissions.FindClient;
-                    }
-
-                    else if (checkBox == chkAddNewClient)
-                    {
-                        permission += (short)enPermissions.AddNewClient;
-                    }
-
-                    else if (checkBox == chkTransaction)
-                    {
-                        permission += (short)enPermissions.Transaction;
-                    }
-
-                    else if (checkBox == chkDeleteClient)
-                    {
-                        permission += (short)enPermissions.DeleteClient;
-                    }
-
-                    else if (checkBox == chkManageUsers)
-                    {
-                        permission += (short)enPermissions.ManageUsers;
-                    }
-
-                    else if (checkBox == chkUpdateClient)
-                    {
-                        permission += (short)enPermissions.UpdateClient;
-                    }
-
-                    else if (checkBox == chkLoginRegisters)
-                    {
-                        permission += (short)enPermissions.LoginRegisters;
-                    }
-                }
-            }
-
-            return permission;
+            return PermissionsHelper.GetPermissions(pnlPermissions, chkAll);
         }
+
+        private void SetTagToCheckBoxes()
+        {
+            chkShowClientsList.Tag = PermissionsEnum.enPermissions.ShowClientsList;
+            chkAddNewClient.Tag = PermissionsEnum.enPermissions.AddNewClient;
+            chkTransaction.Tag = PermissionsEnum.enPermissions.Transaction;
+            chkDeleteClient.Tag = PermissionsEnum.enPermissions.DeleteClient;
+            chkUpdateClient.Tag = PermissionsEnum.enPermissions.UpdateClient;
+            chkFindClient.Tag = PermissionsEnum.enPermissions.FindClient;
+            chkManageUsers.Tag = PermissionsEnum.enPermissions.ManageUsers;
+            chkLoginRegisters.Tag = PermissionsEnum.enPermissions.LoginRegisters;
+        }
+
+
+        private void frmAddNewUser_Load(object sender, EventArgs e)
+        {
+            SetTagToCheckBoxes();
+        }     
     }
 }

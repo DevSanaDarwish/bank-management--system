@@ -1388,7 +1388,7 @@ namespace BankSystem
             FillUserData(permission);
         }
 
-        public bool CheckAccessRights(Users.enPermissions permission)
+        public bool CheckAccessRights(PermissionsEnum.enPermissions permission)
         {
             User.Permissions = Permission;
 

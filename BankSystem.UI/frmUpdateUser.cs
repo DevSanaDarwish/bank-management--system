@@ -33,20 +33,6 @@ namespace BankSystem
         //This flag prevents recursive event calls when checkboxes are being changed programmatically
         bool _isChangingPermissions = false;
 
-        public enum enPermissions
-        {
-            All = -1,
-            ShowClientsList = 1,
-            FindClient = 2,
-            AddNewClient = 4,
-            Transaction = 8,
-            DeleteClient = 16,
-            ManageUsers = 32,
-            UpdateClient = 64,
-            LoginRegisters = 128
-        };
-
-
 
         private void InitializeAllObjects()
         {
@@ -346,59 +332,9 @@ namespace BankSystem
 
         public short GetPermissions()
         {
-            short permission = 0;
-
-            foreach (Control control in pnlPermissions.Controls)
-            {
-                if (control is Guna2CheckBox checkBox && checkBox.Checked)
-                {
-                    if (chkAll.Checked)
-                        return -1;
-
-                    else if (checkBox == chkShowClientsList)
-                    {
-                        permission += (short)enPermissions.ShowClientsList;
-                    }
-
-                    else if (checkBox == chkFindClient)
-                    {
-                        permission += (short)enPermissions.FindClient;
-                    }
-
-                    else if (checkBox == chkAddNewClient)
-                    {
-                        permission += (short)enPermissions.AddNewClient;
-                    }
-
-                    else if (checkBox == chkTransaction)
-                    {
-                        permission += (short)enPermissions.Transaction;
-                    }
-
-                    else if (checkBox == chkDeleteClient)
-                    {
-                        permission += (short)enPermissions.DeleteClient;
-                    }
-
-                    else if (checkBox == chkManageUsers)
-                    {
-                        permission += (short)enPermissions.ManageUsers;
-                    }
-
-                    else if (checkBox == chkUpdateClient)
-                    {
-                        permission += (short)enPermissions.UpdateClient;
-                    }
-
-                    else if (checkBox == chkLoginRegisters)
-                    {
-                        permission += (short)enPermissions.LoginRegisters;
-                    }
-                }
-            }
-
-            return permission;
+            return PermissionsHelper.GetPermissions(pnlPermissions, chkAll);
         }
+
 
         private void Update()
         {
@@ -414,32 +350,19 @@ namespace BankSystem
 
         private void SetTagToCheckBoxes()
         {
-            chkShowClientsList.Tag = enPermissions.ShowClientsList;
-            chkAddNewClient.Tag = enPermissions.AddNewClient;
-            chkTransaction.Tag = enPermissions.Transaction;
-            chkDeleteClient.Tag = enPermissions.DeleteClient;
-            chkUpdateClient.Tag = enPermissions.UpdateClient;
-            chkFindClient.Tag = enPermissions.FindClient;
-            chkManageUsers.Tag = enPermissions.ManageUsers;
-            chkLoginRegisters.Tag = enPermissions.LoginRegisters;
+            chkShowClientsList.Tag = PermissionsEnum.enPermissions.ShowClientsList;
+            chkAddNewClient.Tag = PermissionsEnum.enPermissions.AddNewClient;
+            chkTransaction.Tag = PermissionsEnum.enPermissions.Transaction;
+            chkDeleteClient.Tag = PermissionsEnum.enPermissions.DeleteClient;
+            chkUpdateClient.Tag = PermissionsEnum.enPermissions.UpdateClient;
+            chkFindClient.Tag = PermissionsEnum.enPermissions.FindClient;
+            chkManageUsers.Tag = PermissionsEnum.enPermissions.ManageUsers;
+            chkLoginRegisters.Tag = PermissionsEnum.enPermissions.LoginRegisters;
         }
 
         public void LoadUserPermission(short userPermission)
         {
-            if(userPermission == -1)
-            {
-                chkAll.Checked = true;
-                return;
-
-            }    
-
-            foreach (Control control in pnlPermissions.Controls)
-            {
-                if(control is CheckBox checkbox && checkbox.Tag is enPermissions permission)
-                {
-                    checkbox.Checked = ((userPermission & (short)permission) == (short)permission);
-                }
-            }
+            PermissionsHelper.LoadUserPermission(userPermission, pnlPermissions, chkAll);
         }
 
         public void UpdateUser()

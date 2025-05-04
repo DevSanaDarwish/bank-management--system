@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PermissionsHelper.cs" />
     <Compile Include="UIHelper.cs" />
     <Compile Include="ColumnConfig.cs" />
     <Compile Include="ControlHelper.cs" />
