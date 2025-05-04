@@ -88,8 +88,16 @@ namespace BankSystemBusinessLayer
             return UsersData.GetAllUsers();
         }
 
+        public static string EncryptInputPassword(string originalPassword)
+        {
+            return EncryptionPassword.EncryptThePassword(originalPassword).ToString();
+        }
+
+
         public static Users Find(string username, string password)
         {
+            password = EncryptInputPassword(password);
+
             if (UsersData.IsUserValid(username, password))
                 return new Users(username, password);
 
@@ -133,6 +141,8 @@ namespace BankSystemBusinessLayer
 
         private bool AddNewUser()
         {
+            this.Password = EncryptInputPassword(this.Password);
+
             this.UserID = UsersData.AddNewUser(this.Username, this.Permissions, this.Password, this.PersonID);
 
             return (UserID != -1);
@@ -144,6 +154,8 @@ namespace BankSystemBusinessLayer
         }
         public bool UpdateUser()
         {
+            this.Password = EncryptInputPassword(this.Password);
+
             return UsersData.UpdateUser(this.Username, this.Permissions, this.Password);
         }
 

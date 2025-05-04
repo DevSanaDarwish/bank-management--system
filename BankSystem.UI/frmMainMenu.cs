@@ -37,7 +37,7 @@ namespace BankSystem
         UIHelper _UI = new UIHelper();
 
 
-        private void SentPermissionToUIHelperClass()
+        private void SendPermissionToUIHelperClass()
         {
             _UI = new UIHelper(GetPermissionByUserID());
         }
@@ -114,7 +114,7 @@ namespace BankSystem
 
         private void SecureButtonClick(Guna2Button button, Color color, Form form, PermissionsEnum.enPermissions permission)
         {
-            SentPermissionToUIHelperClass();
+            SendPermissionToUIHelperClass();
 
             if (!_UI.CheckAccessRights(permission))
                 return;
@@ -149,7 +149,7 @@ namespace BankSystem
 
         private void btnTransactions_Click(object sender, EventArgs e)
         {
-            SentPermissionToUIHelperClass();
+            SendPermissionToUIHelperClass();
 
             if (!_UI.CheckAccessRights(PermissionsEnum.enPermissions.Transaction))
                 return;
@@ -159,7 +159,7 @@ namespace BankSystem
 
         private void btnManageUsers_Click(object sender, EventArgs e)
         {
-            SentPermissionToUIHelperClass();
+            SendPermissionToUIHelperClass();
 
             if (!_UI.CheckAccessRights(PermissionsEnum.enPermissions.ManageUsers))
                 return;
@@ -265,5 +265,7 @@ namespace BankSystem
 
             ChildFormManager.OpenChildForm(new frmHome(), pnlContent);
         }
+
+        
     }
 }

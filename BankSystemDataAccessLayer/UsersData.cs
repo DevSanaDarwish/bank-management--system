@@ -331,7 +331,5 @@ namespace BankSystemDataAccessLayer
 
             return (rowsAffected > 0);
         }
-
-
     }
 }

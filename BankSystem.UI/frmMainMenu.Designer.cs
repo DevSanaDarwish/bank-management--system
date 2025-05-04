@@ -30,40 +30,40 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMainMenu));
             this.pnlMenu = new System.Windows.Forms.Panel();
-            this.btnLogout = new Guna.UI2.WinForms.Guna2Button();
-            this.btnLoginRegisters = new Guna.UI2.WinForms.Guna2Button();
             this.pnlUsers = new System.Windows.Forms.Panel();
             this.btnFindUser = new Guna.UI2.WinForms.Guna2Button();
             this.btnUpdateUser = new Guna.UI2.WinForms.Guna2Button();
             this.btnDeleteUser = new Guna.UI2.WinForms.Guna2Button();
             this.btnAddNewUser = new Guna.UI2.WinForms.Guna2Button();
             this.btnShowUsersList = new Guna.UI2.WinForms.Guna2Button();
-            this.btnManageUsers = new Guna.UI2.WinForms.Guna2Button();
             this.pnlTransactions = new System.Windows.Forms.Panel();
             this.btnTransferLogsList = new Guna.UI2.WinForms.Guna2Button();
             this.btnTransfer = new Guna.UI2.WinForms.Guna2Button();
             this.btnTotalBalances = new Guna.UI2.WinForms.Guna2Button();
             this.btnWithdraw = new Guna.UI2.WinForms.Guna2Button();
             this.btnDeposit = new Guna.UI2.WinForms.Guna2Button();
+            this.pnlLogo = new Guna.UI2.WinForms.Guna2Panel();
+            this.pnlTitle = new System.Windows.Forms.Panel();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.lblUsername = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pnlContent = new System.Windows.Forms.Panel();
+            this.btnLogout = new Guna.UI2.WinForms.Guna2Button();
+            this.btnLoginRegisters = new Guna.UI2.WinForms.Guna2Button();
+            this.btnManageUsers = new Guna.UI2.WinForms.Guna2Button();
             this.btnTransactions = new Guna.UI2.WinForms.Guna2Button();
             this.btnFindClient = new Guna.UI2.WinForms.Guna2Button();
             this.btnUpdateClient = new Guna.UI2.WinForms.Guna2Button();
             this.btnDeleteClient = new Guna.UI2.WinForms.Guna2Button();
             this.btnAddNewClient = new Guna.UI2.WinForms.Guna2Button();
             this.btnShowClientsList = new Guna.UI2.WinForms.Guna2Button();
-            this.pnlLogo = new Guna.UI2.WinForms.Guna2Panel();
             this.pbLogo = new System.Windows.Forms.PictureBox();
-            this.pnlTitle = new System.Windows.Forms.Panel();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.lblUsername = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.pnlContent = new System.Windows.Forms.Panel();
             this.pnlMenu.SuspendLayout();
             this.pnlUsers.SuspendLayout();
             this.pnlTransactions.SuspendLayout();
             this.pnlLogo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.pnlTitle.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlMenu
@@ -84,51 +84,8 @@
             this.pnlMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlMenu.Location = new System.Drawing.Point(0, 0);
             this.pnlMenu.Name = "pnlMenu";
-            this.pnlMenu.Size = new System.Drawing.Size(238, 920);
+            this.pnlMenu.Size = new System.Drawing.Size(238, 960);
             this.pnlMenu.TabIndex = 1;
-            // 
-            // btnLogout
-            // 
-            this.btnLogout.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnLogout.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnLogout.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnLogout.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnLogout.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnLogout.FillColor = System.Drawing.Color.Transparent;
-            this.btnLogout.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLogout.ForeColor = System.Drawing.Color.White;
-            this.btnLogout.Image = ((System.Drawing.Image)(resources.GetObject("btnLogout.Image")));
-            this.btnLogout.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnLogout.ImageSize = new System.Drawing.Size(30, 30);
-            this.btnLogout.Location = new System.Drawing.Point(0, 870);
-            this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Size = new System.Drawing.Size(238, 40);
-            this.btnLogout.TabIndex = 22;
-            this.btnLogout.Text = "Log Out";
-            this.btnLogout.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
-            // 
-            // btnLoginRegisters
-            // 
-            this.btnLoginRegisters.BackColor = System.Drawing.Color.Transparent;
-            this.btnLoginRegisters.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnLoginRegisters.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnLoginRegisters.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnLoginRegisters.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnLoginRegisters.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnLoginRegisters.FillColor = System.Drawing.Color.Transparent;
-            this.btnLoginRegisters.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLoginRegisters.ForeColor = System.Drawing.Color.White;
-            this.btnLoginRegisters.Image = ((System.Drawing.Image)(resources.GetObject("btnLoginRegisters.Image")));
-            this.btnLoginRegisters.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnLoginRegisters.ImageSize = new System.Drawing.Size(30, 30);
-            this.btnLoginRegisters.Location = new System.Drawing.Point(0, 830);
-            this.btnLoginRegisters.Name = "btnLoginRegisters";
-            this.btnLoginRegisters.Size = new System.Drawing.Size(238, 40);
-            this.btnLoginRegisters.TabIndex = 21;
-            this.btnLoginRegisters.Text = "Login Registers";
-            this.btnLoginRegisters.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnLoginRegisters.Click += new System.EventHandler(this.btnLoginRegisters_Click);
             // 
             // pnlUsers
             // 
@@ -265,27 +222,6 @@
             this.btnShowUsersList.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnShowUsersList.Click += new System.EventHandler(this.btnShowUsersList_Click);
             // 
-            // btnManageUsers
-            // 
-            this.btnManageUsers.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnManageUsers.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnManageUsers.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnManageUsers.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnManageUsers.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnManageUsers.FillColor = System.Drawing.Color.Transparent;
-            this.btnManageUsers.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnManageUsers.ForeColor = System.Drawing.Color.White;
-            this.btnManageUsers.Image = ((System.Drawing.Image)(resources.GetObject("btnManageUsers.Image")));
-            this.btnManageUsers.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnManageUsers.ImageSize = new System.Drawing.Size(30, 30);
-            this.btnManageUsers.Location = new System.Drawing.Point(0, 615);
-            this.btnManageUsers.Name = "btnManageUsers";
-            this.btnManageUsers.Size = new System.Drawing.Size(238, 40);
-            this.btnManageUsers.TabIndex = 19;
-            this.btnManageUsers.Text = "Manage Users";
-            this.btnManageUsers.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnManageUsers.Click += new System.EventHandler(this.btnManageUsers_Click);
-            // 
             // pnlTransactions
             // 
             this.pnlTransactions.BackColor = System.Drawing.Color.White;
@@ -421,6 +357,137 @@
             this.btnDeposit.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnDeposit.Click += new System.EventHandler(this.btnDeposit_Click);
             // 
+            // pnlLogo
+            // 
+            this.pnlLogo.Controls.Add(this.pbLogo);
+            this.pnlLogo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlLogo.Location = new System.Drawing.Point(0, 0);
+            this.pnlLogo.Name = "pnlLogo";
+            this.pnlLogo.Size = new System.Drawing.Size(238, 198);
+            this.pnlLogo.TabIndex = 2;
+            // 
+            // pnlTitle
+            // 
+            this.pnlTitle.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pnlTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+            this.pnlTitle.Controls.Add(this.lblTitle);
+            this.pnlTitle.Controls.Add(this.lblUsername);
+            this.pnlTitle.Controls.Add(this.label1);
+            this.pnlTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTitle.Location = new System.Drawing.Point(238, 0);
+            this.pnlTitle.Name = "pnlTitle";
+            this.pnlTitle.Size = new System.Drawing.Size(1379, 90);
+            this.pnlTitle.TabIndex = 2;
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Tahoma", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.ForeColor = System.Drawing.Color.White;
+            this.lblTitle.Location = new System.Drawing.Point(31, 15);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(92, 34);
+            this.lblTitle.TabIndex = 3;
+            this.lblTitle.Text = "HOME";
+            // 
+            // lblUsername
+            // 
+            this.lblUsername.AutoSize = true;
+            this.lblUsername.BackColor = System.Drawing.Color.Transparent;
+            this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsername.ForeColor = System.Drawing.Color.White;
+            this.lblUsername.Location = new System.Drawing.Point(1295, 47);
+            this.lblUsername.Name = "lblUsername";
+            this.lblUsername.Size = new System.Drawing.Size(53, 25);
+            this.lblUsername.TabIndex = 2;
+            this.lblUsername.Text = "Sana";
+            this.lblUsername.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(1241, 47);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(61, 25);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "User: ";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pnlContent
+            // 
+            this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlContent.Location = new System.Drawing.Point(238, 90);
+            this.pnlContent.Name = "pnlContent";
+            this.pnlContent.Size = new System.Drawing.Size(1379, 870);
+            this.pnlContent.TabIndex = 3;
+            // 
+            // btnLogout
+            // 
+            this.btnLogout.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnLogout.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnLogout.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnLogout.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnLogout.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnLogout.FillColor = System.Drawing.Color.Transparent;
+            this.btnLogout.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogout.ForeColor = System.Drawing.Color.White;
+            this.btnLogout.Image = ((System.Drawing.Image)(resources.GetObject("btnLogout.Image")));
+            this.btnLogout.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnLogout.ImageSize = new System.Drawing.Size(30, 30);
+            this.btnLogout.Location = new System.Drawing.Point(0, 870);
+            this.btnLogout.Name = "btnLogout";
+            this.btnLogout.Size = new System.Drawing.Size(238, 40);
+            this.btnLogout.TabIndex = 22;
+            this.btnLogout.Text = "Log Out";
+            this.btnLogout.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
+            // 
+            // btnLoginRegisters
+            // 
+            this.btnLoginRegisters.BackColor = System.Drawing.Color.Transparent;
+            this.btnLoginRegisters.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnLoginRegisters.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnLoginRegisters.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnLoginRegisters.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnLoginRegisters.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnLoginRegisters.FillColor = System.Drawing.Color.Transparent;
+            this.btnLoginRegisters.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLoginRegisters.ForeColor = System.Drawing.Color.White;
+            this.btnLoginRegisters.Image = ((System.Drawing.Image)(resources.GetObject("btnLoginRegisters.Image")));
+            this.btnLoginRegisters.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnLoginRegisters.ImageSize = new System.Drawing.Size(30, 30);
+            this.btnLoginRegisters.Location = new System.Drawing.Point(0, 830);
+            this.btnLoginRegisters.Name = "btnLoginRegisters";
+            this.btnLoginRegisters.Size = new System.Drawing.Size(238, 40);
+            this.btnLoginRegisters.TabIndex = 21;
+            this.btnLoginRegisters.Text = "Login Registers";
+            this.btnLoginRegisters.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnLoginRegisters.Click += new System.EventHandler(this.btnLoginRegisters_Click);
+            // 
+            // btnManageUsers
+            // 
+            this.btnManageUsers.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnManageUsers.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnManageUsers.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnManageUsers.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnManageUsers.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnManageUsers.FillColor = System.Drawing.Color.Transparent;
+            this.btnManageUsers.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnManageUsers.ForeColor = System.Drawing.Color.White;
+            this.btnManageUsers.Image = ((System.Drawing.Image)(resources.GetObject("btnManageUsers.Image")));
+            this.btnManageUsers.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnManageUsers.ImageSize = new System.Drawing.Size(30, 30);
+            this.btnManageUsers.Location = new System.Drawing.Point(0, 615);
+            this.btnManageUsers.Name = "btnManageUsers";
+            this.btnManageUsers.Size = new System.Drawing.Size(238, 40);
+            this.btnManageUsers.TabIndex = 19;
+            this.btnManageUsers.Text = "Manage Users";
+            this.btnManageUsers.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnManageUsers.Click += new System.EventHandler(this.btnManageUsers_Click);
+            // 
             // btnTransactions
             // 
             this.btnTransactions.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
@@ -547,15 +614,6 @@
             this.btnShowClientsList.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnShowClientsList.Click += new System.EventHandler(this.btnShowClientsList_Click);
             // 
-            // pnlLogo
-            // 
-            this.pnlLogo.Controls.Add(this.pbLogo);
-            this.pnlLogo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlLogo.Location = new System.Drawing.Point(0, 0);
-            this.pnlLogo.Name = "pnlLogo";
-            this.pnlLogo.Size = new System.Drawing.Size(238, 198);
-            this.pnlLogo.TabIndex = 2;
-            // 
             // pbLogo
             // 
             this.pbLogo.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -568,70 +626,12 @@
             this.pbLogo.TabStop = false;
             this.pbLogo.Click += new System.EventHandler(this.pbLogo_Click);
             // 
-            // pnlTitle
-            // 
-            this.pnlTitle.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.pnlTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            this.pnlTitle.Controls.Add(this.lblTitle);
-            this.pnlTitle.Controls.Add(this.lblUsername);
-            this.pnlTitle.Controls.Add(this.label1);
-            this.pnlTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTitle.Location = new System.Drawing.Point(238, 0);
-            this.pnlTitle.Name = "pnlTitle";
-            this.pnlTitle.Size = new System.Drawing.Size(1379, 90);
-            this.pnlTitle.TabIndex = 2;
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Tahoma", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.ForeColor = System.Drawing.Color.White;
-            this.lblTitle.Location = new System.Drawing.Point(31, 15);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(92, 34);
-            this.lblTitle.TabIndex = 3;
-            this.lblTitle.Text = "HOME";
-            // 
-            // lblUsername
-            // 
-            this.lblUsername.AutoSize = true;
-            this.lblUsername.BackColor = System.Drawing.Color.Transparent;
-            this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUsername.ForeColor = System.Drawing.Color.White;
-            this.lblUsername.Location = new System.Drawing.Point(1295, 47);
-            this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(53, 25);
-            this.lblUsername.TabIndex = 2;
-            this.lblUsername.Text = "Sana";
-            this.lblUsername.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(1241, 47);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 25);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "User: ";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pnlContent
-            // 
-            this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlContent.Location = new System.Drawing.Point(238, 90);
-            this.pnlContent.Name = "pnlContent";
-            this.pnlContent.Size = new System.Drawing.Size(1379, 830);
-            this.pnlContent.TabIndex = 3;
-            // 
             // frmMainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.ClientSize = new System.Drawing.Size(1617, 920);
+            this.ClientSize = new System.Drawing.Size(1617, 960);
             this.Controls.Add(this.pnlContent);
             this.Controls.Add(this.pnlTitle);
             this.Controls.Add(this.pnlMenu);
@@ -643,9 +643,9 @@
             this.pnlUsers.ResumeLayout(false);
             this.pnlTransactions.ResumeLayout(false);
             this.pnlLogo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
             this.pnlTitle.ResumeLayout(false);
             this.pnlTitle.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
             this.ResumeLayout(false);
 
         }
